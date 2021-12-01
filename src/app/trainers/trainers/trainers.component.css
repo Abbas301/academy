@@ -1,0 +1,237 @@
+h3 {
+    font-weight: 600;
+}
+
+.mat-form-field {
+    display: inline;
+}
+
+.table {
+    width: 100%;
+    text-align: center;
+    font-family: helvetica-ttf;
+}
+
+.subbtn {
+    background-color: #086288;
+    color: white;
+    width: 140px !important;
+}
+
+.newbtn {
+    color: #086288;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+::ng-deep .mat-drawer.mat-drawer-side {
+    z-index: 0;
+}
+
+::ng-deep .modal-backdrop {
+    z-index: 0 !important;
+}
+
+.tname {
+    border-bottom: 1px solid #707070;
+}
+
+.modal-body {
+    padding: 0px;
+}
+
+.data {
+    padding: 0px 0px 0px 30px;
+}
+
+.hdata {
+    padding: 30px 60px 0px 60px;
+}
+
+b.data {
+    padding-left: 100px !important;
+}
+
+.field {
+    position: relative;
+}
+
+.icons {
+    font-size: 18px;
+}
+
+.icon {
+    padding-top: 30px !important;
+}
+
+.mat-icon {
+    cursor: pointer;
+}
+
+::ng-deep.mat-focused .mat-form-field-label {
+    color: #086288 !important;
+}
+
+::ng-deep .mat-form-field-ripple {
+    background-color: #086288 !important;
+}
+
+.sideShow {
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.mode {
+    padding-left: 45px;
+}
+
+.table-responsive {
+    width: 95%;
+    margin-bottom: 15px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    margin-left: 33px;
+}
+
+th {
+    background-color: #D6EFFA;
+}
+
+th:first-child {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    z-index: 0;
+}
+
+td:first-child {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+}
+
+td.fixed {
+    background: white !important;
+}
+
+td,
+th {
+    white-space: nowrap;
+}
+
+::ng-deep.mat-primary .mat-pseudo-checkbox-checked {
+    background-color: #086288 !important;
+}
+
+::ng-deep.mat-primary .mat-pseudo-checkbox-indeterminate {
+    background-color: #086288 !important;
+}
+
+::ng-deep.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: black;
+}
+
+.modaldata {
+    width: 430px;
+}
+
+.modalicon {
+    width: 120px;
+}
+
+.deletelogo {
+    height: 150px;
+    width: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.confirmbtn {
+    color: #086288;
+    box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.3);
+    margin-right: 30px;
+}
+
+.deletebtn {
+    background-color: #086288;
+    color: white;
+    margin-right: 150px;
+}
+
+.okbtn {
+    margin-left: 225px;
+    background-color: #086288;
+    color: white;
+    margin-bottom: 30px;
+}
+
+:host ::ng-deep .deleteitem .modal-header,
+.modal-footer {
+    border-bottom: none !important;
+    border-top: none !important;
+}
+
+
+/* styling for scrolling  button */
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 1440px) {
+    .subbtn {
+        background-color: #086288;
+        color: white;
+        width: 130px !important;
+        font-size: 14px;
+    }
+    @media screen and (max-width: 1024px) {
+        .table td,
+        .table th {
+            padding: 6px !important;
+            font-size: 9px !important;
+        }
+         :ng-deep .icons {
+            font-size: 19px !important;
+        }
+        .subbtn {
+            font-size: 13px !important;
+            padding: 9px 0px 9px 0px;
+            width: 97px !important;
+        }
+        .table-responsive {
+            margin-left: 25px !important;
+        }
+        .modaldata {
+            width: 320px !important;
+        }
+        .modalicon {
+            width: 30px;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        .subbtn {
+            font-size: 9px !important;
+            padding: 9px 0px 9px;
+            width: 65px !important;
+        }
+        .table-responsive {
+            margin-left: 20px !important;
+        }
+    }
+}

@@ -1,0 +1,185 @@
+<div class="container-fluid">
+    <form>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="case">
+                <h3 class=" d-inline font-weight-bold pr-4">Case Studies</h3>
+                <mat-button-toggle-group class="mini" name="fontStyle" aria-label="Font Style">
+                    <mat-button-toggle value="bold" (click)="showMini()" checked>Mini</mat-button-toggle>
+                    <mat-button-toggle value="italic" (click)="showPlp()">Pseudo Live</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+            <form [formGroup]="form">
+                <div>
+                    <span class="px-2 search">
+                    <mat-form-field appearance="standard">
+                        <input type="text"  matInput placeholder="Search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" >
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                    </span>
+                    <span class="px-5 searchtype">
+                    <mat-form-field>
+                        <mat-label>Sub Type</mat-label>
+                        <mat-select name="SubType" [formControl]="subtype">
+                            <mat-option *ngFor="let sub of subTypes" [value]="sub">
+                                {{sub}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    </span>
+                    <button type="button" class="btn newbtn" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">+ New</button>
+                </div>
+            </form>
+        </div>
+    </form>
+
+
+    <div class="row casestudies" *ngIf="mini">
+        <div class="card m-2" *ngFor="let cardDetail of miniCaseStudies|casestudiesfilter:searchText">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-right cardheader">Project Name:</div>
+                    <div class="col-md-6">
+                        <p>{{cardDetail.ProjectName}}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-icon class="icon">edit</mat-icon>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 text-right cardheader">Description:</div>
+                    <div class="col-md-6">
+                        <p>{{cardDetail.projectDescription}}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-icon class="icon">delete</mat-icon>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 text-right cardheader">Type:</div>
+                    <div class="col-md-6">
+                        <p>{{cardDetail.projectType}}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-icon class="icon">download</mat-icon>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 text-right cardheader">Subtype:</div>
+                    <div class="col-md-6">
+                        <p>{{cardDetail.Subtype}}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-icon class="icon">mail</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row casestudies" *ngIf="plp">
+        <div *ngFor=' let cardDetail of PplCaseStudies|casestudiesfilter:searchText'>
+            <div class="card m-2" *ngIf="subtype.value === cardDetail.Subtype || subtype.value.includes('All')">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 text-right cardheader">Project Name:</div>
+                        <div class="col-md-6">
+                            <p>{{cardDetail.ProjectName}}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-icon class="icon">edit</mat-icon>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 text-right cardheader">Description:</div>
+                        <div class="col-md-6">
+                            <p>{{cardDetail.projectDescription}}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-icon class="icon">delete</mat-icon>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 text-right cardheader">Type:</div>
+                        <div class="col-md-6">
+                            <p>{{cardDetail.projectType}}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-icon class="icon">download</mat-icon>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 text-right cardheader">Subtype:</div>
+                        <div class="col-md-6">
+                            <p>{{cardDetail.Subtype}}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-icon class="icon">mail</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog .modal-lg  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">New Case Studies</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <form [formGroup]="casestudiesForm" (ngSubmit)="onSubmit(casestudiesForm)">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-8 offset-2">
+                                <div class="form-group">
+                                    <mat-form-field>
+                                        <input type="text" formControlName="projectName" matInput appearance="standard" placeholder="Project Name">
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group">
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Project Type</mat-label>
+                                        <mat-select formControlName="projectType">
+                                            <mat-option *ngFor="let ptype of projecttype" [value]="ptype.value">
+                                                {{ptype.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            works
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group">
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Project Subtype</mat-label>
+                                        <mat-select formControlName="projectsubtype">
+                                            <mat-option *ngFor="let psubtype of projectsubtype" [value]="psubtype.value">
+                                                {{psubtype.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group">
+                                    <mat-form-field>
+                                        <input type="text" formControlName="Description" matInput appearance="standard" placeholder="Project Description">
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <input type="file" formControlName="uploadCase" #file style="display: none;">
+                                    <button type="" class="btn uploadbtn" (click)="file.click()"> Upload Case Studies</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn resetbtn" (click)="resetForm()">Reset</button>
+                        <button type="submit" class="btn newbtn ">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

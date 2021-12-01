@@ -1,0 +1,330 @@
+<div class="container-fluid page">
+    <div class="d-flex row page__box p-2 mt-2">
+
+        <div class="col-md-7">
+            <h1>Batch List</h1>
+        </div>
+
+        <div class="col-md-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field appearance="standard">
+                        <input matInput class="hover" type="search" placeholder="search">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-color batch" data-toggle="modal" data-target="#exampleModal">
+              <mat-icon>add</mat-icon>New Batch
+            </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="page__content p-3 ">
+        <div class="page__content-data">
+
+            <div class="row">
+                <div class="col-md-9">
+                    <mat-radio-group aria-label="Select an option ">
+                        <mat-radio-button value="yes" (click)="onClick()">Internal Batches</mat-radio-button>
+                        <mat-radio-button value="no" (click)="onClick1()">Client Batches</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field appearance="standard">
+                        <input class="hover" matInput type="search" placeholder="Batch Name" [(ngModel)]="searchValue">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <table *ngIf="show" class="table table-borderless mt-1 text-center Ctable">
+                <thead style="background-color: #F2F2F2;">
+                    <tr>
+                        <th><input type="checkbox"></th>
+                        <th>Batch Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Mentors</th>
+                        <th>Trainers</th>
+                        <th>Progress</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of tableData; index as i">
+                        <td><input (click)="deleteBatch()" type="checkbox"></td>
+                        <td>{{data.batchName}}</td>
+                        <td>{{data.startDate}}</td>
+                        <td>{{data.endDate}}</td>
+                        <td>{{data.tyMentors[i]}}</td>
+                        <!-- <td>{{data.assignTrainerList[i]}}</td> -->
+                        <!-- <td>{{data.progress}}</td> -->
+                        <td>
+                            <mat-icon class="arrow" (click)="viewCandidateList(i)">keyboard_arrow_right</mat-icon>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table *ngIf="show1" class="table table-borderless mt-1 text-center Ctable">
+                <thead style="background-color: #F2F2F2;">
+                    <tr>
+                        <th><input type="checkbox"></th>
+                        <th>Batch Name</th>
+                        <th>data
+                            <mat-icon>expand_more</mat-icon>
+                        </th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Mentors</th>
+                        <th>Trainers</th>
+                        <th>Progress</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of clientBatches | batchfilter:searchValue;index as i">
+                        <td><input (click)="deleteBatch()" type="checkbox"></td>
+                        <td>{{data.batchName}}</td>
+                        <td>{{data.client}}</td>
+                        <td>{{data.startDate}}</td>
+                        <td>{{data.endDate}}</td>
+                        <td>{{data.mentors}}</td>
+                        <td>{{data.trainers}}</td>
+                        <td>{{data.progress}}</td>
+                        <td>
+                            <mat-icon class="arrow" (click)="viewCandidateList(i)">keyboard_arrow_right</mat-icon>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" style="font-weight: 600;" id="exampleModalLabel">Add Batch</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <form action="" [formGroup]="batchForm" (ngSubmit)="onSubmit(batchForm)">
+
+                    <div class="first">
+                        <div formArrayName="items" *ngFor="let item of item.controls;index as i">
+                            <div [formGroupName]="i">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <mat-form-field appearance="standard">
+                                            <input matInput class="hover" type="search" formControlName="batchname" placeholder="Batch Name">
+                                            <mat-error>This field is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="row">
+                                            <div class="col-7 upload">
+                                                <input type="file" #tocfile style="display:none">
+                                                <button class="btn btn-color batch mt-1" (click)="tocfile.click()">UploadTOC</button>
+                                            </div>
+                                            <div class="col-5 mt-4 file"><a routerLink="">FileName.jpg</a></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5 aliq">
+                                        <div>
+                                            <mat-form-field class="matFirst" appearance="standard">
+                                                <mat-label>Ty Mentor</mat-label>
+                                                <mat-select formControlName="mentor" multiple>
+                                                    <mat-option *ngFor="let mentor of tyMentor" [value]="mentor.value">
+                                                        {{mentor.viewValue}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error>This field is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <mat-icon class="mt-3" (click)="addItem()">add_circle</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="p-3 first">
+                        <h3 style="font-weight: 600;">Client Mentors</h3>
+                        <div formArrayName="mentors" *ngFor="let item of mentor.controls; let i = index;">
+                            <div [formGroupName]="i">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <mat-form-field appearance="standard">
+                                            <input matInput class="hover" type="search" placeholder="Name" formControlName="name">
+                                            <mat-error>This field is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3">
+                                        <mat-form-field appearance="standard">
+                                            <input matInput class="hover" type="search" placeholder="Designation" formControlName="designation">
+                                            <mat-error>This field is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3">
+                                        <mat-form-field appearance="standard">
+                                            <input matInput class="hover" type="search" placeholder="Contact No" formControlName="contact">
+                                            <mat-error *ngIf="contact?.errors?.required">This field is required</mat-error>
+                                            <mat-error *ngIf="contact?.errors?.pattern">enter a valid mobile number</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3 aliq">
+                                        <div>
+                                            <mat-form-field appearance="standard">
+                                                <input matInput class="hover" type="search" placeholder="Email Id" formControlName="Memail">
+                                                <mat-error>This field is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <mat-icon class="mt-3" (click)="addMentor()">add_circle</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="p-3 first">
+                        <h3 style="font-weight: 600;">Assign Trainers</h3>
+                        <mat-radio-group aria-label="Select an option ">
+                            <mat-radio-button value="yes" (click)="trainersForm()">Assign Trainers</mat-radio-button>
+                            <mat-radio-button value="no" (click)="trainersExcel()">Assign Trainers</mat-radio-button>
+                        </mat-radio-group>
+                        <div *ngIf="trainerForm">
+                            <div formArrayName="trainers" *ngFor="let item of trainer.controls; let i = index;">
+                                <div [formGroupName]="i">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <input matInput class="hover" type="search" placeholder="Name" formControlName="trainerName">
+                                                <mat-error>This field is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Technology</mat-label>
+                                                <mat-select formControlName="technology">
+                                                    <mat-option *ngFor="let technology of technologies" [value]="technology.value">
+                                                        {{technology.viewValue}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error>This field is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Days</mat-label>
+                                                <mat-select formControlName="days">
+                                                    <mat-option *ngFor="let day of days" [value]="day.value">
+                                                        {{day.viewValue}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error>This field is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3 aliq">
+                                            <div>
+                                                <mat-form-field appearance="standard">
+                                                    <input matInput class="hover" type="search" placeholder="Email Id" formControlName="Temail">
+                                                    <mat-error>This field is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div>
+                                                <mat-icon class="mt-3" (click)="addTrainer()">add_circle</mat-icon>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- excel form -->
+                        <div *ngIf="trainerExcel">
+                            <input type="file" #excelfile style="display:none" formControlName="trainerxl">
+                            <button class="btn border-secondary uploadButton px-3 ml-3" (click)="excelfile.click()">Upload XL
+                  <mat-icon>cloud_upload</mat-icon></button>
+                            <span>uploaded filename.jpg....</span>
+                        </div>
+                    </div>
+
+
+                    <div class="p-3 first">
+                        <h3 style="font-weight: 600;">Assign Candidate</h3>
+                        <mat-radio-group aria-label="Select an option ">
+                            <mat-radio-button value="yes" (click)="form()">Manual Entry</mat-radio-button>
+                            <mat-radio-button value="no" (click)="excel()">Excel Upload</mat-radio-button>
+                        </mat-radio-group>
+                        <div *ngIf="formShow">
+                            <div formArrayName="candidates" *ngFor="let item of candidate.controls; let i = index;">
+                                <div [formGroupName]="i">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <input matInput class="hover" type="search" placeholder="Full Name" formControlName="fullName">
+                                                <mat-error>This field is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <input matInput class="hover" type="search" placeholder="Personal Email Id" formControlName="personalEmail">
+                                                <mat-error>This field is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <input matInput class="hover" type="search" placeholder="Official Email Id" formControlName="officialEmail">
+                                                <mat-error>This field is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3 aliq">
+                                            <div>
+                                                <mat-form-field appearance="standard">
+                                                    <input matInput class="hover" type="search" placeholder="Mobile No" formControlName="mobile">
+                                                    <mat-error>This field is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div>
+                                                <mat-icon class="mt-3" (click)="addCandidate()">add_circle</mat-icon>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- excel sheet -->
+                        <div *ngIf="formHide">
+                            <input type="file" #file style="display:none" formControlName="candidateExcel">
+                            <button class="btn border-secondary uploadButton px-3 ml-3" (click)="file.click()">Upload XL <mat-icon>
+                    cloud_upload</mat-icon></button>
+                            <span>uploaded filename.jpg....</span>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light ">reset</button>
+                        <button type="submit" class="btn btn-color batch">Create</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

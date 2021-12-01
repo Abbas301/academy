@@ -1,0 +1,65 @@
+@import './assets/font.css';
+:root {
+    --font-normal: 'helvetica-normal'
+}
+
+:content {
+    --font-round: 'helvetica-rounded'
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+::ng-deep .modal-backdrop {
+    position: inherit !important;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #086288;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: #086288;
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.7)
+}
+
+.modal-backdrop {
+    z-index: 0 !important;
+}
+
+.modal {
+    position: fixed;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-infix {
+    padding: 0.25em 0 0em 0;
+}
+
+
+/* checkbox css */
+
+::ng-deep.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #086288;
+}
+
+ ::ng-deep.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #086288;
+}

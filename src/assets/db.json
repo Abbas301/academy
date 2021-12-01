@@ -1,0 +1,248 @@
+{
+    "details": [{
+            "employeeId": "TYP0001",
+            "trainerName": "Shrath",
+            "frontend": [{
+                    "name": "Html",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Css",
+                    "Proficiency": "0"
+                },
+                {
+                    "name": "Javascript",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Angular",
+                    "Proficiency": "NA"
+                }
+            ],
+            "backend": [{
+                    "name": "Java",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "J2EE",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Spring MVC",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Hibernate",
+                    "Proficiency": "Proficient"
+                }
+            ],
+            "database": [{
+                    "name": "MongoDb",
+                    "Proficiency": "Intermediate"
+                },
+                {
+                    "name": "SQL",
+                    "Proficiency": "Proficient"
+                }
+            ]
+        },
+        {
+            "employeeId": "TYP0002",
+            "trainerName": "Harsha",
+            "frontend": [{
+                    "name": "Html",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Css",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Javascript",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Angular",
+                    "Proficiency": "Basic"
+                }
+            ],
+            "backend": [{
+                    "name": "Java",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "J2EE",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Spring MVC",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Hibernate",
+                    "Proficiency": "Proficient"
+                }
+            ],
+            "database": [{
+                    "name": "MongoDb",
+                    "Proficiency": "Intermediate"
+                },
+                {
+                    "name": "SQL",
+                    "Proficiency": "Proficient"
+                }
+            ]
+        },
+        {
+            "employeeId": "TYP0003",
+            "trainerName": "Abbas",
+            "frontend": [{
+                    "name": "Html",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Css",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Javascript",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Angular",
+                    "Proficiency": "Intermediate"
+                }
+            ],
+            "backend": [{
+                    "name": "Java",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "J2EE",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Spring MVC",
+                    "Proficiency": "Basic"
+                },
+                {
+                    "name": "Hibernate",
+                    "Proficiency": "Intermediate"
+                }
+            ],
+            "database": [{
+                    "name": "MongoDb",
+                    "Proficiency": "Intermediate"
+                },
+                {
+                    "name": "SQL",
+                    "Proficiency": "NA"
+                }
+            ]
+        },
+        {
+            "employeeId": "TYP0004",
+            "trainerName": "Priyanka",
+            "frontend": [{
+                    "name": "Html",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Css",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Javascript",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Angular",
+                    "Proficiency": "Intermediate"
+                }
+            ],
+            "backend": [{
+                    "name": "Java",
+                    "Proficiency": "Intermediate"
+                },
+                {
+                    "name": "J2EE",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Spring MVC",
+                    "Proficiency": "Proficient"
+                },
+                {
+                    "name": "Hibernate",
+                    "Proficiency": "Proficient"
+                }
+            ],
+            "database": [{
+                    "name": "MongoDb",
+                    "Proficiency": "Intermediate"
+                },
+                {
+                    "name": "SQL",
+                    "Proficiency": "NA"
+                }
+            ]
+        }
+    ],
+    "mini-case-studeis": [{
+            "projectName": "Asset Management System",
+            "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
+            "projectType": "Mini Project"
+        },
+        {
+            "projectName": "Banking System",
+            "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
+            "projectType": "Mini Project"
+        },
+        {
+            "projectName": "Leave Management System",
+            "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
+            "projectType": "Mini Project"
+        },
+        {
+            "projectName": "Book My Doctor",
+            "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
+            "projectType": "Mini Project"
+        },
+        {
+            "projectName": "Airline Management System",
+            "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
+            "projectType": "Mini Project"
+        }
+    ],
+    "Plp-case-studies": [{
+            "projectName": "Asset Management System",
+            "projectDescription": "To Manage records of the company",
+            "projectType": "Pseudo Live Project",
+            "projectSubType": "Detailed"
+        },
+        {
+            "projectName": "Banking System",
+            "projectDescription": "System which manages banking related operations",
+            "projectType": "Pseudo Live Project",
+            "projectSubType": "Abstract"
+        },
+        {
+            "projectName": "Employee Management System",
+            "projectDescription": "Managing the employees data.",
+            "projectType": "Pseudo Live Project",
+            "projectSubType": "Semi Abstract"
+        },
+        {
+            "projectName": "Book My Doctor",
+            "projectDescription": "To Book the doctor appointment and manages the patient related records",
+            "projectType": "Pseudo Live Project",
+            "projectSubType": "Detailed"
+        },
+        {
+            "projectName": "Leave Management System",
+            "projectDescription": "Managing employees leaves and expeses and help to apply the leaves",
+            "projectType": "Pseudo Live Project",
+            "projectSubType": "Abstract"
+        }
+    ]
+}

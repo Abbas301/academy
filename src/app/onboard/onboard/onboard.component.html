@@ -1,0 +1,144 @@
+<div class="main ml-2 mr-2">
+    <section>
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="pl-3 margin">
+                    <i class="fa fa-filter icon"></i><small class="header">On boarded Candidates List</small>
+                </div>
+                <div>
+                    <span class="px-3">
+                        <mat-form-field appearance="standard">
+                            <input matInput (keyup)="applyFilter($event)" placeholder="search" #input>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </span>
+                    <button type="button" class="btn creatbtn" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Create Batch</button>
+                </div>
+            </div>
+
+            <div class="tables">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
+
+                    <!-- Checkbox Column -->
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+
+                    <!-- Contact No. Column -->
+                    <ng-container matColumnDef="contact">
+                        <th mat-header-cell *matHeaderCellDef> Contact No. </th>
+                        <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
+                    </ng-container>
+
+                    <!-- Mail ID Column -->
+                    <ng-container matColumnDef="mail">
+                        <th mat-header-cell *matHeaderCellDef> Mail ID </th>
+                        <td mat-cell *matCellDef="let element"> {{element.mail}} </td>
+                    </ng-container>
+
+                    <!-- Degree Column -->
+                    <ng-container matColumnDef="degree">
+                        <th mat-header-cell *matHeaderCellDef> Degree </th>
+                        <td mat-cell *matCellDef="let element"> {{element.degree}} </td>
+                    </ng-container>
+                    <!-- Stream Column -->
+                    <ng-container matColumnDef="stream">
+                        <th mat-header-cell *matHeaderCellDef> Stream </th>
+                        <td mat-cell *matCellDef="let element"> {{element.stream}} </td>
+                    </ng-container>
+
+                    <!-- YOP Column -->
+                    <ng-container matColumnDef="yop">
+                        <th mat-header-cell *matHeaderCellDef> YOP </th>
+                        <td mat-cell *matCellDef="let element"> {{element.yop}} </td>
+                    </ng-container>
+                    <!--  Degree Aggregate % Column -->
+                    <ng-container matColumnDef="aggregate">
+                        <th mat-header-cell *matHeaderCellDef> Degree Aggregate % </th>
+                        <td mat-cell *matCellDef="let element"> {{element.aggregate}} </td>
+                    </ng-container>
+                    <!-- Branch Column -->
+                    <ng-container matColumnDef="branch">
+                        <th mat-header-cell *matHeaderCellDef> Branch </th>
+                        <td mat-cell *matCellDef="let element"> {{element.branch}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+    <!--  create-batch-- modal -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog .modal-lg  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">Batch Creation</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-8 offset-2">
+                            <form [formGroup]="onboardForm" (ngSubmit)="onSubmit(onboardForm)">
+                                <div class="form-group">
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Location</mat-label>
+                                        <mat-select formControlName="Location">
+                                            <mat-option *ngFor="let Location of Locations" [value]="Location.value">
+                                                {{Location.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group">
+                                    <mat-form-field appearance="standard" class="example-form-field">
+                                        <mat-label>Start Date</mat-label>
+                                        <input formControlName="date" matInput [matDatepicker]="datepicker">
+                                        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #datepicker>
+                                            <mat-datepicker-actions>
+                                                <button mat-button matDatepickerCancel>Cancel</button>
+                                                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                                            </mat-datepicker-actions>
+                                        </mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group">
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Technology</mat-label>
+                                        <mat-select formControlName="technologies">
+                                            <mat-option *ngFor="let technology of technologies" [value]="technology.value">
+                                                {{technology.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn creatbtn">Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
