@@ -28,24 +28,24 @@ export class BatchService {
   // }
 
   getBatch() {
-    return this.http.get(`${environment.baseUrl}/api/v1/academy-inventory/batch-details`)
+    return this.http.get(`${environment.baseUrl}/academy-inventory/batch-details`)
   }
 
   postBatch(add:any) {
-    return this.http.post(`${environment.baseUrl}/api/v1/academy-inventory/batch-details`,add)
+    return this.http.post(`${environment.baseUrl}/academy-inventory/batch-details`,add)
   }
 
   putBatch(add:any) {
-    return this.http.put(`${environment.baseUrl}/api/v1/academy-inventory/batch-details`,add)
+    return this.http.put(`${environment.baseUrl}/academy-inventory/batch-details`,add)
   }
 
   deleteBatch(add:any) {
-    return this.http.delete(`${environment.baseUrl}/api/v1/academy-inventory/batch-details`,add)
+    return this.http.delete(`${environment.baseUrl}/academy-inventory/batch-details`,add)
   }
 
   // candidate Api
   postCandidate(add:any) {
-    return this.http.post(`${environment.baseUrl}/api/v1/academy/batch/candidate`,add)
+    return this.http.post(`${environment.baseUrl}/academy/batch/candidate`,add)
   }
 
   // getCandidate() {
@@ -64,11 +64,11 @@ export class BatchService {
   // }
 
   putCandidate(id:any ,add:any) {
-    return this.http.put(`${environment.baseUrl}/api/v1/academy/batch/candidate/${id}`,add)
+    return this.http.put(`${environment.baseUrl}/academy/batch/candidate/${id}`,add)
   }
 
   deleteCandidate(id:any) {
-    return this.http.delete(`${environment.baseUrl}/api/v1/academy/batch/candidate/${id}`)
+    return this.http.delete(`${environment.baseUrl}/academy/batch/candidate/${id}`)
   }
 
 }
