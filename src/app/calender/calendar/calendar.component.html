@@ -118,7 +118,7 @@
                             {{calendar.status}}</td>
                         <td>
                             <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal2">visibility</mat-icon>
-                            <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal3">edit</mat-icon>
+                            <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal3" (click)="viewCalender()">edit</mat-icon>
                             <mat-icon class="icon" data-toggle="modal" data-target="#exampleModalCenter">delete_outline</mat-icon>
                         </td>
                     </tr>
@@ -167,7 +167,7 @@
                 </div>
                 <div class="calendar">
                     <div class="p-3">
-                        <!-- <full-calendar *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions"></full-calendar> -->
+                        <full-calendar *ngIf="calendarOptions" #fullcalendar></full-calendar>
                     </div>
                 </div>
             </div>
@@ -213,7 +213,7 @@
                 </div>
                 <div class="calendar">
                     <div class="p-3">
-                        <!-- <full-calendar *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions"></full-calendar> -->
+                        <full-calendar *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions"></full-calendar>
 
                         <button #modalOpenButton type="button" hidden data-target="#myModal" data-toggle="modal"></button>
 

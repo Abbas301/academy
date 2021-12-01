@@ -9,7 +9,6 @@ import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 
 
-
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -79,6 +78,7 @@ export class CalendarComponent implements OnInit {
       height: 700,
       contentHeight: 600,
       events: this.Earray,
+      initialView:'dayGridMonth',
       headerToolbar: {
         left: 'prevYear,nextYear',
         center: 'title',
@@ -142,6 +142,9 @@ export class CalendarComponent implements OnInit {
 
   deleteTrainer() {
     this.closeBtn.nativeElement.click();
+
+  }
+  viewCalender(){
 
   }
 }

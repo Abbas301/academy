@@ -19,6 +19,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatRadioModule} from '@angular/material/radio';
+import { FullCalendarModule } from '@fullcalendar/angular';
 @NgModule({
   declarations: [],
   exports: [
@@ -41,8 +42,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatSortModule,
     MatPaginatorModule,
     MatCardModule,
-    MatRadioModule
-    
+    MatRadioModule,
+    FullCalendarModule
   ],
   imports: [
     MatTableModule,
