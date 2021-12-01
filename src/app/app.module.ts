@@ -12,7 +12,6 @@ import { OnboardModule } from './onboard/onboard.module';
 import { CasestudiesModule } from './casestudies/casestudies.module';
 import { CalendarModule } from './calender/calendar.module';
 import { BatchesModule } from './batches/batches.module';
-import { TableComponent } from './table/table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -25,7 +24,6 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     AppComponent,
     HeaderComponent,
     SidenavComponent,
-    TableComponent,
    
   ],
   imports: [
