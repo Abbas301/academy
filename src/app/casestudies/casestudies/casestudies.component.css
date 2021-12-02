@@ -1,0 +1,201 @@
+.newbtn {
+    background-color: #086288;
+    color: white;
+}
+
+.resetbtn {
+    color: #086288;
+}
+
+.uploadbtn {
+    border: 2px dotted #086288;
+    color: #086288;
+}
+
+::ng-deep.modal-header {
+    padding: 18px 30px 0px 30px !important;
+}
+
+.modal-dialog {
+    max-width: 600px;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+ ::ng-deep .mat-drawer.mat-drawer-side {
+    z-index: 0;
+}
+
+ ::ng-deep .modal-backdrop {
+    z-index: 0 !important;
+}
+
+.modal-body mat-form-field {
+    width: 350px;
+}
+
+.mat-button-toggle-group-appearance-standard {
+    border-radius: 24px;
+}
+
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+    color: white;
+}
+
+.mat-button-toggle-group-appearance-standard {
+    border: solid 1px #086288;
+}
+
+::ng-deep .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+    line-height: 35px;
+}
+
+::ng-deep .mat-button-toggle-checked {
+    background-color: #086288;
+    color: #086288;
+    border-radius: 1px solid 086288;
+}
+
+.mat-button-toggle-appearance-standard {
+    color: #086288;
+}
+
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+    padding: 0 20px;
+}
+
+.mat-button-toggle-group-appearance-standard .mat-button-toggle+.mat-button-toggle {
+    border-left: none !important
+}
+
+.mat-button-toggle-checked {
+    border-radius: 20px;
+    margin: 1px;
+}
+
+.icon.mat-icon {
+    visibility: hidden;
+}
+
+.card:hover .mat-icon {
+    visibility: visible;
+}
+
+.card {
+    width: 450px;
+}
+
+.card:hover {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 86%, rgba(140, 138, 138, 1) 100%, rgba(87, 83, 83, 1) 100%);
+}
+
+.icon.mat-icon:hover {
+    background-color: white;
+    border-radius: 50px;
+}
+
+::ng-deep.mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #086288 !important;
+}
+
+::ng-deep .mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: #086288 !important;
+}
+
+.cardheader {
+    font-weight: 700;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+.card-body {
+    padding: 20px 0px 10px 10px !important;
+}
+
+.mat-form-field-appearance-standard .mat-form-field-flex {
+    width: 50px !important;
+}
+
+@media screen and (max-width: 1028px) {
+    body {
+        font-size: 12px;
+    }
+    .newbtn {
+        font-size: 13px !important;
+        width: 75px !important;
+        margin-left: 10px
+    }
+    .mini {
+        font-size: 10px !important;
+    }
+    .search .mat-form-field-infix {
+        padding: 5px !important;
+    }
+    .searchtype {
+        padding: 5px !important;
+    }
+    .material-icons {
+        font-size: 20px !important;
+    }
+     ::ng-deep .matsearch .mat-form-field-infix {
+        width: 100px !important;
+    }
+    .cardbody p {
+        margin: 0px !important;
+    }
+    @media screen and (max-width: 768px) {
+        .mini {
+            font-size: 8px !important;
+        }
+        .case {
+            padding-left: 0px !important;
+        }
+        .mat-button-toggle-group {
+            width: 100px;
+        }
+         :host ::ng-deep .card {
+            width: 450px !important;
+        }
+        .newbtn {
+            font-size: 10px !important;
+            width: 60px !important;
+        }
+         :host::ng-deep.mat-form-field-appearance-standard .mat-form-field-flex {
+            width: 100px !important;
+        }
+         :host::ng-deep .searchtype .mat-form-field-infix {
+            width: 80px !important;
+        }
+        .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+            line-height: 29px !important;
+        }
+         :host ::ng-deep.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+            padding: 0 12px 0px 7px !important;
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+     ::ng-deep.material-icons {
+        font-size: 23px !important;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+     :host ::ng-deep .card {
+        width: 390px !important;
+    }
+}
+
+@media screen and (max-width: 1545px) {
+     ::ng-deep.card {
+        width: 420px !important;
+    }
+}

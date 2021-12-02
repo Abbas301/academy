@@ -1,0 +1,30 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+mat-drawer {
+    width: 210px;
+}
+
+mat-drawer-container {
+    height: 100%;
+}
+
+.mat-drawer-content {
+    position: relative;
+    z-index: 1;
+    display: block;
+    height: 100%;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 1028px) {
+    body {
+        font-size: 12px;
+    }
+    mat-drawer {
+        width: 170px;
+    }
+}
