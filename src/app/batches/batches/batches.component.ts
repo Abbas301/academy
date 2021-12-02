@@ -42,7 +42,11 @@ export class BatchesComponent implements OnInit {
 
   ngOnInit(): void {
     this.batchForm = new FormGroup({
-      items: new FormArray([this.createItem()]),
+      location: new FormControl(''),
+      technology: new FormControl(''),
+      startDate: new FormControl(''),
+      toc: new FormControl(''),
+      tyMentor: new FormControl(''),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()]),
       candidates: new FormArray([this.createCandidate()]),
@@ -50,17 +54,8 @@ export class BatchesComponent implements OnInit {
 
     this.getBatch();
     this.getCbatch();
-
-    // console.log((this.batchForm.get('mentors')as FormArray ).controls[0].get('contact'))
-
   }
 
-  createItem(): FormGroup {
-    return this.formBuilder.group({
-      batchname: ['',[Validators.required]],
-      mentor: ['',[Validators.required]]
-    });
-  }
   createMentor(): FormGroup {
     return this.formBuilder.group({
       name: ['',[Validators.required]],
@@ -82,13 +77,17 @@ export class BatchesComponent implements OnInit {
       fullName: ['',[Validators.required]],
       personalEmail: ['',[Validators.required]],
       officialEmail: ['',[Validators.required]],
-      mobile: ['',[Validators.required]]
+      mobile: ['',[Validators.required]],
+      stream: ['',[Validators.required]],
+      yop: ['',[Validators.required]],
+      tenthPercentage: ['',[Validators.required]],
+      twelthPercentage: ['',[Validators.required]],
+      degreeAggregate: ['',[Validators.required]],
+      masterAggregate: ['',[Validators.required]],
+      branch: ['',[Validators.required]],
     });
   }
-  addItem(): void {
-    this.items = this.batchForm.get('items') as FormArray;
-    this.items.push(this.createItem());
-  }
+
   addMentor(): void {
     this.mentors = this.batchForm.get('mentors') as FormArray;
     this.mentors.push(this.createMentor());
@@ -125,6 +124,17 @@ export class BatchesComponent implements OnInit {
     {value: '60 days', viewValue: '60 days'},
   ];
 
+  locations = [
+    {value: 'Hyderabad', viewValue: 'Hyderabad'},
+    {value: 'Bangalore', viewValue: 'Bangalore'},
+    {value: 'Pune', viewValue: 'Pune'},
+  ];
+
+  branchs = [
+    {value: 'Hebbal', viewValue: 'Hebbal'},
+    {value: 'BTM', viewValue: 'BTM'},
+    {value: 'bBasavangudi', viewValue: 'bBasavangudi'},
+  ];
   getBatch() {
      return this.batchService.getBatch().subscribe((res: any) =>{
         this.batches = res;
