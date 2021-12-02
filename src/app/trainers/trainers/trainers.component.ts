@@ -62,9 +62,6 @@ export class TrainersComponent implements OnInit {
 
     this.myForm = this.fb.group({
       name: ['', Validators.required],
-      technologytype: ['', Validators.required],
-      technologies: ['', Validators.required],
-      Proficiency: ['', Validators.required],
       items: new FormArray([this.createItem()])
     })
 
@@ -122,5 +119,5 @@ deleteTrainer(){
 //     console.log(err)
 //   })
 //}
-  
+
 }

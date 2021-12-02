@@ -55,14 +55,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let data of tableData; index as i">
+                    <tr *ngFor="let data of batches; index as i">
                         <td><input (click)="deleteBatch()" type="checkbox"></td>
                         <td>{{data.batchName}}</td>
                         <td>{{data.startDate}}</td>
                         <td>{{data.endDate}}</td>
-                        <td>{{data.tyMentors[i]}}</td>
-                        <td>{{data.assignTrainerList[i]}}</td>
-                        <!-- <td>{{data.progress}}</td> -->
+                        <td>{{data.mentors}}</td>
+                        <td>{{data.trainers}}</td>
+                        <td>{{data.progress}}</td>
                         <td>
                             <mat-icon class="arrow" (click)="viewCandidateList(i)">keyboard_arrow_right</mat-icon>
                         </td>

@@ -41,7 +41,7 @@ export class BatchesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.batchForm = new FormGroup({
+    this.batchForm = this.formBuilder.group({
       location: new FormControl(''),
       technology: new FormControl(''),
       startDate: new FormControl(''),
@@ -136,11 +136,11 @@ export class BatchesComponent implements OnInit {
     {value: 'bBasavangudi', viewValue: 'bBasavangudi'},
   ];
   getBatch() {
-     return this.batchService.getBatch().subscribe((res: any) =>{
+     return this.batchService.getBatchData().subscribe((res: any) =>{
         this.batches = res;
-        this.tableData = this.batches.data;
-        console.log(this.tableData);
-
+        console.log(this.batches);
+        // this.tableData = this.batches.data;
+        // console.log(this.tableData);
      })
   }
   get contact(){
@@ -173,7 +173,7 @@ export class BatchesComponent implements OnInit {
   getCbatch() {
      return this.batchService.getCbatchData().subscribe((data: any) => {
       this.clientBatches = data;
-      // console.log(data);
+      console.log(data);
     })
   }
 
@@ -207,7 +207,7 @@ export class BatchesComponent implements OnInit {
   }
 sample:any
   viewCandidateList(index: string | number){
-     this.sample = this.tableData[index];
+     this.sample = this.batches[index];
 
     this.router.navigate(['/candidatelist/'],
     {

@@ -42,6 +42,7 @@ export class CandidatelistComponent implements OnInit {
   index:any;
 
   @ViewChild('modalOpenButton') modalOpenButton!: ElementRef;
+  @ViewChild('closeBtn') closeBtn!: ElementRef;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -81,13 +82,13 @@ export class CandidatelistComponent implements OnInit {
   }
 
   getCandidate() {
-    // return this.batchService.getCandidate().subscribe(data => {
-    //   this.CandidatesList = data;
-    //   console.log(this.CandidatesList);
-    //   this.dataSource.data = this.CandidatesList
-    //   this.dataSource.sort = this.sort
-    //   this.dataSource.paginator=this.paginator
-    // })
+    return this.batchService.getCandidate().subscribe((data: any) => {
+      this.CandidatesList = data;
+      console.log(this.CandidatesList);
+      this.dataSource.data = this.CandidatesList
+      this.dataSource.sort = this.sort
+      this.dataSource.paginator=this.paginator
+    })
   }
 
   branches = [
@@ -163,7 +164,11 @@ export class CandidatelistComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  
+
+  deleteCandidate() {
+    this.closeBtn.nativeElement.click();
+
+  }
 }
 
 

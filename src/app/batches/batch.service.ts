@@ -11,9 +11,9 @@ export class BatchService {
 
   // batch Api
 
-  // getBatchData() {
-  //   return this.http.get('http://localhost:3000/batches')
-  // }
+  getBatchData() {
+    return this.http.get('http://localhost:3000/batches')
+  }
 
   postBatchData(add:any) {
     return this.http.post('http://localhost:3000/batches',add)
@@ -23,9 +23,9 @@ export class BatchService {
     return this.http.get('http://localhost:3000/clientBatches')
   }
 
-  // postCBatchData(add) {
-  //   return this.http.post('http://localhost:3000/clientBatches',add)
-  // }
+  postCBatchData(add:any) {
+    return this.http.post('http://localhost:3000/clientBatches',add)
+  }
 
   getBatch() {
     return this.http.get(`${environment.baseUrl}/academy-inventory/batch-details`)
@@ -48,20 +48,20 @@ export class BatchService {
     return this.http.post(`${environment.baseUrl}/academy/batch/candidate`,add)
   }
 
-  // getCandidate() {
-  //   return this.http.get('http://localhost:3000/candidate')
-  // }
-  // postedCandidate(add:any) {
-  //   return this.http.post('http://localhost:3000/candidate',add)
-  // }
+  getCandidate() {
+    return this.http.get('http://localhost:3000/candidate')
+  }
+  postedCandidate(add:any) {
+    return this.http.post('http://localhost:3000/candidate',add)
+  }
 
-  // updatedCandidate(id:any,add:any) {
-  //   return this.http.put('http://localhost:3000/candidate/${id}',add)
-  // }
+  updatedCandidate(id:any,add:any) {
+    return this.http.put('http://localhost:3000/candidate/${id}',add)
+  }
 
-  // deleteCandidateData(id:any) {
-  //   return this.http.delete('http://localhost:3000/candidate/${id}')
-  // }
+  deleteCandidateData(id:any) {
+    return this.http.delete('http://localhost:3000/candidate/${id}')
+  }
 
   putCandidate(id:any ,add:any) {
     return this.http.put(`${environment.baseUrl}/academy/batch/candidate/${id}`,add)

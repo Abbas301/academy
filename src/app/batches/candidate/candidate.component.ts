@@ -32,10 +32,12 @@ export class CandidateComponent implements OnInit {
     this.router.navigate(['/candidatelist/']);
   }
 
-  addForm(userData:NgForm) {
+  onSubmit(userData:NgForm) {
     if(userData.valid){
       const formData = {
-        candidateId: userData.controls.candidateId.value,
+
+        id: userData.controls.id.value,
+        // candidateId: userData.controls.candidateId.value,
         batchName: userData.controls.batchName.value,
         candidateName: userData.controls.candidateName.value,
         phoneNumber : userData.controls.phoneNumber.value,
@@ -51,7 +53,7 @@ export class CandidateComponent implements OnInit {
         profileId: userData.controls.profileId.value,
 
       };
-    return this.batchService.postCandidate(formData).subscribe((data: any) => {
+     this.batchService.postedCandidate(formData).subscribe((data) => {
       console.log("candidate details posted successfully");
       console.log(data);
       userData.reset();

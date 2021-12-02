@@ -1,9 +1,13 @@
 <div class="container-fluid page">
     <div class="box">
-        <form action="" #rform="ngForm" (ngSubmit)="addForm(rform)">
+        <form action="" #rform="ngForm" (ngSubmit)="onSubmit(rform)">
 
             <div class="row">
                 <div class="col-md-6">
+                    <mat-form-field appearance="standard">
+                        <input class="hover" matInput type="search" name="id" #id="ngModel" ngModel placeholder="ID" required>
+                        <mat-error>this field is required</mat-error>
+                    </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
@@ -17,11 +21,7 @@
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
                         <input class="hover" matInput type="search" name="candidateName" #candidateName="ngModel" ngModel placeholder="candidateName" required>
-                        <!-- <mat-error *ngIf="candidateName?.errors?.required">this field is required</mat-error>
-            <mat-error *ngIf='candidateName.errors?.minlength'>
-              candidateName must contain mininum 3 charater.
-            </mat-error>
-            <mat-error *ngIf="candidateName?.errors?.pattern">name should be alphabets</mat-error> -->
+
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">

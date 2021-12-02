@@ -48,6 +48,8 @@ export class CalendarComponent implements OnInit {
     setTimeout(() => {
       return this.http.get('http://localhost:3000/events').subscribe(data => {
         this.Earray = data;
+        console.log(this.Earray);
+
       });
     }, 500);
 
@@ -142,9 +144,6 @@ export class CalendarComponent implements OnInit {
 
   deleteTrainer() {
     this.closeBtn.nativeElement.click();
-
-  }
-  viewCalender(){
 
   }
 }
