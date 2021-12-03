@@ -44,25 +44,27 @@
             <table *ngIf="show" class="table table-borderless mt-1 text-center Ctable">
                 <thead style="background-color: #F2F2F2;">
                     <tr>
-                        <th><input type="checkbox"></th>
+                        <th><mat-checkbox #headerCheckbox class="example-margin" (change)="selectAll()" ></mat-checkbox></th>
                         <th>Batch Name</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Mentors</th>
                         <th>Trainers</th>
-                        <th>Progress</th>
+                        <th>BatchCompletion</th>
+                        <th>MockRating</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let data of batches; index as i">
-                        <td><input (click)="deleteBatch()" type="checkbox"></td>
+                        <td><mat-checkbox #bodyCheckbox class="example-margin" ></mat-checkbox></td>
                         <td>{{data.batchName}}</td>
                         <td>{{data.startDate}}</td>
                         <td>{{data.endDate}}</td>
                         <td>{{data.mentors}}</td>
                         <td>{{data.trainers}}</td>
-                        <td>{{data.progress}}</td>
+                        <td>{{data.batchCompletion}}%</td>
+                        <td>{{data.mockRating}}%</td>
                         <td>
                             <mat-icon class="arrow" (click)="viewCandidateList(i)">keyboard_arrow_right</mat-icon>
                         </td>
@@ -73,7 +75,7 @@
             <table *ngIf="show1" class="table table-borderless mt-1 text-center Ctable">
                 <thead style="background-color: #F2F2F2;">
                     <tr>
-                        <th><input type="checkbox"></th>
+                        <th><mat-checkbox class="example-margin" #headerCheckbox (change)="selectAll()"></mat-checkbox></th>
                         <th>Batch Name</th>
                         <th>Client
                             <mat-icon>expand_more</mat-icon>
@@ -82,20 +84,21 @@
                         <th>End Date</th>
                         <th>Mentors</th>
                         <th>Trainers</th>
-                        <th>Progress</th>
+                        <th>BatchCompletion</th>
+                        <th>MockRating</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let data of clientBatches | batchfilter:searchValue;index as i">
-                        <td><input (click)="deleteBatch()" type="checkbox"></td>
+                        <td><mat-checkbox #bodyCheckbox class="example-margin" ></mat-checkbox></td>
                         <td>{{data.batchName}}</td>
                         <td>{{data.client}}</td>
                         <td>{{data.startDate}}</td>
                         <td>{{data.endDate}}</td>
                         <td>{{data.mentors}}</td>
-                        <td>{{data.trainers}}</td>
-                        <td>{{data.progress}}</td>
+                        <td>{{data.batchCompletion}}%</td>
+                        <td>{{data.mockRating}}%</td>
                         <td>
                             <mat-icon class="arrow" (click)="viewCandidateList(i)">keyboard_arrow_right</mat-icon>
                         </td>
@@ -205,7 +208,7 @@
                                         </mat-form-field>
                                     </div>
                                     <div class="col-3 aliq">
-                                        <div>
+                                        <div class="form_field">
                                             <mat-form-field appearance="standard">
                                                 <input matInput class="hover" type="search" placeholder="Email Id" formControlName="Memail">
                                                 <mat-error>This field is required</mat-error>
@@ -260,7 +263,7 @@
                                             </mat-form-field>
                                         </div>
                                         <div class="col-3 aliq">
-                                            <div>
+                                            <div class="form_field">
                                                 <mat-form-field appearance="standard">
                                                     <input matInput class="hover" type="search" placeholder="Email Id" formControlName="Temail">
                                                     <mat-error>This field is required</mat-error>
@@ -313,7 +316,7 @@
                                             </mat-form-field>
                                         </div>
                                         <div class="col-3 aliq">
-                                            <div>
+                                            <div class="form_field">
                                                 <mat-form-field appearance="standard">
                                                     <input matInput class="hover" type="search" placeholder="Mobile No" formControlName="mobile">
                                                     <mat-error>This field is required</mat-error>
@@ -345,7 +348,7 @@
                                             </mat-form-field>
                                         </div>
                                         <div class="col-3 aliq">
-                                            <div style="padding-right: 40px;">
+                                            <div class="twelth" style="padding-right: 40px;">
                                                 <mat-form-field appearance="standard">
                                                     <input matInput class="hover" type="search" placeholder="12th percentage" formControlName="twelthPercentage">
                                                     <mat-error>This field is required</mat-error>

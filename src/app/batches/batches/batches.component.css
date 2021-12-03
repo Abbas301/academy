@@ -137,5 +137,18 @@ tr:hover .arrow {
             width: 240px !important;
             margin-left: 40px;
         }
+        .upload {
+          padding-left: 0px !important;
+          max-width: 43.333333% !important;
+          padding-top: 10px !important;
+        }
+        .twelth {
+          padding-right: 40px !important;
+          width: 160px !important;
+
+        }
+        .form_field {
+          width: 140px !important;
+        }
     }
 }

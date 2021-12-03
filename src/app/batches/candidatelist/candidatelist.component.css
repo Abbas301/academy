@@ -1,6 +1,9 @@
 mat-icon {
     vertical-align: middle;
 }
+#circle{
+  background-color: transparent;
+}
 
 .btn-color {
     background-color: #086288;
@@ -105,6 +108,12 @@ th {
     @media screen and (max-width: 768px) {
         .candidate {
             font-size: 11px;
+        }
+        mat-card {
+          font-size:11px;
+        }
+        .del {
+          padding-left: opx !important;
         }
         .mat-cell,
         .mat-footer-cell {

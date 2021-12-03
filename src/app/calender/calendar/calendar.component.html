@@ -1,298 +1,302 @@
 <div class="container-fluid page">
-    <div class="d-flex page__box p-3 mt-1">
-        <div class="col-md-7 calen">
-            <h2>Calendar list</h2>
-        </div>
-        <div class=" row col-md-5 second">
-            <div class="col-md-6">
+  <div class="d-flex page__box p-3 mt-1">
+      <div class="col-md-7 calen">
+          <h2>Calendar list</h2>
+      </div>
+      <div class=" row col-md-5 second">
+          <div class="col-md-6">
 
-                <div>
-                    <mat-form-field appearance="standard">
-                        <mat-label>Batch Name</mat-label>
-                        <input matInput type="search" [(ngModel)]="searchText">
-                        <mat-icon matSuffix>search</mat-icon>
-                    </mat-form-field>
-                </div>
+              <div>
+                  <mat-form-field appearance="standard">
+                      <mat-label>Batch Name</mat-label>
+                      <input matInput type="search" [(ngModel)]="searchText">
+                      <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+              </div>
 
-            </div>
-            <div class="col-md-6">
-                <button type="button" class="btn btn-color" data-toggle="modal" data-target="#exampleModal">Generate
-            Calendar</button>
+          </div>
+          <div class="col-md-6">
+              <button type="button" class="btn btn-color" data-toggle="modal" data-target="#exampleModal">Generate
+          Calendar</button>
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog .modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h2 class="modal-title" id="exampleModalLabel">New Calendar Generation</h2>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-8 offset-2">
-                                        <form [formGroup]="Cform" (ngSubmit)="onSubmitForm(Cform)">
-                                            <div class="form-group">
-                                                <mat-form-field appearance="standard">
-                                                    <mat-label>Batch Name</mat-label>
-                                                    <mat-select formControlName="batch">
-                                                        <mat-option *ngFor="let batch of batches" [value]="batch.value">
-                                                            {{batch.viewValue}}
-                                                        </mat-option>
-                                                    </mat-select>
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="form-group">
-                                                <mat-form-field appearance="standard">
-                                                    <mat-label>Technology</mat-label>
-                                                    <mat-select formControlName="technology">
-                                                        <mat-option *ngFor="let technology of technologys" [value]="technology.value">
-                                                            {{technology.viewValue}}
-                                                        </mat-option>
-                                                    </mat-select>
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="form-group">
-                                                <mat-form-field appearance="standard" class="example-form-field">
-                                                    <mat-label>Start Date</mat-label>
-                                                    <input matInput [matDatepicker]="datepicker" formControlName="startDate">
-                                                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-                                                    <mat-datepicker #datepicker>
-                                                    </mat-datepicker>
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="form-group">
-                                                <mat-form-field appearance="standard">
-                                                    <mat-label>Include</mat-label>
-                                                    <mat-select formControlName="include" multiple>
-                                                        <mat-option *ngFor="let include of includes" [value]="include.value">
-                                                            {{include.viewValue}}
-                                                        </mat-option>
-                                                    </mat-select>
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="p-3 d-flex justify-content-between">
-                                                <div></div>
-                                                <div class="d-inline">
-                                                    <button type="button" class="btn btn-light">reset</button>
-                                                    <button type="submit" class="btn btn-color mx-4">Generate Calendar</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog .modal-lg modal-dialog-centered">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h2 class="modal-title" id="exampleModalLabel">New Calendar Generation</h2>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                          </div>
+                          <div class="modal-body">
+                              <div class="row">
+                                  <div class="col-8 offset-2">
+                                      <form [formGroup]="Cform" (ngSubmit)="onSubmitForm(Cform)">
+                                          <div class="form-group">
+                                              <mat-form-field appearance="standard">
+                                                  <mat-label>Batch Name</mat-label>
+                                                  <mat-select formControlName="batch">
+                                                      <mat-option *ngFor="let batch of batches" [value]="batch.value">
+                                                          {{batch.viewValue}}
+                                                      </mat-option>
+                                                  </mat-select>
+                                                  <mat-error>This field is required</mat-error>
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="form-group">
+                                              <mat-form-field appearance="standard">
+                                                  <mat-label>Technology</mat-label>
+                                                  <mat-select formControlName="technology">
+                                                      <mat-option *ngFor="let technology of technologys" [value]="technology.value">
+                                                          {{technology.viewValue}}
+                                                      </mat-option>
+                                                  </mat-select>
+                                                  <mat-error>This field is required</mat-error>
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="form-group">
+                                              <mat-form-field appearance="standard" class="example-form-field">
+                                                  <mat-label>Start Date</mat-label>
+                                                  <input matInput [matDatepicker]="datepicker" formControlName="startDate">
+                                                  <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                                                  <mat-datepicker #datepicker>
+                                                  </mat-datepicker>
+                                                  <mat-error>This field is required</mat-error>
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="form-group">
+                                              <mat-form-field appearance="standard">
+                                                  <mat-label>Include</mat-label>
+                                                  <mat-select formControlName="include" multiple>
+                                                      <mat-option *ngFor="let include of includes" [value]="include.value">
+                                                          {{include.viewValue}}
+                                                      </mat-option>
+                                                  </mat-select>
+                                                  <mat-error>This field is required</mat-error>
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="p-3 d-flex justify-content-between">
+                                              <div></div>
+                                              <div class="d-inline">
+                                                  <button type="button" class="btn btn-light">reset</button>
+                                                  <button type="submit" class="btn btn-color mx-4">Generate Calendar</button>
+                                              </div>
+                                          </div>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
 
-            </div>
-        </div>
-    </div>
-    <div class="page__content">
-        <div class="page__content-data">
+          </div>
+      </div>
+  </div>
+  <div class="page__content">
+      <div class="page__content-data">
 
-            <table class="table table-borderless">
-                <thead class="thead" style="background-color: #D6EFFA;">
-                    <tr>
-                        <th>Sl.no</th>
-                        <th>Batch Name</th>
-                        <th>Technology</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Status
-                            <mat-icon>arrow_drop_down</mat-icon>
-                        </th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let calendar of calendarList | tablefilter:searchText ; index as i">
-                        <td>{{calendar.slno}}</td>
-                        <td>{{calendar.batchName}}</td>
-                        <td>{{calendar.technology}}</td>
-                        <td>{{calendar.startDate}}</td>
-                        <td>{{calendar.endDate}}</td>
-                        <td [ngClass]="{'text-primary':calendar.status === 'in progress','text-warning':calendar.status == 'yet to start','text-success':calendar.status == 'finished' }">
-                            {{calendar.status}}</td>
-                        <td>
-                            <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal2">visibility</mat-icon>
-                            <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal3">edit</mat-icon>
-                            <mat-icon class="icon" data-toggle="modal" data-target="#exampleModalCenter">delete_outline</mat-icon>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+          <table class="table table-borderless">
+              <thead class="thead" style="background-color: #D6EFFA;">
+                  <tr>
+                      <th>Sl.no</th>
+                      <th>Batch Name</th>
+                      <th>Technology</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Status
+                          <mat-icon>arrow_drop_down</mat-icon>
+                      </th>
+                      <th>Action</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let calendar of calendarList | tablefilter:searchText ; index as i">
+                      <td>{{calendar.slno}}</td>
+                      <td>{{calendar.batchName}}</td>
+                      <td>{{calendar.technology}}</td>
+                      <td>{{calendar.startDate}}</td>
+                      <td>{{calendar.endDate}}</td>
+                      <td [ngClass]="{'text-primary':calendar.status === 'in progress','text-warning':calendar.status == 'yet to start','text-success':calendar.status == 'finished' }">
+                          {{calendar.status}}</td>
+                      <td>
+                          <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal2">visibility</mat-icon>
+                          <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal3">edit</mat-icon>
+                          <mat-icon class="icon" data-toggle="modal" data-target="#exampleModalCenter" (click)="elementData(calendar)">delete_outline</mat-icon>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
 
-        </div>
-    </div>
+      </div>
+  </div>
 </div>
 
 
 <!-- Modal 2 -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal2 modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header d-block">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-                <div class="row ">
-                    <div class="col-md-6">
-                        <h2>New Calendar Generation</h2>
-                    </div>
-                    <div class="col-md-6 text-right">
-                        <div class="dropdown ">
-                            <button class="btn border-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                  Download as
-                </button>
-                            <div class=" ml-auto dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <p class="dropdown-item">Pdf</p>
-                                <p class="dropdown-item">Word Doc</p>
-                                <p class="dropdown-item">Excel Doc</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <a routerLink="">Batch Name</a>|<a routerLink="">Technology</a>
-                    </div>
-                    <div>
-                        <a routerLink="">3 Mar 2021</a>|<a routerLink="">20 Mar 2021</a>
-                    </div>
-                </div>
-                <div class="calendar">
-                    <div class="p-3">
-                        <full-calendar *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions"></full-calendar>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="modal-dialog modal2 modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header d-block">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+              <div class="row ">
+                  <div class="col-md-6">
+                      <h2>New Calendar Generation</h2>
+                  </div>
+                  <div class="col-md-6 text-right">
+                      <div class="dropdown ">
+                          <button class="btn border-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                Download as
+              </button>
+                          <div class=" ml-auto dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <p class="dropdown-item">Pdf</p>
+                              <p class="dropdown-item">Word Doc</p>
+                              <p class="dropdown-item">Excel Doc</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-body">
+              <div class="d-flex justify-content-between">
+                  <div>
+                      <a routerLink="">Batch Name</a>|<a routerLink="">Technology</a>
+                  </div>
+                  <div>
+                      <a routerLink="">3 Mar 2021</a>|<a routerLink="">20 Mar 2021</a>
+                  </div>
+              </div>
+              <div class="calendar">
+                  <div class="p-3">
+                      <full-calendar *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions"></full-calendar>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
 
 <!-- modal3 -->
 <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal2 modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header d-block">
-                <h2 class="modal-title title"></h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-                <div class="row ">
-                    <div class="col-md-6">
-                        <h2>Edit Calendar Generation</h2>
-                    </div>
-                    <div class="col-md-6 text-right">
-                        <div class="dropdown ">
-                            <button class="btn border-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                  Download as
-                </button>
-                            <div class=" ml-auto dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <p class="dropdown-item">Pdf</p>
-                                <p class="dropdown-item">Word Doc</p>
-                                <p class="dropdown-item">Excel Doc</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <a routerLink="">Batch Name</a>|<a routerLink="">Technology</a>
-                    </div>
-                    <div>
-                        <a routerLink="">3 Mar 2021</a>|<a routerLink="">20 Mar 2021</a>
-                    </div>
-                </div>
-                <div class="calendar">
-                    <div class="p-3">
-                        <full-calendar *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions"></full-calendar>
+  <div class="modal-dialog modal2 modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header d-block">
+              <h2 class="modal-title title"></h2>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+              <div class="row ">
+                  <div class="col-md-6">
+                      <h2>Edit Calendar Generation</h2>
+                  </div>
+                  <div class="col-md-6 text-right">
+                      <div class="dropdown ">
+                          <button class="btn border-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                Download as
+              </button>
+                          <div class=" ml-auto dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <p class="dropdown-item">Pdf</p>
+                              <p class="dropdown-item">Word Doc</p>
+                              <p class="dropdown-item">Excel Doc</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-body">
+              <div class="d-flex justify-content-between">
+                  <div>
+                      <a routerLink="">Batch Name</a>|<a routerLink="">Technology</a>
+                  </div>
+                  <div>
+                      <a routerLink="">3 Mar 2021</a>|<a routerLink="">20 Mar 2021</a>
+                  </div>
+              </div>
+              <div class="calendar">
+                  <div class="p-3">
+                      <full-calendar *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions"></full-calendar>
 
-                        <button #modalOpenButton type="button" hidden data-target="#myModal" data-toggle="modal"></button>
+                      <button #modalOpenButton type="button" hidden data-target="#myModal" data-toggle="modal"></button>
 
-                        <div class="modal" id="myModal">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
+                      <div class="modal" id="myModal">
+                          <div class="modal-dialog">
+                              <div class="modal-content">
 
-                                    <div class="modal-header">
-                                        <h4 class="modal-title title align-center"></h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
+                                  <div class="modal-header">
+                                      <h4 class="modal-title title align-center"></h4>
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  </div>
 
-                                    <div class="modal-body">
-                                        <form #addEventForm="ngForm" (ngSubmit)="onSubmit(addEventForm)">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <div>
-                                                        <label for="">Id</label>
-                                                        <input type="text" class="form-control" ngModel #id id="id" name="id" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Event Title</label>
-                                                        <input placeholder="Add Event Title" type="text" id="title" name="title" ngModel #title class="titleinp form-control" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <div class="form-group">
-                                                        <label>Start Date:</label>
-                                                        <input placeholder="Add Event Title" type="date" id="start" name="start" ngModel #start class="form-control" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <div class="form-group">
-                                                        <label>End Date:</label>
-                                                        <input placeholder="Add Event Title" type="date" id="end" name="end" ngModel #end class="form-control" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button type="submit" (click)="addEvent(addEventForm)" class="btn btn-primary">Submit</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                  <div class="modal-body">
+                                      <form #addEventForm="ngForm" (ngSubmit)="onSubmit(addEventForm)">
+                                          <div class="row">
+                                              <div class="col-sm-12">
+                                                  <div>
+                                                      <label for="">Id</label>
+                                                      <input type="text" class="form-control" ngModel #id id="id" name="id" required>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label>Event Title</label>
+                                                      <input placeholder="Add Event Title" type="text" id="title" name="title" ngModel #title class="titleinp form-control" required>
+                                                  </div>
+                                              </div>
+                                              <div class="col-sm-12">
+                                                  <div class="form-group">
+                                                      <label>Start Date:</label>
+                                                      <input placeholder="Add Event Title" type="date" id="start" name="start" ngModel #start class="form-control" required>
+                                                  </div>
+                                              </div>
+                                              <div class="col-sm-12">
+                                                  <div class="form-group">
+                                                      <label>End Date:</label>
+                                                      <input placeholder="Add Event Title" type="date" id="end" name="end" ngModel #end class="form-control" required>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <button type="submit" (click)="addEvent(addEventForm)" class="btn btn-primary">Submit</button>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
 
-                    </div>
-                </div>
-            </div>
+                  </div>
+              </div>
+          </div>
 
-        </div>
-    </div>
+      </div>
+  </div>
 </div>
 
 <!--delete-trainer-modal-->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body ">
-                <img class="deletelogo" src="../../../assets/images/Yellow-Warning (1).png" alt="">
-                <h1 style="text-align: center;">Are you sure you want to Delete this Trainer</h1>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn confirmbtn" data-toggle="modal" data-target="#confirm" (click)="deleteTrainer()">Confirm</button>
-                <button type="button" class="btn deletebtn" data-dismiss="modal" #closeBtn>Close</button>
-            </div>
-        </div>
-    </div>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-body ">
+              <img class="deletelogo" src="../../../assets/images/Yellow-Warning (1).png" alt="">
+              <h1 style="text-align: center;">Are you sure you want to Delete this Calendar</h1>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn confirmbtn" data-toggle="modal" data-target="#confirm" (click)="deleteCalendarData(this.calendarData)">Confirm</button>
+              <button type="button" class="btn deletebtn" data-dismiss="modal" #closeBtn>Close</button>
+          </div>
+      </div>
+  </div>
 </div>
 
 <!--- delete-sucess-popup-modal -->
 
 <div class="modal fade" id="confirm" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <img class="deletelogo" src="../../../assets/images/—Pngtree—check mark icon design template_4085369 (1).png" alt="">
-                <h1 style="text-align: center;">Calendar Successfully Deleted</h1>
-                <button type="button" class="btn okbtn" data-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-body">
+              <img class="deletelogo" src="../../../assets/images/—Pngtree—check mark icon design template_4085369 (1).png" alt="">
+              <h1 style="text-align: center;">Calendar Successfully Deleted</h1>
+              <button type="button" class="btn okbtn" data-dismiss="modal">OK</button>
+          </div>
+      </div>
+  </div>
 </div>

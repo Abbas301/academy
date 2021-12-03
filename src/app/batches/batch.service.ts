@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { environment } from 'src/environments/environment';
+import { CandidatesList } from '../batches/candidatelist'
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class BatchService {
 
   postBatchData(add:any) {
     return this.http.post('http://localhost:3000/batches',add)
+  }
+
+  deleteBatchData(index:any) {
+    return this.http.delete('http://localhost:3000/batches')
   }
 
   getCbatchData() {
@@ -56,15 +61,15 @@ export class BatchService {
   }
 
   updatedCandidate(id:any,add:any) {
-    return this.http.put('http://localhost:3000/candidate/${id}',add)
+    return this.http.put<{candidatelist:CandidatesList}>(`${environment.Url}/${id}`,add)
   }
 
   deleteCandidateData(id:any) {
-    return this.http.delete('http://localhost:3000/candidate/${id}')
+    return this.http.delete<{candidatelist:CandidatesList}>(`${environment.Url}/${id}`)
   }
 
-  putCandidate(id:any ,add:any) {
-    return this.http.put(`${environment.baseUrl}/academy/batch/candidate/${id}`,add)
+  putCandidate(profileId:any ,add:any) {
+    return this.http.put(`${environment.baseUrl}/academy/batch/candidate/${profileId}`,add)
   }
 
   deleteCandidate(id:any) {

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl,FormArray, FormBuilder,Validators } from '@angular/forms';
 import { BatchService } from '../batch.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-batches',
@@ -32,6 +32,8 @@ export class BatchesComponent implements OnInit {
   batchesData : any;
   clientBatches:any;
   tableData: any;
+@ViewChild('headerCheckbox') headerCheckbox!:MatCheckbox
+@ViewChildren('bodyCheckbox') bodyCheckbox!:QueryList<MatCheckbox>
 
 
   constructor( private router:Router ,
@@ -42,11 +44,11 @@ export class BatchesComponent implements OnInit {
 
   ngOnInit(): void {
     this.batchForm = this.formBuilder.group({
-      location: new FormControl(''),
-      technology: new FormControl(''),
-      startDate: new FormControl(''),
-      toc: new FormControl(''),
-      tyMentor: new FormControl(''),
+      location: new FormControl('',[Validators.required]),
+      technology: new FormControl('',[Validators.required]),
+      startDate: new FormControl('',[Validators.required]),
+      toc: new FormControl('',[Validators.required]),
+      tyMentor: new FormControl('',[Validators.required]),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()]),
       candidates: new FormArray([this.createCandidate()]),
@@ -54,6 +56,19 @@ export class BatchesComponent implements OnInit {
 
     this.getBatch();
     this.getCbatch();
+  }
+
+  selectAll(){
+    if((this.headerCheckbox as MatCheckbox).checked){
+        this.bodyCheckbox.forEach((element)=>{
+          (element as MatCheckbox).checked = true
+        })
+    }
+    else{
+      this.bodyCheckbox.forEach((element)=>{
+        (element as MatCheckbox).checked = false
+      })
+    }
   }
 
   createMentor(): FormGroup {
@@ -164,10 +179,6 @@ export class BatchesComponent implements OnInit {
   }
   postBatch(userData:any) {
 
-    // return this.batchService.postBatch(formData).subscribe(res =>{
-    //   console.log(res);
-
-    // })
   }
 
   getCbatch() {
@@ -217,26 +228,19 @@ sample:any
         endDate : this.sample.endDate,
         mentors : this.sample.mentors,
         trainers : this.sample.trainers,
-        progress : this.sample.progress
+        batchCompletion : this.sample.batchCompletion,
+        mockRating : this.sample.mockRating
       }
     }
     )
 
   }
 
-  // get f() {
-  //   return this.batchForm.get('contact')
-
-  // }
-
   onSubmit(batchForm: any) {
     console.log(this.batchForm.value);
     this.batchForm.reset();
   }
 
-  deleteBatch() {
-    confirm("are you sure want to delete this ?")
-  }
 
 }
 
