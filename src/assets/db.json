@@ -1,502 +1,567 @@
 {
-    "details": [{
-            "employeeId": "TYP0001",
-            "trainerName": "Shrath",
-            "frontend": [{
-                    "name": "Html",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Css",
-                    "Proficiency": "0"
-                },
-                {
-                    "name": "Javascript",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Angular",
-                    "Proficiency": "NA"
-                }
-            ],
-            "backend": [{
-                    "name": "Java",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "J2EE",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Spring MVC",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Hibernate",
-                    "Proficiency": "Proficient"
-                }
-            ],
-            "database": [{
-                    "name": "MongoDb",
-                    "Proficiency": "Intermediate"
-                },
-                {
-                    "name": "SQL",
-                    "Proficiency": "Proficient"
-                }
-            ]
+  "details": [
+    {
+      "employeeId": "TYP0001",
+      "trainerName": "Shrath",
+      "frontend": [
+        {
+          "name": "Html",
+          "Proficiency": "Proficient"
         },
         {
-            "employeeId": "TYP0002",
-            "trainerName": "Harsha",
-            "frontend": [{
-                    "name": "Html",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Css",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Javascript",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Angular",
-                    "Proficiency": "Basic"
-                }
-            ],
-            "backend": [{
-                    "name": "Java",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "J2EE",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Spring MVC",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Hibernate",
-                    "Proficiency": "Proficient"
-                }
-            ],
-            "database": [{
-                    "name": "MongoDb",
-                    "Proficiency": "Intermediate"
-                },
-                {
-                    "name": "SQL",
-                    "Proficiency": "Proficient"
-                }
-            ]
+          "name": "Css",
+          "Proficiency": "0"
         },
         {
-            "employeeId": "TYP0003",
-            "trainerName": "Abbas",
-            "frontend": [{
-                    "name": "Html",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Css",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Javascript",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Angular",
-                    "Proficiency": "Intermediate"
-                }
-            ],
-            "backend": [{
-                    "name": "Java",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "J2EE",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Spring MVC",
-                    "Proficiency": "Basic"
-                },
-                {
-                    "name": "Hibernate",
-                    "Proficiency": "Intermediate"
-                }
-            ],
-            "database": [{
-                    "name": "MongoDb",
-                    "Proficiency": "Intermediate"
-                },
-                {
-                    "name": "SQL",
-                    "Proficiency": "NA"
-                }
-            ]
+          "name": "Javascript",
+          "Proficiency": "Proficient"
         },
         {
-            "employeeId": "TYP0004",
-            "trainerName": "Priyanka",
-            "frontend": [{
-                    "name": "Html",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Css",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Javascript",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Angular",
-                    "Proficiency": "Intermediate"
-                }
-            ],
-            "backend": [{
-                    "name": "Java",
-                    "Proficiency": "Intermediate"
-                },
-                {
-                    "name": "J2EE",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Spring MVC",
-                    "Proficiency": "Proficient"
-                },
-                {
-                    "name": "Hibernate",
-                    "Proficiency": "Proficient"
-                }
-            ],
-            "database": [{
-                    "name": "MongoDb",
-                    "Proficiency": "Intermediate"
-                },
-                {
-                    "name": "SQL",
-                    "Proficiency": "NA"
-                }
-            ]
+          "name": "Angular",
+          "Proficiency": "NA"
         }
-    ],
-    "mini-case-studeis": [{
-            "projectName": "Asset Management System",
-            "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
-            "projectType": "Mini Project"
+      ],
+      "backend": [
+        {
+          "name": "Java",
+          "Proficiency": "Proficient"
         },
         {
-            "projectName": "Banking System",
-            "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
-            "projectType": "Mini Project"
+          "name": "J2EE",
+          "Proficiency": "Proficient"
         },
         {
-            "projectName": "Leave Management System",
-            "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
-            "projectType": "Mini Project"
+          "name": "Spring MVC",
+          "Proficiency": "Proficient"
         },
         {
-            "projectName": "Book My Doctor",
-            "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
-            "projectType": "Mini Project"
-        },
-        {
-            "projectName": "Airline Management System",
-            "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
-            "projectType": "Mini Project"
+          "name": "Hibernate",
+          "Proficiency": "Proficient"
         }
-    ],
-    "Plp-case-studies": [{
-            "projectName": "Asset Management System",
-            "projectDescription": "To Manage records of the company",
-            "projectType": "Pseudo Live Project",
-            "projectSubType": "Detailed"
+      ],
+      "database": [
+        {
+          "name": "MongoDb",
+          "Proficiency": "Intermediate"
         },
         {
-            "projectName": "Banking System",
-            "projectDescription": "System which manages banking related operations",
-            "projectType": "Pseudo Live Project",
-            "projectSubType": "Abstract"
-        },
-        {
-            "projectName": "Employee Management System",
-            "projectDescription": "Managing the employees data.",
-            "projectType": "Pseudo Live Project",
-            "projectSubType": "Semi Abstract"
-        },
-        {
-            "projectName": "Book My Doctor",
-            "projectDescription": "To Book the doctor appointment and manages the patient related records",
-            "projectType": "Pseudo Live Project",
-            "projectSubType": "Detailed"
-        },
-        {
-            "projectName": "Leave Management System",
-            "projectDescription": "Managing employees leaves and expeses and help to apply the leaves",
-            "projectType": "Pseudo Live Project",
-            "projectSubType": "Abstract"
+          "name": "SQL",
+          "Proficiency": "Proficient"
         }
-    ],
-    "events": [{
-            "title": "angular",
-            "start": "2021-12-28"
+      ]
+    },
+    {
+      "employeeId": "TYP0002",
+      "trainerName": "Harsha",
+      "frontend": [
+        {
+          "name": "Html",
+          "Proficiency": "Proficient"
         },
         {
-            "title": "hands on",
-            "start": "2021-12-17"
+          "name": "Css",
+          "Proficiency": "Proficient"
         },
         {
-            "title": "lunch",
-            "start": "2021-12-03"
+          "name": "Javascript",
+          "Proficiency": "Proficient"
         },
         {
-            "title": "R&D",
-            "start": "2021-12-22"
-        },
-        {
-            "title": "Demo",
-            "start": "2021-12-24"
-        },
-        {
-            "id": "a",
-            "title": "my event",
-            "start": "2021-12-18"
-        },
-        {
-            "groupId": 999,
-            "title": "repeating event",
-            "start": "2021-12-12"
-        },
-        {
-            "title": "meeting",
-            "start": "2021-12-15 "
-        },
-        {
-            "id": "305",
-            "title": "tyytdjg",
-            "start": "2021-12-06"
-        },
-        {
-            "id": "306",
-            "title": "games",
-            "start": "2021-12-04"
-        },
-        {
-            "id": "870",
-            "title": "prepare notes",
-            "start": "2021-12-04"
-        },
-        {
-            "id": "30",
-            "title": "qwertyu",
-            "start": "2021-06-01"
-        },
-        {
-            "id": "123",
-            "title": "qwerty",
-            "start": "2021-12-25"
-        },
-        {
-            "id": "90",
-            "title": "revising angular",
-            "start": "2021-12-02",
-            "end": "2021-12-05"
-        },
-        {
-            "id": "54",
-            "title": "task assigning",
-            "start": "2021-12-03",
-            "end": "2021-12-03"
+          "name": "Angular",
+          "Proficiency": "Basic"
         }
-    ],
-    "candidate": [{
-            "candidateName": "abbas",
-            "phoneNumber": "8546921456",
-            "emailId": "abbas123@gmail.com",
-            "degree": "B.tech",
-            "stream": "mechanical",
-            "yop": "2020",
-            "tenthPercentage": "92",
-            "twelfthPercentage": "79",
-            "degreeAggregate": "73",
-            "masterAggregate": "NA",
-            "branch": "Hebbal",
-            "profileId": "TYC042654",
-            "id": "396"
+      ],
+      "backend": [
+        {
+          "name": "Java",
+          "Proficiency": "Proficient"
         },
         {
-            "id": "90",
-            "batchName": "batch 12",
-            "candidateName": "ahmad",
-            "phoneNumber": "8546921456",
-            "emailId": "ahmad@123gmail.com",
-            "degree": "B.tech",
-            "stream": "mechanical",
-            "yop": "2020",
-            "tenthPercentage": "92",
-            "twelfthPercentage": "79",
-            "degreeAggregate": "73",
-            "masterAggregate": "NA",
-            "branch": "BasavanaGudi",
-            "profileId": "TYC042667"
+          "name": "J2EE",
+          "Proficiency": "Proficient"
         },
         {
-            "id": "904",
-            "batchName": "batch 12",
-            "candidateName": "ahmad",
-            "phoneNumber": "9390522177",
-            "emailId": "ahmad@123gmail.com",
-            "degree": "B.tech",
-            "stream": "computer science",
-            "yop": "2020",
-            "tenthPercentage": "92",
-            "twelfthPercentage": "79",
-            "degreeAggregate": "73",
-            "masterAggregate": "NA",
-            "branch": "BTM",
-            "profileId": "TYC042667"
+          "name": "Spring MVC",
+          "Proficiency": "Proficient"
         },
         {
-            "id": "754",
-            "batchName": "batch 45",
-            "candidateName": "sharath",
-            "phoneNumber": "8575785958",
-            "emailId": "sharath@gmail.com",
-            "degree": "B.tech",
-            "stream": "computers",
-            "yop": "2019",
-            "tenthPercentage": "92",
-            "twelfthPercentage": "84",
-            "degreeAggregate": "75",
-            "masterAggregate": "73",
-            "branch": "Hebbal",
-            "profileId": "TYC046352"
+          "name": "Hibernate",
+          "Proficiency": "Proficient"
         }
-    ],
-    "batches": [{
-            "batchName": "BA58JAH",
-            "startDate": "28/06/2021",
-            "endDate": "28/08/2021",
-            "mentors": [
-                "ABC",
-                "XYZ"
-            ],
-            "trainers": [
-                "ABC",
-                "XYZ"
-            ],
-            "progress": "60"
+      ],
+      "database": [
+        {
+          "name": "MongoDb",
+          "Proficiency": "Intermediate"
         },
         {
-            "batchName": "BA35JAH",
-            "startDate": "23/03/2021",
-            "endDate": "23/05/2021",
-            "mentors": [
-                "ABC",
-                "XYZ"
-            ],
-            "trainers": [
-                "ABC",
-                "XYZ"
-            ],
-            "progress": "70"
-        },
-        {
-            "batchName": "BA02JAH",
-            "startDate": "20/05/2021",
-            "endDate": "20/07/2021",
-            "mentors": [
-                "ABC",
-                "XYZ"
-            ],
-            "trainers": [
-                "ABC",
-                "XYZ"
-            ],
-            "progress": "45"
-        },
-        {
-            "batchName": "BA26JAH",
-            "startDate": "10/01/2021",
-            "endDate": "28/03/2021",
-            "mentors": [
-                "ABC",
-                "XYZ"
-            ],
-            "trainers": [
-                "ABC",
-                "XYZ"
-            ],
-            "progress": "80"
+          "name": "SQL",
+          "Proficiency": "Proficient"
         }
-    ],
-    "clientBatches": [{
-            "batchName": "BA58JAH",
-            "client": "capgemini",
-            "startDate": "28/06/2021",
-            "endDate": "28/08/2021",
-            "mentors": [
-                "ABC",
-                "XYZ"
-            ],
-            "trainers": [
-                "ABC",
-                "XYZ"
-            ],
-            "progress": "60"
+      ]
+    },
+    {
+      "employeeId": "TYP0003",
+      "trainerName": "Abbas",
+      "frontend": [
+        {
+          "name": "Html",
+          "Proficiency": "Proficient"
         },
         {
-            "batchName": "BA35JAH",
-            "client": "infosis",
-            "startDate": "23/03/2021",
-            "endDate": "23/05/2021",
-            "mentors": [
-                "ABC",
-                "XYZ"
-            ],
-            "trainers": [
-                "ABC",
-                "XYZ"
-            ],
-            "progress": "70"
+          "name": "Css",
+          "Proficiency": "Proficient"
         },
         {
-            "batchName": "BA02JAH",
-            "client": "accenture",
-            "startDate": "20/05/2021",
-            "endDate": "20/07/2021",
-            "mentors": [
-                "ABC",
-                "XYZ"
-            ],
-            "trainers": [
-                "ABC",
-                "XYZ"
-            ],
-            "progress": "45"
+          "name": "Javascript",
+          "Proficiency": "Proficient"
         },
         {
-            "batchName": "BA26JAH",
-            "client": "google",
-            "startDate": "10/01/2021",
-            "endDate": "28/03/2021",
-            "mentors": [
-                "ABC",
-                "XYZ"
-            ],
-            "trainers": [
-                "ABC",
-                "XYZ"
-            ],
-            "progress": "80"
+          "name": "Angular",
+          "Proficiency": "Intermediate"
         }
-    ]
+      ],
+      "backend": [
+        {
+          "name": "Java",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "J2EE",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Spring MVC",
+          "Proficiency": "Basic"
+        },
+        {
+          "name": "Hibernate",
+          "Proficiency": "Intermediate"
+        }
+      ],
+      "database": [
+        {
+          "name": "MongoDb",
+          "Proficiency": "Intermediate"
+        },
+        {
+          "name": "SQL",
+          "Proficiency": "NA"
+        }
+      ]
+    },
+    {
+      "employeeId": "TYP0004",
+      "trainerName": "Priyanka",
+      "frontend": [
+        {
+          "name": "Html",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Css",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Javascript",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Angular",
+          "Proficiency": "Intermediate"
+        }
+      ],
+      "backend": [
+        {
+          "name": "Java",
+          "Proficiency": "Intermediate"
+        },
+        {
+          "name": "J2EE",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Spring MVC",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Hibernate",
+          "Proficiency": "Proficient"
+        }
+      ],
+      "database": [
+        {
+          "name": "MongoDb",
+          "Proficiency": "Intermediate"
+        },
+        {
+          "name": "SQL",
+          "Proficiency": "NA"
+        }
+      ]
+    }
+  ],
+  "mini-case-studeis": [
+    {
+      "projectName": "Asset Management System",
+      "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
+      "projectType": "Mini Project"
+    },
+    {
+      "projectName": "Banking System",
+      "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
+      "projectType": "Mini Project"
+    },
+    {
+      "projectName": "Leave Management System",
+      "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
+      "projectType": "Mini Project"
+    },
+    {
+      "projectName": "Book My Doctor",
+      "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
+      "projectType": "Mini Project"
+    },
+    {
+      "projectName": "Airline Management System",
+      "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
+      "projectType": "Mini Project"
+    }
+  ],
+  "Plp-case-studies": [
+    {
+      "projectName": "Asset Management System",
+      "projectDescription": "To Manage records of the company",
+      "projectType": "Pseudo Live Project",
+      "projectSubType": "Detailed"
+    },
+    {
+      "projectName": "Banking System",
+      "projectDescription": "System which manages banking related operations",
+      "projectType": "Pseudo Live Project",
+      "projectSubType": "Abstract"
+    },
+    {
+      "projectName": "Employee Management System",
+      "projectDescription": "Managing the employees data.",
+      "projectType": "Pseudo Live Project",
+      "projectSubType": "Semi Abstract"
+    },
+    {
+      "projectName": "Book My Doctor",
+      "projectDescription": "To Book the doctor appointment and manages the patient related records",
+      "projectType": "Pseudo Live Project",
+      "projectSubType": "Detailed"
+    },
+    {
+      "projectName": "Leave Management System",
+      "projectDescription": "Managing employees leaves and expeses and help to apply the leaves",
+      "projectType": "Pseudo Live Project",
+      "projectSubType": "Abstract"
+    }
+  ],
+  "events": [
+    {
+      "title": "angular",
+      "start": "2021-12-28"
+    },
+    {
+      "title": "hands on",
+      "start": "2021-12-17"
+    },
+    {
+      "title": "lunch",
+      "start": "2021-12-03"
+    },
+    {
+      "title": "R&D",
+      "start": "2021-12-22"
+    },
+    {
+      "title": "Demo",
+      "start": "2021-12-24"
+    },
+    {
+      "id": "a",
+      "title": "my event",
+      "start": "2021-12-18"
+    },
+    {
+      "groupId": 999,
+      "title": "repeating event",
+      "start": "2021-12-12"
+    },
+    {
+      "title": "meeting",
+      "start": "2021-12-15 "
+    },
+    {
+      "id": "305",
+      "title": "tyytdjg",
+      "start": "2021-12-06"
+    },
+    {
+      "id": "306",
+      "title": "games",
+      "start": "2021-12-04"
+    },
+    {
+      "id": "870",
+      "title": "prepare notes",
+      "start": "2021-12-04"
+    },
+    {
+      "id": "30",
+      "title": "qwertyu",
+      "start": "2021-06-01"
+    },
+    {
+      "id": "123",
+      "title": "qwerty",
+      "start": "2021-12-25"
+    },
+    {
+      "id": "90",
+      "title": "revising angular",
+      "start": "2021-12-02",
+      "end": "2021-12-05"
+    },
+    {
+      "id": "54",
+      "title": "task assigning",
+      "start": "2021-12-03",
+      "end": "2021-12-03"
+    }
+  ],
+  "candidate": [
+    {
+      "candidateName": "abbas",
+      "phoneNumber": "8546921456",
+      "emailId": "abbas123@gmail.com",
+      "degree": "B.tech",
+      "stream": "mechanical",
+      "yop": "2020",
+      "tenthPercentage": "92",
+      "twelfthPercentage": "79",
+      "degreeAggregate": "73",
+      "masterAggregate": "NA",
+      "branch": "Hebbal",
+      "profileId": "TYC042654",
+      "id": "396"
+    },
+    {
+      "id": "90",
+      "batchName": "batch 12",
+      "candidateName": "ahmad",
+      "phoneNumber": "8546921456",
+      "emailId": "ahmad@123gmail.com",
+      "degree": "B.tech",
+      "stream": "mechanical",
+      "yop": "2020",
+      "tenthPercentage": "92",
+      "twelfthPercentage": "79",
+      "degreeAggregate": "73",
+      "masterAggregate": "NA",
+      "branch": "BasavanaGudi",
+      "profileId": "TYC042667"
+    },
+    {
+      "id": "754",
+      "batchName": "batch 45",
+      "candidateName": "sharath",
+      "phoneNumber": "8575785958",
+      "emailId": "sharath@gmail.com",
+      "degree": "B.tech",
+      "stream": "computers",
+      "yop": "2019",
+      "tenthPercentage": "92",
+      "twelfthPercentage": "84",
+      "degreeAggregate": "75",
+      "masterAggregate": "73",
+      "branch": "Hebbal",
+      "profileId": "TYC046352"
+    },
+    {
+      "id": "879",
+      "batchName": "",
+      "candidateName": "john burg",
+      "phoneNumber": "6300580835",
+      "emailId": "john134@gmail.com",
+      "degree": "B.tech",
+      "tenthPercentage": "92",
+      "twelfthPercentage": "79",
+      "stream": "computer science",
+      "yop": "2020",
+      "masterAggregate": "NA",
+      "degreeAggregate": "73",
+      "branch": "BTM",
+      "profileId": "TYC042666"
+    }
+  ],
+  "batches": [
+    {
+      "batchName": "BA58JAH",
+      "startDate": "28/06/2021",
+      "endDate": "28/08/2021",
+      "mentors": [
+        "ABC",
+        "XYZ"
+      ],
+      "trainers": [
+        "ABC",
+        "XYZ"
+      ],
+      "batchCompletion": "80",
+      "mockRating": "74"
+    },
+    {
+      "batchName": "BA35JAH",
+      "startDate": "23/03/2021",
+      "endDate": "23/05/2021",
+      "mentors": [
+        "ABC",
+        "XYZ"
+      ],
+      "trainers": [
+        "ABC",
+        "XYZ"
+      ],
+      "batchCompletion": "70",
+      "mockRating": "60"
+    },
+    {
+      "batchName": "BA02JAH",
+      "startDate": "20/05/2021",
+      "endDate": "20/07/2021",
+      "mentors": [
+        "ABC",
+        "XYZ"
+      ],
+      "trainers": [
+        "ABC",
+        "XYZ"
+      ],
+      "batchCompletion": "50",
+      "mockRating": "68"
+    },
+    {
+      "batchName": "BA26JAH",
+      "startDate": "10/01/2021",
+      "endDate": "28/03/2021",
+      "mentors": [
+        "ABC",
+        "XYZ"
+      ],
+      "trainers": [
+        "ABC",
+        "XYZ"
+      ],
+      "batchCompletion": "80",
+      "mockRating": "90"
+    }
+  ],
+  "clientBatches": [
+    {
+      "batchName": "BA58JAH",
+      "client": "capgemini",
+      "startDate": "28/06/2021",
+      "endDate": "28/08/2021",
+      "mentors": [
+        "ABC",
+        "XYZ"
+      ],
+      "trainers": [
+        "ABC",
+        "XYZ"
+      ],
+      "batchCompletion": "75",
+      "mockRating": "80"
+    },
+    {
+      "batchName": "BA35JAH",
+      "client": "infosis",
+      "startDate": "23/03/2021",
+      "endDate": "23/05/2021",
+      "mentors": [
+        "ABC",
+        "XYZ"
+      ],
+      "trainers": [
+        "ABC",
+        "XYZ"
+      ],
+      "batchCompletion": "70",
+      "mockRating": "55"
+    },
+    {
+      "batchName": "BA02JAH",
+      "client": "accenture",
+      "startDate": "20/05/2021",
+      "endDate": "20/07/2021",
+      "mentors": [
+        "ABC",
+        "XYZ"
+      ],
+      "trainers": [
+        "ABC",
+        "XYZ"
+      ],
+      "batchCompletion": "50",
+      "mockRating": "64"
+    },
+    {
+      "batchName": "BA26JAH",
+      "client": "google",
+      "startDate": "10/01/2021",
+      "endDate": "28/03/2021",
+      "mentors": [
+        "ABC",
+        "XYZ"
+      ],
+      "trainers": [
+        "ABC",
+        "XYZ"
+      ],
+      "batchCompletion": "70",
+      "mockRating": "55"
+    }
+  ],
+  "calendarList": [
+    {
+      "id": "1",
+      "slno": "01",
+      "batchName": "CG_JSF sep20",
+      "technology": "Java",
+      "startDate": "28/04/2021",
+      "endDate": "28/06/2021",
+      "status": "in progress"
+    },
+    {
+      "id": "2",
+      "slno": "02",
+      "batchName": "CG_JSF JAN24",
+      "technology": "core Java",
+      "startDate": "28/04/2021",
+      "endDate": "28/06/2021",
+      "status": "yet to start"
+    },
+    {
+      "id": "3",
+      "slno": "03",
+      "batchName": "CG_JHS sep20",
+      "technology": "Javascript",
+      "startDate": "28/04/2021",
+      "endDate": "28/06/2021",
+      "status": "finished"
+    },
+    {
+      "id": "4",
+      "slno": "04",
+      "batchName": "CG_ERT sep20",
+      "technology": "React",
+      "startDate": "28/04/2021",
+      "endDate": "28/06/2021",
+      "status": "yet to start"
+    }
+  ]
 }

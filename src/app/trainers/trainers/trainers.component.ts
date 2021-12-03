@@ -50,6 +50,15 @@ export class TrainersComponent implements OnInit {
     { value: 'CSS', viewValue: 'CSS' },
     { value: 'JS', viewValue: 'JS' },
     { value: 'Angular', viewValue: 'Angular' },
+    { value: 'React JS', viewValue: 'React JS' },
+    { value: 'Vue JS', viewValue: 'Vue JS' },
+    { value: 'Java', viewValue: 'Java' },
+    { value: 'J2EE', viewValue: 'J2EE' },
+    { value: 'Hibernate', viewValue: 'Hibernate' },
+    { value: 'Spring MVC', viewValue: 'Spring MVC' },
+    { value: 'Oracle', viewValue: 'Oracle' },
+    { value: 'MySQL', viewValue: 'MySQL' },
+    { value: 'MongoDB', viewValue: 'MongoDB' },
   ];
   Proficiencys = [
     { value: 'Proficient', viewValue: 'Proficient' },

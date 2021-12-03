@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -10,10 +10,12 @@ export class CasestudiesComponent implements OnInit {
   casestudiesForm! : FormGroup;
   form!: FormGroup;
 
-  plp: boolean = true;
-  mini: boolean = false;
-  
+  plp: boolean = false;
+  mini: boolean = true;
+
   searchText: any
+
+  @ViewChild('closeBtn') closeBtn!: ElementRef;
 
   subTypes = ['All','Detailed', 'Abstract', 'Semi Abstract'];
   projectsubtype = [
@@ -29,20 +31,19 @@ export class CasestudiesComponent implements OnInit {
     {ProjectName:'Asset Management System', projectDescription: 'Asset Management System',projectType:'Mini Project',Subtype:'Detailed'},
     {ProjectName:'tech Management System', projectDescription: 'Asset Management System',projectType:'Mini Project',Subtype:'Detailed'},
     {ProjectName:'car Management System', projectDescription: 'Asset Management System',projectType:'Mini Project',Subtype:'Detailed'},
-    
-    
+    {ProjectName:'car Management System', projectDescription: 'Asset Management System',projectType:'Mini Project',Subtype:'Detailed'},
+
    ]
    PplCaseStudies =[
-    {ProjectName:'nalsjfhnalkjfh', projectDescription: 'Asset Management System',projectType:'Pseudo Live Project',Subtype:'Detailed'},
+    {ProjectName:'Asset Management System', projectDescription: 'Asset Management System',projectType:'Pseudo Live Project',Subtype:'Detailed'},
     {ProjectName:'tech Management System', projectDescription: 'Asset Management System',projectType:'Pseudo Live Project',Subtype:'Detailed'},
     {ProjectName:'car Management System', projectDescription: 'Asset Management System',projectType:'Pseudo Live Project',Subtype:'Abstract'},
     {ProjectName:'light Management System', projectDescription: 'Asset Management System',projectType:'Pseudo Live Project',Subtype:'Detailed'},
     {ProjectName:'Asset Management System', projectDescription: 'Asset Management System',projectType:'Pseudo Live Project',Subtype:'Detailed'},
     {ProjectName:'Asset Management System', projectDescription: 'Asset Management System',projectType:'Pseudo Live Project',Subtype:'Semi Abstract'},
-    {ProjectName:'Asset Management System', projectDescription: 'Asset Management System',projectType:'Pseudo Live Project',Subtype:'Detailed'},
-    
+
    ]
-  
+
 
     fontStyleControl = new FormControl();
     fontStyle?: string;
@@ -64,23 +65,27 @@ export class CasestudiesComponent implements OnInit {
     return this.form.get('subtype') as FormControl;
   }
 
+  showMini() {
+    this.mini = true;
+    this.plp = false;
+  }
   showPlp() {
     if (this.plp !== true) {
       this.plp = true;
     }
     this.mini = false;
   }
-  showMini() {
-    this.mini = true;
-    this.plp = false;
-  }
+
 
   onSubmit(casestudiesForm:any){
     console.log(casestudiesForm);
-    
+
   }
   resetForm(){
     this.casestudiesForm.reset();
+  }
+  deleteTrainer(){
+    this.closeBtn.nativeElement.click()
   }
 
 }

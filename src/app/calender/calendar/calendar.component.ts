@@ -7,6 +7,8 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { CalendarService } from './calendar.service';
+import { CalendarList } from '../calendar';
 
 
 @Component({
@@ -23,25 +25,29 @@ export class CalendarComponent implements OnInit {
   successdata: any;
   searchText: any;
 
-  Earray: any = []
+  Earray: any = [];
+  calendarList:any
 
   Cform!: FormGroup;
 
   @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
   @ViewChild('modalOpenButton') modalOpenButton!: ElementRef;
   @ViewChild('closeBtn') closeBtn!: ElementRef;
+  calendarData: any;
 
-  constructor( private http: HttpClient ) { }
+  constructor( private http: HttpClient,
+               private calendarService:CalendarService
+               ) { }
 
 
   ngOnInit() {
-    this.Cform = new FormGroup({
-      batch: new FormControl(''),
-      technology: new FormControl(''),
-      startDate: new FormControl(''),
-      include: new FormControl(''),
-    })
 
+    this.Cform = new FormGroup({
+      batch: new FormControl('',[Validators.required]),
+      technology: new FormControl('',[Validators.required]),
+      startDate: new FormControl('',[Validators.required]),
+      include: new FormControl('',[Validators.required]),
+    })
 
     forwardRef(() => Calendar);
 
@@ -58,7 +64,16 @@ export class CalendarComponent implements OnInit {
       this.handleCalender()
     }, 1000);
 
+  this.getCalendarData();
 
+  }
+
+  getCalendarData() {
+    return this.calendarService.getCalendar().subscribe((data: any) => {
+      this.calendarList = data;
+      console.log(this.calendarList);
+
+    })
   }
   addEvent(addEventForm: NgForm) {
     return this.http.post('http://localhost:3000/events', addEventForm.value).subscribe(data => {
@@ -111,15 +126,6 @@ export class CalendarComponent implements OnInit {
     console.log(addEventForm.value);
   }
 
-
-  calendarList = [
-    { "slno": "01", "batchName": "CG_JSF sep20", "technology": "Java", "startDate": "28/04/2021", "endDate": "28/06/2021", "status": "in progress" },
-    { "slno": "02", "batchName": "CG_JSF JAN24", "technology": "core Java", "startDate": "28/04/2021", "endDate": "28/06/2021", "status": "yet to start" },
-    { "slno": "03", "batchName": "CG_JHS sep20", "technology": "Javascript", "startDate": "28/04/2021", "endDate": "28/06/2021", "status": "finished" },
-    { "slno": "04", "batchName": "CG_ERT sep20", "technology": "React", "startDate": "28/04/2021", "endDate": "28/06/2021", "status": "yet to start" },
-    { "slno": "05", "batchName": "CG_GHJ sep20", "technology": "Angular", "startDate": "28/04/2021", "endDate": "28/06/2021", "status": "in progress" },
-  ]
-
   technologys = [
     { value: 'HTML', viewValue: 'HTML' },
     { value: 'CSS', viewValue: 'CSS' },
@@ -142,8 +148,19 @@ export class CalendarComponent implements OnInit {
     console.log(this.Cform.value);
   }
 
-  deleteTrainer() {
+  elementData(calendar:any) {
+    this.calendarData = calendar;
+  }
+  deleteCalendarData(calendarlist:CalendarList) {
     this.closeBtn.nativeElement.click();
+
+    console.log(calendarlist.id);
+
+
+    this.calendarService.deleteCalendar(calendarlist.id).subscribe((data: any)=>{
+      console.log("Calendar list deleted successfully");
+
+    })
 
   }
 }

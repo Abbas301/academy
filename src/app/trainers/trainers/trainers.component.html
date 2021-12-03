@@ -1,87 +1,90 @@
 <div class="main">
-    <div class="row">
-        <div class="col-md-6">
-            <h3 class="font-weight-bold mt-4 pl-5">Trainer Details</h3>
-        </div>
-        <div class="col-md-6">
-            <div class="row  mt-2">
-                <div class="col-md-5">
-                    <mat-form-field appearance="standard">
-                        <input type="text" matInput placeholder="Search" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}">
-                        <mat-icon matSuffix>search</mat-icon>
-                    </mat-form-field>
-                </div>
-                <div class="col-md-3">
-                    <mat-form-field appearance="standard">
-                        <mat-label>Technology Type</mat-label>
-                        <mat-select [formControl]="technologyFilter" multiple>
-                            <mat-option *ngFor="let topping of technologies" [value]="topping">{{topping}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-md-3 mt-3">
-                    <button type="button" class="btn subbtn" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">+ New Trainer</button>
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="row">
+      <div class="col-md-6">
+          <h3 class="font-weight-bold mt-4 pl-5">Trainer Details</h3>
+      </div>
+      <div class="col-md-6">
+          <div class="row  mt-2">
+              <div class="col-md-5">
+                  <mat-form-field appearance="standard">
+                      <input type="text" matInput placeholder="Search" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}">
+                      <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+              </div>
+              <div class="col-md-3 ">
+                  <mat-form-field appearance="standard">
+                      <mat-label>Technology Type</mat-label>
+                      <mat-select [formControl]="technologyFilter" multiple>
+                          <mat-option *ngFor="let topping of technologies" [value]="topping">{{topping}}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div>
+              <div class="col-md-3 mt-3">
+                  <button type="button" class="btn subbtn" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">+ New Trainer</button>
+              </div>
+          </div>
+      </div>
+  </div>
 
-    <div class="table-responsive" style="overflow-x: auto">
-        <table class="table table-bordered mt-3">
-            <thead class=" table-header" style="text-align: center;">
-                <tr>
-                    <th rowspan="2" style="vertical-align: middle;z-index: 1;" class="fixed">Trainer Name</th>
-                    <th colspan="4" style="vertical-align: middle;" *ngIf="technologyFilter.value.includes('Frontend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">Frontend</th>
-                    <th colspan="4" style="vertical-align: middle;" *ngIf="technologyFilter.value.includes('Backend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">Backend</th>
-                    <th colspan="2" style="vertical-align: middle;" *ngIf="technologyFilter.value.includes('Database') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">Database</th>
-                    <th rowspan="2" style="vertical-align: middle;">Action</th>
-                </tr>
-                <tr>
-                    <ng-container *ngIf="technologyFilter.value.includes('Frontend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
-                        <th style="vertical-align: middle;">Html </th>
-                        <th style="vertical-align: middle;">CSS</th>
-                        <th style="vertical-align: middle;">Javascript</th>
-                        <th style="vertical-align: middle;">Angular</th>
-                    </ng-container>
-                    <ng-container *ngIf="technologyFilter.value.includes('Backend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
-                        <th style="vertical-align: middle;">Java</th>
-                        <th style="vertical-align: middle;">J2EE</th>
-                        <th style="vertical-align: middle;">Hibernate</th>
-                        <th style="vertical-align: middle;">Spring MVC</th>
-                    </ng-container>
-                    <ng-container *ngIf="technologyFilter.value.includes('Database') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
-                        <th style="vertical-align: middle;">SQL </th>
-                        <th style="vertical-align: middle;">Oracle</th>
-                    </ng-container>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let trainer of trainerDetails | trainerfilter:searchValue">
-                    <td class="fixed">{{trainer.trainerName}}</td>
-                    <ng-container *ngIf="technologyFilter.value.includes('Frontend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
+  <div class="table-responsive" style="overflow-x: auto">
+      <table class="table table-bordered mt-3">
+          <thead class=" table-header" style="text-align: center;">
+              <tr>
+                  <th rowspan="2" style="vertical-align: middle;z-index: 1;" class="fixed">Trainer Name</th>
+                  <th colspan="6" style="vertical-align: middle;" *ngIf="technologyFilter.value.includes('Frontend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">Frontend</th>
+                  <th colspan="4" style="vertical-align: middle;" *ngIf="technologyFilter.value.includes('Backend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">Backend</th>
+                  <th colspan="3" style="vertical-align: middle;" *ngIf="technologyFilter.value.includes('Database') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">Database</th>
+                  <th rowspan="2" style="vertical-align: middle;">Action</th>
+              </tr>
+              <tr>
+                  <ng-container *ngIf="technologyFilter.value.includes('Frontend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
+                      <th style="vertical-align: middle;">Html </th>
+                      <th style="vertical-align: middle;">CSS</th>
+                      <th style="vertical-align: middle;">Javascript</th>
+                      <th style="vertical-align: middle;">Angular</th>
+                      <th style="vertical-align: middle;">React JS</th>
+                      <th style="vertical-align: middle;">Vue JS</th>
+                  </ng-container>
+                  <ng-container *ngIf="technologyFilter.value.includes('Backend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
+                      <th style="vertical-align: middle;">Java</th>
+                      <th style="vertical-align: middle;">J2EE</th>
+                      <th style="vertical-align: middle;">Hibernate</th>
+                      <th style="vertical-align: middle;">Spring MVC</th>
+                  </ng-container>
+                  <ng-container *ngIf="technologyFilter.value.includes('Database') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
+                      <th style="vertical-align: middle;">SQL </th>
+                      <th style="vertical-align: middle;">Oracle</th>
+                      <th style="vertical-align: middle;">MongoDB</th>
+                  </ng-container>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let trainer of trainerDetails | trainerfilter:searchValue">
+                  <td class="fixed">{{trainer.trainerName}}</td>
+                  <ng-container *ngIf="technologyFilter.value.includes('Frontend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
 
-                        <td *ngFor="let frontend of trainer.frontend">{{frontend.Proficiency}}</td>
+                      <td *ngFor="let frontend of trainer.frontend">{{frontend.Proficiency}}</td>
 
-                    </ng-container>
-                    <ng-container *ngIf="technologyFilter.value.includes('Backend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
+                  </ng-container>
+                  <ng-container *ngIf="technologyFilter.value.includes('Backend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
 
-                        <td *ngFor="let backend of trainer.backend">{{backend.Proficiency}}</td>
+                      <td *ngFor="let backend of trainer.backend">{{backend.Proficiency}}</td>
 
-                    </ng-container>
-                    <ng-container *ngIf="technologyFilter.value.includes('Database') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
-                        <td *ngFor="let database of trainer.database">{{database.Proficiency}}</td>
-                    </ng-container>
-                    <ng-container>
-                        <td>
-                            <mat-icon class="icons pr-3" data-toggle="modal" data-target="#exampleModal">edit</mat-icon>
-                            <mat-icon class="icons" data-toggle="modal" data-target="#exampleModalCenter">delete_outline</mat-icon>
-                        </td>
-                        <!-- id="remove" (click)="delete_trainer(trainer)" -->
-                    </ng-container>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                  </ng-container>
+                  <ng-container *ngIf="technologyFilter.value.includes('Database') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
+                      <td *ngFor="let database of trainer.database">{{database.Proficiency}}</td>
+                  </ng-container>
+                  <ng-container>
+                      <td>
+                          <mat-icon class="icons pr-3" data-toggle="modal" data-target="#exampleModal">edit</mat-icon>
+                          <mat-icon class="icons" data-toggle="modal" data-target="#exampleModalCenter">delete_outline</mat-icon>
+                      </td>
+                      <!-- id="remove" (click)="delete_trainer(trainer)" -->
+                  </ng-container>
+              </tr>
+          </tbody>
+      </table>
+  </div>
 </div>
 
 <!-- Button trigger modal -->
@@ -89,115 +92,117 @@
 <!-- Modal -->
 
 <div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Create New Trainer</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
-                    <div class="form-group">
-                        <div class="header hdata">
-                            <mat-form-field>
-                                <input type="text" formControlName="name" matInput appearance="standard" placeholder="Trainer Name (Employee ID)">
-                                <mat-error>this field required</mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <hr>
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLabel">Create New Trainer</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+          </div>
+          <div class="modal-body">
+              <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                  <div class="form-group">
+                      <div class="header hdata">
+                          <mat-form-field>
+                              <input type="text" formControlName="name" matInput appearance="standard" placeholder="Trainer Name (Employee ID)">
+                              <mat-error>this field required</mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                  <hr>
 
-                    <!-- <div class="d-flex"> -->
-                    <div formArrayName="items" *ngFor="let item of itemsArray.controls; let i = index;" style="display: inline-flex;">
-                        <div [formGroupName]="i">
-                            <div class="mode">
-                                <div class="row">
-                                    <div class="modaldata">
-                                        <div class="form-group data ">
-                                            <mat-form-field appearance="standard" class="field">
-                                                <mat-label>Technology Type</mat-label>
-                                                <mat-select formControlName="technologytype">
-                                                    <mat-option *ngFor="let Technology_type of Technology_types" [value]="Technology_type.value">
-                                                        {{Technology_type.viewValue}}
-                                                    </mat-option>
-                                                </mat-select>
-
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="form-group data ">
-                                            <mat-form-field appearance="standard">
-                                                <mat-label>Technologies</mat-label>
-                                                <mat-select formControlName="technologies">
-                                                    <mat-option *ngFor="let Technologie of Technologies" [value]="Technologie.value">
-                                                        {{Technologie.viewValue}}
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="form-group  data">
-                                            <mat-form-field appearance="standard">
-                                                <mat-label>Proficiency level</mat-label>
-                                                <mat-select formControlName="Proficiency">
-                                                    <mat-option *ngFor="let Proficiency of Proficiencys" [value]="Proficiency.value">
-                                                        {{Proficiency.viewValue}}
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                    <div class="modalicon p-0">
-                                        <mat-icon *ngIf="i === itemsArray.length - 1" class="icon" (click)="addItem()">
-                                            add_circle
-                                        </mat-icon>
-                                        <mat-icon *ngIf="i !== itemsArray.length - 1" class="icon" (click)="deleteItem(i)">
-                                            delete
-                                        </mat-icon>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- </div> -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn newbtn" (click)="resetForm()">Reset</button>
-                        <button type="submit" class="btn  subbtn">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                  <!-- <div class="d-flex"> -->
+                  <div formArrayName="items" *ngFor="let item of itemsArray.controls; let i = index;" style="display: inline-flex;">
+                      <div [formGroupName]="i">
+                          <div class="mode">
+                              <div class="row">
+                                  <div class="modaldata">
+                                      <div class="form-group data ">
+                                          <mat-form-field appearance="standard" class="field">
+                                              <mat-label>Technology Type</mat-label>
+                                              <mat-select formControlName="technologytype">
+                                                  <mat-option *ngFor="let Technology_type of Technology_types" [value]="Technology_type.value">
+                                                      {{Technology_type.viewValue}}
+                                                  </mat-option>
+                                              </mat-select>
+                                              <mat-error>technology type required</mat-error>
+                                          </mat-form-field>
+                                      </div>
+                                      <div class="form-group data ">
+                                          <mat-form-field appearance="standard">
+                                              <mat-label>Technologies</mat-label>
+                                              <mat-select formControlName="technologies">
+                                                  <mat-option *ngFor="let Technologie of Technologies" [value]="Technologie.value">
+                                                      {{Technologie.viewValue}}
+                                                  </mat-option>
+                                              </mat-select>
+                                              <mat-error>technologies types required</mat-error>
+                                          </mat-form-field>
+                                      </div>
+                                      <div class="form-group  data">
+                                          <mat-form-field appearance="standard">
+                                              <mat-label>Proficiency level</mat-label>
+                                              <mat-select formControlName="Proficiency">
+                                                  <mat-option *ngFor="let Proficiency of Proficiencys" [value]="Proficiency.value">
+                                                      {{Proficiency.viewValue}}
+                                                  </mat-option>
+                                              </mat-select>
+                                              <mat-error>proficiency level required</mat-error>
+                                          </mat-form-field>
+                                      </div>
+                                  </div>
+                                  <div class="modalicon p-0">
+                                      <mat-icon *ngIf="i === itemsArray.length - 1" class="icon" (click)="addItem()">
+                                          add_circle
+                                      </mat-icon>
+                                      <mat-icon *ngIf="i !== itemsArray.length - 1" class="icon" (click)="deleteItem(i)">
+                                          delete
+                                      </mat-icon>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- </div> -->
+                  <div class="modal-footer">
+                      <button type="button" class="btn newbtn" (click)="resetForm()">Reset</button>
+                      <button type="submit" class="btn  subbtn">Submit</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
 </div>
 
 
 
 <!--delete-trainer-modal-->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body ">
-                <img class="deletelogo" src="../../../assets/Yellow-Warning.png" alt="">
-                <h1 style="text-align: center;">Are you sure you want to Delete this Trainer</h1>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn confirmbtn" data-toggle="modal" data-target="#confirm" (click)="deleteTrainer()">Confirm</button>
-                <button type="button" class="btn deletebtn" data-dismiss="modal" #closeBtn>Close</button>
-            </div>
-        </div>
-    </div>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-body ">
+              <img class="deletelogo" src="../../../assets/Yellow-Warning.png" alt="">
+              <h1 style="text-align: center;">Are you sure you want to Delete this Trainer</h1>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn confirmbtn" data-toggle="modal" data-target="#confirm" (click)="deleteTrainer()">Confirm</button>
+              <button type="button" class="btn deletebtn" data-dismiss="modal" #closeBtn>Close</button>
+          </div>
+      </div>
+  </div>
 </div>
 
 <!--- delete-sucess-popup-modal -->
 
 <div class="modal fade" id="confirm" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <img class="deletelogo" src="../../../assets/sucess_image.png" alt="">
-                <h1 style="text-align: center;">Calendar Successfully Deleted</h1>
-                <button type="button" class="btn okbtn" data-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-body">
+              <img class="deletelogo" src="../../../assets/sucess_image.png" alt="">
+              <h1 style="text-align: center;">Calendar Successfully Deleted</h1>
+              <button type="button" class="btn okbtn" data-dismiss="modal">OK</button>
+          </div>
+      </div>
+  </div>
 </div>

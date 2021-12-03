@@ -4,7 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BatchService } from '../batch.service'
-import {MatSort} from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 
 export interface CandidatesList {
@@ -16,18 +16,12 @@ export interface CandidatesList {
   yop: string;
   degreeAggregate: string;
   branch: string;
-  id:string;
-  tenthPercentage:string
-  twelfthPercentage:string
-  masterAggregate:string
-  profileId:string;
+  id: string;
+  tenthPercentage: string
+  twelfthPercentage: string
+  masterAggregate: string
+  profileId: string;
 }
-
-// const ELEMENT_DATA: CandidatesList[] = [
-//   { candidateName: "abbas shaik", PhoneNumber: "9854213625", emailId: "abbas123@gmail.com", degree: "B.tech", stream: "mechanical", yop: "2020", degreeAggregate: "72", branch: "Hebbal" },
-//   {candidateName: "harsha gl", PhoneNumber: "8541236547", emailId: "harsha123@gmail.com", degree: "B.tech", stream: "computerScience", yop: "2019", degreeAggregate: "79", branch: "BTM" },
-//   { candidateName: "shreyas r", PhoneNumber: "7541258964", emailId: "shreyas123@gmail.com", degree: "B.tech", stream: "electronics", yop: "2021", degreeAggregate: "84", branch: "Basavanna Gudi" },
-// ]
 
 @Component({
   selector: 'app-candidatelist',
@@ -37,26 +31,30 @@ export interface CandidatesList {
 export class CandidatelistComponent implements OnInit {
 
   details: any = []
-  CandidatesList:any;
-  Cform !:FormGroup;
-  index:any;
+  CandidatesList: any;
+  Cform !: FormGroup;
+  index: any;
+  id: any;
+  // color: " linear-gradient(117deg, #5A7B8E 0%, #BA7FC2 100%)" = " linear-gradient(117deg, #5A7B8E 0%, #BA7FC2 100%)";
 
   @ViewChild('modalOpenButton') modalOpenButton!: ElementRef;
   @ViewChild('closeBtn') closeBtn!: ElementRef;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  displayedColumns: string[] = ['select', 'candidateName', 'phoneNumber', 'emailId', 'degree', 'stream', 'yop', 'degreeAggregate', 'branch','deleteEmployee'];
+  displayedColumns: string[] = ['select', 'candidateName', 'phoneNumber', 'emailId', 'degree', 'stream', 'yop', 'degreeAggregate', 'branch', 'deleteEmployee'];
   dataSource = new MatTableDataSource<CandidatesList>();
   selection = new SelectionModel<CandidatesList>(true, []);
+  deleteElement: any;
 
-  constructor( private router: Router,
-               private ActivatedRouter: ActivatedRoute,
-               private batchService:BatchService
-               ) { }
+  constructor(private router: Router,
+    private ActivatedRouter: ActivatedRoute,
+    private batchService: BatchService
+  ) { }
 
   ngOnInit(): void {
     this.getCandidate();
+
 
     this.ActivatedRouter.queryParams.subscribe(res => {
       this.details = res;
@@ -74,10 +72,10 @@ export class CandidatelistComponent implements OnInit {
       twelfthPercentage: new FormControl(''),
       stream: new FormControl(''),
       yop: new FormControl(''),
-      masterAggregate:new FormControl(''),
+      masterAggregate: new FormControl(''),
       degreeAggregate: new FormControl(''),
       branch: new FormControl(''),
-      profileId:new FormControl(''),
+      profileId: new FormControl(''),
     })
   }
 
@@ -87,14 +85,14 @@ export class CandidatelistComponent implements OnInit {
       console.log(this.CandidatesList);
       this.dataSource.data = this.CandidatesList
       this.dataSource.sort = this.sort
-      this.dataSource.paginator=this.paginator
+      this.dataSource.paginator = this.paginator
     })
   }
 
   branches = [
-    {value: 'Hebbal', viewValue: 'Hebbal'},
-    {value: 'BTM', viewValue: 'BTM'},
-    {value: 'BasavanaGudi', viewValue: 'BasavanaGudi'},
+    { value: 'Hebbal', viewValue: 'Hebbal' },
+    { value: 'BTM', viewValue: 'BTM' },
+    { value: 'BasavanaGudi', viewValue: 'BasavanaGudi' },
   ];
 
   viewCandidate() {
@@ -102,38 +100,45 @@ export class CandidatelistComponent implements OnInit {
   }
 
 
-  updateCandidate(element:CandidatesList) {
-    console.log(element)
+  updateCandidate(element: CandidatesList) {
     this.modalOpenButton.nativeElement.click();
+    this.id = element.id
+    const formData = this.Cform.patchValue({
+      candidateName: element?.candidateName,
+      phoneNumber: element?.phoneNumber,
+      emailId: element?.emailId,
+      degree: element?.degree,
+      tenthPercentage: element?.tenthPercentage,
+      twelfthPercentage: element?.twelfthPercentage,
+      stream: element?.stream,
+      yop: element?.yop,
+      masterAggregate: element?.masterAggregate,
+      degreeAggregate: element?.degreeAggregate,
+      branch: element?.branch,
+      profileId: element?.profileId,
 
-      const formData = this.Cform.patchValue({
-        candidateName:element?.candidateName,
-        phoneNumber: element?.phoneNumber,
-        emailId: element?.emailId,
-        degree: element?.degree,
-        tenthPercentage: element?.tenthPercentage,
-        twelfthPercentage: element?.twelfthPercentage,
-        stream: element?.stream,
-        yop: element?.yop,
-        masterAggregate:element?.masterAggregate,
-        degreeAggregate: element?.degreeAggregate,
-        branch: element?.branch,
-        profileId:element?.profileId,
-      })
-  this.batchService.putCandidate(element.id,formData).subscribe( (data: any) =>{
+    })
+  }
+  onClickUpdate(Cform: FormGroup) {
+    this.batchService.updatedCandidate(this.id, Cform.value).subscribe((data: any) => {
       console.log("candidate details updated successfully");
-      console.log(data);
+      console.log(this.CandidatesList.id);
     })
+
   }
 
-  removeCandidate(element:any) {
-    this.batchService.deleteCandidate(element.id).subscribe((data:any) => {
+  deleteConfirm(element:any){
+    this.deleteElement = element
+  }
+  deleteCandidate(candidatelist: CandidatesList) {
+    this.closeBtn.nativeElement.click();
+    this.batchService.deleteCandidateData(candidatelist.id).subscribe((data: any) => {
       console.log("candidate data deleted successfully");
-
     })
+
   }
 
-  onSubmit(Cform:any) {
+  onSubmit(Cform: any) {
     console.log(this.Cform.value);
 
 
@@ -165,10 +170,7 @@ export class CandidatelistComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  deleteCandidate() {
-    this.closeBtn.nativeElement.click();
 
-  }
 }
 
 

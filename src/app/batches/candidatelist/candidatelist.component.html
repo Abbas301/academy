@@ -1,121 +1,126 @@
 <div class="container-fluid page mt-4">
-    <mat-card>
+  <mat-card>
 
-        <div class="d-flex justify-content-between">
-            <div class="">
-                <h1 class="d-inline">{{details.batchName}}</h1>
-                <p class="d-block">{{details.startDate}}-{{details.endDate}}</p>
-            </div>
-            <div class="">
-                <p class="d-inline">Mentors - </p>
-                <h3 class="d-inline"><b>{{details.mentors}}</b></h3>
-            </div>
-            <div class="">
-                <p class="d-inline">Trainers - </p>
-                <h3 class="d-inline"><b>{{details.trainers}}</b></h3>
-                <h3 class="d-inline"><b>{{details.progress}}</b></h3>
-            </div>
-            <div>
-                <circle-progress [percent]="details.progress" [radius]="45" [outerStrokeWidth]="12" [outerStrokeColor]="'#5A7B8E'" [animation]="true" [animationDuration]="300" [showInnerStroke]=false></circle-progress>
-            </div>
+      <div class="d-flex justify-content-between">
+          <div class="">
+              <h3 class="d-inline"><b>{{details.batchName}}</b></h3>
+              <p class="d-block">{{details.startDate}}-{{details.endDate}}</p>
+          </div>
+          <div class="">
+              <p class="d-inline">Mentors - </p>
+              <h5 class="d-inline"><b>{{details.mentors}}</b></h5>
+          </div>
+          <div class="">
+              <p class="d-inline">Trainers - </p>
+              <h5 class="d-inline"><b>{{details.trainers}}</b></h5>
+              <h5 class="d-inline"><b>{{details.progress}}</b></h5>
+          </div>
+          <div>
+            <h5>Batch Completion</h5>
+              <circle-progress id="circle" [percent]="details.batchCompletion" [radius]="45" [outerStrokeWidth]="12" [outerStrokeColor]="'#BA7FC2'" [animation]="true" [animationDuration]="300" [showInnerStroke]=false></circle-progress>
+          </div>
+          <div>
+            <h5>Mock Rating</h5>
+            <circle-progress [percent]="details.mockRating" [radius]="45" [outerStrokeWidth]="12" [outerStrokeColor]="'#BA7FC2'" [animation]="true" [animationDuration]="300" [showInnerStroke]=false></circle-progress>
         </div>
-    </mat-card>
+      </div>
+  </mat-card>
 
-    <div class="page__content p-3 ">
+  <div class="page__content p-3 ">
 
-        <div class="row">
-            <div class="col-md-6 candidate">
-                <h1>candidate List</h1>
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-6">
-                        <mat-form-field class="Csearch" appearance="standard">
-                            <input matInput class="hover" type="search" placeholder="First Name" (keyup)="applyFilter($event)">
-                            <mat-icon matSuffix>search</mat-icon>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-6 btn">
-                        <button type="button" class="btn btn-color batch" (click)="viewCandidate()">
-                <mat-icon>add</mat-icon>Candidate
-              </button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="tableData">
-            <table mat-table [dataSource]="dataSource" matSort>
-
-                <ng-container matColumnDef="select">
-                    <th mat-header-cell *matHeaderCellDef>
-                        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-                        </mat-checkbox>
-                    </th>
-                    <td mat-cell *matCellDef="let row">
-                        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-                        </mat-checkbox>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="candidateName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element.candidateName |titlecase}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="phoneNumber">
-                    <th mat-header-cell *matHeaderCellDef> Contact </th>
-                    <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="emailId">
-                    <th mat-header-cell *matHeaderCellDef> Email </th>
-                    <td mat-cell *matCellDef="let element"> {{element.emailId}} </td>
-                </ng-container>
-                <ng-container matColumnDef="degree">
-                    <th mat-header-cell *matHeaderCellDef> Degree </th>
-                    <td mat-cell *matCellDef="let element"> {{element.degree}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="stream">
-                    <th mat-header-cell *matHeaderCellDef> Stream </th>
-                    <td mat-cell *matCellDef="let element"> {{element.stream}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="yop">
-                    <th mat-header-cell *matHeaderCellDef> YOP </th>
-                    <td mat-cell *matCellDef="let element"> {{element.yop}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="degreeAggregate">
-                    <th mat-header-cell *matHeaderCellDef> DegreeAggregate </th>
-                    <td mat-cell *matCellDef="let element"> {{element.degreeAggregate}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="branch">
-                    <th mat-header-cell *matHeaderCellDef> Branch </th>
-                    <td mat-cell *matCellDef="let element"> {{element.branch}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="deleteEmployee">
-                    <th mat-header-cell *matHeaderCellDef> Action </th>
-                    <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button aria-label="Example icon button with a home icon">
-              <mat-icon (click)="updateCandidate(element)" >edit</mat-icon>
-              <mat-icon class="px-3" data-toggle="modal" data-target="#exampleModalCenter">delete</mat-icon>
+      <div class="row">
+          <div class="col-md-6 candidate">
+              <h1>candidate List</h1>
+          </div>
+          <div class="col-md-6">
+              <div class="row">
+                  <div class="col-md-6">
+                      <mat-form-field class="Csearch" appearance="standard">
+                          <input matInput class="hover" type="search" placeholder="First Name" (keyup)="applyFilter($event)">
+                          <mat-icon matSuffix>search</mat-icon>
+                      </mat-form-field>
+                  </div>
+                  <div class="col-md-6 btn">
+                      <button type="button" class="btn btn-color batch" (click)="viewCandidate()">
+              <mat-icon>add</mat-icon>Candidate
             </button>
-                    </td>
-                </ng-container>
+                  </div>
+              </div>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </div>
+      </div>
 
-            </table>
-        </div>
-        <!-- <mat-paginator [pageSizeOptions]="[1,5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator> -->
+      <div class="tableData">
+          <table mat-table [dataSource]="dataSource" matSort>
 
-    </div>
+              <ng-container matColumnDef="select">
+                  <th mat-header-cell *matHeaderCellDef>
+                      <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                      </mat-checkbox>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                      </mat-checkbox>
+                  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="candidateName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element.candidateName |titlecase}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="phoneNumber">
+                  <th mat-header-cell *matHeaderCellDef> Contact </th>
+                  <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="emailId">
+                  <th mat-header-cell *matHeaderCellDef> Email </th>
+                  <td mat-cell *matCellDef="let element"> {{element.emailId}} </td>
+              </ng-container>
+              <ng-container matColumnDef="degree">
+                  <th mat-header-cell *matHeaderCellDef> Degree </th>
+                  <td mat-cell *matCellDef="let element"> {{element.degree}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="stream">
+                  <th mat-header-cell *matHeaderCellDef> Stream </th>
+                  <td mat-cell *matCellDef="let element"> {{element.stream}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="yop">
+                  <th mat-header-cell *matHeaderCellDef> YOP </th>
+                  <td mat-cell *matCellDef="let element"> {{element.yop}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="degreeAggregate">
+                  <th mat-header-cell *matHeaderCellDef> DegreeAggregate </th>
+                  <td mat-cell *matCellDef="let element"> {{element.degreeAggregate}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="branch">
+                  <th mat-header-cell *matHeaderCellDef> Branch </th>
+                  <td mat-cell *matCellDef="let element"> {{element.branch}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="deleteEmployee">
+                  <th mat-header-cell *matHeaderCellDef> Action </th>
+                  <td mat-cell *matCellDef="let element">
+                      <button mat-icon-button aria-label="Example icon button with a home icon">
+            <mat-icon (click)="updateCandidate(element)" >edit</mat-icon>
+            <mat-icon class="px-3" data-toggle="modal" data-target="#exampleModalCenter" (click)="deleteConfirm(element)">delete</mat-icon>
+          </button>
+                  </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+      </div>
+      <!-- <mat-paginator [pageSizeOptions]="[1,5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator> -->
+
+  </div>
 
 </div>
 
@@ -123,122 +128,121 @@
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-            </div>
-            <div class="modal-body">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+          </div>
+          <div class="modal-body">
 
-                <form action="" [formGroup]="Cform" (ngSubmit)="onSubmit(Cform)">
+              <form action="" [formGroup]="Cform" (ngSubmit)="onSubmit(Cform)">
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field appearance="standard">
-                                <input class="hover" matInput type="search" formControlName="profileId" placeholder=" profileId" required>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6">
-                            <mat-form-field appearance="standard">
-                                <input class="hover" matInput type="search" formControlName="degreeAggregate" placeholder="Degree Aggregate" required>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <mat-form-field appearance="standard">
+                              <input class="hover" matInput type="search" formControlName="profileId" placeholder=" profileId" required>
+                          </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                          <mat-form-field appearance="standard">
+                              <input class="hover" matInput type="search" formControlName="degreeAggregate" placeholder="Degree Aggregate" required>
+                          </mat-form-field>
+                      </div>
+                  </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field appearance="standard">
-                                <input class="hover" matInput type="search" formControlName="candidateName" placeholder="candidateName" required>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6">
-                            <mat-form-field appearance="standard">
-                                <input class="hover" matInput type="search" formControlName="phoneNumber" placeholder="phoneNumber" required>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <mat-form-field appearance="standard">
+                              <input class="hover" matInput type="search" formControlName="candidateName" placeholder="candidateName" required>
+                          </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                          <mat-form-field appearance="standard">
+                              <input class="hover" matInput type="search" formControlName="phoneNumber" placeholder="phoneNumber" required>
+                          </mat-form-field>
+                      </div>
+                  </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field appearance="standard">
-                                <input class="hover" matInput type="search" formControlName="emailId" placeholder="Email ID" required>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6">
-                            <mat-form-field appearance="standard">
-                                <input class="hover" matInput type="search" formControlName="degree" placeholder="Degree" required>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <mat-form-field appearance="standard">
+                              <input class="hover" matInput type="search" formControlName="emailId" placeholder="Email ID" required>
+                          </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                          <mat-form-field appearance="standard">
+                              <input class="hover" matInput type="search" formControlName="degree" placeholder="Degree" required>
+                          </mat-form-field>
+                      </div>
+                  </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field appearance="standard">
-                                <input class="hover" matInput type="search" formControlName="stream" placeholder="Stream" required>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6">
-                            <mat-form-field appearance="standard">
-                                <input class="hover" matInput type="search" formControlName="yop" placeholder="YOP" required>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <mat-form-field appearance="standard">
+                              <input class="hover" matInput type="search" formControlName="stream" placeholder="Stream" required>
+                          </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                          <mat-form-field appearance="standard">
+                              <input class="hover" matInput type="search" formControlName="yop" placeholder="YOP" required>
+                          </mat-form-field>
+                      </div>
+                  </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field appearance="standard">
-                                <mat-label>Branch</mat-label>
-                                <mat-select formControlName="branch" required>
-                                    <mat-option *ngFor="let branch of branches" [value]="branch.value">
-                                        {{branch.viewValue}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6">
-                        </div>
-                    </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <mat-form-field appearance="standard">
+                              <mat-label>Branch</mat-label>
+                              <mat-select formControlName="branch" required>
+                                  <mat-option *ngFor="let branch of branches" [value]="branch.value">
+                                      {{branch.viewValue}}
+                                  </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                      </div>
+                  </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-color batch">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="" (click)="onClickUpdate(Cform)" class="btn btn-color batch">Submit</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
 </div>
 
 
 <!--delete-trainer-modal-->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body ">
-                <img class="deletelogo" src="../../../assets/images/Yellow-Warning (1).png" alt="">
-                <h1 style="text-align: center;">Are you sure you want to Delete this Trainer</h1>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn confirmbtn" data-toggle="modal" data-target="#confirm" (click)="deleteCandidate()">Confirm</button>
-                <button type="button" class="btn deletebtn" data-dismiss="modal" #closeBtn>Close</button>
-            </div>
-        </div>
-    </div>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-body ">
+              <img class="deletelogo" src="../../../assets/images/Yellow-Warning (1).png" alt="">
+              <h1 style="text-align: center;">Are you sure you want to Delete this Candidate</h1>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn confirmbtn" data-toggle="modal" data-target="#confirm" (click)="deleteCandidate(this.deleteElement)">Confirm</button>
+              <button type="button" class="btn deletebtn" data-dismiss="modal" #closeBtn>Close</button>
+          </div>
+      </div>
+  </div>
 </div>
 
 <!--- delete-sucess-popup-modal -->
 
 <div class="modal fade" id="confirm" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <img class="deletelogo" src="../../../assets/images/—Pngtree—check mark icon design template_4085369 (1).png" alt="">
-                <h1 style="text-align: center;">Calendar Successfully Deleted</h1>
-                <button type="button" class="btn okbtn" data-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-body">
+              <img class="deletelogo" src="../../../assets/images/—Pngtree—check mark icon design template_4085369 (1).png" alt="">
+              <h1 style="text-align: center;">Candidate Successfully Deleted</h1>
+          </div>
+      </div>
+  </div>
 </div>
