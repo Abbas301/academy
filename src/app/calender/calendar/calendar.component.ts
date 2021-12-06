@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, forwardRef, ElementRef } from '@angular/core';
 declare let $: any;
-import { CalendarOptions,Calendar } from '@fullcalendar/core';
+import { CalendarOptions, Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -26,7 +26,7 @@ export class CalendarComponent implements OnInit {
   searchText: any;
 
   Earray: any = [];
-  calendarList:any
+  calendarList: any
 
   Cform!: FormGroup;
 
@@ -35,18 +35,19 @@ export class CalendarComponent implements OnInit {
   @ViewChild('closeBtn') closeBtn!: ElementRef;
   calendarData: any;
 
-  constructor( private http: HttpClient,
-               private calendarService:CalendarService
-               ) { }
+  constructor(private http: HttpClient,
+    private calendarService: CalendarService
+  ) { }
 
 
   ngOnInit() {
 
     this.Cform = new FormGroup({
-      batch: new FormControl('',[Validators.required]),
-      technology: new FormControl('',[Validators.required]),
-      startDate: new FormControl('',[Validators.required]),
-      include: new FormControl('',[Validators.required]),
+      id: new FormControl('', [Validators.required]),
+      batchName: new FormControl('', [Validators.required]),
+      technology: new FormControl('', [Validators.required]),
+      startDate: new FormControl('', [Validators.required]),
+      include: new FormControl('', [Validators.required]),
     })
 
     forwardRef(() => Calendar);
@@ -64,7 +65,7 @@ export class CalendarComponent implements OnInit {
       this.handleCalender()
     }, 1000);
 
-  this.getCalendarData();
+    this.getCalendarData();
 
   }
 
@@ -75,6 +76,7 @@ export class CalendarComponent implements OnInit {
 
     })
   }
+
   addEvent(addEventForm: NgForm) {
     return this.http.post('http://localhost:3000/events', addEventForm.value).subscribe(data => {
       this.Earray = data;
@@ -95,7 +97,7 @@ export class CalendarComponent implements OnInit {
       height: 700,
       contentHeight: 600,
       events: this.Earray,
-      initialView:'dayGridMonth',
+      initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'prevYear,nextYear',
         center: 'title',
@@ -107,18 +109,18 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  handleDateClick(arg:any) {
+  handleDateClick(arg: any) {
     this.modalOpenButton.nativeElement.click();
     $(".title").text("Add Event at:" + arg.dateStr);
     $(".eventsstarttitle").text(arg.dateStr);
 
   }
 
-  handleEventClick(arg:any) {
+  handleEventClick(arg: any) {
     console.log(arg);
   }
 
-  handleEventDragStop(arg:any) {
+  handleEventDragStop(arg: any) {
     console.log(arg);
   }
 
@@ -144,25 +146,30 @@ export class CalendarComponent implements OnInit {
     { value: 'Sunday', viewValue: 'Sunday' },
     { value: 'Holidays', viewValue: 'Holidays' },
   ];
-  onSubmitForm(Cform:any) {
-    console.log(this.Cform.value);
-  }
 
-  elementData(calendar:any) {
+  elementData(calendar: any) {
     this.calendarData = calendar;
   }
-  deleteCalendarData(calendarlist:CalendarList) {
+  deleteCalendarData(calendarlist: CalendarList) {
     this.closeBtn.nativeElement.click();
 
     console.log(calendarlist.id);
 
 
-    this.calendarService.deleteCalendar(calendarlist.id).subscribe((data: any)=>{
+    this.calendarService.deleteCalendar(calendarlist.id).subscribe((data: any) => {
       console.log("Calendar list deleted successfully");
 
     })
 
   }
+
+  onSubmitForm(Cform: any) {
+    console.log(this.Cform.value);
+    return this.calendarService.postCalendar(Cform.value).subscribe(res => {
+      console.log("Calendar Data Posted Successfully");
+    });
+  }
+
 }
 
 

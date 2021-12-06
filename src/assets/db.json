@@ -350,22 +350,6 @@
       "id": "396"
     },
     {
-      "id": "90",
-      "batchName": "batch 12",
-      "candidateName": "ahmad",
-      "phoneNumber": "8546921456",
-      "emailId": "ahmad@123gmail.com",
-      "degree": "B.tech",
-      "stream": "mechanical",
-      "yop": "2020",
-      "tenthPercentage": "92",
-      "twelfthPercentage": "79",
-      "degreeAggregate": "73",
-      "masterAggregate": "NA",
-      "branch": "BasavanaGudi",
-      "profileId": "TYC042667"
-    },
-    {
       "id": "754",
       "batchName": "batch 45",
       "candidateName": "sharath",
@@ -396,6 +380,22 @@
       "degreeAggregate": "73",
       "branch": "BTM",
       "profileId": "TYC042666"
+    },
+    {
+      "id": "125",
+      "batchName": "",
+      "candidateName": "sanjay Gowda",
+      "phoneNumber": "9390522542",
+      "emailId": "sanjay@123gmail.com",
+      "degree": "B.tech",
+      "tenthPercentage": "92",
+      "twelfthPercentage": "79",
+      "stream": "computer science",
+      "yop": "2020",
+      "masterAggregate": "NA",
+      "degreeAggregate": "73",
+      "branch": "BTM",
+      "profileId": "TYC042668"
     }
   ],
   "batches": [
@@ -530,11 +530,11 @@
     {
       "id": "1",
       "slno": "01",
-      "batchName": "CG_JSF sep20",
-      "technology": "Java",
-      "startDate": "28/04/2021",
-      "endDate": "28/06/2021",
-      "status": "in progress"
+      "batchName": "CG_JSF JAN18",
+      "technology": "core Java",
+      "startDate": "28/08/2021",
+      "endDate": "28/10/2021",
+      "status": "finished"
     },
     {
       "id": "2",
@@ -562,6 +562,15 @@
       "startDate": "28/04/2021",
       "endDate": "28/06/2021",
       "status": "yet to start"
+    },
+    {
+      "id": "45",
+      "batchName": "JA05HJH",
+      "technology": "Angular",
+      "startDate": "2021-12-29T18:30:00.000Z",
+      "include": [
+        "Sunday"
+      ]
     }
   ]
 }

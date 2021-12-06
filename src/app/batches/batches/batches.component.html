@@ -56,7 +56,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let data of batches; index as i">
+                    <tr *ngFor="let data of batches| batchfilter:searchValue;index as i">
                         <td><mat-checkbox #bodyCheckbox class="example-margin" ></mat-checkbox></td>
                         <td>{{data.batchName}}</td>
                         <td>{{data.startDate}}</td>
@@ -97,6 +97,7 @@
                         <td>{{data.startDate}}</td>
                         <td>{{data.endDate}}</td>
                         <td>{{data.mentors}}</td>
+                        <td>{{data.trainers}}</td>
                         <td>{{data.batchCompletion}}%</td>
                         <td>{{data.mockRating}}%</td>
                         <td>

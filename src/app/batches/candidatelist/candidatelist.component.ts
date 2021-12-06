@@ -35,7 +35,6 @@ export class CandidatelistComponent implements OnInit {
   Cform !: FormGroup;
   index: any;
   id: any;
-  // color: " linear-gradient(117deg, #5A7B8E 0%, #BA7FC2 100%)" = " linear-gradient(117deg, #5A7B8E 0%, #BA7FC2 100%)";
 
   @ViewChild('modalOpenButton') modalOpenButton!: ElementRef;
   @ViewChild('closeBtn') closeBtn!: ElementRef;

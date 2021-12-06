@@ -37,7 +37,6 @@ export class CandidateComponent implements OnInit {
       const formData = {
 
         id: userData.controls.id.value,
-        // candidateId: userData.controls.candidateId.value,
         batchName: userData.controls.batchName.value,
         candidateName: userData.controls.candidateName.value,
         phoneNumber : userData.controls.phoneNumber.value,
@@ -62,7 +61,7 @@ export class CandidateComponent implements OnInit {
 }
 
   deleteCandidateDetails(id:any) {
-    return this.batchService.deleteCandidate(id).subscribe((res: any) =>{
+    return this.batchService.deleteCandidateData(id).subscribe((res: any) =>{
       console.log("candidate details deleted Successfully");
     })
   }

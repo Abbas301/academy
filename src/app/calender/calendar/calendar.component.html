@@ -26,17 +26,24 @@
                           <div class="modal-header">
                               <h2 class="modal-title" id="exampleModalLabel">New Calendar Generation</h2>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                                <span aria-hidden="true">&times;</span>
+                              </button>
                           </div>
                           <div class="modal-body">
                               <div class="row">
                                   <div class="col-8 offset-2">
                                       <form [formGroup]="Cform" (ngSubmit)="onSubmitForm(Cform)">
+                                        <div class="form-group">
+                                          <mat-form-field appearance="standard">
+                                              <mat-label>Id</mat-label>
+                                              <input type="text" matInput formControlName="id">
+                                              <mat-error>This field is required</mat-error>
+                                          </mat-form-field>
+                                      </div>
                                           <div class="form-group">
                                               <mat-form-field appearance="standard">
                                                   <mat-label>Batch Name</mat-label>
-                                                  <mat-select formControlName="batch">
+                                                  <mat-select formControlName="batchName">
                                                       <mat-option *ngFor="let batch of batches" [value]="batch.value">
                                                           {{batch.viewValue}}
                                                       </mat-option>
