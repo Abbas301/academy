@@ -1,13 +1,12 @@
 mat-toolbar {
     background: #f7f7f7;
 }
-
 .user-image {
     border-radius: 50%;
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
+    margin-top: 15px;
 }
-
 .mat-toolbar-row.justify-content-between {
     height: 95px;
     border-bottom: 2px solid #70707099;
@@ -15,12 +14,10 @@ mat-toolbar {
     margin-left: 1%;
     margin-right: 1%;
 }
-
 .aliq {
     display: flex;
     justify-content: space-evenly;
 }
-
 .name {
     padding-top: 15px;
 }

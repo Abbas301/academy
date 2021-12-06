@@ -26,25 +26,24 @@ body {
     height: 100vh;
     background-color: #000;
 }
+mat-radio-button {
+  font-size: 12px!important;
 
+}
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
     border-color: #086288;
 }
-
 .mat-radio-button.mat-accent .mat-radio-inner-circle {
     background-color: #086288;
 }
-
 .modal-open .modal {
     overflow-x: hidden;
     overflow-y: auto;
     background: rgba(0, 0, 0, 0.7)
 }
-
 .modal-backdrop {
     z-index: 0 !important;
 }
-
 .modal {
     position: fixed;
 }
@@ -67,3 +66,6 @@ body {
 .mat-drawer {
     z-index: 0 !important
 }
+
+
+

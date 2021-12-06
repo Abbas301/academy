@@ -10,19 +10,19 @@ export class CalendarService {
   constructor(private http:HttpClient) { }
 
   getCalendar() {
-    return this.http.get(`${environment.calendarUrl}`)
+    return this.http.get('http://localhost:3000/calendarList')
   }
 
   postCalendar(add:any) {
-    return this.http.post(`${environment.calendarUrl}`,add)
+    return this.http.post('http://localhost:3000/calendarList',add)
   }
 
   updateCalendar(id:any,add:any) {
-    return this.http.put(`${environment.calendarUrl}/${id}`,add)
+    return this.http.put(`http://localhost:3000/calendarList/${id}`,add)
   }
 
   deleteCalendar(id:any) {
-    return this.http.delete(`${environment.calendarUrl}/${id}`)
+    return this.http.delete(`http://localhost:3000/calendarList/${id}`)
   }
 
 

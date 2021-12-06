@@ -5,8 +5,6 @@
 export const environment = {
   production: false,
   baseUrl:'http://10.10.20.92:8083',
-  Url:'http://localhost:3000/candidate',
-  calendarUrl:'http://localhost:3000/calendarList'
 };
 
 

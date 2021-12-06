@@ -16,65 +16,39 @@ export class BatchService {
     return this.http.get('http://localhost:3000/batches')
   }
 
-  postBatchData(add:any) {
-    return this.http.post('http://localhost:3000/batches',add)
-  }
+  // postBatchData(add:any) {
+  //   return this.http.post('http://localhost:3000/batches',add)
+  // }
 
-  deleteBatchData(index:any) {
-    return this.http.delete('http://localhost:3000/batches')
-  }
+  // deleteBatchData(id:any,add:any) {
+  //   return this.http.delete(`http://localhost:3000/batches/${id}`,add)
+  // }
 
   getCbatchData() {
     return this.http.get('http://localhost:3000/clientBatches')
   }
 
-  postCBatchData(add:any) {
-    return this.http.post('http://localhost:3000/clientBatches',add)
-  }
+  // postCBatchData(add:any) {
+  //   return this.http.post('http://localhost:3000/clientBatches',add)
+  // }
 
-  getBatch() {
-    return this.http.get(`${environment.baseUrl}/academy-inventory/batch-details`)
-  }
-
-  postBatch(add:any) {
-    return this.http.post(`${environment.baseUrl}/academy-inventory/batch-details`,add)
-  }
-
-  putBatch(add:any) {
-    return this.http.put(`${environment.baseUrl}/academy-inventory/batch-details`,add)
-  }
-
-  deleteBatch(add:any) {
-    return this.http.delete(`${environment.baseUrl}/academy-inventory/batch-details`,add)
-  }
-
-  // candidate Api
-  postCandidate(add:any) {
-    return this.http.post(`${environment.baseUrl}/academy/batch/candidate`,add)
-  }
+  // Candidate Apis
 
   getCandidate() {
-    return this.http.get('http://localhost:3000/candidate')
+    return this.http.get('http://localhost:3000/candidate');
   }
   postedCandidate(add:any) {
-    return this.http.post('http://localhost:3000/candidate',add)
+    return this.http.post('http://localhost:3000/candidate',add);
   }
 
   updatedCandidate(id:any,add:any) {
-    return this.http.put<{candidatelist:CandidatesList}>(`${environment.Url}/${id}`,add)
+    return this.http.put<{candidatelist:CandidatesList}>(`http://localhost:3000/candidate/${id}`,add);
   }
 
   deleteCandidateData(id:any) {
-    return this.http.delete<{candidatelist:CandidatesList}>(`${environment.Url}/${id}`)
+    return this.http.delete<{candidatelist:CandidatesList}>(`http://localhost:3000/candidate/${id}`);
   }
 
-  putCandidate(profileId:any ,add:any) {
-    return this.http.put(`${environment.baseUrl}/academy/batch/candidate/${profileId}`,add)
-  }
-
-  deleteCandidate(id:any) {
-    return this.http.delete(`${environment.baseUrl}/academy/batch/candidate/${id}`)
-  }
 
 }
 

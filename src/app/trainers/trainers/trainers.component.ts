@@ -17,27 +17,262 @@ export class TrainersComponent implements OnInit {
 
   searchValue: any
 
-  trainerDetails: any;
+  // trainerDetails: any;
   technologies = ['All', 'Frontend', 'Backend', 'Database'];
   form !: FormGroup;
   frontendDetails: any;
   backendDetails: any;
   databaseDetails: any;
 
+  trainerDetails = [
+    {
+      "employeeId": "TYP0001",
+      "trainerName": "Shrath",
+      "frontend": [
+        {
+          "name": "Html",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Css",
+          "Proficiency": "0"
+        },
+        {
+          "name": "Javascript",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Angular",
+          "Proficiency": "NA"
+        }
+      ],
+      "backend": [
+        {
+          "name": "Java",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "J2EE",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Spring MVC",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Hibernate",
+          "Proficiency": "Proficient"
+        }
+      ],
+      "database": [
+        {
+          "name": "MongoDb",
+          "Proficiency": "Intermediate"
+        },
+        {
+          "name": "SQL",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "MongoDb",
+          "Proficiency": "Intermediate"
+        },
+        {
+          "name": "SQL",
+          "Proficiency": "NA"
+        }
+      ]
+    },
+    {
+      "employeeId": "TYP0002",
+      "trainerName": "Harsha",
+      "frontend": [
+        {
+          "name": "Html",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Css",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Javascript",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Angular",
+          "Proficiency": "Basic"
+        }
+      ],
+      "backend": [
+        {
+          "name": "Java",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "J2EE",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Spring MVC",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Hibernate",
+          "Proficiency": "Proficient"
+        }
+      ],
+      "database": [
+        {
+          "name": "MongoDb",
+          "Proficiency": "Intermediate"
+        },
+        {
+          "name": "SQL",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "MongoDb",
+          "Proficiency": "Intermediate"
+        },
+        {
+          "name": "SQL",
+          "Proficiency": "NA"
+        }
+      ]
+    },
+    {
+      "employeeId": "TYP0003",
+      "trainerName": "Abbas",
+      "frontend": [
+        {
+          "name": "Html",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Css",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Javascript",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Angular",
+          "Proficiency": "Intermediate"
+        }
+      ],
+      "backend": [
+        {
+          "name": "Java",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "J2EE",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Spring MVC",
+          "Proficiency": "Basic"
+        },
+        {
+          "name": "Hibernate",
+          "Proficiency": "Intermediate"
+        }
+      ],
+      "database": [
+        {
+          "name": "MongoDb",
+          "Proficiency": "Intermediate"
+        },
+        {
+          "name": "SQL",
+          "Proficiency": "NA"
+        },
+        {
+          "name": "MongoDb",
+          "Proficiency": "Intermediate"
+        },
+        {
+          "name": "SQL",
+          "Proficiency": "NA"
+        }
+      ]
+    },
+    {
+      "employeeId": "TYP0004",
+      "trainerName": "Priyanka",
+      "frontend": [
+        {
+          "name": "Html",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Css",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Javascript",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Angular",
+          "Proficiency": "Intermediate"
+        }
+      ],
+      "backend": [
+        {
+          "name": "Java",
+          "Proficiency": "Intermediate"
+        },
+        {
+          "name": "J2EE",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Spring MVC",
+          "Proficiency": "Proficient"
+        },
+        {
+          "name": "Hibernate",
+          "Proficiency": "Proficient"
+        }
+      ],
+      "database": [
+        {
+          "name": "MongoDb",
+          "Proficiency": "Intermediate"
+        },
+        {
+          "name": "SQL",
+          "Proficiency": "NA"
+        },
+        {
+          "name": "MongoDb",
+          "Proficiency": "Intermediate"
+        },
+        {
+          "name": "SQL",
+          "Proficiency": "NA"
+        }
+      ]
+    }
+  ]
+
 
   constructor( private http: HttpClient,
                private fb: FormBuilder,
                private router:Router,
                ) {
-    this.http.get('http://localhost:3000/details').subscribe(data => {
-      this.trainerDetails = data;
-      console.log(data)
-      for (const technologyType of this.trainerDetails) {
-        this.frontendDetails = technologyType.frontend;
-        this.backendDetails = technologyType.backend;
-        this.databaseDetails = technologyType.database;
-      }
-    });
+    // this.http.get('http://localhost:3000/details').subscribe(data => {
+    //   this.trainerDetails = data;
+    //   console.log(data)
+    //   for (const technologyType of this.trainerDetails) {
+    //     this.frontendDetails = technologyType.frontend;
+    //     this.backendDetails = technologyType.backend;
+    //     this.databaseDetails = technologyType.database;
+    //   }
+    // });
   }
 
   Technology_types = [
