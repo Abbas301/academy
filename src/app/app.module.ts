@@ -23,7 +23,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     AppComponent,
     HeaderComponent,
     SidenavComponent,
-   
+
   ],
   imports: [
     BrowserModule,
@@ -41,7 +41,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
       radius: 100,
       outerStrokeWidth: 25,
       outerStrokeColor: "#78C000",
-      animationDuration: 300,
+      // animationDuration: 300,
     })
   ],
   providers: [],

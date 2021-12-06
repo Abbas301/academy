@@ -1,181 +1,176 @@
 .page {
-    color: rgb(6, 7, 10);
-    padding: 0 2rem;
+  color: rgb(6, 7, 10);
+  padding: 0 2rem;
 }
-
 .page__box {
-    min-height: 105px;
-    margin: 0rem -1rem;
+  min-height: 105px;
+  margin: 0rem -1rem;
 }
-
 .page__content {
-    min-height: calc(60vh - 178px);
-    border: 1px solid grey;
-    border-radius: 10px;
-    margin-top: -2rem;
-    background: white;
-    color: black;
+  min-height: calc(60vh - 178px);
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin-top: -2rem;
+  background: white;
+  color: black;
 }
-
 .table {
-    font-size: 17px;
-    font-weight: 500;
+  font-size: 14px;
+  font-weight: 500;
 }
-
 mat-icon {
-    vertical-align: middle;
-    cursor: pointer;
+  vertical-align: middle;
+  cursor: pointer;
+  font-size: 19px;
 }
-
 .icon {
-    margin-right: 20px;
+  margin-right: 20px;
 }
-
 .btn-color {
-    background-color: #086288;
-    color: #fff;
-    font: size 12px;
+  background-color: #086288;
+  color: #fff;
+  font: size 12px;
 }
-
 .modal-dialog {
-    max-width: 600px;
+  max-width: 500px;
 }
-
 .modal-body mat-form-field {
-    width: 350px;
+  width: 350px;
 }
-
- ::ng-deep .mat-form-field-appearance-standard .mat-form-field-flex {
-    padding-top: 0em !important;
+::ng-deep .mat-form-field-appearance-standard .mat-form-field-flex {
+  padding-top: 0em !important;
 }
-
 .modal2 {
-    max-width: 1250px;
+  max-width: 1250px;
 }
-
 .download {
-    border: 1px solid grey;
-    border-radius: 5%;
+  border: 1px solid grey;
+  border-radius: 5%;
 }
-
-
 /* full calendar css */
 
 .calendar {
-    margin: 3%;
-    border: 1px solid grey;
-    border-radius: 5px;
+  margin: 3%;
+  border: 1px solid grey;
+  border-radius: 5px;
 }
-
- ::ng-deep .fc-col-header-cell.fc-day {
-    background-color: #086288 !important;
-    height: 40px;
+::ng-deep .fc-col-header-cell.fc-day {
+  background-color: #086288 !important;
+  height: 40px;
 }
-
- ::ng-deep .fc-col-header-cell-cushion {
-    padding-top: 10px !important;
+::ng-deep .fc-col-header-cell-cushion {
+  padding-top: 10px !important;
 }
-
- ::ng-deep .fc .fc-col-header-cell-cushion {
-    display: inline-block;
-    padding: 2px 4px;
-    color: white;
+::ng-deep .fc .fc-col-header-cell-cushion {
+  display: inline-block;
+  padding: 2px 4px;
+  color: white;
 }
-
- ::ng-deep .fc-daygrid-day-number {
-    color: black !important;
-    text-decoration: none !important;
+::ng-deep .fc-daygrid-day-number {
+  color: black !important;
+  text-decoration: none !important;
 }
-
-
 /* delete buttons */
 
 .confirmbtn {
-    color: #086288;
-    box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.3);
-    margin-right: 30px;
+  color: #086288;
+  box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.3);
+  margin-right: 30px;
 }
-
 .deletebtn {
-    background-color: #086288;
-    color: white;
-    margin-right: 150px;
+  background-color: #086288;
+  color: white;
+  margin-right: 150px;
 }
-
 .okbtn {
-    margin-left: 265px;
-    background-color: #086288;
-    color: white;
-    margin-bottom: 30px;
+  margin-left: 210px;
+  background-color: #086288;
+  color: white;
+  margin-bottom: 30px;
 }
-
 .deletelogo {
-    height: 150px;
-    width: 150px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  height: 150px;
+  width: 150px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
-
 
 /* media queries */
 
 @media screen and (max-width: 1024px) {
-    body {
-        font-size: 25px;
-    }
-    .page__box {
-        min-height: 105px;
-        margin: 0rem -3rem !important;
-    }
-    .calen {
-        font-size: 13px;
-        padding-left: 30px;
-    }
+  body {
+    font-size: 25px;
+  }
+  .page__box {
+    min-height: 105px;
+    margin: 0rem -3rem !important;
+  }
+  .table {
+    font-size: 15px;
+  }
+  .page {
+    padding: 0 0.5rem;
+  }
+  .btn {
+    font-size: 12px;
+  }
+  div .col-md-5.Gcalendar {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  .mat-form-field {
+    width: 130px;
+  }
+  .page__content {
+    min-height: calc(60vh - 128px);
+    background: white;
+    color: black;
+    font-size: 11px;
+  }
+  mat-icon {
+    font-size: 15px;
+    display: inline;
+    justify-content: space-around;
+  }
+  .modal-dialog {
+    max-width: 500px;
+  }
+  .modal2 {
+    max-width: 800px;
+  }
+  .modal-body mat-form-field {
+    width: 250px;
+  }
+  @media screen and (max-width: 768px) {
     .table {
-        font-size: 15px;
-    }
-    .page {
-        padding: 0 0.5rem;
-    }
-    .btn {
-        font-size: 12px;
-    }
-    .mat-form-field {
-        width: 130px;
-    }
-    .page__content {
-        min-height: calc(60vh - 128px);
-        background: white;
-        color: black;
-        font-size: 11px;
-    }
-    mat-icon {
-        font-size: 15px;
-        display: inline;
-        justify-content: space-around;
+      font-size: 11px;
     }
     .modal-dialog {
-        max-width: 500px;
+      max-width: 500px;
+    }
+    div .col-md-5.Gcalendar {
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+    }
+    .btn-color {
+      width: 72px !important;
+    }
+    .batchSearch {
+      padding-left: 0px !important;
+      margin-left: 0px !important;
+    }
+    div .col-md-5.Gcalendar button {
+      font-size: 11px !important;
     }
     .modal2 {
-        max-width: 800px;
+      max-width: 600px;
     }
-    .modal-body mat-form-field {
-        width: 250px;
+    .mat-form-field {
+      width: 115px;
     }
-    @media screen and (max-width: 768px) {
-        .table {
-            font-size: 11px;
-        }
-        .modal-dialog {
-            max-width: 500px;
-        }
-        .modal2 {
-            max-width: 600px;
-        }
-        .mat-form-field {
-            width: 115px;
-        }
+    full-calendar {
+      font-size: 13px;
     }
+  }
 }

@@ -33,7 +33,7 @@
                   <th rowspan="2" style="vertical-align: middle;z-index: 1;" class="fixed">Trainer Name</th>
                   <th colspan="6" style="vertical-align: middle;" *ngIf="technologyFilter.value.includes('Frontend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">Frontend</th>
                   <th colspan="4" style="vertical-align: middle;" *ngIf="technologyFilter.value.includes('Backend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">Backend</th>
-                  <th colspan="3" style="vertical-align: middle;" *ngIf="technologyFilter.value.includes('Database') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">Database</th>
+                  <th colspan="2" style="vertical-align: middle;" *ngIf="technologyFilter.value.includes('Database') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">Database</th>
                   <th rowspan="2" style="vertical-align: middle;">Action</th>
               </tr>
               <tr>
@@ -53,7 +53,6 @@
                   </ng-container>
                   <ng-container *ngIf="technologyFilter.value.includes('Database') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
                       <th style="vertical-align: middle;">SQL </th>
-                      <th style="vertical-align: middle;">Oracle</th>
                       <th style="vertical-align: middle;">MongoDB</th>
                   </ng-container>
               </tr>

@@ -1,19 +1,19 @@
 <div class="container-fluid page">
     <div class="d-flex row page__box p-2 mt-2">
 
-        <div class="col-md-7">
-            <h1>Batch List</h1>
+        <div class="col-md-7 mt-2">
+            <h4 style="padding-left: 40px;"><b>Batch Lists</b></h4>
         </div>
 
         <div class="col-md-5">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <mat-form-field appearance="standard">
                         <input matInput class="hover" type="search" placeholder="search">
                         <mat-icon matSuffix>search</mat-icon>
                     </mat-form-field>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <button type="button" class="btn btn-color batch" data-toggle="modal" data-target="#exampleModal">
               <mat-icon>add</mat-icon>New Batch
             </button>
@@ -27,13 +27,13 @@
         <div class="page__content-data">
 
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-7 mt-3">
                     <mat-radio-group aria-label="Select an option ">
                         <mat-radio-button value="yes" (click)="onClick()">Internal Batches</mat-radio-button>
-                        <mat-radio-button value="no" (click)="onClick1()">Client Batches</mat-radio-button>
+                        <mat-radio-button value="no" (click)="onClick1()">Client Batched</mat-radio-button>
                     </mat-radio-group>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2" class="batchSearch">
                     <mat-form-field appearance="standard">
                         <input class="hover" matInput type="search" placeholder="Batch Name" [(ngModel)]="searchValue">
                         <mat-icon matSuffix>search</mat-icon>
@@ -117,7 +117,7 @@
     <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" style="font-weight: 600;" id="exampleModalLabel">Add Batch</h2>
+                <h4 class="modal-title" style="font-weight: 600;" id="exampleModalLabel">Add Batch</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

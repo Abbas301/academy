@@ -28,13 +28,142 @@ export class BatchesComponent implements OnInit {
   candidates!: FormArray;
 
 
-  batches :any;
+  // batches :any;
   batchesData : any;
-  clientBatches:any;
+  // clientBatches:any;
   tableData: any;
+  index:any;
 @ViewChild('headerCheckbox') headerCheckbox!:MatCheckbox
 @ViewChildren('bodyCheckbox') bodyCheckbox!:QueryList<MatCheckbox>
 
+batches = [
+  {
+    "batchName": "BA58JAH",
+    "startDate": "2021 June 28",
+    "endDate": "2021 August 28",
+    "mentors": [
+      "ABC",
+      "XYZ"
+    ],
+    "trainers": [
+      "ABC",
+      "XYZ"
+    ],
+    "batchCompletion": "80",
+    "mockRating": "74"
+  },
+  {
+    "batchName": "BA35JAH",
+    "startDate": "2021 March 23",
+    "endDate": "2021 May 23",
+    "mentors": [
+      "ABC",
+      "XYZ"
+    ],
+    "trainers": [
+      "ABC",
+      "XYZ"
+    ],
+    "batchCompletion": "70",
+    "mockRating": "60"
+  },
+  {
+    "batchName": "BA02JAH",
+    "startDate": "2021 May 20",
+    "endDate": "2021 July 23",
+    "mentors": [
+      "ABC",
+      "XYZ"
+    ],
+    "trainers": [
+      "ABC",
+      "XYZ"
+    ],
+    "batchCompletion": "50",
+    "mockRating": "68"
+  },
+  {
+    "batchName": "BA26JAH",
+    "startDate": "2021 January 09",
+    "endDate": "2021 March 09",
+    "mentors": [
+      "ABC",
+      "XYZ"
+    ],
+    "trainers": [
+      "ABC",
+      "XYZ"
+    ],
+    "batchCompletion": "80",
+    "mockRating": "90"
+  }
+]
+clientBatches = [
+  {
+    "batchName": "BA58JAH",
+    "client": "capgemini",
+    "startDate": "2021 Sep 28",
+    "endDate": "2021 Nov 28",
+    "mentors": [
+      "ABC",
+      "XYZ"
+    ],
+    "trainers": [
+      "ABC",
+      "XYZ"
+    ],
+    "batchCompletion": "75",
+    "mockRating": "80"
+  },
+  {
+    "batchName": "BA35JAH",
+    "client": "infosis",
+    "startDate": "2021 March 23",
+    "endDate": "2021 May 23",
+    "mentors": [
+      "ABC",
+      "XYZ"
+    ],
+    "trainers": [
+      "ABC",
+      "XYZ"
+    ],
+    "batchCompletion": "70",
+    "mockRating": "55"
+  },
+  {
+    "batchName": "BA02JAH",
+    "client": "accenture",
+    "startDate": "2021 Feb 20",
+    "endDate": "2021 April 20",
+    "mentors": [
+      "ABC",
+      "XYZ"
+    ],
+    "trainers": [
+      "ABC",
+      "XYZ"
+    ],
+    "batchCompletion": "50",
+    "mockRating": "64"
+  },
+  {
+    "batchName": "BA26JAH",
+    "client": "google",
+    "startDate": "2021 August 28",
+    "endDate": "2021 October 28",
+    "mentors": [
+      "ABC",
+      "XYZ"
+    ],
+    "trainers": [
+      "ABC",
+      "XYZ"
+    ],
+    "batchCompletion": "70",
+    "mockRating": "55"
+  }
+]
 
   constructor( private router:Router ,
                private formBuilder: FormBuilder ,
@@ -54,8 +183,8 @@ export class BatchesComponent implements OnInit {
       candidates: new FormArray([this.createCandidate()]),
     });
 
-    this.getBatch();
-    this.getCbatch();
+    // this.getBatch();
+    // this.getCbatch();
   }
 
   selectAll(){
@@ -151,12 +280,10 @@ export class BatchesComponent implements OnInit {
     {value: 'bBasavangudi', viewValue: 'bBasavangudi'},
   ];
   getBatch() {
-     return this.batchService.getBatchData().subscribe((res: any) =>{
-        this.batches = res;
-        console.log(this.batches);
-        // this.tableData = this.batches.data;
-        // console.log(this.tableData);
-     })
+    //  return this.batchService.getBatchData().subscribe((res: any) =>{
+    //     this.batches = res;
+    //     console.log(this.batches);
+    //  })
   }
   get contact(){
     return (this.batchForm.get('mentors')as FormArray ).controls[0].get('contact') as FormControl
@@ -182,10 +309,10 @@ export class BatchesComponent implements OnInit {
   }
 
   getCbatch() {
-     return this.batchService.getCbatchData().subscribe((data: any) => {
-      this.clientBatches = data;
-      console.log(data);
-    })
+    //  return this.batchService.getCbatchData().subscribe((data: any) => {
+    //   this.clientBatches = data;
+    //   console.log(data);
+    // })
   }
 
 
@@ -217,7 +344,7 @@ export class BatchesComponent implements OnInit {
     this.trainerExcel = true
   }
 sample:any
-  viewCandidateList(index: string | number){
+  viewCandidateList(index: number){
      this.sample = this.batches[index];
 
     this.router.navigate(['/candidatelist/'],

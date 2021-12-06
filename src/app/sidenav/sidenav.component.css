@@ -3,32 +3,26 @@
     padding-right: 1rem;
     margin-right: 1rem;
 }
-
 .logo {
     text-align: center;
 }
-
 .logo img {
     width: 180px;
 }
-
 .mat-list-item {
     color: black !important;
     font-size: 1rem;
     height: 45px !important;
     margin-bottom: 4px;
 }
-
  ::ng-deep .mat-list-item-content {
     border-radius: 5px;
     margin: 0 8px;
 }
-
  ::ng-deep .mat-list-item-content:hover {
     background: #D6EFFA !important;
     color: black;
 }
-
 .list-item-active {
     color: black !important;
     background: #D6EFFA !important;
