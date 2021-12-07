@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="34" height="35" viewBox="0 0 34 35">
+  <g id="Group_2" data-name="Group 2" transform="translate(-0.182 0.409)">
+    <rect id="Rectangle_3" data-name="Rectangle 3" width="34" height="35" transform="translate(0.182 -0.409)" fill="none"/>
+    <g id="Icon_feather-calendar" data-name="Icon feather-calendar" transform="translate(5.705 5.705)">
+      <path id="Path_1" data-name="Path 1" d="M7.065,5H22.04a3.569,3.569,0,0,1,3.565,3.565V23.54a3.569,3.569,0,0,1-3.565,3.565H7.065A3.569,3.569,0,0,1,3.5,23.54V8.565A3.569,3.569,0,0,1,7.065,5ZM22.04,24.253a.714.714,0,0,0,.713-.713V8.565a.714.714,0,0,0-.713-.713H7.065a.714.714,0,0,0-.713.713V23.54a.714.714,0,0,0,.713.713Z" transform="translate(-3.5 -2.861)"/>
+      <path id="Path_2" data-name="Path 2" d="M24.426,9.131A1.426,1.426,0,0,1,23,7.7V3.426a1.426,1.426,0,1,1,2.852,0V7.7A1.426,1.426,0,0,1,24.426,9.131Z" transform="translate(-9.095 -2)"/>
+      <path id="Path_3" data-name="Path 3" d="M12.426,9.131A1.426,1.426,0,0,1,11,7.7V3.426a1.426,1.426,0,1,1,2.852,0V7.7A1.426,1.426,0,0,1,12.426,9.131Z" transform="translate(-5.652 -2)"/>
+      <path id="Path_4" data-name="Path 4" d="M24.179,16.852H4.926a1.426,1.426,0,1,1,0-2.852H24.179a1.426,1.426,0,1,1,0,2.852Z" transform="translate(-3.5 -5.443)"/>
+    </g>
+  </g>
+</svg>

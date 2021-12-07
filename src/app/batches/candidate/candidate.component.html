@@ -21,8 +21,8 @@
               <div class="col-md-6">
                   <mat-form-field appearance="standard">
                       <input class="hover" matInput type="search" name="candidateName" #candidateName="ngModel" ngModel placeholder="candidateName" required>
-
-                  </mat-form-field>
+                      <mat-error *ngIf='candidateName.errors?.required'> CandidateName is required</mat-error>
+                    </mat-form-field>
               </div>
               <div class="col-md-6">
                   <mat-form-field appearance="standard">

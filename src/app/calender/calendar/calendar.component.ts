@@ -89,40 +89,20 @@ export class CalendarComponent implements OnInit {
       include: new FormControl('', [Validators.required]),
     })
 
-    forwardRef(() => Calendar);
 
-    setTimeout(() => {
-      return this.http.get('http://localhost:3000/events').subscribe(data => {
-        this.Earray = data;
-        console.log(this.Earray);
+    // setTimeout(() => {
+    //   return this.http.get('http://localhost:3000/events').subscribe(data => {
+    //     this.Earray = data;
+    //     console.log(this.Earray);
 
-      });
-    }, 500);
+    //   });
+    // }, 500);
 
-    setTimeout(() => {
-      forwardRef(() => Calendar);
-      this.handleCalender()
-    }, 1000);
+    // setTimeout(() => {
+    //   this.handleCalender()
+    // }, 1000);
 
-    this.getCalendarData();
-
-  }
-
-  getCalendarData() {
-    // return this.calendarService.getCalendar().subscribe((data: any) => {
-    //   this.calendarList = data;
-    //   console.log(this.calendarList);
-
-    // })
-  }
-
-  addEvent(addEventForm: NgForm) {
-    return this.http.post('http://localhost:3000/events', addEventForm.value).subscribe(data => {
-      this.Earray = data;
-    })
-  }
-
-  handleCalender() {
+    // this.getCalendarData();
     this.calendarOptions = {
       plugins: [dayGridPlugin, interactionPlugin],
       editable: true,
@@ -196,12 +176,109 @@ export class CalendarComponent implements OnInit {
       headerToolbar: {
         left: 'prevYear,nextYear',
         center: 'title',
-        right: 'dayGridDay,dayGridWeek,dayGridMonth prev,next'
+        right: 'dayGridMonth prev,next'
       },
       dateClick: this.handleDateClick.bind(this),
       eventClick: this.handleEventClick.bind(this),
       eventDragStop: this.handleEventDragStop.bind(this)
     }
+
+  }
+
+  getCalendarData() {
+    // return this.calendarService.getCalendar().subscribe((data: any) => {
+    //   this.calendarList = data;
+    //   console.log(this.calendarList);
+
+    // })
+  }
+
+  addEvent(addEventForm: NgForm) {
+    // return this.http.post('http://localhost:3000/events', addEventForm.value).subscribe(data => {
+    //   this.Earray = data;
+    // })
+  }
+
+  handleCalender() {
+    // this.calendarOptions = {
+    //   plugins: [dayGridPlugin, interactionPlugin],
+    //   editable: true,
+    //   droppable: true,
+    //   selectable: true,
+    //   eventColor: "#086288",
+    //   eventStartEditable: true,
+    //   eventBackgroundColor: "#fff",
+    //   eventBorderColor: "#fff",
+    //   eventTextColor: "black",
+    //   height: 700,
+    //   contentHeight: 600,
+    //   events: [
+    //     {
+    //       "title": "angular",
+    //       "start": "2021-12-28"
+    //     },
+    //     {
+    //       "title": "hands on",
+    //       "start": "2021-12-17"
+    //     },
+    //     {
+    //       "title": "lunch",
+    //       "start": "2021-12-03"
+    //     },
+    //     {
+    //       "title": "R&D",
+    //       "start": "2021-12-22"
+    //     },
+    //     {
+    //       "title": "Demo",
+    //       "start": "2021-12-24"
+    //     },
+    //     {
+    //       "id": "a",
+    //       "title": "my event",
+    //       "start": "2021-12-18"
+    //     },
+    //     {
+    //       "title": "repeating event",
+    //       "start": "2021-12-12"
+    //     },
+    //     {
+    //       "title": "meeting",
+    //       "start": "2021-12-15 "
+    //     },
+    //     {
+    //       "id": "306",
+    //       "title": "games",
+    //       "start": "2021-12-04"
+    //     },
+    //     {
+    //       "id": "870",
+    //       "title": "prepare notes",
+    //       "start": "2021-12-04"
+    //     },
+    //     {
+    //       "id": "90",
+    //       "title": "revising angular",
+    //       "start": "2021-12-02",
+    //       "end": "2021-12-05"
+    //     },
+    //     {
+    //       "id": "54",
+    //       "title": "task assigning",
+    //       "start": "2021-12-03",
+    //       "end": "2021-12-03"
+    //     }
+    //   ],
+    //   initialView: 'dayGridMonth',
+    //   headerToolbar: {
+    //     left: 'prevYear,nextYear',
+    //     center: 'title',
+    //     right: 'dayGridMonth prev,next'
+    //   },
+    //   dateClick: this.handleDateClick.bind(this),
+    //   eventClick: this.handleEventClick.bind(this),
+    //   eventDragStop: this.handleEventDragStop.bind(this)
+    // }
   }
 
   handleDateClick(arg: any) {
@@ -248,7 +325,7 @@ export class CalendarComponent implements OnInit {
   deleteCalendarData(calendarlist: CalendarList) {
     this.closeBtn.nativeElement.click();
 
-    console.log(calendarlist.id);
+    // console.log(calendarlist.id);
 
 
     // this.calendarService.deleteCalendar(calendarlist.id).subscribe((data: any) => {
@@ -264,7 +341,10 @@ export class CalendarComponent implements OnInit {
     //   console.log("Calendar Data Posted Successfully");
     // });
   }
+  editCalender(){
+      this.handleCalender()
 
+}
 }
 
 

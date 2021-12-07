@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35">
+  <g id="Group_412" data-name="Group 412" transform="translate(-30 -294)">
+    <g id="Rectangle_195" data-name="Rectangle 195" transform="translate(30 294)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+      <rect width="35" height="35" stroke="none"/>
+      <rect x="0.5" y="0.5" width="34" height="34" fill="none"/>
+    </g>
+    <path id="Icon_awesome-book-reader" data-name="Icon awesome-book-reader" d="M13.75,3.75A3.75,3.75,0,1,0,10,7.5,3.75,3.75,0,0,0,13.75,3.75ZM9.125,9.418C6.807,8,3.053,7.609,1.164,7.5A1.081,1.081,0,0,0,0,8.56v8.7A1.074,1.074,0,0,0,1.035,18.32a21.013,21.013,0,0,1,7.541,1.618.544.544,0,0,0,.8-.464V9.866a.52.52,0,0,0-.251-.448ZM18.836,7.5c-1.889.107-5.643.5-7.96,1.916a.529.529,0,0,0-.25.454v9.6a.545.545,0,0,0,.8.465,21.021,21.021,0,0,1,7.538-1.617A1.075,1.075,0,0,0,20,17.264V8.56A1.081,1.081,0,0,0,18.836,7.5Z" transform="translate(37 301)"/>
+  </g>
+</svg>

@@ -27,236 +27,252 @@ export class TrainersComponent implements OnInit {
   trainerDetails = [
     {
       "employeeId": "TYP0001",
-      "trainerName": "Shrath",
-      "frontend": [
-        {
-          "name": "Html",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Css",
-          "Proficiency": "0"
-        },
-        {
-          "name": "Javascript",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Angular",
-          "Proficiency": "NA"
-        }
-      ],
-      "backend": [
-        {
-          "name": "Java",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "J2EE",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Spring MVC",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Hibernate",
-          "Proficiency": "Proficient"
-        }
-      ],
-      "database": [
-        {
-          "name": "MongoDb",
-          "Proficiency": "Intermediate"
-        },
-        {
-          "name": "SQL",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "MongoDb",
-          "Proficiency": "Intermediate"
-        },
-        {
-          "name": "SQL",
-          "Proficiency": "NA"
-        }
-      ]
-    },
-    {
-      "employeeId": "TYP0002",
-      "trainerName": "Harsha",
-      "frontend": [
-        {
-          "name": "Html",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Css",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Javascript",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Angular",
-          "Proficiency": "Basic"
-        }
-      ],
-      "backend": [
-        {
-          "name": "Java",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "J2EE",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Spring MVC",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Hibernate",
-          "Proficiency": "Proficient"
-        }
-      ],
-      "database": [
-        {
-          "name": "MongoDb",
-          "Proficiency": "Intermediate"
-        },
-        {
-          "name": "SQL",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "MongoDb",
-          "Proficiency": "Intermediate"
-        },
-        {
-          "name": "SQL",
-          "Proficiency": "NA"
-        }
-      ]
-    },
-    {
-      "employeeId": "TYP0003",
       "trainerName": "Abbas",
       "frontend": [
-        {
-          "name": "Html",
-          "Proficiency": "Proficient"
+          {
+              "name": "Html",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Css",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Javascript",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Angular",
+              "Proficiency": "NA"
+          },
+          {
+            "name": "React JS",
+            "Proficiency": "Proficient"
         },
         {
-          "name": "Css",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Javascript",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Angular",
-          "Proficiency": "Intermediate"
+            "name": "Vue JS",
+            "Proficiency": "Intermediate"
         }
       ],
       "backend": [
-        {
-          "name": "Java",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "J2EE",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Spring MVC",
-          "Proficiency": "Basic"
-        },
-        {
-          "name": "Hibernate",
-          "Proficiency": "Intermediate"
-        }
+          {
+              "name": "Java",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "J2EE",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Spring MVC",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Hibernate",
+              "Proficiency": "Proficient"
+          }
       ],
       "database": [
-        {
-          "name": "MongoDb",
-          "Proficiency": "Intermediate"
-        },
-        {
-          "name": "SQL",
-          "Proficiency": "NA"
-        },
-        {
-          "name": "MongoDb",
-          "Proficiency": "Intermediate"
-        },
-        {
-          "name": "SQL",
-          "Proficiency": "NA"
-        }
+          {
+              "name": "Mysql",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Oracle",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "MongoDB",
+              "Proficiency": "Proficient"
+          }
       ]
-    },
-    {
-      "employeeId": "TYP0004",
-      "trainerName": "Priyanka",
+  },
+  {
+      "employeeId": "TYP0002",
+      "trainerName": "Harsha GL",
       "frontend": [
-        {
-          "name": "Html",
-          "Proficiency": "Proficient"
+          {
+              "name": "Html",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Css",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Javascript",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Angular",
+              "Proficiency": "Basic"
+          },
+          {
+            "name": "React JS",
+            "Proficiency": "Proficient"
         },
         {
-          "name": "Css",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Javascript",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Angular",
-          "Proficiency": "Intermediate"
+            "name": "Vue JS",
+            "Proficiency": "Intermediate"
         }
       ],
       "backend": [
-        {
-          "name": "Java",
-          "Proficiency": "Intermediate"
-        },
-        {
-          "name": "J2EE",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Spring MVC",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Hibernate",
-          "Proficiency": "Proficient"
-        }
+          {
+              "name": "Java",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "J2EE",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Spring MVC",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Hibernate",
+              "Proficiency": "Proficient"
+          }
       ],
       "database": [
-        {
-          "name": "MongoDb",
-          "Proficiency": "Intermediate"
-        },
-        {
-          "name": "SQL",
-          "Proficiency": "NA"
-        },
-        {
-          "name": "MongoDb",
-          "Proficiency": "Intermediate"
-        },
-        {
-          "name": "SQL",
-          "Proficiency": "NA"
-        }
+          {
+              "name": "Mysql",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Oracle",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "MongoDB",
+              "Proficiency": "Proficient"
+          }
       ]
-    }
+  },
+  {
+      "employeeId": "TYP0003",
+      "trainerName": "Sharath",
+      "frontend": [
+          {
+              "name": "Html",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Css",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Javascript",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Angular",
+              "Proficiency": "Intermediate"
+          },
+          {
+            "name": "React JS",
+            "Proficiency": "Proficient"
+        },
+        {
+            "name": "Vue JS",
+            "Proficiency": "Intermediate"
+        }
+      ],
+      "backend": [
+          {
+              "name": "Java",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "J2EE",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Spring MVC",
+              "Proficiency": "Basic"
+          },
+          {
+              "name": "Hibernate",
+              "Proficiency": "Intermediate"
+          }
+      ],
+      "database": [
+          {
+              "name": "Mysql",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Oracle",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "MongoDB",
+              "Proficiency": "Proficient"
+          }
+      ]
+  },
+  {
+      "employeeId": "TYP0004",
+      "trainerName": "Vinesh",
+      "frontend": [
+          {
+              "name": "Html",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Css",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Javascript",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Angular",
+              "Proficiency": "Intermediate"
+          },
+          {
+            "name": "React JS",
+            "Proficiency": "Proficient"
+        },
+        {
+            "name": "Vue JS",
+            "Proficiency": "Intermediate"
+        }
+      ],
+      "backend": [
+          {
+              "name": "Java",
+              "Proficiency": "Intermediate"
+          },
+          {
+              "name": "J2EE",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Spring MVC",
+              "Proficiency": "Proficient"
+          },
+          {
+              "name": "Hibernate",
+              "Proficiency": "Proficient"
+          }
+      ],
+      "database": [
+          {
+              "name": "Mysql",
+              "Proficiency": "Intermediate"
+          },
+          {
+              "name": "Oracle",
+              "Proficiency": "Intermediate"
+          },
+          {
+              "name": "MongoDB",
+              "Proficiency": "Proficient"
+          }
+      ]
+  }
   ]
 
 
@@ -309,13 +325,11 @@ export class TrainersComponent implements OnInit {
       items: new FormArray([this.createItem()])
     })
 
-
     this.form = this.fb.group({
       technologyFilter: this.fb.control(['All'])
     });
 
   }
-
   get technologyFilter() {
     return this.form.get('technologyFilter') as FormControl;
   }
@@ -347,10 +361,6 @@ export class TrainersComponent implements OnInit {
     this.myForm.reset();
   }
 
-  delete_trainer(trainer: any) {
-    const index = this.trainerDetails.indexOf(trainer);
-    this.trainerDetails.splice(index, 1);
-  }
 deleteTrainer(){
   this.closeBtn.nativeElement.click()
 }

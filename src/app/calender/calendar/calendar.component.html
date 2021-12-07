@@ -1,5 +1,5 @@
 <div class="container-fluid page">
-  <div class="d-flex page__box p-3 mt-1">
+  <div class="d-flex page__box p-3">
       <div class="col-md-7 calen mt-3 mx-4">
           <h4><b>Calendar list</b></h4>
       </div>
@@ -27,7 +27,7 @@
                           </div>
                           <div class="modal-body">
                               <div class="row">
-                                  <div class="col-8 offset-2">
+                                  <div class="col-8 offset-1">
                                       <form [formGroup]="Cform" (ngSubmit)="onSubmitForm(Cform)">
                                         <!-- <div class="form-group">
                                           <mat-form-field appearance="standard">
@@ -83,7 +83,7 @@
                                               <div></div>
                                               <div class="d-inline">
                                                   <button type="button" class="btn btn-light">reset</button>
-                                                  <button type="submit" class="btn btn-color mx-4">Generate Calendar</button>
+                                                  <button type="submit" class="btn btn-color mx-3">Generate Calendar</button>
                                               </div>
                                           </div>
                                       </form>
@@ -125,7 +125,7 @@
                           {{calendar.status}}</td>
                       <td>
                           <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal2">visibility</mat-icon>
-                          <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal3">edit</mat-icon>
+                          <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal3" (click)='editCalender()'>edit</mat-icon>
                           <mat-icon class="icon" data-toggle="modal" data-target="#exampleModalCenter" (click)="elementData(calendar)">delete_outline</mat-icon>
                       </td>
                   </tr>
