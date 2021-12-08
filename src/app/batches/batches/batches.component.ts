@@ -218,14 +218,14 @@ clientBatches = [
   }
   createCandidate(): FormGroup {
     return this.formBuilder.group({
-      fullName: ['',[Validators.required]],
-      personalEmail: ['',[Validators.required]],
-      officialEmail: ['',[Validators.required]],
-      mobile: ['',[Validators.required]],
+      candidateName: ['',[Validators.required]],
+      phoneNumber: ['',[Validators.required]],
+      emailId: ['',[Validators.required]],
+      degree: ['',[Validators.required]],
       stream: ['',[Validators.required]],
       yop: ['',[Validators.required]],
       tenthPercentage: ['',[Validators.required]],
-      twelthPercentage: ['',[Validators.required]],
+      twelfthPercentage: ['',[Validators.required]],
       degreeAggregate: ['',[Validators.required]],
       masterAggregate: ['',[Validators.required]],
       branch: ['',[Validators.required]],

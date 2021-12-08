@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TablefilterPipe } from './tablefilter.pipe';
 import { CalendarComponent } from './calendar/calendar.component';
 
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { CalendarComponent } from './calendar/calendar.component';
     TablefilterPipe
   ],
   imports: [
+    MatSelectModule,
     CommonModule,
     CalendarRoutingModule,
     SharedModule,

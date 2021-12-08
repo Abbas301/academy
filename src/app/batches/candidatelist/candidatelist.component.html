@@ -17,11 +17,11 @@
           </div>
           <div>
             <h4>Batch Completion</h4>
-              <circle-progress [percent]="details.batchCompletion" titleFontSize=15 subtitleFontSize=8 [outerStrokeGradient]=true [outerStrokeColor]="'#5A7B8E'" [animationDuration]=0 [animation]=false [radius]="35" [outerStrokeWidth]="12" [outerStrokeColor]="'#086288'"  [showInnerStroke]=false></circle-progress>
+              <circle-progress [percent]="details.batchCompletion" titleFontSize=15 subtitleFontSize=8 [outerStrokeGradient]=true [outerStrokeColor]="'#BA7FC2'" [animationDuration]=0 [animation]=false [radius]="35" [outerStrokeWidth]="10" outerStrokeGradientStopColor="#5A7B8E" [showInnerStroke]=false></circle-progress>
           </div>
           <div>
             <h4>Mock Rating</h4>
-            <circle-progress [percent]="details.mockRating" [radius]="35" titleFontSize=15 subtitleFontSize=8 [outerStrokeWidth]="12" [outerStrokeColor]="'#086288'" [showInnerStroke]=false></circle-progress>
+            <circle-progress [percent]="details.mockRating" titleFontSize=15 subtitleFontSize=8 [outerStrokeGradient]=true [outerStrokeColor]="'#BA7FC2'" [animationDuration]=0 [animation]=false [radius]="35" [outerStrokeWidth]="10" outerStrokeGradientStopColor="#5A7B8E" [showInnerStroke]=false></circle-progress>
         </div>
       </div>
   </mat-card>
@@ -34,17 +34,21 @@
           </div>
           <div class="col-md-4">
               <div class="row">
-                  <div class="col-md-7">
+                  <div class="col-md-6">
                       <mat-form-field class="Csearch" appearance="standard">
                           <input matInput class="hover" type="search" placeholder="First Name" (keyup)="applyFilter($event)">
                           <mat-icon matSuffix>search</mat-icon>
                       </mat-form-field>
                   </div>
-                  <div class="col-md-5 btn">
+                  <div class="col-md-4 btn">
                       <button type="button" class="btn btn-color batch" (click)="viewCandidate()">
               <mat-icon>add</mat-icon>Candidate
             </button>
                   </div>
+                  <div class="col-md-2">
+                    <mat-icon style="padding: 4px;" data-toggle="modal" data-target="#exampleModalCenter">delete</mat-icon>
+                    <h6>Delete All</h6>
+                </div>
               </div>
 
           </div>
