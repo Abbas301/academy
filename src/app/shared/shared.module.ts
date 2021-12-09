@@ -20,6 +20,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatRadioModule} from '@angular/material/radio';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import {MatExpansionModule} from '@angular/material/expansion';
+
+
+
 @NgModule({
   declarations: [],
   exports: [
@@ -43,7 +47,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     MatPaginatorModule,
     MatCardModule,
     MatRadioModule,
-    FullCalendarModule
+    FullCalendarModule,
+    MatExpansionModule
   ],
   imports: [
     MatTableModule,

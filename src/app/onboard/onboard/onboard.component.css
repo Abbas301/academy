@@ -176,6 +176,74 @@ mat-icon {
   font: size 12px;
 }
 
+/* filter Css */
+
+
+ :host ::ng-deep button:active {
+  outline: none !important;
+  border: none !important;
+}
+.filter-card {
+  width: 270px;
+}
+
+.add {
+  height: 550px !important;
+  overflow: auto;
+  position: absolute;
+  border-radius: 8px;
+  z-index: 10 !important;
+  /* border: 1px solid grey; */
+}
+
+:host ::ng-deep .mat-panel-title {
+  width: 10px !important;
+}
+
+:host ::ng-deep .mat-expansion-panel-body {
+  padding: 0 42px 0px !important;
+}
+
+.mat-expansion-panel-header.mat-expanded {
+  height: 38px;
+}
+
+.mat-expansion-panel-header {
+  height: 35px;
+}
+
+:host::ng-deep.mat-card {
+  border-radius: 8px;
+  /* box-shadow: 5px 2px 5px 2px black !important; */
+  padding: 15px 0px 0px 0px;
+}
+
+.mat-card-title {
+  display: block;
+  margin-bottom: 0px;
+  padding-left: 24px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  marker-end: 45px;
+  border-bottom: 1px solid #00000029;
+}
+
+:host ::ng-deep .mat-expansion-panel-header-title .mat-checkbox-inner-container {
+  height: 13px !important;
+  width: 13px !important;
+  font-size: 15px !important;
+}
+
+:host ::ng-deep .mat-expansion-panel-body .mat-checkbox-inner-container {
+  height: 12px !important;
+  width: 12px !important;
+  font-size: 10px !important;
+}
+
+.mat-expansion-panel {
+  box-shadow: none;
+}
+
 @media screen and (max-width: 1110px) {
   .margin {
       padding-left: 0px !important;

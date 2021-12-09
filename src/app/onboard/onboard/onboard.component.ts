@@ -1,6 +1,8 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatAccordion } from '@angular/material/expansion';
 import { MatTableDataSource } from '@angular/material/table';
 
 export interface CandidatesList {
@@ -15,8 +17,8 @@ export interface CandidatesList {
 }
 
 const ELEMENT_DATA: CandidatesList[] = [
-  {name:'sharath', contact:1234567899,mail:'sharath@gmail.com',degree:'B.E',stream:'CSE',yop:'30/8/1997',aggregate:'90%',branch:'CSE' },
-  {name:'abbas', contact:1234567899,mail:'sharath@gmail.com',degree:'B.E',stream:'CSE',yop:'30/8/1997',aggregate:'90%',branch:'CSE' },
+  { name: 'sharath', contact: 1234567899, mail: 'sharath@gmail.com', degree: 'B.E', stream: 'CSE', yop: '2019', aggregate: '90%', branch: 'CSE' },
+  { name: 'abbas', contact: 9955221452, mail: 'abbas@gmail.com', degree: 'B.E', stream: 'CSE', yop: '2020', aggregate: '90%', branch: 'CSE' },
 
 ];
 @Component({
@@ -26,7 +28,7 @@ const ELEMENT_DATA: CandidatesList[] = [
 })
 export class OnboardComponent implements OnInit {
 
-  onboardForm!:FormGroup;
+  onboardForm!: FormGroup;
   searchValue: any
 
   formShow = true;
@@ -39,38 +41,44 @@ export class OnboardComponent implements OnInit {
   items!: FormArray;
   mentors!: FormArray;
   trainers!: FormArray;
+  hideMat = false;
+
+  panelOpenState = false;
+  @ViewChild(MatAccordion) accordion !: MatAccordion;
+  @ViewChild('driverCheckbox') driverCheckbox!: MatCheckbox;
+  @ViewChildren("driverSubCheckbox") driverSubCheckbox!: QueryList<MatCheckbox>
 
   tyMentor = [
-    {value: 'pavan', viewValue: 'pavan'},
-    {value: 'gangadhar', viewValue: 'gangadhar'},
-    {value: 'divya', viewValue: 'divya'},
-    {value: 'manohar', viewValue: 'manohar'},
-    {value: 'rajesh', viewValue: 'rajesh'},
+    { value: 'pavan', viewValue: 'pavan' },
+    { value: 'gangadhar', viewValue: 'gangadhar' },
+    { value: 'divya', viewValue: 'divya' },
+    { value: 'manohar', viewValue: 'manohar' },
+    { value: 'rajesh', viewValue: 'rajesh' },
   ];
 
   technologies = [
-    {value: 'HTML', viewValue: 'HTML'},
-    {value: 'CSS', viewValue: 'CSS'},
-    {value: 'Angular', viewValue: 'Angular'},
-    {value: 'React', viewValue: 'React'},
-    {value: 'Node JS', viewValue: 'Node JS'},
-    {value: 'Mongo DB', viewValue: 'Mongo DB'},
+    { value: 'HTML', viewValue: 'HTML' },
+    { value: 'CSS', viewValue: 'CSS' },
+    { value: 'Angular', viewValue: 'Angular' },
+    { value: 'React', viewValue: 'React' },
+    { value: 'Node JS', viewValue: 'Node JS' },
+    { value: 'Mongo DB', viewValue: 'Mongo DB' },
   ];
 
   days = [
-    {value: '30 days', viewValue: '30 days'},
-    {value: '50 days', viewValue: '50 days'},
-    {value: '60 days', viewValue: '60 days'},
+    { value: '30 days', viewValue: '30 days' },
+    { value: '50 days', viewValue: '50 days' },
+    { value: '60 days', viewValue: '60 days' },
   ];
 
   locations = [
-    {value: 'Hyderabad', viewValue: 'Hyderabad'},
-    {value: 'Bangalore', viewValue: 'Bangalore'},
-    {value: 'Pune', viewValue: 'Pune'},
+    { value: 'Hyderabad', viewValue: 'Hyderabad' },
+    { value: 'Bangalore', viewValue: 'Bangalore' },
+    { value: 'Pune', viewValue: 'Pune' },
   ];
 
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.batchForm = this.fb.group({
@@ -84,107 +92,124 @@ export class OnboardComponent implements OnInit {
 
     });
   }
-  resetForm(){
-    this.batchForm.reset()
-  }
 
-  createMentor(): FormGroup {
-    return this.fb.group({
-      name: ['',[Validators.required]],
-      designation: ['',[Validators.required]],
-      contact: ['',[Validators.required,Validators.pattern('[7-9]{1}[0-9]{9}')]],
-      Memail: ['',[Validators.required]]
-    });
+  displayData() {
+    this.hideMat = !this.hideMat
   }
-  createTrainer(): FormGroup {
-    return this.fb.group({
-      trainerName: ['',[Validators.required]],
-      technology: ['',[Validators.required]],
-      days: ['',[Validators.required]],
-      Temail: ['',[Validators.required]]
-    });
-  }
-
-  addMentor(): void {
-    this.mentors = this.batchForm.get('mentors') as FormArray;
-    this.mentors.push(this.createMentor());
-  }
-  addTrainer(): void {
-    this.trainers = this.batchForm.get('trainers') as FormArray;
-    this.trainers.push(this.createTrainer());
-  }
-
-  form(){
-    this.formShow = true
-    this.formHide = false
-
-  }
-  excel(){
-    this.formShow = false
-    this.formHide = true
-  }
-  trainersForm(){
-    this.trainerForm = true
-    this.trainerExcel = false
-
-  }
-  trainersExcel(){
-    this.trainerForm = false
-    this.trainerExcel = true
-  }
-
-  get contact(){
-    return (this.batchForm.get('mentors')as FormArray ).controls[0].get('contact') as FormControl
-  }
-
-  get item(): FormArray{
-    return this.batchForm.get('items') as FormArray;
-  }
-
-  get mentor(): FormArray{
-    return this.batchForm.get('mentors') as FormArray;
-  }
-
-  get trainer(): FormArray{
-    return this.batchForm.get('trainers') as FormArray;
-  }
-
-  displayedColumns: string[] = ['select', 'name', 'contact', 'mail','degree','stream','yop','aggregate','branch'];
-  dataSource = new MatTableDataSource<CandidatesList>(ELEMENT_DATA);
-  selection = new SelectionModel<CandidatesList>(true, []);
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
+  selectAll() {
+    if (this.driverCheckbox.checked) {
+      this.driverSubCheckbox.forEach(element => {
+        element.checked = true;
+      })
     }
-    this.selection.select(...this.dataSource.data);
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: CandidatesList): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    else {
+      this.driverSubCheckbox.forEach(element => {
+        element.checked = false;
+      })
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name + 1}`;
   }
 
+resetForm() {
+  this.batchForm.reset()
+}
 
-  onSubmit(onboardForm:any){
-    console.log(onboardForm.value);
+createMentor(): FormGroup {
+  return this.fb.group({
+    name: ['', [Validators.required]],
+    designation: ['', [Validators.required]],
+    contact: ['', [Validators.required, Validators.pattern('[7-9]{1}[0-9]{9}')]],
+    Memail: ['', [Validators.required]]
+  });
+}
+createTrainer(): FormGroup {
+  return this.fb.group({
+    trainerName: ['', [Validators.required]],
+    technology: ['', [Validators.required]],
+    days: ['', [Validators.required]],
+    Temail: ['', [Validators.required]]
+  });
+}
 
+addMentor(): void {
+  this.mentors = this.batchForm.get('mentors') as FormArray;
+  this.mentors.push(this.createMentor());
+}
+addTrainer(): void {
+  this.trainers = this.batchForm.get('trainers') as FormArray;
+  this.trainers.push(this.createTrainer());
+}
+
+form() {
+  this.formShow = true
+  this.formHide = false
+
+}
+excel() {
+  this.formShow = false
+  this.formHide = true
+}
+trainersForm() {
+  this.trainerForm = true
+  this.trainerExcel = false
+
+}
+trainersExcel() {
+  this.trainerForm = false
+  this.trainerExcel = true
+}
+
+  get contact() {
+  return (this.batchForm.get('mentors') as FormArray).controls[0].get('contact') as FormControl
+}
+
+  get item(): FormArray {
+  return this.batchForm.get('items') as FormArray;
+}
+
+  get mentor(): FormArray {
+  return this.batchForm.get('mentors') as FormArray;
+}
+
+  get trainer(): FormArray {
+  return this.batchForm.get('trainers') as FormArray;
+}
+
+displayedColumns: string[] = ['select', 'name', 'contact', 'mail', 'degree', 'stream', 'yop', 'aggregate', 'branch'];
+dataSource = new MatTableDataSource<CandidatesList>(ELEMENT_DATA);
+selection = new SelectionModel<CandidatesList>(true, []);
+
+applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+}
+
+/** Whether the number of selected elements matches the total number of rows. */
+isAllSelected() {
+  const numSelected = this.selection.selected.length;
+  const numRows = this.dataSource.data.length;
+  return numSelected === numRows;
+}
+
+/** Selects all rows if they are not all selected; otherwise clear selection. */
+masterToggle() {
+  if (this.isAllSelected()) {
+    this.selection.clear();
+    return;
   }
+  this.selection.select(...this.dataSource.data);
+}
+
+/** The label for the checkbox on the passed row */
+checkboxLabel(row ?: CandidatesList): string {
+  if (!row) {
+    return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+  }
+  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name + 1}`;
+}
+
+
+onSubmit(onboardForm: any) {
+  console.log(onboardForm.value);
+
+}
 }

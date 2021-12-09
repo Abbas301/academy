@@ -1,20 +1,15 @@
 @import './assets/font.css';
-:root {
-    --font-normal: 'helvetica-normal'
+
+*{
+  font-family: 'helvetica-ttf';
 }
 
-:content {
-    --font-round: 'helvetica-rounded'
-}
 
 html,
 body {
-    height: 100%;
-}
-
-body {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    /* font-family: Roboto, "Helvetica Neue", sans-serif !important; */
+    height: 100%;
 }
 
 ::ng-deep .modal-backdrop {
@@ -28,7 +23,6 @@ body {
 }
 mat-radio-button {
   font-size: 12px!important;
-
 }
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
     border-color: #086288;
@@ -47,22 +41,18 @@ mat-radio-button {
 .modal {
     position: fixed;
 }
-
 .mat-form-field-appearance-fill .mat-form-field-infix {
     padding: 0.25em 0 0em 0;
 }
-
 
 /* checkbox css */
 
 ::ng-deep.mat-checkbox-checked.mat-accent .mat-checkbox-background {
     background-color: #086288;
 }
-
  ::ng-deep.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
     background-color: #086288;
 }
-
 .mat-drawer {
     z-index: 0 !important
 }

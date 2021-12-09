@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path:'', component:OnboardComponent
   }
-  
+
 ];
 
 @NgModule({

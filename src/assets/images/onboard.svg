@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35">
+  <g id="Group_413" data-name="Group 413" transform="translate(-30 -352)">
+    <g id="Rectangle_195" data-name="Rectangle 195" transform="translate(30 352)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+      <rect width="35" height="35" stroke="none"/>
+      <rect x="0.5" y="0.5" width="34" height="34" fill="none"/>
+    </g>
+    <path id="Icon_metro-clipboard" data-name="Icon metro-clipboard" d="M20.267,4.264H15.011a2.336,2.336,0,0,0-4.672,0H5.083a.584.584,0,0,0-.584.584V20.032a.584.584,0,0,0,.584.584H20.267a.584.584,0,0,0,.584-.584V4.848a.584.584,0,0,0-.584-.584ZM12.675,3.1a1.168,1.168,0,1,1-1.168,1.168A1.168,1.168,0,0,1,12.675,3.1Zm7.008,16.352H5.667V5.432H8V7.184a.584.584,0,0,0,.584.584h8.176a.584.584,0,0,0,.584-.584V5.432h2.336ZM11.507,17.6l-3.746-4.33L8.829,12.2l2.678,2.094,5.014-4.43,1.068,1.068Z" transform="translate(34.501 358.072)"/>
+  </g>
+</svg>

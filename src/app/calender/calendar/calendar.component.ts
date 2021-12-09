@@ -73,7 +73,8 @@ export class CalendarComponent implements OnInit {
       "status": "yet to start"
     }
   ]
-
+  value: any;
+  monthSelect: any
   constructor(private http: HttpClient,
     private calendarService: CalendarService
   ) { }
@@ -89,40 +90,25 @@ export class CalendarComponent implements OnInit {
       include: new FormControl('', [Validators.required]),
     })
 
-    forwardRef(() => Calendar);
+    // setTimeout(() => {
+    //   return this.http.get('http://localhost:3000/events').subscribe(data => {
+    //     this.Earray = data;
+    //     console.log(this.Earray);
 
-    setTimeout(() => {
-      return this.http.get('http://localhost:3000/events').subscribe(data => {
-        this.Earray = data;
-        console.log(this.Earray);
+    //   });
+    // }, 500);
 
-      });
-    }, 500);
+    // setTimeout(() => {
+    //   this.handleCalender()
+    // }, 1000);
 
-    setTimeout(() => {
-      forwardRef(() => Calendar);
-      this.handleCalender()
-    }, 1000);
+    // this.getCalendarData();
 
-    this.getCalendarData();
 
+    this.calenderSetup();
   }
 
-  getCalendarData() {
-    // return this.calendarService.getCalendar().subscribe((data: any) => {
-    //   this.calendarList = data;
-    //   console.log(this.calendarList);
-
-    // })
-  }
-
-  addEvent(addEventForm: NgForm) {
-    return this.http.post('http://localhost:3000/events', addEventForm.value).subscribe(data => {
-      this.Earray = data;
-    })
-  }
-
-  handleCalender() {
+  calenderSetup() {
     this.calendarOptions = {
       plugins: [dayGridPlugin, interactionPlugin],
       editable: true,
@@ -196,12 +182,26 @@ export class CalendarComponent implements OnInit {
       headerToolbar: {
         left: 'prevYear,nextYear',
         center: 'title',
-        right: 'dayGridDay,dayGridWeek,dayGridMonth prev,next'
+        right: 'dayGridMonth prev,next'
       },
       dateClick: this.handleDateClick.bind(this),
       eventClick: this.handleEventClick.bind(this),
-      eventDragStop: this.handleEventDragStop.bind(this)
+      eventDragStop: this.handleEventDragStop.bind(this),
     }
+  }
+
+  getCalendarData() {
+    // return this.calendarService.getCalendar().subscribe((data: any) => {
+    //   this.calendarList = data;
+    //   console.log(this.calendarList);
+
+    // })
+  }
+
+  addEvent(addEventForm: NgForm) {
+    // return this.http.post('http://localhost:3000/events', addEventForm.value).subscribe(data => {
+    //   this.Earray = data;
+    // })
   }
 
   handleDateClick(arg: any) {
@@ -248,7 +248,7 @@ export class CalendarComponent implements OnInit {
   deleteCalendarData(calendarlist: CalendarList) {
     this.closeBtn.nativeElement.click();
 
-    console.log(calendarlist.id);
+    // console.log(calendarlist.id);
 
 
     // this.calendarService.deleteCalendar(calendarlist.id).subscribe((data: any) => {
@@ -263,6 +263,16 @@ export class CalendarComponent implements OnInit {
     // return this.calendarService.postCalendar(Cform.value).subscribe(res => {
     //   console.log("Calendar Data Posted Successfully");
     // });
+  }
+  editCalender() {
+    setTimeout(() => {
+      this.calenderSetup()
+    }, 500);
+  }
+  visibleCalender() {
+    setTimeout(() => {
+      this.calenderSetup()
+    }, 500);
   }
 
 }
