@@ -12,44 +12,63 @@ export class BatchService {
 
   // batch Api
 
-  getBatchData() {
-    return this.http.get('http://localhost:3000/batches')
-  }
-
-  // postBatchData(add:any) {
-  //   return this.http.post('http://localhost:3000/batches',add)
+  // getBatchData() {
+  //   return this.http.get('http://localhost:3000/batches')
   // }
 
-  // deleteBatchData(id:any,add:any) {
-  //   return this.http.delete(`http://localhost:3000/batches/${id}`,add)
-  // }
-
-  getCbatchData() {
-    return this.http.get('http://localhost:3000/clientBatches')
-  }
-
-  // postCBatchData(add:any) {
-  //   return this.http.post('http://localhost:3000/clientBatches',add)
+  // getCbatchData() {
+  //   return this.http.get('http://localhost:3000/clientBatches')
   // }
 
   // Candidate Apis
 
-  getCandidate() {
-    return this.http.get('http://localhost:3000/candidate');
+  // getCandidate() {
+  //   return this.http.get('http://localhost:3000/candidate');
+  // }
+  // postedCandidate(add:any) {
+  //   return this.http.post('http://localhost:3000/candidate',add);
+  // }
+
+  // updatedCandidate(id:any,add:any) {
+  //   return this.http.put<{candidatelist:CandidatesList}>(`http://localhost:3000/candidate/${id}`,add);
+  // }
+
+  // deleteCandidateData(id:any) {
+  //   return this.http.delete<{candidatelist:CandidatesList}>(`http://localhost:3000/candidate/${id}`);
+  // }
+
+
+  // from Apis
+
+  // batch Api
+
+  getBatchData() {
+    return this.http.get('http://10.10.20.92:8083/api/v1/academy-inventory/batch-details')
   }
+  getSingleBatch(batch:any) {
+    return this.http.get(`http://10.10.20.92:8083/api/v1/academy-inventory/batch-details/${batch}`)
+  }
+
+  getIndividualbatch() {
+    return this.http.get('http://10.10.20.92:8083/api/v1/academy-inventory/batch-details/batchName')
+  }
+
+  // Candidate Apis
+
+  // getCandidate() {
+  //   return this.http.get('http://localhost:3000/candidate');
+  // }
   postedCandidate(add:any) {
     return this.http.post('http://localhost:3000/candidate',add);
   }
 
-  updatedCandidate(id:any,add:any) {
-    return this.http.put<{candidatelist:CandidatesList}>(`http://localhost:3000/candidate/${id}`,add);
+  updatedCandidate(candidateId:any) {
+    return this.http.put(`http://10.10.20.92.:8083/api/v1/academy/batch/candidate`,candidateId);
   }
 
-  deleteCandidateData(id:any) {
-    return this.http.delete<{candidatelist:CandidatesList}>(`http://localhost:3000/candidate/${id}`);
+  deleteCandidateData() {
+    return this.http.delete(`http://10.10.20.92:8083/api/v1/academy/batch/candidate`);
   }
-
-
 
 }
 

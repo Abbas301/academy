@@ -6,8 +6,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BatchService } from '../batch.service'
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { HttpClient } from '@angular/common/http';
+import { data } from 'jquery';
 
-export interface CandidatesList {
+export interface Details {
   candidateName: string;
   phoneNumber: string;
   emailId: string;
@@ -16,74 +18,13 @@ export interface CandidatesList {
   yop: string;
   degreeAggregate: string;
   branch: string;
-  id: string;
+  candidateId: string;
   tenthPercentage: string
   twelfthPercentage: string
   masterAggregate: string
   profileId: string;
+  batchName: string;
 }
-const ELEMENT_DATA: CandidatesList[] = [
-  {
-    candidateName: "abbas",
-    phoneNumber: "8546921456",
-    emailId: "abbas123@gmail.com",
-    degree: "B.tech",
-    stream: "mechanical",
-    yop: "2020",
-    tenthPercentage: "92",
-    twelfthPercentage: "79",
-    degreeAggregate: "73",
-    masterAggregate: "NA",
-    branch: "Hebbal",
-    profileId: "TYC042654",
-    id: "396"
-  },
-  {
-    id: "754",
-    candidateName: "sharath",
-    phoneNumber: "8575785958",
-    emailId: "sharath@gmail.com",
-    degree: "B.tech",
-    stream: "computers",
-    yop: "2019",
-    tenthPercentage: "92",
-    twelfthPercentage: "84",
-    degreeAggregate: "75",
-    masterAggregate: "73",
-    branch: "Hebbal",
-    profileId: "TYC046352"
-  },
-  {
-    id: "879",
-    candidateName: "john burg",
-    phoneNumber: "6300580835",
-    emailId: "john134@gmail.com",
-    degree: "B.tech",
-    tenthPercentage: "92",
-    twelfthPercentage: "79",
-    stream: "computer science",
-    yop: "2020",
-    masterAggregate: "NA",
-    degreeAggregate: "73",
-    branch: "BTM",
-    profileId: "TYC042666"
-  },
-  {
-    id: "125",
-    candidateName: "sanjay Gowda",
-    phoneNumber: "9390522542",
-    emailId: "sanjay@123gmail.com",
-    degree: "B.tech",
-    tenthPercentage: "92",
-    twelfthPercentage: "79",
-    stream: "computer science",
-    yop: "2020",
-    masterAggregate: "NA",
-    degreeAggregate: "73",
-    branch: "BTM",
-    profileId: "TYC042668"
-  }
-]
 
 @Component({
   selector: 'app-candidatelist',
@@ -91,11 +32,12 @@ const ELEMENT_DATA: CandidatesList[] = [
   styleUrls: ['./candidatelist.component.css']
 })
 export class CandidatelistComponent implements OnInit {
+  [x: string]: any;
 
   details: any = []
-  // CandidatesList: any;
   Cform !: FormGroup;
-  index: any;
+  index !: number;
+  candidates: any;
   id: any;
 
   @ViewChild('modalOpenButton') modalOpenButton!: ElementRef;
@@ -104,27 +46,21 @@ export class CandidatelistComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   displayedColumns: string[] = ['select', 'candidateName', 'phoneNumber', 'emailId', 'degree', 'stream', 'yop', 'degreeAggregate', 'branch', 'deleteEmployee'];
-  dataSource = new MatTableDataSource<CandidatesList>(ELEMENT_DATA);
-  selection = new SelectionModel<CandidatesList>(true, []);
+  dataSource = new MatTableDataSource<Details>();
+  selection = new SelectionModel<Details>(true, []);
   deleteElement: any;
+  CandidateListData: any;
 
 
   constructor(private router: Router,
     private ActivatedRouter: ActivatedRoute,
-    private batchService: BatchService
+    private batchService: BatchService,
   ) { }
 
   ngOnInit(): void {
-    // this.getCandidate();
-
-
-    this.ActivatedRouter.queryParams.subscribe(res => {
-      this.details = res;
-      console.log(this.details);
-    })
 
     this.Cform = new FormGroup({
-      id: new FormControl(''),
+      candidateId: new FormControl(''),
       batchName: new FormControl(''),
       candidateName: new FormControl(''),
       phoneNumber: new FormControl(''),
@@ -139,16 +75,8 @@ export class CandidatelistComponent implements OnInit {
       branch: new FormControl(''),
       profileId: new FormControl(''),
     })
-  }
 
-  getCandidate() {
-    // return this.batchService.getCandidate().subscribe((data: any) => {
-    //   this.CandidatesList = data;
-    //   console.log(this.CandidatesList);
-    //   this.dataSource.data = this.CandidatesList
-    //   this.dataSource.sort = this.sort
-    //   this.dataSource.paginator = this.paginator
-    // })
+    this.getAllCandidates()
   }
 
   branches = [
@@ -162,10 +90,11 @@ export class CandidatelistComponent implements OnInit {
   }
 
 
-  updateCandidate(element: CandidatesList) {
+  updateCandidate(element: Details) {
     this.modalOpenButton.nativeElement.click();
-    this.id = element.id
+    this.candidateId = element.candidateId
     const formData = this.Cform.patchValue({
+      candidateId: element?.candidateId,
       candidateName: element?.candidateName,
       phoneNumber: element?.phoneNumber,
       emailId: element?.emailId,
@@ -174,27 +103,44 @@ export class CandidatelistComponent implements OnInit {
       twelfthPercentage: element?.twelfthPercentage,
       stream: element?.stream,
       yop: element?.yop,
+      profileId: element?.profileId,
       masterAggregate: element?.masterAggregate,
       degreeAggregate: element?.degreeAggregate,
       branch: element?.branch,
-      profileId: element?.profileId,
-
+      batchName: element?.batchName,
     })
   }
-  onClickUpdate(Cform: FormGroup) {
-    // this.batchService.updatedCandidate(this.id, Cform.value).subscribe((data: any) => {
-    //   console.log("candidate details updated successfully");
-    //   console.log(this.CandidatesList.id);
-    // })
+  onClickUpdate() {
+    let updateFormData = {
+      candidateId: (this.Cform.get('candidateId') as FormControl).value ? (this.Cform.get('candidateId') as FormControl).value : '',
+      candidateName: (this.Cform.get('candidateName') as FormControl).value ? (this.Cform.get('candidateName') as FormControl).value : '',
+      emailId: (this.Cform.get('emailId') as FormControl).value ? (this.Cform.get('emailId') as FormControl).value : '',
+      stream: (this.Cform.get('stream') as FormControl).value ? (this.Cform.get('stream') as FormControl).value : '',
+      tenthPercentage: (this.Cform.get('tenthPercentage') as FormControl).value ? (this.Cform.get('tenthPercentage') as FormControl).value : '',
+      degreeAggregate: (this.Cform.get('degreeAggregate') as FormControl).value ? (this.Cform.get('degreeAggregate') as FormControl).value : '',
+      branch: (this.Cform.get('branch') as FormControl).value ? (this.Cform.get('branch') as FormControl).value : '',
+      phoneNumber: (this.Cform.get('phoneNumber') as FormControl).value ? (this.Cform.get('phoneNumber') as FormControl).value : '',
+      degree: (this.Cform.get('degree') as FormControl).value ? (this.Cform.get('degree') as FormControl).value : '',
+      yop: (this.Cform.get('yop') as FormControl).value ? (this.Cform.get('yop') as FormControl).value : '',
+      twelfthPercentage: (this.Cform.get('twelfthPercentage') as FormControl).value ? (this.Cform.get('twelfthPercentage') as FormControl).value : '',
+      masterAggregate: (this.Cform.get('masterAggregate') as FormControl).value ? (this.Cform.get('masterAggregate') as FormControl).value : '',
+      profileId: (this.Cform.get('profileId') as FormControl).value ? (this.Cform.get('profileId') as FormControl).value : '',
+      batchName: (this.Cform.get('batchName') as FormControl).value ? (this.Cform.get('batchName') as FormControl).value : '',
+    }
+    this.batchService.updatedCandidate(updateFormData).subscribe((data: any) => {
+      console.log("candidate details updated successfully");
+      console.log(this.CandidatesList.id);
+      this.getAllCandidates()
+    })
 
   }
 
   deleteConfirm(element: any) {
     this.deleteElement = element
   }
-  deleteCandidate(candidatelist: CandidatesList) {
+  deleteCandidate(candidatelist: Details) {
     this.closeBtn.nativeElement.click();
-    // this.batchService.deleteCandidateData(candidatelist.id).subscribe((data: any) => {
+    // this.batchService.deleteCandidateData(candidatelist.candidateId).subscribe((data: any) => {
     //   console.log("candidate data deleted successfully");
     // })
 
@@ -220,7 +166,7 @@ export class CandidatelistComponent implements OnInit {
     this.selection.select(...this.dataSource.data);
   }
 
-  checkboxLabel(row?: CandidatesList): string {
+  checkboxLabel(row?: Details): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
@@ -232,7 +178,23 @@ export class CandidatelistComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  getAllCandidates() {
 
+
+    this.batchService.getSingleBatch(this.batchName).subscribe(res => {
+      this.candidateList = res;
+      this.candidates = this.candidateList.data[0];
+      console.log(this.candidates);
+
+      console.log(this.candidates.batchName);
+      this.details = this.candidateList.data[0].candidateList;
+      console.log(this.details);
+      this.dataSource.data = this.details;
+      // this.dataSource.data = this.paginator;
+
+    });
+
+  }
 }
 
 
