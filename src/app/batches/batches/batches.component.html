@@ -110,7 +110,7 @@
             <td>80</td>
             <td>56</td>
             <td>
-              <mat-icon class="arrow" (click)="viewCandidateList(i)">keyboard_arrow_right</mat-icon>
+              <mat-icon class="arrow" (click)="viewClientCandidateList(i)">keyboard_arrow_right</mat-icon>
             </td>
           </tr>
         </tbody>
@@ -180,9 +180,9 @@
             </div>
             <div class="row">
               <div class="col-3">
-                <mat-form-field class="matFirst" appearance="standard">
+                <mat-form-field appearance="standard">
                   <mat-label>Ty Mentor</mat-label>
-                  <mat-select formControlName="tyMentor" multiple>
+                  <mat-select formControlName="tyMentors" multiple>
                     <mat-option *ngFor="let mentor of tyMentor" [value]="mentor.value">
                       {{mentor.viewValue}}
                     </mat-option>
@@ -191,20 +191,19 @@
                 </mat-form-field>
               </div>
 
-              <div class="col-3" style="margin-left: 100px;">
-                <mat-form-field class="matFirst" appearance="standard">
+              <div class="col-3">
+
+                <mat-form-field appearance="standard">
                   <mat-label>Batch Type</mat-label>
-                  <mat-select formControlName="batchType">
-                    <mat-option *ngFor="let batch of batchTypes" [value]="batch.value">
-                      {{batch.viewValue}}
-                    </mat-option>
+                  <mat-select [(value)]="selected">
+                    <mat-option value="internal" (click)="onSelect()">Internal</mat-option>
+                    <mat-option value="client" (click)="onSelect1()">Client</mat-option>
                   </mat-select>
-                  <mat-error>This field is required</mat-error>
                 </mat-form-field>
               </div>
 
-              <div class="col-3" style="margin-left: 100px;">
-                <mat-form-field class="matFirst" appearance="standard">
+              <div class="col-3">
+                <mat-form-field appearance="standard">
                   <mat-label>Company Name</mat-label>
                   <input type="text" matInput placeholder="CompanyName" formControlName="companyName">
                   <mat-error>This field is required</mat-error>
@@ -215,14 +214,14 @@
           </div>
 
 
-          <div class="p-3 first">
+          <div class="p-3 first" *ngIf="client">
             <h3 style="font-weight: 600;">Client Mentors</h3>
             <div formArrayName="mentors" *ngFor="let item of mentor.controls; let i = index;">
               <div [formGroupName]="i">
                 <div class="row">
                   <div class="col-3">
                     <mat-form-field appearance="standard">
-                      <input matInput class="hover" type="search" placeholder="Name" formControlName="name">
+                      <input matInput class="hover" type="search" placeholder="ClientMentorName" formControlName="clientMentorName">
                       <mat-error>This field is required</mat-error>
                     </mat-form-field>
                   </div>
@@ -235,7 +234,7 @@
                   </div>
                   <div class="col-3">
                     <mat-form-field appearance="standard">
-                      <input matInput class="hover" type="search" placeholder="Contact No" formControlName="contact">
+                      <input matInput class="hover" type="search" placeholder="Contact No" formControlName="contactNo">
                       <mat-error *ngIf="contact?.errors?.required">This field is required</mat-error>
                       <mat-error *ngIf="contact?.errors?.pattern">enter a valid mobile number</mat-error>
                     </mat-form-field>
@@ -243,7 +242,7 @@
                   <div class="col-3 aliq">
                     <div class="form_field">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="Email Id" formControlName="Memail">
+                        <input matInput class="hover" type="search" placeholder="Email Id" formControlName="emailId">
                         <mat-error>This field is required</mat-error>
                       </mat-form-field>
                     </div>
@@ -269,7 +268,7 @@
                   <div class="row">
                     <div class="col-3">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="Name" formControlName="trainerName">
+                        <input matInput class="hover" type="search" placeholder="Name" formControlName="assignTrainerName">
                         <mat-error>This field is required</mat-error>
                       </mat-form-field>
                     </div>
@@ -411,9 +410,9 @@
                       </mat-form-field>
                     </div>
                     <div class="col-3">
-                      <mat-form-field class="matFirst" appearance="standard">
+                      <mat-form-field appearance="standard">
                         <mat-label>Branch</mat-label>
-                        <mat-select formControlName="branch" multiple>
+                        <mat-select formControlName="branch">
                           <mat-option *ngFor="let branch of branchs" [value]="branch.value">
                             {{branch.viewValue}}
                           </mat-option>
@@ -421,9 +420,18 @@
                         <mat-error>This field is required</mat-error>
                       </mat-form-field>
                     </div>
-                  </div>
 
+                    <div class="col-3"  class="twelth" style="padding-left: 35px;">
+                      <mat-form-field appearance="standard">
+                        <input matInput class="hover" type="search" placeholder="ProfileId"
+                          formControlName="profileId">
+                        <mat-error>This field is required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                  </div>
                 </div>
+              <hr>
               </div>
             </div>
             <!-- excel sheet -->

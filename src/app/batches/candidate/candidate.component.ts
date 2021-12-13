@@ -36,20 +36,20 @@ export class CandidateComponent implements OnInit {
     if(userData.valid){
       const formData = {
 
-        id: userData.controls.id.value,
-        batchName: userData.controls.batchName.value,
         candidateName: userData.controls.candidateName.value,
-        phoneNumber : userData.controls.phoneNumber.value,
         emailId: userData.controls.emailId.value,
-        degree: userData.controls.degree.value,
         stream:  userData.controls.stream.value,
-        yop: userData.controls.yop.value,
         tenthPercentage : userData.controls.tenthPercentage.value,
-        twelfthPercentage: userData.controls.twelfthPercentage.value,
         degreeAggregate: userData.controls.degreeAggregate.value,
-        masterAggregate: userData.controls.masterAggregate.value,
         branch: userData.controls.branch.value,
+        phoneNumber : userData.controls.phoneNumber.value,
+        degree: userData.controls.degree.value,
+        yop: userData.controls.yop.value,
+        twelfthPercentage: userData.controls.twelfthPercentage.value,
+        masterAggregate: userData.controls.masterAggregate.value,
         profileId: userData.controls.profileId.value,
+        batchName: userData.controls.batchName.value,
+        batchId: userData.controls.batchId.value,
 
       };
      this.batchService.postedCandidate(formData).subscribe((data) => {
@@ -59,11 +59,5 @@ export class CandidateComponent implements OnInit {
     })
   }
 }
-
-  deleteCandidateDetails(id:any) {
-    return this.batchService.deleteCandidateData(id).subscribe((res: any) =>{
-      console.log("candidate details deleted Successfully");
-    })
-  }
 
 }

@@ -59,6 +59,13 @@ export class CandidatelistComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.ActivatedRouter.queryParams
+      .subscribe(params => {
+        this.batchName = params.batchName;
+        console.log(this.batchName);
+
+      });
+
     this.Cform = new FormGroup({
       candidateId: new FormControl(''),
       batchName: new FormControl(''),
@@ -86,7 +93,13 @@ export class CandidatelistComponent implements OnInit {
   ];
 
   viewCandidate() {
-    this.router.navigate(['/candidate/']);
+    this.router.navigate(['/candidate/'],
+    {
+      queryParams:{
+        batchName:this.batchName,
+        batchId:this.batchId
+      }
+    })
   }
 
 
@@ -129,8 +142,7 @@ export class CandidatelistComponent implements OnInit {
     }
     this.batchService.updatedCandidate(updateFormData).subscribe((data: any) => {
       console.log("candidate details updated successfully");
-      console.log(this.CandidatesList.id);
-      this.getAllCandidates()
+      this.getAllCandidates();
     })
 
   }
@@ -138,18 +150,25 @@ export class CandidatelistComponent implements OnInit {
   deleteConfirm(element: any) {
     this.deleteElement = element
   }
-  deleteCandidate(candidatelist: Details) {
+  deleteCandidate(element: Details) {
     this.closeBtn.nativeElement.click();
-    // this.batchService.deleteCandidateData(candidatelist.candidateId).subscribe((data: any) => {
-    //   console.log("candidate data deleted successfully");
-    // })
+
+    const formData = [
+      element
+    ]
+    console.log(element);
+
+    this.batchService.deleteCandidateData(formData).subscribe((data: any) => {
+      console.log(data, "candidate data deleted successfully");
+      this.getAllCandidates()
+    },err =>{
+      console.log(err);
+    } )
 
   }
 
   onSubmit(Cform: any) {
     console.log(this.Cform.value);
-
-
   }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -180,13 +199,15 @@ export class CandidatelistComponent implements OnInit {
 
   getAllCandidates() {
 
+    console.log(this.batchName);
 
     this.batchService.getSingleBatch(this.batchName).subscribe(res => {
+      console.log(res);
+
       this.candidateList = res;
       this.candidates = this.candidateList.data[0];
-      console.log(this.candidates);
-
-      console.log(this.candidates.batchName);
+      // console.log(this.candidates);
+      // console.log(this.candidates.batchName);
       this.details = this.candidateList.data[0].candidateList;
       console.log(this.details);
       this.dataSource.data = this.details;

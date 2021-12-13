@@ -45,29 +45,27 @@ export class BatchService {
   getBatchData() {
     return this.http.get('http://10.10.20.92:8083/api/v1/academy-inventory/batch-details')
   }
-  getSingleBatch(batch:any) {
-    return this.http.get(`http://10.10.20.92:8083/api/v1/academy-inventory/batch-details/${batch}`)
+  getSingleBatch(batchName:any) {
+    return this.http.get(`http://10.10.20.92:8083/api/v1/academy-inventory/batch-details/${batchName}`);
   }
 
-  getIndividualbatch() {
-    return this.http.get('http://10.10.20.92:8083/api/v1/academy-inventory/batch-details/batchName')
+  postBatchData(add:any) {
+    return this.http.post('http://10.10.20.92:8083/api/v1/academy-inventory/batch-details',add);
   }
+
 
   // Candidate Apis
 
-  // getCandidate() {
-  //   return this.http.get('http://localhost:3000/candidate');
-  // }
   postedCandidate(add:any) {
-    return this.http.post('http://localhost:3000/candidate',add);
+    return this.http.post('http://10.10.20.92.:8083/api/v1/academy/batch/candidate',add);
   }
 
   updatedCandidate(candidateId:any) {
     return this.http.put(`http://10.10.20.92.:8083/api/v1/academy/batch/candidate`,candidateId);
   }
 
-  deleteCandidateData() {
-    return this.http.delete(`http://10.10.20.92:8083/api/v1/academy/batch/candidate`);
+  deleteCandidateData(data:any) {
+    return this.http.delete(`http://10.10.20.92:8083/api/v1/academy/batch/candidate`,{body:data});
   }
 
 }

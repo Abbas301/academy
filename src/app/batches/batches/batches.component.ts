@@ -22,7 +22,12 @@ export class BatchesComponent implements OnInit {
   trainerExcel = false;
   searchValue: any
 
+  selected = 'internal';
+  internal = true;
+  client = false
+
   batchForm!: FormGroup;
+
   items!: FormArray;
   mentors!: FormArray;
   trainers!: FormArray;
@@ -31,7 +36,6 @@ export class BatchesComponent implements OnInit {
   clientBatch: any;
 
   batches: any;
-
   batchesData: any;
   // clientBatches:any;
   tableData: any;
@@ -45,8 +49,8 @@ export class BatchesComponent implements OnInit {
   clientTrainers: any[] = [];
 
   constructor(private router: Router,
-    private formBuilder: FormBuilder,
-    private batchService: BatchService
+              private formBuilder: FormBuilder,
+              private batchService: BatchService
   ) { }
 
 
@@ -59,14 +63,23 @@ export class BatchesComponent implements OnInit {
       technology: new FormControl('', [Validators.required]),
       startDate: new FormControl('', [Validators.required]),
       toc: new FormControl('', [Validators.required]),
-      tyMentor: new FormControl('', [Validators.required]),
+      tyMentors: new FormControl('', [Validators.required]),
       batchType: new FormControl('', [Validators.required]),
       companyName: new FormControl('', [Validators.required]),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()]),
       candidates: new FormArray([this.createCandidate()]),
     });
-    // this.changeBatch()
+  }
+
+  onSelect() {
+    this.internal = true;
+    this.client = false
+  }
+
+  onSelect1() {
+    this.internal = false;
+    this.client = true
   }
 
   selectAll() {
@@ -84,15 +97,15 @@ export class BatchesComponent implements OnInit {
 
   createMentor(): FormGroup {
     return this.formBuilder.group({
-      name: ['', [Validators.required]],
+      clientMentorName: ['', [Validators.required]],
       designation: ['', [Validators.required]],
-      contact: ['', [Validators.required, Validators.pattern('[7-9]{1}[0-9]{9}')]],
-      Memail: ['', [Validators.required]]
+      contactNo: ['', [Validators.required, Validators.pattern('[7-9]{1}[0-9]{9}')]],
+      emailId: ['', [Validators.required]]
     });
   }
   createTrainer(): FormGroup {
     return this.formBuilder.group({
-      trainerName: ['', [Validators.required]],
+      assignTrainerName: ['', [Validators.required]],
       technology: ['', [Validators.required]],
       days: ['', [Validators.required]],
       Temail: ['', [Validators.required]]
@@ -111,6 +124,7 @@ export class BatchesComponent implements OnInit {
       degreeAggregate: ['', [Validators.required]],
       masterAggregate: ['', [Validators.required]],
       branch: ['', [Validators.required]],
+      profileId: ['', [Validators.required]],
     });
   }
 
@@ -194,7 +208,7 @@ export class BatchesComponent implements OnInit {
     return this.batchService.getBatchData().subscribe((res: any) => {
       this.batches = res;
       this.batchesData = this.batches.data;
-      console.log(this.batches.data);
+      // console.log(this.batches.data);
 
       let interBatchData = this.batches.data;
       // internal Data
@@ -229,9 +243,35 @@ export class BatchesComponent implements OnInit {
           this.clientMentor[i].push(this.batchesData[i].clientMentorList[j]?.clientMentorName);
         }
       }
-      // console.log(this.assignTrainers)
-      // console.log(this.clientTrainers)
     })
+  }
+
+  postBatchData(userData:FormGroup) {
+    if(userData.valid){
+      const formData = {
+
+        location: userData.controls.location.value,
+        technology: userData.controls.technology.value,
+        startDate:  userData.controls.startDate.value,
+        toc : userData.controls.tenthPercentage.value,
+        tyMentors: userData.controls.degreeAggregate.value,
+        batchType: userData.controls.branch.value,
+        companyName : userData.controls.phoneNumber.value,
+        degree: userData.controls.degree.value,
+        yop: userData.controls.yop.value,
+        twelfthPercentage: userData.controls.twelfthPercentage.value,
+        masterAggregate: userData.controls.masterAggregate.value,
+        profileId: userData.controls.profileId.value,
+        batchName: userData.controls.batchName.value,
+        batchId: userData.controls.batchId.value,
+
+      };
+     this.batchService.postBatchData(formData).subscribe((data) => {
+      console.log("candidate details posted successfully");
+      console.log(data);
+      userData.reset();
+    })
+  }
   }
 
   onClick() {
@@ -255,30 +295,41 @@ export class BatchesComponent implements OnInit {
   trainersForm() {
     this.trainerForm = true
     this.trainerExcel = false
-
   }
+
   trainersExcel() {
     this.trainerForm = false
     this.trainerExcel = true
   }
  sample: any
   viewCandidateList(index: number) {
-    this.sample = this.batchesData[index];
+
+    this.sample = this.internalBatch[index];
     console.log(this.sample);
 
     this.router.navigate(['/candidatelist/'], {
       queryParams: {
-        batchName: this.sample.batchName ,
+        batchName: this.sample.batchName
       }
     })
+  }
+clientsample: any;
+  viewClientCandidateList(index: number) {
 
+    this.clientsample = this.clientBatch[index]
+    console.log(this.client);
+
+    this.router.navigate(['/candidatelist/'], {
+      queryParams: {
+        batchName: this.clientsample.batchName
+      }
+    })
   }
 
   onSubmit(batchForm: any) {
     console.log(this.batchForm.value);
     this.batchForm.reset();
   }
-
 
 }
 

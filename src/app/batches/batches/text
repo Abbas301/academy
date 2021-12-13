@@ -1,0 +1,68 @@
+
+{
+          "technology":"Meanstack",
+          "location": "Bangalore",
+          "startDate":null,
+          "batchType":"client",
+          "companyName":"capgemini",
+            "tyMentors": [
+                "Mentor 1",
+                "Mentor 2",
+               "Mentor 3"
+            ],
+            "assignTrainerList": [
+                {
+                    "assignTrainerName": "pavan",
+                    "days": 60
+                },
+{
+                    "assignTrainerName": "priyanka",
+                    "days": 60
+                }
+            ],
+            "clientMentorList": [
+                {
+                    "clientMentorName": "ClientMentor",
+                    "designation": "ASE",
+                    "contactNo": "7055555569",
+                    "emailId": "aabbccdd@gamil.com"
+                },
+                {
+                    "clientMentorName": "ClientMentor",
+                    "designation": "ASE",
+                    "contactNo": "7055445569",
+                    "emailId": "aabbccddee@gamil.com"
+                }
+            ],
+            "candidateList": [
+                {
+                    "candidateName": "pavan kumar",
+                    "emailId": "pavan@gmail.com",
+                    "stream": "ces",
+                    "tenthPercentage": 68.0,
+                    "degreeAggregate": 52.0,
+                    "branch": "rajajinagar",
+                    "phoneNumber": "7676774797",
+                    "degree": "bse",
+                    "yop": 2020,
+                    "twelfthPercentage": 78.0,
+                    "masterAggregate": 56.0,
+                    "profileId": "PRO2021"
+                },
+                {
+                    "candidateName": "sharath",
+                    "emailId": "sharath@gmail.com",
+                    "stream": "ces",
+                    "tenthPercentage": 68.0,
+                    "degreeAggregate": 52.0,
+                    "branch": "rajajinagar",
+                    "phoneNumber": "7676774797",
+                    "degree": "beE",
+                    "yop": 2020,
+                    "twelfthPercentage": 78.0,
+                    "masterAggregate": 56.0,
+                    "profileId": "PRO2021"
+                }
+            ]
+
+        }
