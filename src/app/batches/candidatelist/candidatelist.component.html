@@ -7,7 +7,7 @@
       </div>
       <div class="">
         <h4 class="d-inline">Mentors - </h4>
-        <h5 class="d-inline"><b>{{candidates?.mentors}}</b></h5>
+        <h5 class="d-inline"><b>{{candidates.tymentors}}</b></h5>
       </div>
       <div class="">
         <h4 class="d-inline">Trainers - </h4>
@@ -43,7 +43,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-4 btn">
-            <button type="button" class="btn btn-color batch" (click)="viewCandidate()">
+            <button type="button" class="btn btn-color batch" (click)="viewCandidate(i)">
               <mat-icon>add</mat-icon>Candidate
             </button>
           </div>
@@ -144,7 +144,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="exampleModalLabel"><b>Edit CandidateList</b></h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" #candidateModalClose data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

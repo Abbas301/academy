@@ -44,6 +44,7 @@ export class CandidatelistComponent implements OnInit {
   @ViewChild('closeBtn') closeBtn!: ElementRef;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('candidateModalClose') candidateModalClose!: ElementRef;
 
   displayedColumns: string[] = ['select', 'candidateName', 'phoneNumber', 'emailId', 'degree', 'stream', 'yop', 'degreeAggregate', 'branch', 'deleteEmployee'];
   dataSource = new MatTableDataSource<Details>();
@@ -92,16 +93,15 @@ export class CandidatelistComponent implements OnInit {
     { value: 'BasavanaGudi', viewValue: 'BasavanaGudi' },
   ];
 
-  viewCandidate() {
+  viewCandidate(index: number) {
     this.router.navigate(['/candidate/'],
     {
       queryParams:{
         batchName:this.batchName,
-        batchId:this.batchId
+        batchId:this.candidates.batchId
       }
     })
   }
-
 
   updateCandidate(element: Details) {
     this.modalOpenButton.nativeElement.click();
@@ -125,23 +125,24 @@ export class CandidatelistComponent implements OnInit {
   }
   onClickUpdate() {
     let updateFormData = {
-      candidateId: (this.Cform.get('candidateId') as FormControl).value ? (this.Cform.get('candidateId') as FormControl).value : '',
-      candidateName: (this.Cform.get('candidateName') as FormControl).value ? (this.Cform.get('candidateName') as FormControl).value : '',
-      emailId: (this.Cform.get('emailId') as FormControl).value ? (this.Cform.get('emailId') as FormControl).value : '',
-      stream: (this.Cform.get('stream') as FormControl).value ? (this.Cform.get('stream') as FormControl).value : '',
-      tenthPercentage: (this.Cform.get('tenthPercentage') as FormControl).value ? (this.Cform.get('tenthPercentage') as FormControl).value : '',
-      degreeAggregate: (this.Cform.get('degreeAggregate') as FormControl).value ? (this.Cform.get('degreeAggregate') as FormControl).value : '',
-      branch: (this.Cform.get('branch') as FormControl).value ? (this.Cform.get('branch') as FormControl).value : '',
-      phoneNumber: (this.Cform.get('phoneNumber') as FormControl).value ? (this.Cform.get('phoneNumber') as FormControl).value : '',
-      degree: (this.Cform.get('degree') as FormControl).value ? (this.Cform.get('degree') as FormControl).value : '',
-      yop: (this.Cform.get('yop') as FormControl).value ? (this.Cform.get('yop') as FormControl).value : '',
-      twelfthPercentage: (this.Cform.get('twelfthPercentage') as FormControl).value ? (this.Cform.get('twelfthPercentage') as FormControl).value : '',
-      masterAggregate: (this.Cform.get('masterAggregate') as FormControl).value ? (this.Cform.get('masterAggregate') as FormControl).value : '',
-      profileId: (this.Cform.get('profileId') as FormControl).value ? (this.Cform.get('profileId') as FormControl).value : '',
-      batchName: (this.Cform.get('batchName') as FormControl).value ? (this.Cform.get('batchName') as FormControl).value : '',
+      candidateId:  (this.Cform.get('candidateId') as FormControl).value,
+      candidateName: (this.Cform.get('candidateName') as FormControl).value,
+      emailId:  (this.Cform.get('emailId') as FormControl).value,
+      stream:  (this.Cform.get('stream') as FormControl).value,
+      tenthPercentage: (this.Cform.get('tenthPercentage') as FormControl).value,
+      degreeAggregate:  (this.Cform.get('degreeAggregate') as FormControl).value,
+      branch:  (this.Cform.get('branch') as FormControl).value,
+      phoneNumber:  (this.Cform.get('phoneNumber') as FormControl).value,
+      degree: (this.Cform.get('degree') as FormControl).value,
+      yop: (this.Cform.get('yop') as FormControl).value,
+      twelfthPercentage: (this.Cform.get('twelfthPercentage') as FormControl).value,
+      masterAggregate:  (this.Cform.get('masterAggregate') as FormControl).value,
+      profileId:(this.Cform.get('profileId') as FormControl).value ,
+      batchName:  (this.Cform.get('batchName') as FormControl).value,
     }
     this.batchService.updatedCandidate(updateFormData).subscribe((data: any) => {
       console.log("candidate details updated successfully");
+      this.candidateModalClose.nativeElement.click();
       this.getAllCandidates();
     })
 
@@ -152,12 +153,8 @@ export class CandidatelistComponent implements OnInit {
   }
   deleteCandidate(element: Details) {
     this.closeBtn.nativeElement.click();
-
-    const formData = [
-      element
-    ]
+    const formData = [element]
     console.log(element);
-
     this.batchService.deleteCandidateData(formData).subscribe((data: any) => {
       console.log(data, "candidate data deleted successfully");
       this.getAllCandidates()
@@ -198,20 +195,14 @@ export class CandidatelistComponent implements OnInit {
   }
 
   getAllCandidates() {
-
     console.log(this.batchName);
-
     this.batchService.getSingleBatch(this.batchName).subscribe(res => {
-      console.log(res);
-
       this.candidateList = res;
       this.candidates = this.candidateList.data[0];
-      // console.log(this.candidates);
-      // console.log(this.candidates.batchName);
       this.details = this.candidateList.data[0].candidateList;
       console.log(this.details);
       this.dataSource.data = this.details;
-      // this.dataSource.data = this.paginator;
+       this.dataSource.paginator = this.paginator;
 
     });
 

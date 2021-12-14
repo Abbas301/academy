@@ -65,7 +65,7 @@ export class BatchesComponent implements OnInit {
       toc: new FormControl('', [Validators.required]),
       tyMentors: new FormControl('', [Validators.required]),
       batchType: new FormControl('', [Validators.required]),
-      companyName: new FormControl('', [Validators.required]),
+      clientCompanyName: new FormControl('', [Validators.required]),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()]),
       candidates: new FormArray([this.createCandidate()]),
@@ -106,7 +106,7 @@ export class BatchesComponent implements OnInit {
   createTrainer(): FormGroup {
     return this.formBuilder.group({
       assignTrainerName: ['', [Validators.required]],
-      technology: ['', [Validators.required]],
+      technologies: ['', [Validators.required]],
       days: ['', [Validators.required]],
       Temail: ['', [Validators.required]]
     });
@@ -213,7 +213,7 @@ export class BatchesComponent implements OnInit {
       let interBatchData = this.batches.data;
       // internal Data
       this.internalBatch = interBatchData.filter((batch: any) => {
-        return batch.batchType === 'internal'
+        return batch.batchType === 'INTERNAL'
       })
       // console.log(this.internalBatch, 'internal');
 
@@ -227,7 +227,7 @@ export class BatchesComponent implements OnInit {
       // client Data
       let clientBatchData = this.batches.data;
       this.clientBatch = clientBatchData.filter((batch: any) => {
-        return batch.batchType === 'client'
+        return batch.batchType === 'CLIENT'
       })
       // console.log(this.clientBatch, 'client');
       for (let i = 0; i < this.clientBatch.length; i++) {
@@ -244,34 +244,6 @@ export class BatchesComponent implements OnInit {
         }
       }
     })
-  }
-
-  postBatchData(userData:FormGroup) {
-    if(userData.valid){
-      const formData = {
-
-        location: userData.controls.location.value,
-        technology: userData.controls.technology.value,
-        startDate:  userData.controls.startDate.value,
-        toc : userData.controls.tenthPercentage.value,
-        tyMentors: userData.controls.degreeAggregate.value,
-        batchType: userData.controls.branch.value,
-        companyName : userData.controls.phoneNumber.value,
-        degree: userData.controls.degree.value,
-        yop: userData.controls.yop.value,
-        twelfthPercentage: userData.controls.twelfthPercentage.value,
-        masterAggregate: userData.controls.masterAggregate.value,
-        profileId: userData.controls.profileId.value,
-        batchName: userData.controls.batchName.value,
-        batchId: userData.controls.batchId.value,
-
-      };
-     this.batchService.postBatchData(formData).subscribe((data) => {
-      console.log("candidate details posted successfully");
-      console.log(data);
-      userData.reset();
-    })
-  }
   }
 
   onClick() {
@@ -326,9 +298,59 @@ clientsample: any;
     })
   }
 
-  onSubmit(batchForm: any) {
+  onSubmit(batchForm:FormGroup) {
     console.log(this.batchForm.value);
-    this.batchForm.reset();
+
+    if(batchForm.valid){
+      const formData = {
+
+        location: batchForm.controls.location.value,
+        technology: batchForm.controls.technology.value,
+        startDate:  batchForm.controls.startDate.value,
+        toc : batchForm.controls.toc.value,
+        tyMentors: batchForm.controls.tyMentors.value,
+        batchType: batchForm.controls.batchType.value,
+        clientCompanyName : batchForm.controls.clientCompanyName.value,
+        // client Mentors
+        mentors: [{
+          lientMentorName: batchForm.controls.clientMentorName.value,
+        designation: batchForm.controls.designation.value,
+        contactNo: batchForm.controls.contactNo.value,
+        emailId: batchForm.controls.emailId.value,
+        }],
+        // assign trainers
+        trainers : [{
+          assignTrainerName: batchForm.controls.profileId.value,
+          technologies: batchForm.controls.technologies.value,
+          days: batchForm.controls.days.value,
+          Temail: batchForm.controls.Temail.value,
+          trainerxl: batchForm.controls.trainerxl.value,
+        }],
+        // candidateList
+        candidates : [{
+          candidateName:batchForm.controls.candidateName.value,
+          phoneNumber:batchForm.controls.phoneNumber.value,
+          emailId:batchForm.controls.emailId.value,
+          degree:batchForm.controls.degree.value,
+          stream:batchForm.controls.stream.value,
+          yop:batchForm.controls.yop.value,
+          tenthPercentage:batchForm.controls.tenthPercentage.value,
+          twelfthPercentage:batchForm.controls.twelfthPercentage.value,
+          degreeAggregate:batchForm.controls.degreeAggregate.value,
+          masterAggregate:batchForm.controls.masterAggregate.value,
+          branch:batchForm.controls.branch.value,
+          profileId:batchForm.controls.profileId.value,
+          candidateExcel:batchForm.controls.candidateExcel.value,
+        }]
+
+      };
+     return this.batchService.postBatchData(formData).subscribe(data => {
+      console.log("candidate details posted successfully");
+      console.log(data);
+      batchForm.reset();
+      // this.batchForm.reset();
+    })
+  }
   }
 
 }

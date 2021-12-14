@@ -1,5 +1,5 @@
 import { Component, OnInit, Output ,EventEmitter} from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BatchService } from '../batch.service';
 import { NgForm } from '@angular/forms';
 
@@ -11,15 +11,25 @@ import { NgForm } from '@angular/forms';
 export class CandidateComponent implements OnInit {
 
   isSubmited = false;
-
+  batchName: any;
+  batchId: any;
+  candidates: any;
 
   constructor( private router:Router,
-               private batchService:BatchService
+               private batchService:BatchService,
+               private ActivatedRouter: ActivatedRoute,
                ) { }
 
   @Output() tableDataValues = new EventEmitter<string>();
 
   ngOnInit(): void {
+
+    this.ActivatedRouter.queryParams
+      .subscribe(params => {
+        console.log(params);
+        this.candidates = params
+        console.log(this.candidates);
+      });
   }
 
   branches = [
@@ -35,7 +45,6 @@ export class CandidateComponent implements OnInit {
   onSubmit(userData:NgForm) {
     if(userData.valid){
       const formData = {
-
         candidateName: userData.controls.candidateName.value,
         emailId: userData.controls.emailId.value,
         stream:  userData.controls.stream.value,
@@ -50,11 +59,10 @@ export class CandidateComponent implements OnInit {
         profileId: userData.controls.profileId.value,
         batchName: userData.controls.batchName.value,
         batchId: userData.controls.batchId.value,
-
       };
      this.batchService.postedCandidate(formData).subscribe((data) => {
       console.log("candidate details posted successfully");
-      console.log(data);
+      // console.log(data);
       userData.reset();
     })
   }

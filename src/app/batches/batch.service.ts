@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 import { CandidatesList } from '../batches/candidatelist'
 
@@ -45,8 +45,8 @@ export class BatchService {
   getBatchData() {
     return this.http.get('http://10.10.20.92:8083/api/v1/academy-inventory/batch-details')
   }
-  getSingleBatch(batchName:any) {
-    return this.http.get(`http://10.10.20.92:8083/api/v1/academy-inventory/batch-details/${batchName}`);
+  getSingleBatch(batchname:any) {
+    return this.http.get(`http://10.10.20.92:8083/api/v1/academy-inventory/batch-details`,batchname);
   }
 
   postBatchData(add:any) {
