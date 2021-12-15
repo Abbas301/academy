@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, forwardRef, ElementRef } from '@angular/core';
 declare let $: any;
-import { CalendarOptions, Calendar } from '@fullcalendar/core';
+import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -13,6 +13,14 @@ export interface Events {
   id: string;
   title: string;
   start: string;
+}
+export interface Calendar {
+  calendarDetailsId:number;
+  batchName:string;
+  technology:string;
+  include:Array<string>;
+  startDate:string
+  endDate:string
 }
 @Component({
   selector: 'app-calendar',
@@ -30,7 +38,7 @@ export class CalendarComponent implements OnInit {
 
   calendarData:Events[] =[];
   calendarList: any
-
+calenderObject:Calendar | undefined;
   Cform!: FormGroup;
 
   @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
@@ -42,6 +50,7 @@ export class CalendarComponent implements OnInit {
   calendarListData: any;
   calendarEvents: any;
   batchname: any;
+  calendarDetailsId: any;
   index: any;
 
   constructor(private http: HttpClient,
@@ -124,10 +133,10 @@ export class CalendarComponent implements OnInit {
   ];
 
   batches = [
-    { value: 'B14DECJA_16023', viewValue: 'B14DECJA_16023' },
-    { value: 'B14DECME_163531', viewValue: 'B14DECME_163531' },
-    { value: 'B14DECME_16369', viewValue: 'B14DECME_16369' },
-    { value: 'B14DECME_163821', viewValue: 'B14DECME_163821' },
+    { value: 'B15DECME_105636', viewValue: 'B15DECME_105636' },
+    { value: 'B15DECME_105529', viewValue: 'B15DECME_105529' },
+    { value: 'B15DECME_105821', viewValue: 'B15DECME_105821' },
+    { value: 'B15DECME_105840', viewValue: 'B15DECME_105840' },
   ];
 
   includes = [
@@ -136,17 +145,18 @@ export class CalendarComponent implements OnInit {
     { value: 'HOLIDAYS', viewValue: 'HOLIDAYS' },
   ];
 
-  elementData(calendar: any) {
-    this.calendarData = calendar;
+  elementData(calendar: Calendar) {
+    this.calenderObject = calendar;
+    console.log(calendar);
   }
   deleteCalendarData() {
     this.closeBtn.nativeElement.click();
-      this.index = this.calendarList
-      console.log(this.index);
+    console.log(this.batchname);
 
-    // this.calendarService.deleteCalendar().subscribe((data: any) => {
-    //   console.log("Calendar list deleted successfully");
-    // })
+    this.calendarService.deleteCalendar(this.calenderObject?.calendarDetailsId,this.calenderObject?.batchName).subscribe((data: any) => {
+      console.log("Calendar list deleted successfully");
+      this.getCalendarData();
+    })
   }
 
   onSubmitForm(Cform: FormGroup) {
@@ -178,19 +188,18 @@ export class CalendarComponent implements OnInit {
       this.calendarEvents = res;
       let eventsArray = this.calendarEvents.data;
       console.log(eventsArray);
-
       var calendarData:any = []
       eventsArray.forEach((element:any,index:any) => {
         let obj = {id:'',title:'',start:''}
         obj.id = index
-        obj.title = element.description
+        obj.title = element.topic
         obj.start = element.date
         calendarData.push(obj)
       });
       if(Array.isArray(calendarData) && calendarData.length>0){
         console.log("calendarData",calendarData);
-        this.calendarData = calendarData
-        this.calendarOptions.events = calendarData
+        this.calendarData = calendarData;
+        this.calendarOptions.events = calendarData;
         this.calenderSetup()
       }
       else{

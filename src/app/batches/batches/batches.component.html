@@ -196,8 +196,8 @@
                 <mat-form-field appearance="standard">
                   <mat-label>Batch Type</mat-label>
                   <mat-select formControlName="batchType" [(value)]="selected">
-                    <mat-option value="internal" (click)="onSelect()">Internal</mat-option>
-                    <mat-option value="client" (click)="onSelect1()">Client</mat-option>
+                    <mat-option value="INTERNAL" (click)="onSelect()">INTERNAL</mat-option>
+                    <mat-option value="CLIENT" (click)="onSelect1()">CLIENT</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -221,29 +221,25 @@
                 <div class="row">
                   <div class="col-3">
                     <mat-form-field appearance="standard">
-                      <input matInput class="hover" type="search" placeholder="ClientMentorName" formControlName="clientMentorName">
-                      <!-- <mat-error>This field is required</mat-error> -->
+                      <input matInput class="hover" type="search" placeholder="clientMentorName" formControlName="clientMentorName">
                     </mat-form-field>
                   </div>
                   <div class="col-3">
                     <mat-form-field appearance="standard">
                       <input matInput class="hover" type="search" placeholder="Designation"
                         formControlName="designation">
-                      <!-- <mat-error>This field is required</mat-error> -->
                     </mat-form-field>
                   </div>
                   <div class="col-3">
                     <mat-form-field appearance="standard">
                       <input matInput class="hover" type="search" placeholder="Contact No" formControlName="contactNo">
                       <mat-error *ngIf="contact?.errors?.required">This field is required</mat-error>
-                      <!-- <mat-error *ngIf="contact?.errors?.pattern">enter a valid mobile number</mat-error> -->
                     </mat-form-field>
                   </div>
                   <div class="col-3 aliq">
                     <div class="form_field">
                       <mat-form-field appearance="standard">
                         <input matInput class="hover" type="search" placeholder="Email Id" formControlName="emailId">
-                        <!-- <mat-error>This field is required</mat-error> -->
                       </mat-form-field>
                     </div>
                     <div>
@@ -297,7 +293,7 @@
                     <div class="col-3 aliq">
                       <div class="form_field">
                         <mat-form-field appearance="standard">
-                          <input matInput class="hover" type="search" placeholder="Email Id" formControlName="Temail">
+                          <input matInput class="hover" type="search" placeholder="Email Id" formControlName="emailId">
                           <mat-error>This field is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -445,7 +441,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-light ">reset</button>
-            <button type="submit" class="btn btn-color batch" (click)="onSubmit(batchForm)">Create</button>
+            <button type="submit" class="btn btn-color batch" (click)="addBatch(batchForm)">Create</button>
           </div>
         </form>
 

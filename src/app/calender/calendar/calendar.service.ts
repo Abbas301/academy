@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Calendar } from './calendar.component';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +30,14 @@ export class CalendarService {
     return this.http.put(`http://localhost:3000/calendarList/${id}`,add)
   }
 
-  deleteCalendar(candidatedetailsid:any,batchname: any) {
-    return this.http.delete(`localhost:8082/api/v1/academy/calendar/calendar-details/${candidatedetailsid}/${batchname}`)
+  deleteCalendar(calendardetailsid:any,batchname:any) {
+    console.log(calendardetailsid);
+    console.log(batchname);
+
+    return this.http.delete(`http://10.10.20.92:8083/api/v1/academy/calendar/calendar-details`,{params:{
+      calendardetailsid,
+      batchname
+    }})
   }
 
   // localhost:8082/api/v1/academy/calendar/calendar-details?candidatedetailsid=299&batchname=BATCH0023
