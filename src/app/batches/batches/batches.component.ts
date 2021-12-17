@@ -4,6 +4,7 @@ import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@ang
 import { BatchService } from '../batch.service';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-batches',
@@ -34,12 +35,16 @@ export class BatchesComponent implements OnInit {
   candidates!: FormArray;
   internalBatch: any;
   clientBatch: any;
+  tocPath: any;
+  //  tyTrainers = clientTrainers[i].join(',')
+
 
   batches: any;
   batchesData: any;
   // clientBatches:any;
   tableData: any;
   index: any;
+  @ViewChild('uploadToc') uploadToc!: ElementRef
   @ViewChild('headerCheckbox') headerCheckbox!: MatCheckbox
   @ViewChildren('bodyCheckbox') bodyCheckbox!: QueryList<MatCheckbox>
   @ViewChildren('batchType') batchType!: QueryList<MatRadioButton>
@@ -62,7 +67,7 @@ export class BatchesComponent implements OnInit {
       location: new FormControl('', [Validators.required]),
       technology: new FormControl('', [Validators.required]),
       startDate: new FormControl('', [Validators.required]),
-      toc: new FormControl('', [Validators.required]),
+      tocPath: new FormControl('', [Validators.required]),
       tyMentors: new FormControl('', [Validators.required]),
       batchType: new FormControl('', [Validators.required]),
       clientCompanyName: new FormControl('', [Validators.required]),
@@ -97,9 +102,9 @@ export class BatchesComponent implements OnInit {
 
   createMentor(): FormGroup {
     return this.formBuilder.group({
-      clientMentorName: [''],
+      clientMentorName: ['',[Validators.pattern('[a-z A-Z]')]],
       designation: [''],
-      contactNo: [''],
+      contactNo: ['',[Validators.pattern('[6-9]{1}[0-9]{9}')]],
       emailId: ['']
     });
   }
@@ -113,8 +118,8 @@ export class BatchesComponent implements OnInit {
   }
   createCandidate(): FormGroup {
     return this.formBuilder.group({
-      candidateName: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required]],
+      candidateName: ['', [Validators.required,Validators.pattern('[a-z A-Z]')]],
+      phoneNumber: ['', [Validators.required,Validators.pattern('[6-9]{1}[0-9]{9}')]],
       emailId: ['', [Validators.required]],
       degree: ['', [Validators.required]],
       stream: ['', [Validators.required]],
@@ -159,9 +164,9 @@ export class BatchesComponent implements OnInit {
   ];
 
   days = [
-    { value: '30 days', viewValue: '30 days' },
-    { value: '50 days', viewValue: '50 days' },
-    { value: '60 days', viewValue: '60 days' },
+    { value: 30, viewValue: 30 },
+    { value: 50, viewValue: 50 },
+    { value: 60, viewValue: 60 },
   ];
 
   locations = [
@@ -210,6 +215,7 @@ export class BatchesComponent implements OnInit {
         this.assignTrainers[i] = [];
         for (let j = 0; j < this.internalBatch[i]?.assignTrainerList.length; j++) {
           this.assignTrainers[i].push(this.internalBatch[i].assignTrainerList[j]?.assignTrainerName);
+          // let assignTrainers =
         }
       }
 
@@ -225,6 +231,7 @@ export class BatchesComponent implements OnInit {
           this.clientTrainers[i].push(this.clientBatch[i].assignTrainerList[j]?.assignTrainerName);
         }
       }
+
 
       for (let i = 0; i < this.batchesData.length; i++) {
         this.clientMentor[i] = [];
@@ -270,7 +277,8 @@ export class BatchesComponent implements OnInit {
 
     this.router.navigate(['/candidatelist/'], {
       queryParams: {
-        batchName: this.sample.batchName
+        batchName: this.sample.batchName,
+        // tyMentors:this.batchesData[index]?.tyMentors
       }
     })
   }
@@ -278,36 +286,50 @@ export class BatchesComponent implements OnInit {
   viewClientCandidateList(index: number) {
 
     this.clientsample = this.clientBatch[index]
-    console.log(this.client);
+    console.log(this.clientsample);
 
     this.router.navigate(['/candidatelist/'], {
       queryParams: {
-        batchName: this.clientsample.batchName
+        batchName: this.clientsample.batchName,
+        // clientMentorList:this.clientBatch.clientMentorList
       }
     })
+
   }
 
   addBatch(batchForm: FormGroup) {
 
-    if (this.batchForm.valid) {
       console.log(batchForm.value);
+      let file = this.tocPath
+      console.log(file);
+      let date = new Date(batchForm.controls.startDate.value);
+      console.log(date);
+      let finalDate = date.toLocaleDateString().split('/');
+      let newDate = `${finalDate[2]}-${finalDate[0]}-${finalDate[1]}`
+      console.log(newDate);
 
-      const formData = {
+      let batchDetails = {
         location: batchForm.controls.location.value,
         technology: batchForm.controls.technology.value,
-        startDate: batchForm.controls.startDate.value,
+        startDate: newDate,
         tyMentors: batchForm.controls.tyMentors.value,
         batchType: batchForm.controls.batchType.value,
-        // toc: batchForm.controls.toc.value,
         clientCompanyName: batchForm.controls.clientCompanyName.value,
         clientMentorList:this.mentor.value,
         assignTrainerList:this.trainer.value,
         candidateList:this.candidate.value,
       };
-
-      // this.batchService.postBatchData( batchForm.value.toc,formData)
+      let formData = new FormData();
+      formData.append('batchDetails',JSON.stringify(batchDetails))
+      formData.append('tocFile',file)
+      this.batchService.postBatchData(formData).subscribe(res => {
+        console.log("batch details added successfully");
+        batchForm.reset();
+        this.getBatch();
+      })
     }
-  }
-
+    uploadTOC(event: Event){
+      this.tocPath = (event.target as HTMLInputElement).files?.item(0)
+    }
 }
 

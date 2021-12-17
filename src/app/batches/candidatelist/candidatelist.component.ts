@@ -39,6 +39,7 @@ export class CandidatelistComponent implements OnInit {
   index !: number;
   candidates: any;
   id: any;
+  batchName: any;
 
   @ViewChild('modalOpenButton') modalOpenButton!: ElementRef;
   @ViewChild('closeBtn') closeBtn!: ElementRef;
@@ -197,14 +198,19 @@ export class CandidatelistComponent implements OnInit {
   getAllCandidates() {
     console.log(this.batchName);
     this.batchService.getSingleBatch(this.batchName).subscribe(res => {
+      console.log(res);
+
       this.candidateList = res;
       this.candidates = this.candidateList.data[0];
+      console.log(this.candidates);
+
       this.details = this.candidateList.data[0].candidateList;
       console.log(this.details);
       this.dataSource.data = this.details;
        this.dataSource.paginator = this.paginator;
 
     });
+
 
   }
 }

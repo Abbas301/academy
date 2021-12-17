@@ -26,20 +26,15 @@ export class CalendarService {
     return this.http.post('HTTP://10.10.20.92:8083/api/v1/academy/calendar/calendar-details',add)
   }
 
-  updateCalendar(id:any,add:any) {
-    return this.http.put(`http://localhost:3000/calendarList/${id}`,add)
+  updateCalendar(add:any) {
+    return this.http.put(`http://10.10.20.92:8083/api/v1/academy/calendar/calendar-details`,add)
   }
 
   deleteCalendar(calendardetailsid:any,batchname:any) {
-    console.log(calendardetailsid);
-    console.log(batchname);
-
     return this.http.delete(`http://10.10.20.92:8083/api/v1/academy/calendar/calendar-details`,{params:{
       calendardetailsid,
       batchname
     }})
   }
-
-  // localhost:8082/api/v1/academy/calendar/calendar-details?candidatedetailsid=299&batchname=BATCH0023
 
 }

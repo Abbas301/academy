@@ -86,6 +86,25 @@ calenderObject:Calendar | undefined;
       height: 700,
       contentHeight: 600,
       events: this.calendarData,
+    //   customButtons: {
+    //     myCustomButton: {
+    //     text: 'Add Event',
+    //     click: function() {
+    //            alert("Custom Button");
+    //     }
+    //   }
+    // },
+      // eventContent: { html: '<i class="far fa-edit"></i>' },
+      eventContent: function (args:any, createElement:any) {
+        const icon = args.event._def.extendedProps.img;
+        const text = "<i class='far fa-edit" + icon + "'></i> " + args.event._def.title;
+        if(args.icon){
+          createElement.find(".fc-title").prepend("<i class='fa fa-edit"+args.icon+"'></i>");
+       }
+        return {
+          html: text
+        };
+      },
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'prevYear,nextYear',
@@ -177,11 +196,6 @@ calenderObject:Calendar | undefined;
     Cform.reset();
   }
 
-  editCalender() {
-    setTimeout(() => {
-      this.calenderSetup()
-    }, 500);
-  }
   visibleCalender(batchname:any) {
     console.log(batchname);
      this.calendarService.getCalendarEvents(batchname).subscribe(res => {
@@ -190,12 +204,14 @@ calenderObject:Calendar | undefined;
       console.log(eventsArray);
       var calendarData:any = []
       eventsArray.forEach((element:any,index:any) => {
-        let obj = {id:'',title:'',start:''}
+        let obj = {id:'',title:'',start:'',eventContent:''}
         obj.id = index
         obj.title = element.topic
         obj.start = element.date
+        obj.eventContent = element.subTopic
         calendarData.push(obj)
       });
+
       if(Array.isArray(calendarData) && calendarData.length>0){
         console.log("calendarData",calendarData);
         this.calendarData = calendarData;
@@ -211,6 +227,12 @@ calenderObject:Calendar | undefined;
       this.calenderSetup()
     }, 500);
 
+  }
+
+  editCalender() {
+    setTimeout(() => {
+      this.calenderSetup()
+    }, 500);
   }
 
 }

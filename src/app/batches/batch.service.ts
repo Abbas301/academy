@@ -45,19 +45,12 @@ export class BatchService {
   getBatchData() {
     return this.http.get('http://10.10.20.92:8083/api/v1/academy-inventory/batch-details')
   }
-  getSingleBatch(batchname:any) {
-    return this.http.get(`http://10.10.20.92:8083/api/v1/academy-inventory/batch-details`,batchname);
+  getSingleBatch(batchName:any) {
+    return this.http.get(`http://10.10.20.92:8083/api/v1/academy-inventory/batch-details/${batchName}`);
   }
 
-  postBatchData(formData: string, toc: File) {
-
-    const postData = new FormData();
-    postData.append("formData", formData);
-    postData.append("toc", toc);
-    return this.http.post(`http://10.10.20.92:8083/api/v1/academy-inventory/batch-details`,postData).subscribe(res => {
-      console.log("batch details added successfully");
-
-    });
+  postBatchData(postData: any) {
+    return this.http.post(`http://10.10.20.92:8083/api/v1/academy-inventory/batch-details`,postData)
   }
 
 

@@ -238,27 +238,23 @@
                     <form #addEventForm="ngForm" (ngSubmit)="onSubmit(addEventForm)">
                       <div class="row">
                         <div class="col-sm-12">
-                          <div>
-                            <label for="">Id</label>
-                            <input type="text" class="form-control" ngModel #id id="id" name="id" required>
-                          </div>
                           <div class="form-group">
-                            <label>Event Title</label>
-                            <input placeholder="Add Event Title" type="text" id="title" name="title" ngModel #title
+                            <label>Date</label>
+                            <input placeholder="Add Event Title" type="date" id="start" name="start" ngModel #start
                               class="titleinp form-control" required>
                           </div>
                         </div>
                         <div class="col-sm-12">
                           <div class="form-group">
-                            <label>Start Date:</label>
-                            <input placeholder="Add Event Title" type="date" id="start" name="start" ngModel #start
+                            <label>Topic</label>
+                            <input placeholder="Add Topic" type="text" id="title" name="title" ngModel #title
                               class="form-control" required>
                           </div>
                         </div>
                         <div class="col-sm-12">
                           <div class="form-group">
-                            <label>End Date:</label>
-                            <input placeholder="Add Event Title" type="date" id="end" name="end" ngModel #end
+                            <label>Sub Topic</label>
+                            <input placeholder="Sub Topic" type="text" id="subTopic" name="subTopic" ngModel #subTopic
                               class="form-control" required>
                           </div>
                         </div>

@@ -70,6 +70,45 @@ mat-icon {
   color: black !important;
   text-decoration: none !important;
 }
+.fc-day-sun {
+  color:red;
+  /* border-color: black;
+  background-color: #ffa58c; */
+ }
+
+ .fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
+    background-image: url(/src/assets/sucess_image.png);
+ }
+ .fc-event.hasattention::after,
+.fc-event.hasdescr::after,
+.fc-event.hasattention.hasdescr::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    right: 0;
+    height: 13px;
+    background-repeat: no-repeat;
+}
+
+.fc-event.hasattention::after {
+    width: 13px;
+    background: url(/src/assets/sucess_image.png) top right;
+    background-size: 100%;
+}
+.fc-event.hasdescr::after {
+    width: 13px;
+    background: url(/src/assets/sucess_image.png) top right;
+    background-size: 100%;
+}
+
+.fc-event.hasattention.hasdescr::after {
+    width: 27px;
+    background-image: url(/src/assets/sucess_image.png),
+        url(/src/assets/sucess_image.png);
+    background-size: 13px;
+    background-position: 0 0, 13px 0;
+}
+
 /* delete buttons */
 
 .confirmbtn {

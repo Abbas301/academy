@@ -8,6 +8,7 @@ import { TablefilterPipe } from './tablefilter.pipe';
 import { CalendarComponent } from './calendar/calendar.component';
 
 import {MatSelectModule} from '@angular/material/select';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {MatSelectModule} from '@angular/material/select';
     CalendarRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FullCalendarModule
   ]
 })
 export class CalendarModule { }
