@@ -17,7 +17,7 @@ export class OnboardService {
   }
 
   postOnboardData(add:any) {
-    return this.http.post<any>('localhost:8098/api/v1/academy-inventory/batch-details',add)
+    return this.http.post<any>('https://10.10.20.92:8098/api/v1/academy-inventory/batch-details',add)
   }
 
 }

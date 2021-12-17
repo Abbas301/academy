@@ -74,6 +74,7 @@ export class OnboardComponent implements OnInit {
   CandidatesListData: any;
   status = 'ONBOARDED';
   onboardList = []
+  array :any[] =[];
 
   constructor( private fb: FormBuilder,
                private onboardService:OnboardService) { }
@@ -93,7 +94,7 @@ selection = new SelectionModel<OnboardList>(true, []);
       trainers: new FormArray([this.createTrainer()])
     });
 
-    this.onboardService.getOnboardList(this.status).subscribe(res => {      
+    this.onboardService.getOnboardList(this.status).subscribe(res => {
       this.CandidatesListData = res;
       console.log(this.CandidatesListData);
       this.dataSource.data = this.CandidatesListData.data;
@@ -192,16 +193,21 @@ applyFilter(event: Event) {
 
 isAllSelected() {
   const numSelected = this.selection.selected.length;
+
   const numRows = this.dataSource.data.length;
   return numSelected === numRows;
 }
 
 masterToggle() {
+  console.log(this.driverSubCheckbox)
   if (this.isAllSelected()) {
+    console.log(this.selection)
     this.selection.clear();
     return;
   }
   this.selection.select(...this.dataSource.data);
+
+
 }
 
 checkboxLabel(row ?: OnboardList): string {
@@ -213,6 +219,15 @@ checkboxLabel(row ?: OnboardList): string {
 
 onSubmit(onboardForm: any) {
   console.log(onboardForm.value);
+
+}
+selectCandidates(row:any){
+  this.array.push(row)
+  console.log(this.array)
+}
+remove(row:any){
+  this.array.splice(this.array.indexOf(row),1)
+  console.log(this.array)
 
 }
 }
