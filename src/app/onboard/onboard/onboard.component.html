@@ -82,9 +82,6 @@
 
     </div>
 
-
-
-
       <div class="tables mt-1">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
 
@@ -110,15 +107,15 @@
           </ng-container>
 
           <!-- Contact No. Column -->
-          <ng-container matColumnDef="contact">
-            <th style="font-size: 13px;" mat-header-cell *matHeaderCellDef> <b>Contact No.</b> </th>
-            <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
+          <ng-container matColumnDef="contactNumber">
+            <th style="font-size: 13px;" mat-header-cell *matHeaderCellDef> <b>Contact Number</b> </th>
+            <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
           </ng-container>
 
           <!-- Mail ID Column -->
-          <ng-container matColumnDef="mail">
-            <th style="font-size: 13px;" mat-header-cell *matHeaderCellDef> <b>Mail ID</b> </th>
-            <td mat-cell *matCellDef="let element"> {{element.mail}} </td>
+          <ng-container matColumnDef="emailId">
+            <th style="font-size: 13px;" mat-header-cell *matHeaderCellDef> <b>emailId</b> </th>
+            <td mat-cell *matCellDef="let element"> {{element.emailId}} </td>
           </ng-container>
 
           <!-- Degree Column -->
@@ -138,14 +135,14 @@
             <td mat-cell *matCellDef="let element"> {{element.yop}} </td>
           </ng-container>
           <!--  Degree Aggregate % Column -->
-          <ng-container matColumnDef="aggregate">
+          <ng-container matColumnDef="degreePercentage">
             <th style="font-size: 13px;" mat-header-cell *matHeaderCellDef> <b>Degree Aggregate %</b> </th>
-            <td mat-cell *matCellDef="let element"> {{element.aggregate}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.degreePercentage}} </td>
           </ng-container>
           <!-- Branch Column -->
-          <ng-container matColumnDef="branch">
+          <ng-container matColumnDef="jspiderBranch">
             <th style="font-size: 13px;" mat-header-cell *matHeaderCellDef> <b>Branch</b> </th>
-            <td mat-cell *matCellDef="let element"> {{element.branch}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.jspiderBranch}} </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">

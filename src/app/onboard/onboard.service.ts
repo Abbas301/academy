@@ -10,8 +10,14 @@ export class OnboardService {
   constructor(private http:HttpClient) { }
 
 
-  getOnboardList(){
-    return this.http.get<any>(`${environment.baseUrl}/academy/onboard/onboard-candidates?status=onboarded`)
+  getOnboardList(status:any){
+    return this.http.get<any>(`http://10.10.20.92.:8083/api/v1/academy/onboard/onboard-candidates`,{params:{
+      status
+    }});
+  }
+
+  postOnboardData(add:any) {
+    return this.http.post<any>('localhost:8098/api/v1/academy-inventory/batch-details',add)
   }
 
 }

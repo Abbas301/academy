@@ -166,7 +166,7 @@
                   <input matInput [matDatepicker]="picker" formControlName="startDate">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
-                  <mat-error *ngIf="contact?.errors?.required">This field is required</mat-error>
+                  <mat-error>This field is required</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-3">
@@ -206,7 +206,8 @@
                 <mat-form-field appearance="standard">
                   <mat-label>Company Name</mat-label>
                   <input type="text" matInput placeholder="CompanyName" formControlName="clientCompanyName">
-                  <mat-error>This field is required</mat-error>
+                  <mat-error *ngIf="batchForm.controls.clientCompanyName.errors?.required">This field is required</mat-error>
+                  <mat-error *ngIf="batchForm.controls.clientCompanyName.errors?.pattern">enter valid pattern</mat-error>
                 </mat-form-field>
               </div>
 
@@ -222,7 +223,7 @@
                   <div class="col-3">
                     <mat-form-field appearance="standard">
                       <input matInput class="hover" type="search" placeholder="clientMentorName" formControlName="clientMentorName">
-                      <mat-error *ngIf="this.batchForm.get('clientMentorName')?.errors?.pattern">name should be alphabets</mat-error>
+                      <mat-error *ngIf="clientMentorName.errors?.pattern">name should be alphabets</mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-3">
@@ -234,7 +235,7 @@
                   <div class="col-3">
                     <mat-form-field appearance="standard">
                       <input matInput class="hover" type="search" placeholder="Contact No" formControlName="contactNo">
-                      <mat-error *ngIf="this.batchForm.get('contactNo')?.errors?.pattern">contact Number should be Numbers</mat-error>
+                      <mat-error *ngIf="contactNo.errors?.pattern">contact Number should be Numbers</mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-3 aliq">
@@ -266,7 +267,8 @@
                     <div class="col-3">
                       <mat-form-field appearance="standard">
                         <input matInput class="hover" type="search" placeholder="Name" formControlName="assignTrainerName">
-                        <mat-error>This field is required</mat-error>
+                        <mat-error *ngIf="assignTrainerName.errors?.required">This field is required</mat-error>
+                        <mat-error *ngIf="assignTrainerName.errors?.pattern">Assign trainer name should be alphabets</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3">
@@ -331,7 +333,7 @@
                       <mat-form-field appearance="standard">
                         <input matInput class="hover" type="search" placeholder="CandidateName"
                           formControlName="candidateName">
-                        <mat-error>This field is required</mat-error>
+                        <!-- <mat-error>This field is required</mat-error> -->
                       </mat-form-field>
                     </div>
                     <div class="col-3">

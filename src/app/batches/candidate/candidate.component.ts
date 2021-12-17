@@ -2,6 +2,7 @@ import { Component, OnInit, Output ,EventEmitter} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BatchService } from '../batch.service';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from '../../../../node_modules/ngx-toastr';
 
 @Component({
   selector: 'app-candidate',
@@ -18,6 +19,7 @@ export class CandidateComponent implements OnInit {
   constructor( private router:Router,
                private batchService:BatchService,
                private ActivatedRouter: ActivatedRoute,
+               private toastr: ToastrService
                ) { }
 
   @Output() tableDataValues = new EventEmitter<string>();
@@ -63,6 +65,7 @@ export class CandidateComponent implements OnInit {
      this.batchService.postedCandidate(formData).subscribe((data) => {
       console.log("candidate details posted successfully");
       // console.log(data);
+      this.toastr.success('Candidate details added successfully');
       userData.reset();
     })
   }

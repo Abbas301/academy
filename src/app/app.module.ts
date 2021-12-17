@@ -14,6 +14,7 @@ import { CalendarModule } from './calender/calendar.module';
 import { BatchesModule } from './batches/batches.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -36,13 +37,17 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     CalendarModule,
     BatchesModule,
     HttpClientModule,
+    ToastrModule,
     NgCircleProgressModule.forRoot({
-      // set defaults here
       radius: 100,
       outerStrokeWidth: 25,
       outerStrokeColor: "#78C000",
-      // animationDuration: 300,
-    })
+    }),
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: false,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

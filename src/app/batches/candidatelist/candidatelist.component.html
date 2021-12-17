@@ -5,9 +5,13 @@
         <h3 class="d-inline"><b>{{candidates?.batchName}}</b></h3>
         <p class="d-block">{{candidates?.startDate}} - {{candidates?.endDate}}</p>
       </div>
-      <div class="">
+      <div *ngIf="candidates.batchType=='INTERNAL'">
         <h4 class="d-inline">Mentors - </h4>
-        <h5 class="d-inline"><div><b>{{candidates.tyMentors}}</b></div></h5>
+        <h5 class="d-inline" *ngFor="let candiate of candidates['tyMentors'] "><div><b>{{candiate}}</b></div></h5>
+      </div>
+      <div *ngIf="candidates.batchType=='CLIENT'" >
+        <h4 class="d-inline">Mentors - </h4>
+        <h5 class="d-inline" *ngFor="let candiate of candidates['clientMentorList'] "><div><b>{{candiate.clientMentorName}}</b></div></h5>
       </div>
       <div class="">
         <h4 class="d-inline">Trainers - </h4>

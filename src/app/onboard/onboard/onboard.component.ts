@@ -1,26 +1,22 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatTableDataSource } from '@angular/material/table';
+import { OnboardService } from '../onboard.service';
 
-export interface CandidatesList {
+export interface OnboardList {
   name: string;
-  contact: number;
-  mail: string;
+  contactNumber: string;
+  emailId: string;
   degree: string;
   stream: string;
   yop: string;
-  aggregate: string;
-  branch: string;
+  degreePercentage: string;
+  jspiderBranch: string;
 }
 
-const ELEMENT_DATA: CandidatesList[] = [
-  { name: 'sharath', contact: 1234567899, mail: 'sharath@gmail.com', degree: 'B.E', stream: 'CSE', yop: '2019', aggregate: '90%', branch: 'CSE' },
-  { name: 'abbas', contact: 9955221452, mail: 'abbas@gmail.com', degree: 'B.E', stream: 'CSE', yop: '2020', aggregate: '90%', branch: 'CSE' },
-
-];
 @Component({
   selector: 'app-onboard',
   templateUrl: './onboard.component.html',
@@ -38,7 +34,6 @@ export class OnboardComponent implements OnInit {
   trainerExcel = false;
 
   batchForm!: FormGroup;
-  items!: FormArray;
   mentors!: FormArray;
   trainers!: FormArray;
   hideMat = false;
@@ -76,9 +71,16 @@ export class OnboardComponent implements OnInit {
     { value: 'Bangalore', viewValue: 'Bangalore' },
     { value: 'Pune', viewValue: 'Pune' },
   ];
+  CandidatesListData: any;
+  status = 'ONBOARDED';
+  onboardList = []
 
+  constructor( private fb: FormBuilder,
+               private onboardService:OnboardService) { }
 
-  constructor(private fb: FormBuilder) { }
+displayedColumns: string[] = ['select', 'name', 'contactNumber', 'emailId', 'degree', 'stream', 'yop', 'degreePercentage', 'jspiderBranch'];
+dataSource = new MatTableDataSource<OnboardList>();
+selection = new SelectionModel<OnboardList>(true, []);
 
   ngOnInit(): void {
     this.batchForm = this.fb.group({
@@ -89,10 +91,19 @@ export class OnboardComponent implements OnInit {
       tyMentor: new FormControl(''),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()])
-
     });
-  }
 
+    this.onboardService.getOnboardList(this.status).subscribe(res => {      
+      this.CandidatesListData = res;
+      console.log(this.CandidatesListData);
+      this.dataSource.data = this.CandidatesListData.data;
+
+    })
+  }
+// onclick(element:OnboardList) {
+// console.log(element);
+
+// }
   displayData() {
     this.hideMat = !this.hideMat
   }
@@ -174,23 +185,17 @@ trainersExcel() {
   return this.batchForm.get('trainers') as FormArray;
 }
 
-displayedColumns: string[] = ['select', 'name', 'contact', 'mail', 'degree', 'stream', 'yop', 'aggregate', 'branch'];
-dataSource = new MatTableDataSource<CandidatesList>(ELEMENT_DATA);
-selection = new SelectionModel<CandidatesList>(true, []);
-
 applyFilter(event: Event) {
   const filterValue = (event.target as HTMLInputElement).value;
   this.dataSource.filter = filterValue.trim().toLowerCase();
 }
 
-/** Whether the number of selected elements matches the total number of rows. */
 isAllSelected() {
   const numSelected = this.selection.selected.length;
   const numRows = this.dataSource.data.length;
   return numSelected === numRows;
 }
 
-/** Selects all rows if they are not all selected; otherwise clear selection. */
 masterToggle() {
   if (this.isAllSelected()) {
     this.selection.clear();
@@ -199,14 +204,12 @@ masterToggle() {
   this.selection.select(...this.dataSource.data);
 }
 
-/** The label for the checkbox on the passed row */
-checkboxLabel(row ?: CandidatesList): string {
+checkboxLabel(row ?: OnboardList): string {
   if (!row) {
     return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
   }
   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name + 1}`;
 }
-
 
 onSubmit(onboardForm: any) {
   console.log(onboardForm.value);

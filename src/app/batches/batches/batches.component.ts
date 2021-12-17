@@ -5,6 +5,7 @@ import { BatchService } from '../batch.service';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { data } from 'jquery';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-batches',
@@ -28,6 +29,8 @@ export class BatchesComponent implements OnInit {
   client = false
 
   batchForm!: FormGroup;
+  message!:'';
+  error = true;
 
   items!: FormArray;
   mentors!: FormArray;
@@ -36,12 +39,10 @@ export class BatchesComponent implements OnInit {
   internalBatch: any;
   clientBatch: any;
   tocPath: any;
-  //  tyTrainers = clientTrainers[i].join(',')
 
 
   batches: any;
   batchesData: any;
-  // clientBatches:any;
   tableData: any;
   index: any;
   @ViewChild('uploadToc') uploadToc!: ElementRef
@@ -55,12 +56,12 @@ export class BatchesComponent implements OnInit {
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
-    private batchService: BatchService
+    private batchService: BatchService,
+    private toastr:ToastrService
   ) { }
 
 
-  ngOnInit(): void {
-
+  ngOnInit(): void {    
     this.getBatch();
 
     this.batchForm = this.formBuilder.group({
@@ -70,11 +71,13 @@ export class BatchesComponent implements OnInit {
       tocPath: new FormControl('', [Validators.required]),
       tyMentors: new FormControl('', [Validators.required]),
       batchType: new FormControl('', [Validators.required]),
-      clientCompanyName: new FormControl('', [Validators.required]),
+      clientCompanyName: new FormControl('', [Validators.required,Validators.pattern('[a-zA-Z]*')]),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()]),
       candidates: new FormArray([this.createCandidate()]),
     });
+
+    // console.log((this.clientMentorName.controls[0] as FormGroup).controls.clientMentorName.errors);
   }
 
   onSelect() {
@@ -102,7 +105,7 @@ export class BatchesComponent implements OnInit {
 
   createMentor(): FormGroup {
     return this.formBuilder.group({
-      clientMentorName: ['',[Validators.pattern('[a-z A-Z]')]],
+      clientMentorName: ['',[Validators.pattern('[a-z A-Z]*')]],
       designation: [''],
       contactNo: ['',[Validators.pattern('[6-9]{1}[0-9]{9}')]],
       emailId: ['']
@@ -118,7 +121,7 @@ export class BatchesComponent implements OnInit {
   }
   createCandidate(): FormGroup {
     return this.formBuilder.group({
-      candidateName: ['', [Validators.required,Validators.pattern('[a-z A-Z]')]],
+      candidateName: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required,Validators.pattern('[6-9]{1}[0-9]{9}')]],
       emailId: ['', [Validators.required]],
       degree: ['', [Validators.required]],
@@ -178,11 +181,19 @@ export class BatchesComponent implements OnInit {
   branchs = [
     { value: 'Hebbal', viewValue: 'Hebbal' },
     { value: 'BTM', viewValue: 'BTM' },
-    { value: 'bBasavangudi', viewValue: 'bBasavangudi' },
+    { value: 'Basavangudi', viewValue: 'Basavangudi' },
   ];
 
-  get contact() {
-    return (this.batchForm.get('mentors') as FormArray).controls[0].get('contact') as FormControl
+  get assignTrainerName() {
+    return (this.batchForm.controls.trainers as FormArray).controls[0].get('assignTrainerName') as FormControl
+  }
+
+  get contactNo() {
+    return (this.batchForm.controls.mentors as FormArray).controls[0].get('contactNo') as FormControl
+  }
+
+  get clientMentorName() {
+    return (this.batchForm.controls.mentors as FormArray).controls[0].get('clientMentorName') as FormControl
   }
 
   get mentor(): FormArray {
@@ -202,10 +213,8 @@ export class BatchesComponent implements OnInit {
     return this.batchService.getBatchData().subscribe((res: any) => {
       this.batches = res;
       this.batchesData = this.batches.data;
-      // console.log(this.batches.data);
-
-      let interBatchData = this.batches.data;
       // internal Data
+      let interBatchData = this.batches.data;
       this.internalBatch = interBatchData.filter((batch: any) => {
         return batch.batchType === 'INTERNAL'
       })
@@ -323,9 +332,15 @@ export class BatchesComponent implements OnInit {
       formData.append('batchDetails',JSON.stringify(batchDetails))
       formData.append('tocFile',file)
       this.batchService.postBatchData(formData).subscribe(res => {
-        console.log("batch details added successfully");
-        batchForm.reset();
-        this.getBatch();
+          console.log("batch details added successfully");
+          this.toastr.success('Batch Details Added Successfully');
+          batchForm.reset();
+          this.getBatch();
+        
+      }, err => {
+        console.log(err);
+        this.toastr.error(err.error.errorMessage);
+        
       })
     }
     uploadTOC(event: Event){

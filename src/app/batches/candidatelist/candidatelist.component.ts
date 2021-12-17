@@ -40,6 +40,7 @@ export class CandidatelistComponent implements OnInit {
   candidates: any;
   id: any;
   batchName: any;
+  batchType: any;
 
   @ViewChild('modalOpenButton') modalOpenButton!: ElementRef;
   @ViewChild('closeBtn') closeBtn!: ElementRef;
@@ -202,7 +203,7 @@ export class CandidatelistComponent implements OnInit {
 
       this.candidateList = res;
       this.candidates = this.candidateList.data[0];
-      console.log(this.candidates);
+      console.log(this.candidates,'candidates');
 
       this.details = this.candidateList.data[0].candidateList;
       console.log(this.details);
