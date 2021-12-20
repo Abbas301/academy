@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Calendar } from './calendar.component';
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +11,30 @@ export class CalendarService {
   constructor(private http:HttpClient) { }
 
   getCalendar() {
-    return this.http.get('http://localhost:3000/calendarList')
+    return this.http.get('http://10.10.20.92:8083/api/v1/academy/calendar/batch-details')
+  }
+
+  getCalendarEvents(batchname:any) {
+    return this.http.get(`http://10.10.20.92:8083/api/v1/academy/calendar/calendar-events`,{
+      params: {
+        batchname
+      }
+    })
   }
 
   postCalendar(add:any) {
-    return this.http.post('http://localhost:3000/calendarList',add)
+    return this.http.post('HTTP://10.10.20.92:8083/api/v1/academy/calendar/calendar-details',add)
   }
 
-  updateCalendar(id:any,add:any) {
-    return this.http.put(`http://localhost:3000/calendarList/${id}`,add)
+  updateCalendar(add:any) {
+    return this.http.put(`http://10.10.20.92:8083/api/v1/academy/calendar/calendar-details`,add)
   }
 
-  deleteCalendar(id:any) {
-    return this.http.delete(`http://localhost:3000/calendarList/${id}`)
+  deleteCalendar(calendardetailsid:any,batchname:any) {
+    return this.http.delete(`http://10.10.20.92:8083/api/v1/academy/calendar/calendar-details`,{params:{
+      calendardetailsid,
+      batchname
+    }})
   }
-
 
 }

@@ -16,13 +16,13 @@
           Calendar</button>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1"
+        <div class="modal fade" id="exampleModal"   data-backdrop="static" tabindex="-1"
           aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header Gcalendar">
                 <h2 class="modal-title" id="exampleModalLabel">New Calendar Generation</h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" #generateCalendarModal class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -30,13 +30,6 @@
                 <div class="row">
                   <div class="col-8 offset-1">
                     <form [formGroup]="Cform" (ngSubmit)="onSubmitForm(Cform)">
-                      <!-- <div class="form-group">
-                                          <mat-form-field appearance="standard">
-                                              <mat-label>Id</mat-label>
-                                              <input type="text" matInput formControlName="id">
-                                              <mat-error>This field is required</mat-error>
-                                          </mat-form-field>
-                                      </div> -->
                       <div class="form-group">
                         <mat-form-field appearance="standard">
                           <mat-label>Batch Name</mat-label>
@@ -116,18 +109,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let calendar of calendarList | tablefilter:searchText ; index as i">
-            <td>{{calendar.slno}}</td>
+          <tr *ngFor="let calendar of calendarListData | tablefilter:searchText ; index as i">
+            <td>{{i+1}}</td>
             <td>{{calendar.batchName}}</td>
             <td>{{calendar.technology}}</td>
             <td>{{calendar.startDate}}</td>
             <td>{{calendar.endDate}}</td>
             <td
               [ngClass]="{'text-primary':calendar.status === 'in progress','text-warning':calendar.status == 'yet to start','text-success':calendar.status == 'finished' }">
-              {{calendar.status}}</td>
+              ---</td>
             <td>
-              <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal2" (click)='visibleCalender()'>visibility</mat-icon>
-              <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal3" (click)='editCalender()'>edit
+              <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal2" (click)='visibleCalender(calendar.batchName)'>visibility</mat-icon>
+              <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal3" (click)='visibleCalender(calendar.batchName)'>edit
               </mat-icon>
               <mat-icon class="icon" data-toggle="modal" data-target="#exampleModalCenter"
                 (click)="elementData(calendar)">delete_outline</mat-icon>
@@ -245,32 +238,28 @@
                     <form #addEventForm="ngForm" (ngSubmit)="onSubmit(addEventForm)">
                       <div class="row">
                         <div class="col-sm-12">
-                          <div>
-                            <label for="">Id</label>
-                            <input type="text" class="form-control" ngModel #id id="id" name="id" required>
-                          </div>
                           <div class="form-group">
-                            <label>Event Title</label>
-                            <input placeholder="Add Event Title" type="text" id="title" name="title" ngModel #title
+                            <label>Date</label>
+                            <input placeholder="Add Event Title" type="date" id="start" name="start" ngModel #start
                               class="titleinp form-control" required>
                           </div>
                         </div>
                         <div class="col-sm-12">
                           <div class="form-group">
-                            <label>Start Date:</label>
-                            <input placeholder="Add Event Title" type="date" id="start" name="start" ngModel #start
+                            <label>Topic</label>
+                            <input placeholder="Add Topic" type="text" id="title" name="title" ngModel #title
                               class="form-control" required>
                           </div>
                         </div>
                         <div class="col-sm-12">
                           <div class="form-group">
-                            <label>End Date:</label>
-                            <input placeholder="Add Event Title" type="date" id="end" name="end" ngModel #end
+                            <label>Sub Topic</label>
+                            <input placeholder="Sub Topic" type="text" id="subTopic" name="subTopic" ngModel #subTopic
                               class="form-control" required>
                           </div>
                         </div>
                       </div>
-                      <button type="submit" (click)="addEvent(addEventForm)" class="btn btn-primary">Submit</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                   </div>
                 </div>
@@ -296,7 +285,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn confirmbtn" data-toggle="modal" data-target="#confirm"
-          (click)="deleteCalendarData(this.calendarData)">Confirm</button>
+          (click)="deleteCalendarData()">Confirm</button>
         <button type="button" class="btn deletebtn" data-dismiss="modal" #closeBtn>Close</button>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, forwardRef, ElementRef } from '@angular/core';
 declare let $: any;
-import { CalendarOptions, Calendar } from '@fullcalendar/core';
+import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -8,9 +8,20 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { CalendarService } from './calendar.service';
-import { CalendarList } from '../calendar';
 
-
+export interface Events {
+  id: string;
+  title: string;
+  start: string;
+}
+export interface Calendar {
+  calendarDetailsId:number;
+  batchName:string;
+  technology:string;
+  include:Array<string>;
+  startDate:string
+  endDate:string
+}
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -25,56 +36,23 @@ export class CalendarComponent implements OnInit {
   successdata: any;
   searchText: any;
 
-  Earray: any = [];
-  // calendarList: any
-
+  calendarData:Events[] =[];
+  calendarList: any
+calenderObject:Calendar | undefined;
   Cform!: FormGroup;
 
   @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
   @ViewChild('modalOpenButton') modalOpenButton!: ElementRef;
   @ViewChild('closeBtn') closeBtn!: ElementRef;
-  calendarData: any;
-
-  calendarList = [
-    {
-      "id": "1",
-      "slno": "01",
-      "batchName": "CG_JSF JAN18",
-      "technology": "core Java",
-      "startDate": "28/08/2021",
-      "endDate": "28/10/2021",
-      "status": "finished"
-    },
-    {
-      "id": "2",
-      "slno": "02",
-      "batchName": "CG_JSF JAN24",
-      "technology": "core Java",
-      "startDate": "28/04/2021",
-      "endDate": "28/06/2021",
-      "status": "yet to start"
-    },
-    {
-      "id": "3",
-      "slno": "03",
-      "batchName": "CG_JHS sep20",
-      "technology": "Javascript",
-      "startDate": "28/04/2021",
-      "endDate": "28/06/2021",
-      "status": "finished"
-    },
-    {
-      "id": "4",
-      "slno": "04",
-      "batchName": "CG_ERT sep20",
-      "technology": "React",
-      "startDate": "28/04/2021",
-      "endDate": "28/06/2021",
-      "status": "yet to start"
-    }
-  ]
+  @ViewChild('generateCalendarModal') generateCalendarModal!:ElementRef
   value: any;
   monthSelect: any
+  calendarListData: any;
+  calendarEvents: any;
+  batchname: any;
+  calendarDetailsId: any;
+  index: any;
+
   constructor(private http: HttpClient,
     private calendarService: CalendarService
   ) { }
@@ -83,29 +61,15 @@ export class CalendarComponent implements OnInit {
   ngOnInit() {
 
     this.Cform = new FormGroup({
-      id: new FormControl('', [Validators.required]),
       batchName: new FormControl('', [Validators.required]),
       technology: new FormControl('', [Validators.required]),
       startDate: new FormControl('', [Validators.required]),
       include: new FormControl('', [Validators.required]),
     })
-
-    // setTimeout(() => {
-    //   return this.http.get('http://localhost:3000/events').subscribe(data => {
-    //     this.Earray = data;
-    //     console.log(this.Earray);
-
-    //   });
-    // }, 500);
-
-    // setTimeout(() => {
-    //   this.handleCalender()
-    // }, 1000);
-
-    // this.getCalendarData();
-
-
+    this.getCalendarData();
     this.calenderSetup();
+    console.log(this.calendarData);
+
   }
 
   calenderSetup() {
@@ -121,63 +85,26 @@ export class CalendarComponent implements OnInit {
       eventTextColor: "black",
       height: 700,
       contentHeight: 600,
-      events: [
-        {
-          "title": "angular",
-          "start": "2021-12-28"
-        },
-        {
-          "title": "hands on",
-          "start": "2021-12-17"
-        },
-        {
-          "title": "lunch",
-          "start": "2021-12-03"
-        },
-        {
-          "title": "R&D",
-          "start": "2021-12-22"
-        },
-        {
-          "title": "Demo",
-          "start": "2021-12-24"
-        },
-        {
-          "id": "a",
-          "title": "my event",
-          "start": "2021-12-18"
-        },
-        {
-          "title": "repeating event",
-          "start": "2021-12-12"
-        },
-        {
-          "title": "meeting",
-          "start": "2021-12-15 "
-        },
-        {
-          "id": "306",
-          "title": "games",
-          "start": "2021-12-04"
-        },
-        {
-          "id": "870",
-          "title": "prepare notes",
-          "start": "2021-12-04"
-        },
-        {
-          "id": "90",
-          "title": "revising angular",
-          "start": "2021-12-02",
-          "end": "2021-12-05"
-        },
-        {
-          "id": "54",
-          "title": "task assigning",
-          "start": "2021-12-03",
-          "end": "2021-12-03"
-        }
-      ],
+      events: this.calendarData,
+    //   customButtons: {
+    //     myCustomButton: {
+    //     text: 'Add Event',
+    //     click: function() {
+    //            alert("Custom Button");
+    //     }
+    //   }
+    // },
+      // eventContent: { html: '<i class="far fa-edit"></i>' },
+      eventContent: function (args:any, createElement:any) {
+        const icon = args.event._def.extendedProps.img;
+        const text = "<i class='far fa-edit" + icon + "'></i> " + args.event._def.title;
+        if(args.icon){
+          createElement.find(".fc-title").prepend("<i class='fa fa-edit"+args.icon+"'></i>");
+       }
+        return {
+          html: text
+        };
+      },
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'prevYear,nextYear',
@@ -190,25 +117,10 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  getCalendarData() {
-    // return this.calendarService.getCalendar().subscribe((data: any) => {
-    //   this.calendarList = data;
-    //   console.log(this.calendarList);
-
-    // })
-  }
-
-  addEvent(addEventForm: NgForm) {
-    // return this.http.post('http://localhost:3000/events', addEventForm.value).subscribe(data => {
-    //   this.Earray = data;
-    // })
-  }
-
   handleDateClick(arg: any) {
     this.modalOpenButton.nativeElement.click();
     $(".title").text("Add Event at:" + arg.dateStr);
     $(".eventsstarttitle").text(arg.dateStr);
-
   }
 
   handleEventClick(arg: any) {
@@ -218,6 +130,15 @@ export class CalendarComponent implements OnInit {
   handleEventDragStop(arg: any) {
     console.log(arg);
   }
+
+  getCalendarData() {
+    return this.calendarService.getCalendar().subscribe((data: any) => {
+      this.calendarList = data;
+      this.calendarListData = this.calendarList.data
+      console.log(this.calendarListData);
+    })
+  }
+
 
   onSubmit(addEventForm: NgForm) {
     console.log(addEventForm.value);
@@ -231,55 +152,90 @@ export class CalendarComponent implements OnInit {
   ];
 
   batches = [
-    { value: 'JA03HJS', viewValue: 'JA03HJS' },
-    { value: 'JA05HJH', viewValue: 'JA05HJH' },
-    { value: 'JA15HJA', viewValue: 'JA15HJA' },
+    { value: 'B15DECME_105636', viewValue: 'B15DECME_105636' },
+    { value: 'B15DECME_105529', viewValue: 'B15DECME_105529' },
+    { value: 'B15DECME_105821', viewValue: 'B15DECME_105821' },
+    { value: 'B15DECME_105840', viewValue: 'B15DECME_105840' },
   ];
 
   includes = [
-    { value: 'Saturday', viewValue: 'Saturday' },
-    { value: 'Sunday', viewValue: 'Sunday' },
-    { value: 'Holidays', viewValue: 'Holidays' },
+    { value: 'SATURDAY', viewValue: 'SATURDAY' },
+    { value: 'SUNDAY', viewValue: 'SUNDAY' },
+    { value: 'HOLIDAYS', viewValue: 'HOLIDAYS' },
   ];
 
-  elementData(calendar: any) {
-    this.calendarData = calendar;
+  elementData(calendar: Calendar) {
+    this.calenderObject = calendar;
+    console.log(calendar);
   }
-  deleteCalendarData(calendarlist: CalendarList) {
+  deleteCalendarData() {
     this.closeBtn.nativeElement.click();
+    console.log(this.batchname);
 
-    // console.log(calendarlist.id);
-
-
-    // this.calendarService.deleteCalendar(calendarlist.id).subscribe((data: any) => {
-    //   console.log("Calendar list deleted successfully");
-
-    // })
-
+    this.calendarService.deleteCalendar(this.calenderObject?.calendarDetailsId,this.calenderObject?.batchName).subscribe((data: any) => {
+      console.log("Calendar list deleted successfully");
+      this.getCalendarData();
+    })
   }
 
-  onSubmitForm(Cform: any) {
+  onSubmitForm(Cform: FormGroup) {
     console.log(this.Cform.value);
-    // return this.calendarService.postCalendar(Cform.value).subscribe(res => {
-    //   console.log("Calendar Data Posted Successfully");
-    // });
+    const formData ={
+      batchName:Cform.controls.batchName.value,
+      technology:Cform.controls.technology.value,
+      startDate:Cform.controls.startDate.value,
+      include:Cform.controls.include.value,
+    }
+    this.calendarService.postCalendar(formData).subscribe(res => {
+      console.log("calendar Generated Successfully");
+      this.getCalendarData();
+      setTimeout(() => {
+        this.generateCalendarModal.nativeElement.click();
+      },500)
+    })
+    Cform.reset();
   }
-  editCalender() {
+
+  visibleCalender(batchname:any) {
+    console.log(batchname);
+     this.calendarService.getCalendarEvents(batchname).subscribe(res => {
+      this.calendarEvents = res;
+      let eventsArray = this.calendarEvents.data;
+      console.log(eventsArray);
+      var calendarData:any = []
+      eventsArray.forEach((element:any,index:any) => {
+        let obj = {id:'',title:'',start:'',eventContent:''}
+        obj.id = index
+        obj.title = element.topic
+        obj.start = element.date
+        obj.eventContent = element.subTopic
+        calendarData.push(obj)
+      });
+
+      if(Array.isArray(calendarData) && calendarData.length>0){
+        console.log("calendarData",calendarData);
+        this.calendarData = calendarData;
+        this.calendarOptions.events = calendarData;
+        this.calenderSetup()
+      }
+      else{
+        console.log("calendarData",calendarData);
+        console.log("Array is empty")
+      }
+    })
     setTimeout(() => {
       this.calenderSetup()
     }, 500);
+
   }
-  visibleCalender() {
+
+  editCalender() {
     setTimeout(() => {
       this.calenderSetup()
     }, 500);
   }
 
 }
-
-
-
-
 
 
 

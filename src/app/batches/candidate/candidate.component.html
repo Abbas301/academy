@@ -1,135 +1,150 @@
 <div class="container-fluid page">
   <div class="box">
-      <form action="" #rform="ngForm" (ngSubmit)="onSubmit(rform)">
+    <form action="" #rform="ngForm" (ngSubmit)="onSubmit(rform)">
 
-          <div class="row">
-              <div class="col-md-6">
-                  <!-- <mat-form-field appearance="standard">
-                      <input class="hover" matInput type="search" name="id" #id="ngModel" ngModel placeholder="ID" required>
-                      <mat-error *ngIf='id?.errors?.required'>this field is required</mat-error>
-                  </mat-form-field> -->
-              </div>
-              <div class="col-md-6">
-                  <mat-form-field appearance="standard">
-                      <input class="hover" matInput type="search" name="batchName" #batchName="ngModel" ngModel placeholder="batchName" required>
-                      <mat-error *ngIf='batchName.errors?.required'>this field is required</mat-error>
-                  </mat-form-field>
-              </div>
-          </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <input class="hover" matInput type="search" name="batchId" #batchId="ngModel" ngModel={{candidates.batchId}} placeholder="batchId"
+              required>
+            <mat-error *ngIf='batchId?.errors?.required'>this field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6" >
+          <mat-form-field appearance="standard">
+            <input class="hover" matInput type="search" name="batchName" #batchName="ngModel" ngModel={{candidates.batchName}}
+              placeholder="batchName" required>
+            <mat-error *ngIf='batchName.errors?.required'>this field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
 
-          <div class="row">
-              <div class="col-md-6">
-                  <mat-form-field appearance="standard">
-                      <input class="hover" matInput type="search" name="candidateName" #candidateName="ngModel" ngModel placeholder="candidateName" required>
-                      <mat-error *ngIf='candidateName.errors?.required'> CandidateName is required</mat-error>
-                    </mat-form-field>
-              </div>
-              <div class="col-md-6">
-                  <mat-form-field appearance="standard">
-                      <input class="hover" matInput type="search" name="phoneNumber" #phoneNumber="ngModel" pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$" ngModel placeholder="Contact No" required>
-                      <mat-error *ngIf='phoneNumber.errors?.required'>
-                          Phone Number is Mandatory.
-                      </mat-error>
-                      <mat-error *ngIf='phoneNumber.errors?.pattern'>
-                          Enter Valid Number.
-                      </mat-error>
-                  </mat-form-field>
-              </div>
-          </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <input class="hover" matInput type="search" name="candidateName" #candidateName="ngModel" ngModel maxlength="15"  pattern="^[a-zA-Z]+$"
+              placeholder="candidateName" required>
+            <mat-error *ngIf='candidateName.errors?.required'> CandidateName is required</mat-error>
+            <mat-error *ngIf='candidateName.errors?.maxlength'> max 15 characters should be accept</mat-error>
+            <mat-error *ngIf='candidateName.errors?.pattern'> Name should be Alphabets</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <input class="hover" matInput type="search" name="phoneNumber" #phoneNumber="ngModel"
+              pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$" ngModel placeholder="Contact No" required>
+            <mat-error *ngIf='phoneNumber.errors?.required'>
+              Phone Number is Mandatory.
+            </mat-error>
+            <mat-error *ngIf='phoneNumber.errors?.pattern'>
+              Enter Valid Number.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
 
-          <div class="row">
-              <div class="col-md-6">
-                  <mat-form-field appearance="standard">
-                      <input class="hover" matInput type="search" name="emailId" pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$" #emailId="ngModel" ngModel placeholder="Email ID" required>
-                      <mat-error *ngIf='emailId.errors?.required'>
-                          Email is Mandatory.
-                      </mat-error>
-                      <mat-error *ngIf='emailId.errors?.pattern'>
-                          Enter Valid Email.
-                      </mat-error>
-                  </mat-form-field>
-              </div>
-              <div class="col-md-6">
-                  <mat-form-field appearance="standard">
-                      <input class="hover" matInput type="search" name="degree" #degree="ngModel" ngModel placeholder="Degree" required>
-                      <mat-error *ngIf='degree.errors?.required'>this field is required</mat-error>
-                  </mat-form-field>
-              </div>
-          </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <input class="hover" matInput type="search" name="emailId"
+              pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$" #emailId="ngModel" ngModel
+              placeholder="Email ID" required>
+            <mat-error *ngIf='emailId.errors?.required'>
+              Email is Mandatory.
+            </mat-error>
+            <mat-error *ngIf='emailId.errors?.pattern'>
+              Enter Valid Email.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <input class="hover" matInput type="search" name="degree" #degree="ngModel" ngModel placeholder="Degree"
+              required>
+            <mat-error *ngIf='degree.errors?.required'>this field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
 
-          <div class="row">
-              <div class="col-md-6">
-                  <mat-form-field appearance="standard">
-                      <input class="hover" matInput type="search" name="stream" #stream="ngModel" ngModel placeholder="Stream" required>
-                      <mat-error *ngIf='stream.errors?.required'>this field is required</mat-error>
-                  </mat-form-field>
-              </div>
-              <div class="col-md-6">
-                  <mat-form-field appearance="standard">
-                      <input class="hover" matInput type="search" name="yop" #yop="ngModel" ngModel placeholder="YOP" required>
-                      <mat-error *ngIf='yop.errors?.required'>this field is required</mat-error>
-                  </mat-form-field>
-              </div>
-          </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <input class="hover" matInput type="search" name="stream" #stream="ngModel" ngModel placeholder="Stream"
+              required>
+            <mat-error *ngIf='stream.errors?.required'>this field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <input class="hover" matInput type="search" name="yop" #yop="ngModel" ngModel placeholder="YOP" required>
+            <mat-error *ngIf='yop.errors?.required'>this field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
 
-          <div class="row">
-              <div class="col-md-6">
-                  <mat-form-field appearance="standard">
-                      <input class="hover" matInput type="search" name="tenthPercentage" #tenthPercentage="ngModel" ngModel placeholder="10th percentage" required>
-                      <mat-error *ngIf='tenthPercentage.errors?.required'>this field is required</mat-error>
-                  </mat-form-field>
-              </div>
-              <div class="col-md-6">
-                  <mat-form-field appearance="standard">
-                      <input class="hover" matInput type="search" name="twelfthPercentage" #twelfthPercentage="ngModel" ngModel placeholder="12th percentage" required>
-                      <mat-error *ngIf='twelfthPercentage.errors?.required'>this field is required</mat-error>
-                  </mat-form-field>
-              </div>
-          </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <input class="hover" matInput type="search" name="tenthPercentage" #tenthPercentage="ngModel" ngModel
+              placeholder="10th percentage" required>
+            <mat-error *ngIf='tenthPercentage.errors?.required'>this field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <input class="hover" matInput type="search" name="twelfthPercentage" #twelfthPercentage="ngModel" ngModel
+              placeholder="12th percentage" required>
+            <mat-error *ngIf='twelfthPercentage.errors?.required'>this field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
 
-          <div class="row">
-              <div class="col-md-6">
-                  <mat-form-field appearance="standard">
-                      <input class="hover" matInput type="search" name="degreeAggregate" #degreeAggregate="ngModel" ngModel placeholder="Degree Aggregate" required>
-                      <mat-error *ngIf='degreeAggregate.errors?.required'>this field is required</mat-error>
-                  </mat-form-field>
-              </div>
-              <div class="col-md-6">
-                  <mat-form-field appearance="standard">
-                      <input class="hover" matInput type="search" name="masterAggregate" #masterAggregate="ngModel" ngModel placeholder="Masters Aggregate" required>
-                      <mat-error *ngIf='masterAggregate.errors?.required'>this field is required</mat-error>
-                  </mat-form-field>
-              </div>
-          </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <input class="hover" matInput type="search" name="degreeAggregate" #degreeAggregate="ngModel" ngModel
+              placeholder="Degree Aggregate" required>
+            <mat-error *ngIf='degreeAggregate.errors?.required'>this field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <input class="hover" matInput type="search" name="masterAggregate" #masterAggregate="ngModel" ngModel
+              placeholder="Masters Aggregate" required>
+            <mat-error *ngIf='masterAggregate.errors?.required'>this field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
 
-          <div class="row">
-              <div class="col-md-6">
-                  <mat-form-field appearance="standard">
-                      <mat-label>Branch</mat-label>
-                      <mat-select name="branch" #branch="ngModel" ngModel required>
-                          <mat-option *ngFor="let branch of branches" [value]="branch.value">
-                              {{branch.viewValue}}
-                          </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf='branch.errors?.required'>this field is required</mat-error>
-                  </mat-form-field>
-              </div>
-              <div class="col-md-6">
-                  <mat-form-field appearance="standard">
-                      <input class="hover" matInput type="search" name="profileId" #profileId="ngModel" ngModel placeholder="profile Id" required>
-                      <mat-error *ngIf="profileId?.errors?.required">this field is required</mat-error>
-                  </mat-form-field>
-              </div>
-          </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <mat-label>Branch</mat-label>
+            <mat-select name="branch" #branch="ngModel" ngModel required>
+              <mat-option *ngFor="let branch of branches" [value]="branch.value">
+                {{branch.viewValue}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf='branch.errors?.required'>this field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <input class="hover" matInput type="search" name="profileId" #profileId="ngModel" ngModel
+              placeholder="profile Id" required>
+            <mat-error *ngIf="profileId?.errors?.required">this field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
 
-          <div class="row">
-              <div class="col-md-10">
-              </div>
-              <div class="col-md-2">
-                  <button type="submit" class="btn btn-color batch">Submit</button>
-              </div>
-          </div>
-      </form>
+      <div class="row">
+        <div class="col-md-10">
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-color batch">Submit</button>
+        </div>
+      </div>
+    </form>
 
   </div>
 </div>

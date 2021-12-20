@@ -1,8 +1,11 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl,FormArray, FormBuilder,Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { BatchService } from '../batch.service';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { data } from 'jquery';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-batches',
@@ -19,182 +22,82 @@ export class BatchesComponent implements OnInit {
 
   trainerForm = true;
   trainerExcel = false;
-  searchValue:any
+  searchValue: any
+
+  selected = 'internal';
+  internal = true;
+  client = false
 
   batchForm!: FormGroup;
+  message!:'';
+  error = true;
+
   items!: FormArray;
   mentors!: FormArray;
   trainers!: FormArray;
   candidates!: FormArray;
+  internalBatch: any;
+  clientBatch: any;
+  tocPath: any;
 
 
-  // batches :any;
-  batchesData : any;
-  // clientBatches:any;
+  batches: any;
+  batchesData: any;
   tableData: any;
-  index:any;
-@ViewChild('headerCheckbox') headerCheckbox!:MatCheckbox
-@ViewChildren('bodyCheckbox') bodyCheckbox!:QueryList<MatCheckbox>
+  index: any;
+  @ViewChild('uploadToc') uploadToc!: ElementRef
+  @ViewChild('headerCheckbox') headerCheckbox!: MatCheckbox
+  @ViewChildren('bodyCheckbox') bodyCheckbox!: QueryList<MatCheckbox>
+  @ViewChildren('batchType') batchType!: QueryList<MatRadioButton>
+  candidateList: any;
+  clientMentor: any[] = [];
+  assignTrainers: any[] = [];
+  clientTrainers: any[] = [];
 
-batches = [
-  {
-    "batchName": "BA58JAH",
-    "startDate": "2021 June 28",
-    "endDate": "2021 August 28",
-    "mentors": [
-      "ABC",
-      "XYZ"
-    ],
-    "trainers": [
-      "ABC",
-      "XYZ"
-    ],
-    "batchCompletion": "80",
-    "mockRating": "74"
-  },
-  {
-    "batchName": "BA35JAH",
-    "startDate": "2021 March 23",
-    "endDate": "2021 May 23",
-    "mentors": [
-      "ABC",
-      "XYZ"
-    ],
-    "trainers": [
-      "ABC",
-      "XYZ"
-    ],
-    "batchCompletion": "70",
-    "mockRating": "60"
-  },
-  {
-    "batchName": "BA02JAH",
-    "startDate": "2021 May 20",
-    "endDate": "2021 July 23",
-    "mentors": [
-      "ABC",
-      "XYZ"
-    ],
-    "trainers": [
-      "ABC",
-      "XYZ"
-    ],
-    "batchCompletion": "50",
-    "mockRating": "68"
-  },
-  {
-    "batchName": "BA26JAH",
-    "startDate": "2021 January 09",
-    "endDate": "2021 March 09",
-    "mentors": [
-      "ABC",
-      "XYZ"
-    ],
-    "trainers": [
-      "ABC",
-      "XYZ"
-    ],
-    "batchCompletion": "80",
-    "mockRating": "90"
-  }
-]
-clientBatches = [
-  {
-    "batchName": "BA58JAH",
-    "client": "capgemini",
-    "startDate": "2021 Sep 28",
-    "endDate": "2021 Nov 28",
-    "mentors": [
-      "ABC",
-      "XYZ"
-    ],
-    "trainers": [
-      "ABC",
-      "XYZ"
-    ],
-    "batchCompletion": "75",
-    "mockRating": "80"
-  },
-  {
-    "batchName": "BA35JAH",
-    "client": "infosis",
-    "startDate": "2021 March 23",
-    "endDate": "2021 May 23",
-    "mentors": [
-      "ABC",
-      "XYZ"
-    ],
-    "trainers": [
-      "ABC",
-      "XYZ"
-    ],
-    "batchCompletion": "70",
-    "mockRating": "55"
-  },
-  {
-    "batchName": "BA02JAH",
-    "client": "accenture",
-    "startDate": "2021 Feb 20",
-    "endDate": "2021 April 20",
-    "mentors": [
-      "ABC",
-      "XYZ"
-    ],
-    "trainers": [
-      "ABC",
-      "XYZ"
-    ],
-    "batchCompletion": "50",
-    "mockRating": "64"
-  },
-  {
-    "batchName": "BA26JAH",
-    "client": "google",
-    "startDate": "2021 August 28",
-    "endDate": "2021 October 28",
-    "mentors": [
-      "ABC",
-      "XYZ"
-    ],
-    "trainers": [
-      "ABC",
-      "XYZ"
-    ],
-    "batchCompletion": "70",
-    "mockRating": "55"
-  }
-]
-
-  constructor( private router:Router ,
-               private formBuilder: FormBuilder ,
-               private batchService:BatchService
-               ) { }
+  constructor(private router: Router,
+    private formBuilder: FormBuilder,
+    private batchService: BatchService,
+    private toastr:ToastrService
+  ) { }
 
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+    this.getBatch();
+
     this.batchForm = this.formBuilder.group({
-      location: new FormControl('',[Validators.required]),
-      technology: new FormControl('',[Validators.required]),
-      startDate: new FormControl('',[Validators.required]),
-      toc: new FormControl('',[Validators.required]),
-      tyMentor: new FormControl('',[Validators.required]),
+      location: new FormControl('', [Validators.required]),
+      technology: new FormControl('', [Validators.required]),
+      startDate: new FormControl('', [Validators.required]),
+      tocPath: new FormControl('', [Validators.required]),
+      tyMentors: new FormControl('', [Validators.required]),
+      batchType: new FormControl('', [Validators.required]),
+      clientCompanyName: new FormControl('', [Validators.required,Validators.pattern('[a-zA-Z]*')]),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()]),
       candidates: new FormArray([this.createCandidate()]),
     });
 
-    // this.getBatch();
-    // this.getCbatch();
+    // console.log((this.clientMentorName.controls[0] as FormGroup).controls.clientMentorName.errors);
   }
 
-  selectAll(){
-    if((this.headerCheckbox as MatCheckbox).checked){
-        this.bodyCheckbox.forEach((element)=>{
-          (element as MatCheckbox).checked = true
-        })
+  onSelect() {
+    this.internal = true;
+    this.client = false
+  }
+
+  onSelect1() {
+    this.internal = false;
+    this.client = true
+  }
+
+  selectAll() {
+    if ((this.headerCheckbox as MatCheckbox).checked) {
+      this.bodyCheckbox.forEach((element) => {
+        (element as MatCheckbox).checked = true
+      })
     }
-    else{
-      this.bodyCheckbox.forEach((element)=>{
+    else {
+      this.bodyCheckbox.forEach((element) => {
         (element as MatCheckbox).checked = false
       })
     }
@@ -202,33 +105,34 @@ clientBatches = [
 
   createMentor(): FormGroup {
     return this.formBuilder.group({
-      name: ['',[Validators.required]],
-      designation: ['',[Validators.required]],
-      contact: ['',[Validators.required,Validators.pattern('[7-9]{1}[0-9]{9}')]],
-      Memail: ['',[Validators.required]]
+      clientMentorName: ['',[Validators.pattern('[a-z A-Z]*')]],
+      designation: [''],
+      contactNo: ['',[Validators.pattern('[6-9]{1}[0-9]{9}')]],
+      emailId: ['']
     });
   }
   createTrainer(): FormGroup {
     return this.formBuilder.group({
-      trainerName: ['',[Validators.required]],
-      technology: ['',[Validators.required]],
-      days: ['',[Validators.required]],
-      Temail: ['',[Validators.required]]
+      assignTrainerName: ['', [Validators.required]],
+      technologies: ['', [Validators.required]],
+      days: ['', [Validators.required]],
+      emailId: ['', [Validators.required]]
     });
   }
   createCandidate(): FormGroup {
     return this.formBuilder.group({
-      candidateName: ['',[Validators.required]],
-      phoneNumber: ['',[Validators.required]],
-      emailId: ['',[Validators.required]],
-      degree: ['',[Validators.required]],
-      stream: ['',[Validators.required]],
-      yop: ['',[Validators.required]],
-      tenthPercentage: ['',[Validators.required]],
-      twelfthPercentage: ['',[Validators.required]],
-      degreeAggregate: ['',[Validators.required]],
-      masterAggregate: ['',[Validators.required]],
-      branch: ['',[Validators.required]],
+      candidateName: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required,Validators.pattern('[6-9]{1}[0-9]{9}')]],
+      emailId: ['', [Validators.required]],
+      degree: ['', [Validators.required]],
+      stream: ['', [Validators.required]],
+      yop: ['', [Validators.required]],
+      tenthPercentage: ['', [Validators.required]],
+      twelfthPercentage: ['', [Validators.required]],
+      degreeAggregate: ['', [Validators.required]],
+      masterAggregate: ['', [Validators.required]],
+      branch: ['', [Validators.required]],
+      profileId: ['', [Validators.required]],
     });
   }
 
@@ -246,128 +150,201 @@ clientBatches = [
   }
 
   tyMentor = [
-    {value: 'pavan', viewValue: 'pavan'},
-    {value: 'gangadhar', viewValue: 'gangadhar'},
-    {value: 'divya', viewValue: 'divya'},
-    {value: 'manohar', viewValue: 'manohar'},
-    {value: 'rajesh', viewValue: 'rajesh'},
+    { value: 'pavan', viewValue: 'pavan' },
+    { value: 'gangadhar', viewValue: 'gangadhar' },
+    { value: 'divya', viewValue: 'divya' },
+    { value: 'manohar', viewValue: 'manohar' },
+    { value: 'rajesh', viewValue: 'rajesh' },
   ];
 
   technologies = [
-    {value: 'HTML', viewValue: 'HTML'},
-    {value: 'CSS', viewValue: 'CSS'},
-    {value: 'Angular', viewValue: 'Angular'},
-    {value: 'React', viewValue: 'React'},
-    {value: 'Node JS', viewValue: 'Node JS'},
-    {value: 'Mongo DB', viewValue: 'Mongo DB'},
+    { value: 'HTML', viewValue: 'HTML' },
+    { value: 'CSS', viewValue: 'CSS' },
+    { value: 'Angular', viewValue: 'Angular' },
+    { value: 'React', viewValue: 'React' },
+    { value: 'Node JS', viewValue: 'Node JS' },
+    { value: 'Mongo DB', viewValue: 'Mongo DB' },
   ];
 
   days = [
-    {value: '30 days', viewValue: '30 days'},
-    {value: '50 days', viewValue: '50 days'},
-    {value: '60 days', viewValue: '60 days'},
+    { value: 30, viewValue: 30 },
+    { value: 50, viewValue: 50 },
+    { value: 60, viewValue: 60 },
   ];
 
   locations = [
-    {value: 'Hyderabad', viewValue: 'Hyderabad'},
-    {value: 'Bangalore', viewValue: 'Bangalore'},
-    {value: 'Pune', viewValue: 'Pune'},
+    { value: 'Hyderabad', viewValue: 'Hyderabad' },
+    { value: 'Bangalore', viewValue: 'Bangalore' },
+    { value: 'Pune', viewValue: 'Pune' },
   ];
 
   branchs = [
-    {value: 'Hebbal', viewValue: 'Hebbal'},
-    {value: 'BTM', viewValue: 'BTM'},
-    {value: 'bBasavangudi', viewValue: 'bBasavangudi'},
+    { value: 'Hebbal', viewValue: 'Hebbal' },
+    { value: 'BTM', viewValue: 'BTM' },
+    { value: 'Basavangudi', viewValue: 'Basavangudi' },
   ];
-  getBatch() {
-    //  return this.batchService.getBatchData().subscribe((res: any) =>{
-    //     this.batches = res;
-    //     console.log(this.batches);
-    //  })
-  }
-  get contact(){
-    return (this.batchForm.get('mentors')as FormArray ).controls[0].get('contact') as FormControl
+
+  get assignTrainerName() {
+    return (this.batchForm.controls.trainers as FormArray).controls[0].get('assignTrainerName') as FormControl
   }
 
-  get item(): FormArray{
-    return this.batchForm.get('items') as FormArray;
+  get contactNo() {
+    return (this.batchForm.controls.mentors as FormArray).controls[0].get('contactNo') as FormControl
   }
 
-  get mentor(): FormArray{
+  get clientMentorName() {
+    return (this.batchForm.controls.mentors as FormArray).controls[0].get('clientMentorName') as FormControl
+  }
+
+  get mentor(): FormArray {
     return this.batchForm.get('mentors') as FormArray;
   }
 
-  get trainer(): FormArray{
+  get trainer(): FormArray {
     return this.batchForm.get('trainers') as FormArray;
   }
 
-  get candidate(): FormArray{
+  get candidate(): FormArray {
     return this.batchForm.get('candidates') as FormArray;
   }
-  postBatch(userData:any) {
 
+
+  getBatch() {
+    return this.batchService.getBatchData().subscribe((res: any) => {
+      this.batches = res;
+      this.batchesData = this.batches.data;
+      // internal Data
+      let interBatchData = this.batches.data;
+      this.internalBatch = interBatchData.filter((batch: any) => {
+        return batch.batchType === 'INTERNAL'
+      })
+      // console.log(this.internalBatch, 'internal');
+
+      for (let i = 0; i < this.internalBatch.length; i++) {
+        this.assignTrainers[i] = [];
+        for (let j = 0; j < this.internalBatch[i]?.assignTrainerList.length; j++) {
+          this.assignTrainers[i].push(this.internalBatch[i].assignTrainerList[j]?.assignTrainerName);
+          // let assignTrainers =
+        }
+      }
+
+      // client Data
+      let clientBatchData = this.batches.data;
+      this.clientBatch = clientBatchData.filter((batch: any) => {
+        return batch.batchType === 'CLIENT'
+      })
+      // console.log(this.clientBatch, 'client');
+      for (let i = 0; i < this.clientBatch.length; i++) {
+        this.clientTrainers[i] = [];
+        for (let j = 0; j < this.clientBatch[i]?.assignTrainerList.length; j++) {
+          this.clientTrainers[i].push(this.clientBatch[i].assignTrainerList[j]?.assignTrainerName);
+        }
+      }
+
+
+      for (let i = 0; i < this.batchesData.length; i++) {
+        this.clientMentor[i] = [];
+        for (let j = 0; j < this.batchesData[i]?.clientMentorList.length; j++) {
+          this.clientMentor[i].push(this.batchesData[i].clientMentorList[j]?.clientMentorName);
+        }
+      }
+    })
   }
 
-  getCbatch() {
-    //  return this.batchService.getCbatchData().subscribe((data: any) => {
-    //   this.clientBatches = data;
-    //   console.log(data);
-    // })
-  }
-
-
-  onClick(){
+  onClick() {
     this.show = true
     this.show1 = false
 
   }
-  onClick1(){
+  onClick1() {
     this.show = false
     this.show1 = true
   }
-  form(){
+  form() {
     this.formShow = true
     this.formHide = false
 
   }
-  excel(){
+  excel() {
     this.formShow = false
     this.formHide = true
   }
-  trainersForm(){
+  trainersForm() {
     this.trainerForm = true
     this.trainerExcel = false
-
   }
-  trainersExcel(){
+
+  trainersExcel() {
     this.trainerForm = false
     this.trainerExcel = true
   }
-sample:any
-  viewCandidateList(index: number){
-     this.sample = this.batches[index];
+  sample: any
+  viewCandidateList(index: number) {
 
-    this.router.navigate(['/candidatelist/'],
-    {
-      queryParams:{
-        batchName : this.sample.batchName,
-        startDate : this.sample.startDate,
-        endDate : this.sample.endDate,
-        mentors : this.sample.mentors,
-        trainers : this.sample.trainers,
-        batchCompletion : this.sample.batchCompletion,
-        mockRating : this.sample.mockRating
+    this.sample = this.internalBatch[index];
+    console.log(this.sample);
+
+    this.router.navigate(['/candidatelist/'], {
+      queryParams: {
+        batchName: this.sample.batchName,
+        // tyMentors:this.batchesData[index]?.tyMentors
       }
+    })
+  }
+  clientsample: any;
+  viewClientCandidateList(index: number) {
+
+    this.clientsample = this.clientBatch[index]
+    console.log(this.clientsample);
+
+    this.router.navigate(['/candidatelist/'], {
+      queryParams: {
+        batchName: this.clientsample.batchName,
+        // clientMentorList:this.clientBatch.clientMentorList
+      }
+    })
+
+  }
+
+  addBatch(batchForm: FormGroup) {
+
+      console.log(batchForm.value);
+      let file = this.tocPath
+      console.log(file);
+      let date = new Date(batchForm.controls.startDate.value);
+      console.log(date);
+      let finalDate = date.toLocaleDateString().split('/');
+      let newDate = `${finalDate[2]}-${finalDate[0]}-${finalDate[1]}`
+      console.log(newDate);
+
+      let batchDetails = {
+        location: batchForm.controls.location.value,
+        technology: batchForm.controls.technology.value,
+        startDate: newDate,
+        tyMentors: batchForm.controls.tyMentors.value,
+        batchType: batchForm.controls.batchType.value,
+        clientCompanyName: batchForm.controls.clientCompanyName.value,
+        clientMentorList:this.mentor.value,
+        assignTrainerList:this.trainer.value,
+        candidateList:this.candidate.value,
+      };
+      let formData = new FormData();
+      formData.append('batchDetails',JSON.stringify(batchDetails))
+      formData.append('tocFile',file)
+      this.batchService.postBatchData(formData).subscribe(res => {
+          console.log("batch details added successfully");
+          this.toastr.success('Batch Details Added Successfully');
+          batchForm.reset();
+          this.getBatch();
+        
+      }, err => {
+        console.log(err);
+        this.toastr.error(err.error.errorMessage);
+        
+      })
     }
-    )
-
-  }
-
-  onSubmit(batchForm: any) {
-    console.log(this.batchForm.value);
-    this.batchForm.reset();
-  }
-
-
+    uploadTOC(event: Event){
+      this.tocPath = (event.target as HTMLInputElement).files?.item(0)
+    }
 }
 
