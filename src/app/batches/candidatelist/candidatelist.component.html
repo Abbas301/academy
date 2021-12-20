@@ -2,20 +2,20 @@
   <mat-card>
     <div class="d-flex justify-content-between">
       <div class="">
-        <h3 class="d-inline"><b>{{candidates?.batchName}}</b></h3>
+        <h3 class="d-inline">{{candidates?.batchName}}</h3>
         <p class="d-block">{{candidates?.startDate}} - {{candidates?.endDate}}</p>
       </div>
       <div *ngIf="candidates.batchType=='INTERNAL'">
-        <h4 class="d-inline">Mentors - </h4>
-        <h5 class="d-inline" *ngFor="let candiate of candidates['tyMentors'] "><div><b>{{candiate}}</b></div></h5>
+        <h3 class="d-inline">Mentors - </h3>
+        <h5 class="d-inline" *ngFor="let candiate of candidates['tyMentors'] "><div>{{candiate}}</div></h5>
       </div>
       <div *ngIf="candidates.batchType=='CLIENT'" >
         <h4 class="d-inline">Mentors - </h4>
-        <h5 class="d-inline" *ngFor="let candiate of candidates['clientMentorList'] "><div><b>{{candiate.clientMentorName}}</b></div></h5>
+        <h5 class="d-inline" *ngFor="let candiate of candidates['clientMentorList'] "><div>{{candiate.clientMentorName}}</div></h5>
       </div>
       <div class="">
         <h4 class="d-inline">Trainers - </h4>
-        <h5 class="d-inline" *ngFor="let candiate of candidates['assignTrainerList'] "><div><b>{{candiate.assignTrainerName}}</b></div></h5>
+        <h5 class="d-inline" *ngFor="let candiate of candidates['assignTrainerList'] "><div>{{candiate.assignTrainerName}}</div></h5>
       </div>
       <div>
         <h4>Batch Completion</h4>

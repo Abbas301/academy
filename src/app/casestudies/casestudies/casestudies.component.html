@@ -1,221 +1,292 @@
 <div class="container-fluid">
-  <form>
-      <div class="d-flex justify-content-between align-items-center">
-          <div class="case">
-              <h3 class=" d-inline font-weight-bold pr-4">Case Studies</h3>
-              <mat-button-toggle-group class="mini" name="fontStyle" aria-label="Font Style">
-                  <mat-button-toggle value="bold" (click)="showMini()" checked>Mini</mat-button-toggle>
-                  <mat-button-toggle value="italic" (click)="showPlp()">Pseudo Live</mat-button-toggle>
-              </mat-button-toggle-group>
-          </div>
-          <form [formGroup]="form">
-              <div>
-                  <span class="px-2 search">
-                  <mat-form-field appearance="standard">
-                      <input type="text"  matInput placeholder="Search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" >
-                      <mat-icon matSuffix>search</mat-icon>
-                  </mat-form-field>
-                  </span>
-                  <span class="px-5 searchtype">
-                  <mat-form-field>
-                      <mat-label>Sub Type</mat-label>
-                      <mat-select name="SubType" [formControl]="subtype">
-                          <mat-option *ngFor="let sub of subTypes" [value]="sub">
-                              {{sub}}
-                          </mat-option>
-                      </mat-select>
-                  </mat-form-field>
-                  </span>
-                  <button type="button" class="btn newbtn" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">+ New</button>
-              </div>
-          </form>
-      </div>
-  </form>
+    <form>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="case">
+                <h3 class=" d-inline font-weight-bold pr-4">Case Studies</h3>
+                <mat-button-toggle-group class="mini" name="fontStyle" aria-label="Font Style">
+                    <mat-button-toggle value="bold" (click)="showMini()" checked>Mini</mat-button-toggle>
+                    <mat-button-toggle value="italic" (click)="showPlp()">Pseudo Live</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+            <form [formGroup]="form">
+                <div>
+                    <span class="px-2 search">
+                <mat-form-field appearance="standard">
+                    <input type="text"  matInput placeholder="Search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" >
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+                </span>
+                    <span class="px-5 searchtype">
+                <mat-form-field>
+                    <mat-label>Sub Type</mat-label>
+                    <mat-select name="SubType" [formControl]="subtype">
+                        <mat-option *ngFor="let sub of subTypes" [value]="sub">
+                            {{sub}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                </span>
+                    <button type="button" class="btn newbtn" data-toggle="modal" data-target="#exampleModal">+ New</button>
+                </div>
+            </form>
+        </div>
+    </form>
 
 
-  <div class="mini-content" >
-      <div class="row casestudies" *ngIf="mini">
-          <div class="card m-2" *ngFor="let cardDetail of miniCaseStudies|casestudiesfilter:searchText">
-              <div class="card-body">
-                  <div class="row">
-                      <div class="col-md-4 text-right cardheader">Project Name:</div>
-                      <div class="col-md-6">
-                          <p>{{cardDetail.ProjectName}}</p>
-                      </div>
-                      <div class="col-md-2">
-                          <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal">edit</mat-icon>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-md-4 text-right cardheader">Description:</div>
-                      <div class="col-md-6">
-                          <p>{{cardDetail.projectDescription}}</p>
-                      </div>
-                      <div class="col-md-2">
-                          <mat-icon class="icon" data-toggle="modal" data-target="#exampleModalCenter">delete</mat-icon>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-md-4 text-right cardheader">Type:</div>
-                      <div class="col-md-6">
-                          <p>{{cardDetail.projectType}}</p>
-                      </div>
-                      <div class="col-md-2">
-                          <mat-icon class="icon">download</mat-icon>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-md-4 text-right cardheader">Subtype:</div>
-                      <div class="col-md-6">
-                          <p>{{cardDetail.Subtype}}</p>
-                      </div>
-                      <div class="col-md-2">
-                          <mat-icon class="icon">mail</mat-icon>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div class="mini-content" *ngIf="mini">
+        <div class="row ">
+            <div class="col-md-4" *ngFor="let cardDetail of miniProject|casestudiesfilter:searchText">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 text-right cardheader">Project Name:</div>
+                            <div class="col-md-6">
+                                <p>{{cardDetail.projectName}}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-icon class="icon" data-toggle="modal" data-target="#updateModal" (click)="updateData(cardDetail)">edit</mat-icon>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 text-right cardheader">Description:</div>
+                            <div class="col-md-6">
+                                <p>{{cardDetail.projectDescription}}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-icon class="icon" data-toggle="modal" data-target="#exampleModalCenter" (click)="deleteConfirm(cardDetail)">delete</mat-icon>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 text-right cardheader">Type:</div>
+                            <div class="col-md-6">
+                                <p>{{cardDetail.projectType}}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-icon class="icon">download</mat-icon>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 text-right cardheader"></div>
+                            <div class="col-md-6">
+                                <!-- <p>{{cardDetail.Subtype}}</p> -->
+                            </div>
+                            <div class="col-md-2">
+                                <mat-icon class="icon">mail</mat-icon>
+                            </div>
+
+                            <!-- <div class="col-md-12 d-flex justify-content-end ">
+                          <mat-icon class="icon maiclicon">mail</mat-icon>
+                      </div> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-  <div class="Pseudo-content">
-      <div class="row casestudies" *ngIf="plp">
-          <div *ngFor=' let cardDetail of PplCaseStudies|casestudiesfilter:searchText'>
-              <div class="card m-2" *ngIf="subtype.value === cardDetail.Subtype || subtype.value.includes('All')">
-                  <div class="card-body">
-                      <div class="row">
-                          <div class="col-md-4 text-right cardheader">Project Name:</div>
-                          <div class="col-md-6">
-                              <p>{{cardDetail.ProjectName}}</p>
-                          </div>
-                          <div class="col-md-2">
-                              <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal">edit</mat-icon>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-4 text-right cardheader">Description:</div>
-                          <div class="col-md-6">
-                              <p>{{cardDetail.projectDescription}}</p>
-                          </div>
-                          <div class="col-md-2">
-                              <mat-icon class="icon" data-toggle="modal" data-target="#exampleModalCenter">delete</mat-icon>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-4 text-right cardheader">Type:</div>
-                          <div class="col-md-6">
-                              <p>{{cardDetail.projectType}}</p>
-                          </div>
-                          <div class="col-md-2">
-                              <mat-icon class="icon">download</mat-icon>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-4 text-right cardheader">Subtype:</div>
-                          <div class="col-md-6">
-                              <p>{{cardDetail.Subtype}}</p>
-                          </div>
-                          <div class="col-md-2">
-                              <mat-icon class="icon">mail</mat-icon>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div class="Pseudo-content mini-content" *ngIf="plp">
+        <div class="row casestudies">
+            <div class="col-md-4" *ngFor='let cardDetail of pseudoProject | casestudiesfilter:searchText'>
+                <div class="card  " *ngIf="subtype.value === cardDetail.projectSubType || subtype.value.includes('All')">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 text-right cardheader">Project Name:</div>
+                            <div class="col-md-6">
+                                <p>{{cardDetail.projectName}}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-icon class="icon" data-toggle="modal" data-target="#updateModal" (click)="updateData(cardDetail)">edit</mat-icon>
+                            </div>
+                        </div>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog .modal-lg  modal-dialog-centered">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h2 class="modal-title" id="exampleModalLabel">New Case Studies</h2>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-              </div>
-              <form [formGroup]="casestudiesForm" (ngSubmit)="onSubmit(casestudiesForm)">
-                  <div class="modal-body">
-                      <div class="row">
-                          <div class="col-8 offset-2">
-                              <div class="form-group">
-                                  <mat-form-field>
-                                      <input type="text" formControlName="projectName" matInput appearance="standard" placeholder="Project Name">
-                                      <mat-error>project name is required</mat-error>
-                                  </mat-form-field>
-                              </div>
-                              <div class="form-group">
-                                  <mat-form-field appearance="standard">
-                                      <mat-label>Project Type</mat-label>
-                                      <mat-select formControlName="projectType">
-                                          <mat-option *ngFor="let ptype of projecttype" [value]="ptype.value">
-                                              {{ptype.viewValue}}
-                                          </mat-option>
-                                      </mat-select>
-                                      <mat-error>project type is required</mat-error>
-                                  </mat-form-field>
-                              </div>
-                              <div class="form-group">
-                                  <mat-form-field appearance="standard">
-                                      <mat-label>Project Subtype</mat-label>
-                                      <mat-select formControlName="projectsubtype">
-                                          <mat-option *ngFor="let psubtype of projectsubtype" [value]="psubtype.value">
-                                              {{psubtype.viewValue}}
-                                          </mat-option>
-                                      </mat-select>
-                                      <mat-error>project subtype is required</mat-error>
-                                  </mat-form-field>
-                              </div>
-                              <div class="form-group">
-                                  <mat-form-field>
-                                      <input type="text" formControlName="Description" matInput appearance="standard" placeholder="Project Description">
-                                      <mat-error>project description is required</mat-error>
-                                  </mat-form-field>
-                              </div>
-                              <div>
-                                  <input type="file" formControlName="uploadCase" #file style="display: none;">
-                                  <button type="" class="btn uploadbtn" (click)="file.click()"> Upload Case Studies</button>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn resetbtn" (click)="resetForm()">Reset</button>
-                      <button type="submit" class="btn newbtn ">Submit</button>
-                  </div>
-              </form>
-          </div>
-      </div>
-  </div>
+                        <div class="row">
+                            <div class="col-md-4 text-right cardheader">Description:</div>
+                            <div class="col-md-6">
+                                <p>{{cardDetail.projectDescription}}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-icon class="icon" data-toggle="modal" data-target="#exampleModalCenter" (click)="deleteConfirm(cardDetail)">delete</mat-icon>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 text-right cardheader">Type:</div>
+                            <div class="col-md-6">
+                                <p>{{cardDetail.projectType}}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-icon class="icon">download</mat-icon>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 text-right cardheader">Subtype:</div>
+                            <div class="col-md-6">
+                                <p>{{cardDetail.projectSubType}}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-icon class="icon">mail</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- post casestudies modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog .modal-lg  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">New Case Studies</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+                </div>
+                <form [formGroup]="casestudies">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-8 offset-2">
+                                <div class="form-group">
+                                    <mat-form-field>
+                                        <input type="text" formControlName="projectName" matInput appearance="standard" placeholder="Project Name">
+                                        <mat-error>project name is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group">
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Project Type</mat-label>
+                                        <mat-select [(value)]="selected" formControlName="projectType">
+                                            <mat-option (click)="onselectPseudo()" value="Pseudo Live Project">Pseudo Live Project</mat-option>
+                                            <mat-option (click)="onselectMini()" value="Mini Project">Mini Project</mat-option>
+                                        </mat-select>
+                                        <mat-error>project type is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group" *ngIf="miniCase">
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Project Subtype</mat-label>
+                                        <mat-select formControlName="projectSubType">
+                                            <mat-option *ngFor="let psubtype of projectSubType" [value]="psubtype.value">
+                                                {{psubtype.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>project subtype is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group">
+                                    <mat-form-field>
+                                        <input type="text" formControlName="projectDescription" matInput appearance="standard" placeholder="Project Description">
+                                        <mat-error>project description is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <input type="file" formControlName="caseStudyFileUpload" #case (change)='onUploadingCaseStudies($event)'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn resetbtn" (click)="resetForm()">Reset</button>
+                        <button type="submit" class="btn newbtn" #closepostmodal (click)="postCaseData(casestudies)">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
-  <!--delete-trainer-modal-->
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-              <div class="modal-body ">
-                  <img class="deletelogo" src="../../../assets/Yellow-Warning.png" alt="">
-                  <h1 style="text-align: center;">Are you sure you want to Delete this project</h1>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn confirmbtn" data-toggle="modal" data-target="#confirm" (click)="deleteTrainer()">Confirm</button>
-                  <button type="button" class="btn deletebtn" data-dismiss="modal" #closeBtn>Close</button>
-              </div>
-          </div>
-      </div>
-  </div>
+    <!-- update casestudeies modal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog .modal-lg  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">Update Case Studies</h2>
+                    <button type="button" class="close" #closeModal data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+                </div>
+                <form [formGroup]="casestudiesForm">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-8 offset-2">
+                                <div class="form-group">
+                                    <mat-form-field>
+                                        <input type="text" formControlName="projectName" matInput appearance="standard" placeholder="Project Name">
+                                        <mat-error>project name is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group">
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Project Type</mat-label>
+                                        <mat-select [(value)]="selected" formControlName="projectType">
+                                            <mat-option (click)="onselectPseudo()" value="Pseudo Live Project">Pseudo Live Project</mat-option>
+                                            <mat-option (click)="onselectMini()" value="Mini Project">Mini Project</mat-option>
+                                        </mat-select>
+                                        <mat-error>project type is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group" *ngIf="miniCase">
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Project Subtype</mat-label>
+                                        <mat-select formControlName="projectSubType">
+                                            <mat-option *ngFor="let psubtype of projectSubType" [value]="psubtype.value">
+                                                {{psubtype.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>project subtype is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group">
+                                    <mat-form-field>
+                                        <input type="text" formControlName="projectDescription" matInput appearance="standard" placeholder="Project Description">
+                                        <mat-error>project description is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <input type="file" formControlName="caseStudyFileUpload" #case (change)='onUploadingCaseStudies($event)'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn resetbtn" #updateReset (click)="resetForm()">Reset</button>
+                        <button type="submit" class="btn newbtn" #closeupdatemodal (click)="updateCaseData()">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-  <!--- delete-sucess-popup-modal -->
 
-  <div class="modal fade" id="confirm" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-              <div class="modal-body">
-                  <img class="deletelogo" src="../../../assets/sucess_image.png" alt="">
-                  <h1 style="text-align: center;">Project Successfully Deleted</h1>
-                  <button type="button" class="btn okbtn" data-dismiss="modal">OK</button>
-              </div>
-          </div>
-      </div>
-  </div>
+
+    <!--delete-trainer-modal-->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body ">
+                    <img class="deletelogo" src="../../../assets/Yellow-Warning.png" alt="">
+                    <h1 style="text-align: center;">Are you sure you want to Delete this project</h1>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn confirmbtn" data-toggle="modal" data-target="#confirm" (click)="deleteCasestudies(this.deleteData)">Confirm</button>
+                    <button type="button" class="btn deletebtn" data-dismiss="modal" #closeBtn>Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--- delete-sucess-popup-modal -->
+
+    <div class="modal fade" id="confirm" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img class="deletelogo" src="../../../assets/sucess_image.png" alt="">
+                    <h1 style="text-align: center;">Project Successfully Deleted</h1>
+                    <button type="button" class="btn okbtn" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>

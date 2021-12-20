@@ -62,11 +62,16 @@ export class CandidateComponent implements OnInit {
         batchName: userData.controls.batchName.value,
         batchId: userData.controls.batchId.value,
       };
-     this.batchService.postedCandidate(formData).subscribe((data) => {
+     this.batchService.postedCandidate(formData).subscribe((res: any) => {
       console.log("candidate details posted successfully");
-      // console.log(data);
+      if(res.error == false) {
       this.toastr.success('Candidate details added successfully');
       userData.reset();
+      }
+    },err => {
+      console.log("err",err);
+      this.toastr.error(err.error.message);
+      this.toastr.error('some error occured');
     })
   }
 }

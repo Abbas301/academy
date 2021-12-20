@@ -8,6 +8,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { CalendarService } from './calendar.service';
+import { ToastrService } from 'ngx-toastr';
 
 export interface Events {
   id: string;
@@ -38,7 +39,7 @@ export class CalendarComponent implements OnInit {
 
   calendarData:Events[] =[];
   calendarList: any
-calenderObject:Calendar | undefined;
+  calenderObject:Calendar | undefined;
   Cform!: FormGroup;
 
   @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
@@ -54,7 +55,8 @@ calenderObject:Calendar | undefined;
   index: any;
 
   constructor(private http: HttpClient,
-    private calendarService: CalendarService
+    private calendarService: CalendarService,
+    private toastr: ToastrService
   ) { }
 
 
@@ -139,7 +141,6 @@ calenderObject:Calendar | undefined;
     })
   }
 
-
   onSubmit(addEventForm: NgForm) {
     console.log(addEventForm.value);
   }
@@ -152,7 +153,7 @@ calenderObject:Calendar | undefined;
   ];
 
   batches = [
-    { value: 'B15DECME_105636', viewValue: 'B15DECME_105636' },
+    { value: 'B20DECAN_133658', viewValue: 'B20DECAN_133658' },
     { value: 'B15DECME_105529', viewValue: 'B15DECME_105529' },
     { value: 'B15DECME_105821', viewValue: 'B15DECME_105821' },
     { value: 'B15DECME_105840', viewValue: 'B15DECME_105840' },
@@ -172,9 +173,16 @@ calenderObject:Calendar | undefined;
     this.closeBtn.nativeElement.click();
     console.log(this.batchname);
 
-    this.calendarService.deleteCalendar(this.calenderObject?.calendarDetailsId,this.calenderObject?.batchName).subscribe((data: any) => {
+    this.calendarService.deleteCalendar(this.calenderObject?.calendarDetailsId,this.calenderObject?.batchName).subscribe((res: any) => {
       console.log("Calendar list deleted successfully");
+      if(res.error == false) {
+        this.toastr.success("Calendar list deleted successfully");
       this.getCalendarData();
+      }
+    },err => {
+      console.log("err",err);
+      this.toastr.error('some error occured');
+      this.toastr.error(err.error.message);
     })
   }
 
@@ -186,14 +194,21 @@ calenderObject:Calendar | undefined;
       startDate:Cform.controls.startDate.value,
       include:Cform.controls.include.value,
     }
-    this.calendarService.postCalendar(formData).subscribe(res => {
+    this.calendarService.postCalendar(formData).subscribe((res: any) => {
       console.log("calendar Generated Successfully");
-      this.getCalendarData();
+      // if(res.error == false) {
+        this.toastr.success('calendar Generated Successfully');
+        this.getCalendarData();
+      // }
       setTimeout(() => {
         this.generateCalendarModal.nativeElement.click();
-      },500)
+      },500);
+       Cform.reset();
+    },err => {
+      console.log("err",err);
+      this.toastr.error(err.error.message);
+      this.toastr.error('some error occured');
     })
-    Cform.reset();
   }
 
   visibleCalender(batchname:any) {
@@ -226,7 +241,6 @@ calenderObject:Calendar | undefined;
     setTimeout(() => {
       this.calenderSetup()
     }, 500);
-
   }
 
   editCalender() {

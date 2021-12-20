@@ -76,8 +76,9 @@
         </div>
         <div class="col-md-6">
           <mat-form-field appearance="standard">
-            <input class="hover" matInput type="search" name="yop" #yop="ngModel" ngModel placeholder="YOP" required>
-            <mat-error *ngIf='yop.errors?.required'>this field is required</mat-error>
+            <input class="hover" matInput type="search" name="yop" #yop="ngModel" pattern="^[0-9]{4}$" ngModel placeholder="YOP" required>
+            <mat-error *ngIf='yop.errors?.required'>This field is required</mat-error>
+            <mat-error *ngIf='yop.errors?.pattern'>Enter a valid year</mat-error>
           </mat-form-field>
         </div>
       </div>

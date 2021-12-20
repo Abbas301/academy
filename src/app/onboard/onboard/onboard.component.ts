@@ -5,6 +5,8 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatTableDataSource } from '@angular/material/table';
 import { OnboardService } from '../onboard.service';
+import { ToastrService } from 'ngx-toastr';
+import { ThirdPartyDraggable } from '@fullcalendar/interaction';
 
 export interface OnboardList {
   name: string;
@@ -26,22 +28,24 @@ export class OnboardComponent implements OnInit {
 
   onboardForm!: FormGroup;
   searchValue: any
-
   formShow = true;
   formHide = false;
-
-  trainerForm = true;
-  trainerExcel = false;
+  selected = 'internal';
+  internal = true;
+  client = false;
+  tocPath: any;
 
   batchForm!: FormGroup;
   mentors!: FormArray;
   trainers!: FormArray;
   hideMat = false;
+  candidates :any[] = [];
 
   panelOpenState = false;
   @ViewChild(MatAccordion) accordion !: MatAccordion;
   @ViewChild('driverCheckbox') driverCheckbox!: MatCheckbox;
   @ViewChildren("driverSubCheckbox") driverSubCheckbox!: QueryList<MatCheckbox>
+  @ViewChild('uploadToc') uploadToc!: ElementRef
 
   tyMentor = [
     { value: 'pavan', viewValue: 'pavan' },
@@ -61,9 +65,9 @@ export class OnboardComponent implements OnInit {
   ];
 
   days = [
-    { value: '30 days', viewValue: '30 days' },
-    { value: '50 days', viewValue: '50 days' },
-    { value: '60 days', viewValue: '60 days' },
+    { value: '30', viewValue: '30' },
+    { value: '50', viewValue: '50' },
+    { value: '60', viewValue: '60' },
   ];
 
   locations = [
@@ -75,35 +79,73 @@ export class OnboardComponent implements OnInit {
   status = 'ONBOARDED';
   onboardList = []
 
-  constructor( private fb: FormBuilder,
-               private onboardService:OnboardService) { }
+  constructor(private fb: FormBuilder,
+              private onboardService: OnboardService,
+              private toastr: ToastrService
+              ) { }
 
-displayedColumns: string[] = ['select', 'name', 'contactNumber', 'emailId', 'degree', 'stream', 'yop', 'degreePercentage', 'jspiderBranch'];
-dataSource = new MatTableDataSource<OnboardList>();
-selection = new SelectionModel<OnboardList>(true, []);
+  displayedColumns: string[] = ['select', 'name', 'contactNumber', 'emailId', 'degree', 'stream', 'yop', 'degreePercentage', 'jspiderBranch'];
+  dataSource = new MatTableDataSource<OnboardList>();
+  selection = new SelectionModel<OnboardList>(true, []);
 
   ngOnInit(): void {
+
     this.batchForm = this.fb.group({
-      location: new FormControl(''),
-      technology: new FormControl(''),
-      startDate: new FormControl(''),
-      toc: new FormControl(''),
-      tyMentor: new FormControl(''),
+      location: new FormControl('', [Validators.required]),
+      technology: new FormControl('', [Validators.required]),
+      startDate: new FormControl('', [Validators.required]),
+      tocPath: new FormControl('', [Validators.required]),
+      tyMentors: new FormControl('', [Validators.required]),
+      batchType: new FormControl('', [Validators.required]),
+      clientCompanyName: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z]*')]),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()])
     });
 
-    this.onboardService.getOnboardList(this.status).subscribe(res => {      
+    this.onboardService.getOnboardList(this.status).subscribe(res => {
       this.CandidatesListData = res;
       console.log(this.CandidatesListData);
       this.dataSource.data = this.CandidatesListData.data;
 
     })
   }
-// onclick(element:OnboardList) {
-// console.log(element);
 
-// }
+  // VAlidation get methods 
+
+  get contactNo() {
+    return (this.batchForm.controls.mentors as FormArray).controls[0].get('contactNo') as FormControl
+  }
+
+  get clientMentorName() {
+    return (this.batchForm.controls.mentors as FormArray).controls[0].get('clientMentorName') as FormControl
+  }
+
+  get clientMentorEmailId() {
+    return (this.batchForm.controls.mentors as FormArray).controls[0].get('emailId') as FormControl
+  }
+
+  get assignTrainerName() {
+    return (((this.batchForm.controls.trainers as FormArray).controls[0]) as FormGroup).controls.assignTrainerName
+  }
+
+  get assignTrainerEmailID() {
+    return (((this.batchForm.controls.trainers as FormArray).controls[0]) as FormGroup).controls.emailId
+  }
+
+  get candidateName() {
+    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.candidateName
+  }
+
+  onSelect() {
+    this.internal = true;
+    this.client = false
+  }
+
+  onSelect1() {
+    this.internal = false;
+    this.client = true
+  }
+
   displayData() {
     this.hideMat = !this.hideMat
   }
@@ -120,99 +162,163 @@ selection = new SelectionModel<OnboardList>(true, []);
     }
   }
 
-resetForm() {
-  this.batchForm.reset()
-}
+  resetForm() {
+    this.batchForm.reset()
+  }
 
-createMentor(): FormGroup {
-  return this.fb.group({
-    name: ['', [Validators.required]],
-    designation: ['', [Validators.required]],
-    contact: ['', [Validators.required, Validators.pattern('[7-9]{1}[0-9]{9}')]],
-    Memail: ['', [Validators.required]]
-  });
-}
-createTrainer(): FormGroup {
-  return this.fb.group({
-    trainerName: ['', [Validators.required]],
-    technology: ['', [Validators.required]],
-    days: ['', [Validators.required]],
-    Temail: ['', [Validators.required]]
-  });
-}
+  createMentor(): FormGroup {
+    return this.fb.group({
+      clientMentorName: ['', [Validators.pattern('[a-z A-Z]*')]],
+      designation: [''],
+      contactNo: ['', [Validators.pattern('[6-9]{1}[0-9]{9}')]],
+      emailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')]]
+    });
+  }
+  createTrainer(): FormGroup {
+    return this.fb.group({
+      assignTrainerName: ['', [Validators.required, Validators.pattern('[a-z A-Z]*')]],
+      technologies: ['', [Validators.required]],
+      days: ['', [Validators.required]],
+      emailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')]]
+    });
+  }
 
-addMentor(): void {
-  this.mentors = this.batchForm.get('mentors') as FormArray;
-  this.mentors.push(this.createMentor());
-}
-addTrainer(): void {
-  this.trainers = this.batchForm.get('trainers') as FormArray;
-  this.trainers.push(this.createTrainer());
-}
+  addMentor(): void {
+    this.mentors = this.batchForm.get('mentors') as FormArray;
+    this.mentors.push(this.createMentor());
+  }
+  addTrainer(): void {
+    this.trainers = this.batchForm.get('trainers') as FormArray;
+    this.trainers.push(this.createTrainer());
+  }
 
-form() {
-  this.formShow = true
-  this.formHide = false
+  form() {
+    this.formShow = true
+    this.formHide = false
 
-}
-excel() {
-  this.formShow = false
-  this.formHide = true
-}
-trainersForm() {
-  this.trainerForm = true
-  this.trainerExcel = false
-
-}
-trainersExcel() {
-  this.trainerForm = false
-  this.trainerExcel = true
-}
+  }
+  excel() {
+    this.formShow = false
+    this.formHide = true
+  }
 
   get contact() {
-  return (this.batchForm.get('mentors') as FormArray).controls[0].get('contact') as FormControl
-}
+    return (this.batchForm.get('mentors') as FormArray).controls[0].get('contact') as FormControl
+  }
 
   get item(): FormArray {
-  return this.batchForm.get('items') as FormArray;
-}
+    return this.batchForm.get('items') as FormArray;
+  }
 
   get mentor(): FormArray {
-  return this.batchForm.get('mentors') as FormArray;
-}
+    return this.batchForm.get('mentors') as FormArray;
+  }
 
   get trainer(): FormArray {
-  return this.batchForm.get('trainers') as FormArray;
-}
-
-applyFilter(event: Event) {
-  const filterValue = (event.target as HTMLInputElement).value;
-  this.dataSource.filter = filterValue.trim().toLowerCase();
-}
-
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
-
-masterToggle() {
-  if (this.isAllSelected()) {
-    this.selection.clear();
-    return;
+    return this.batchForm.get('trainers') as FormArray;
   }
-  this.selection.select(...this.dataSource.data);
-}
 
-checkboxLabel(row ?: OnboardList): string {
-  if (!row) {
-    return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name + 1}`;
-}
 
-onSubmit(onboardForm: any) {
-  console.log(onboardForm.value);
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
 
-}
+  masterToggle() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+    this.selection.select(...this.dataSource.data);
+  }
+
+  checkboxLabel(row?: OnboardList): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name + 1}`;
+  }
+
+  selectedCandidates(row: any) {
+    this.candidates.push(row)
+    console.log(this.candidates);
+  }
+
+  remove(row: any) {
+    this.candidates.splice(this.candidates.indexOf(row),1);
+    console.log(this.candidates);
+  }
+
+  uploadTOC(event: Event) {
+    this.tocPath = (event.target as HTMLInputElement).files?.item(0)
+  }
+
+  addBatch(batchForm: FormGroup) {
+
+    let file = this.tocPath
+    console.log(file);
+    let date = new Date(batchForm.controls.startDate.value);
+    console.log(date);
+    let finalDate = date.toLocaleDateString().split('/');
+    let newDate = `${finalDate[2]}-${finalDate[0]}-${finalDate[1]}`
+    console.log(newDate);
+
+    let candidatesArray = this.CandidatesListData.data;
+    console.log(candidatesArray);
+    var candidateDetails:any = []
+     candidatesArray.forEach((element:any, index:any) => {
+      let obj = {candidateId:'',candidateName:'',phoneNumber:'',emailId:'',branch:'',degreeAggregate:'',degree:'',stream:'',yop:'',tenthPercentage:0,twelfthPercentage:'',masterAggregate:'',profileId:''}
+      
+     let  {candidateId} = obj
+     console.log(candidateId)
+      obj.candidateId = index
+      obj.candidateName = element.name;
+      obj.phoneNumber = element.contactNumber
+      obj.degreeAggregate = element.degreePercentage
+      obj.emailId = element.emailId
+      obj.branch = element.jspiderBranch
+      obj.degree = element.degree
+      obj.stream = element.stream
+      obj.yop = element.yop
+      obj.tenthPercentage = element.tenthPercentage
+      obj.twelfthPercentage = element.twelfthPercentage
+      obj.masterAggregate = element.masterDegreeAggregate
+      obj.profileId = element.profileId
+      candidateDetails.push(obj)     
+    });
+    console.log(candidateDetails);
+    console.log(this.candidates);
+    
+    let batchDetails = {
+      location: batchForm.controls.location.value,
+      technology: batchForm.controls.technology.value,
+      startDate: newDate,
+      tyMentors: batchForm.controls.tyMentors.value,
+      batchType: batchForm.controls.batchType.value,
+      clientCompanyName: batchForm.controls.clientCompanyName.value,
+      clientMentorList: this.mentor.value,
+      assignTrainerList: this.trainer.value,
+      candidateList:this.candidates,
+    };
+    let formData = new FormData();
+    formData.append('batchDetails', JSON.stringify(batchDetails))
+    formData.append('tocFile', file)
+    this.onboardService.postBatchData(formData).subscribe((res: any) => {
+      console.log("batch details added successfully");
+      if (res.error == false) {
+        this.toastr.success('Batch Details Added Successfully');
+        batchForm.reset();
+      }
+    },err => {
+      console.log(err);
+      // this.toastr.error(err.error.errorMessage);
+      this.toastr.error('some error occurred')
+    })
+  }
+
 }
