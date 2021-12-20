@@ -78,6 +78,7 @@ export class OnboardComponent implements OnInit {
   CandidatesListData: any;
   status = 'ONBOARDED';
   onboardList = []
+  array :any[] =[];
 
   constructor(private fb: FormBuilder,
               private onboardService: OnboardService,
