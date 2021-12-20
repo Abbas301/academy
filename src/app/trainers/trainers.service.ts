@@ -9,15 +9,24 @@ export class TrainersService {
 
   constructor(private http:HttpClient) { }
 
+
+  getTrainerData(){
+    return this.http.get<{
+      data:any,
+      error: boolean
+      message: string
+    }>(`${environment.baseUrl}/academy/trainers/trainer-details-technologies`)
+  }
   postTrainerData(trainerData:any){
     return this.http.post<any>(`${environment.baseUrl}/academy/trainers/trainer-details-technologies`,trainerData)
   }
 
-  getTrainerData(){
-    return this.http.get<any>(`${environment.baseUrl}/academy/trainers/trainer-details-technologies`)
+  updateTrainerData(trainerData:any){
+    return this.http.post<any>(`${environment.baseUrl}/academy/trainers/trainer-details-technologies`,trainerData)
   }
-  deleteTrainerData(id:any, trainerData:any){
-    return this.http.delete<any>(`${environment.baseUrl}/academy/trainers/trainer-details-technologies`,)
+
+  deleteTrainerData(Data ){
+    return this.http.delete<any>(`${environment.baseUrl}/academy/trainers/trainer-details/${Data}`,Data)
   }
 
 }

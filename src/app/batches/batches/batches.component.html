@@ -8,10 +8,10 @@
     <div class="col-md-5">
       <div class="row">
         <div class="col-md-7">
-          <mat-form-field appearance="standard">
+          <!-- <mat-form-field appearance="standard">
             <input matInput class="hover" type="search" placeholder="Search">
             <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field>
+          </mat-form-field> -->
         </div>
         <div class="col-md-5">
           <button type="button" class="btn btn-color batch" data-toggle="modal" data-target="#exampleModal">
@@ -51,10 +51,10 @@
             <th>Batch Name</th>
             <th>Start Date</th>
             <th>End Date</th>
-            <th>TyMentors</th>
+            <th>Ty Mentors</th>
             <th>Trainers</th>
-            <th>BatchCompletion</th>
-            <th>MockRating</th>
+            <th>Batch Completion</th>
+            <th>Mock Rating</th>
             <th></th>
           </tr>
         </thead>
@@ -89,10 +89,10 @@
             </th>
             <th>Start Date</th>
             <th>End Date</th>
-            <th>ClientMentors</th>
+            <th>Client Mentors</th>
             <th>Trainers</th>
-            <th>BatchCompletion</th>
-            <th>MockRating</th>
+            <th>Batch Completion</th>
+            <th>Mock Rating</th>
             <th></th>
           </tr>
         </thead>
@@ -207,7 +207,7 @@
                   <mat-label>Company Name</mat-label>
                   <input type="text" matInput placeholder="CompanyName" formControlName="clientCompanyName">
                   <mat-error *ngIf="batchForm.controls.clientCompanyName.errors?.required">This field is required</mat-error>
-                  <mat-error *ngIf="batchForm.controls.clientCompanyName.errors?.pattern">enter valid pattern</mat-error>
+                  <mat-error *ngIf="batchForm.controls.clientCompanyName.errors?.pattern">Name should be Alphabets</mat-error>
                 </mat-form-field>
               </div>
 
@@ -242,6 +242,7 @@
                     <div class="form_field">
                       <mat-form-field appearance="standard">
                         <input matInput class="hover" type="search" placeholder="Email Id" formControlName="emailId">
+                        <mat-error *ngIf="clientMentorEmailId.errors?.pattern">Enter a Valid EmailId</mat-error>
                       </mat-form-field>
                     </div>
                     <div>
@@ -256,11 +257,6 @@
 
           <div class="p-3 first">
             <h3 style="font-weight: 600;">Assign Trainers</h3>
-            <mat-radio-group aria-label="Select an option ">
-              <mat-radio-button value="yes" (click)="trainersForm()">Assign Trainers</mat-radio-button>
-              <mat-radio-button value="no" (click)="trainersExcel()">Assign Trainers</mat-radio-button>
-            </mat-radio-group>
-            <div *ngIf="trainerForm">
               <div formArrayName="trainers" *ngFor="let item of trainer.controls; let i = index;">
                 <div [formGroupName]="i">
                   <div class="row">
@@ -297,7 +293,8 @@
                       <div class="form_field">
                         <mat-form-field appearance="standard">
                           <input matInput class="hover" type="search" placeholder="Email Id" formControlName="emailId">
-                          <mat-error>This field is required</mat-error>
+                          <mat-error *ngIf="assignTrainerEmailID.errors?.required">This field is required</mat-error>
+                          <mat-error *ngIf="assignTrainerEmailID.errors?.pattern">Enter a valid EmailId</mat-error>
                         </mat-form-field>
                       </div>
                       <div>
@@ -307,15 +304,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- excel form -->
-            <div *ngIf="trainerExcel">
-              <input type="file" #excelfile style="display:none" formControlName="trainerxl">
-              <button class="btn border-secondary uploadButton px-3 ml-3" (click)="excelfile.click()">Upload XL
-                <mat-icon>cloud_upload</mat-icon>
-              </button>
-              <span>uploaded filename.jpg....</span>
-            </div>
           </div>
 
 
@@ -331,16 +319,18 @@
                   <div class="row">
                     <div class="col-3">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="CandidateName"
+                        <input matInput class="hover" type="search" placeholder="Candidate Name"
                           formControlName="candidateName">
-                        <!-- <mat-error>This field is required</mat-error> -->
+                        <mat-error *ngIf="candidateName.errors?.required">This field is required</mat-error>
+                        <mat-error *ngIf="candidateName.errors?.pattern">Name should be Alphabets</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="PhoneNumber"
+                        <input matInput class="hover" type="search" placeholder="Phone Number"
                           formControlName="phoneNumber">
-                        <mat-error>This field is required</mat-error>
+                        <mat-error *ngIf="candidatePhoneNumber.errors?.required">This field is required</mat-error>
+                        <mat-error *ngIf="candidatePhoneNumber.errors?.pattern">Enter a valid phone number</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3">
@@ -372,12 +362,13 @@
                     <div class="col-3">
                       <mat-form-field appearance="standard">
                         <input matInput class="hover" type="search" placeholder="YOP" formControlName="yop">
-                        <mat-error>This field is required</mat-error>
+                        <mat-error *ngIf="candidateYOP.errors?.required">This field is required</mat-error>
+                        <mat-error *ngIf="candidateYOP.errors?.pattern">this field contains numbers</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="10th percentage"
+                        <input matInput class="hover" type="search" placeholder="10th Percentage"
                           formControlName="tenthPercentage">
                         <mat-error>This field is required</mat-error>
                       </mat-form-field>
@@ -385,7 +376,7 @@
                     <div class="col-3 aliq">
                       <div class="twelth" style="padding-right: 40px;">
                         <mat-form-field appearance="standard">
-                          <input matInput class="hover" type="search" placeholder="12th percentage"
+                          <input matInput class="hover" type="search" placeholder="12th Percentage"
                             formControlName="twelfthPercentage">
                           <mat-error>This field is required</mat-error>
                         </mat-form-field>
@@ -424,7 +415,6 @@
                       <mat-form-field appearance="standard">
                         <input matInput class="hover" type="search" placeholder="ProfileId"
                           formControlName="profileId">
-                        <mat-error>This field is required</mat-error>
                       </mat-form-field>
                     </div>
 
@@ -438,7 +428,6 @@
               <input type="file" #file style="display:none" formControlName="candidateExcel">
               <button class="btn border-secondary uploadButton px-3 ml-3" (click)="file.click()">Upload XL <mat-icon>
                   cloud_upload</mat-icon></button>
-              <span>uploaded filename.jpg....</span>
             </div>
           </div>
 

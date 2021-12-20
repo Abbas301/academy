@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { HttpClient } from '@angular/common/http';
 import { data } from 'jquery';
+import { ToastrService } from '../../../../node_modules/ngx-toastr';
 
 export interface Details {
   candidateName: string;
@@ -58,6 +59,7 @@ export class CandidatelistComponent implements OnInit {
   constructor(private router: Router,
     private ActivatedRouter: ActivatedRoute,
     private batchService: BatchService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -105,6 +107,21 @@ export class CandidatelistComponent implements OnInit {
     })
   }
 
+  getAllCandidates() {
+    console.log(this.batchName);
+    this.batchService.getSingleBatch(this.batchName).subscribe(res => {
+      this.candidateList = res;
+      this.candidates = this.candidateList.data[0];
+      console.log(this.candidates,'candidates');
+
+      this.details = this.candidateList.data[0].candidateList;
+      console.log(this.details);
+      this.dataSource.data = this.details;
+       this.dataSource.paginator = this.paginator;
+
+    });
+  }
+
   updateCandidate(element: Details) {
     this.modalOpenButton.nativeElement.click();
     this.candidateId = element.candidateId
@@ -142,10 +159,20 @@ export class CandidatelistComponent implements OnInit {
       profileId:(this.Cform.get('profileId') as FormControl).value ,
       batchName:  (this.Cform.get('batchName') as FormControl).value,
     }
-    this.batchService.updatedCandidate(updateFormData).subscribe((data: any) => {
+    this.batchService.updatedCandidate(updateFormData).subscribe((res: any) => {
       console.log("candidate details updated successfully");
+      if(res.error == false) {
+        this.toastr.success('Candidate details updated successfully');
+        this.candidateModalClose.nativeElement.click();
+        this.getAllCandidates();
+      } else {
       this.candidateModalClose.nativeElement.click();
-      this.getAllCandidates();
+        this.toastr.error('some error occured');
+      } 
+    },err => {
+      console.log('err',err);
+      this.toastr.error(err.error.message);
+      this.toastr.error('some error occured');
     })
 
   }
@@ -157,12 +184,17 @@ export class CandidatelistComponent implements OnInit {
     this.closeBtn.nativeElement.click();
     const formData = [element]
     console.log(element);
-    this.batchService.deleteCandidateData(formData).subscribe((data: any) => {
+    this.batchService.deleteCandidateData(formData).subscribe((res: any) => {
       console.log(data, "candidate data deleted successfully");
+      if(res.error == false) {
+        this.toastr.success('Candidate details Deleted successfully');
+      }
       this.getAllCandidates()
     },err =>{
       console.log(err);
-    } )
+      this.toastr.error(err.error.message);
+      this.toastr.error('some error occured');
+    })
 
   }
 
@@ -196,24 +228,6 @@ export class CandidatelistComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  getAllCandidates() {
-    console.log(this.batchName);
-    this.batchService.getSingleBatch(this.batchName).subscribe(res => {
-      console.log(res);
-
-      this.candidateList = res;
-      this.candidates = this.candidateList.data[0];
-      console.log(this.candidates,'candidates');
-
-      this.details = this.candidateList.data[0].candidateList;
-      console.log(this.details);
-      this.dataSource.data = this.details;
-       this.dataSource.paginator = this.paginator;
-
-    });
-
-
-  }
 }
 
 

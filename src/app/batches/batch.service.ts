@@ -12,36 +12,6 @@ export class BatchService {
 
   // batch Api
 
-  // getBatchData() {
-  //   return this.http.get('http://localhost:3000/batches')
-  // }
-
-  // getCbatchData() {
-  //   return this.http.get('http://localhost:3000/clientBatches')
-  // }
-
-  // Candidate Apis
-
-  // getCandidate() {
-  //   return this.http.get('http://localhost:3000/candidate');
-  // }
-  // postedCandidate(add:any) {
-  //   return this.http.post('http://localhost:3000/candidate',add);
-  // }
-
-  // updatedCandidate(id:any,add:any) {
-  //   return this.http.put<{candidatelist:CandidatesList}>(`http://localhost:3000/candidate/${id}`,add);
-  // }
-
-  // deleteCandidateData(id:any) {
-  //   return this.http.delete<{candidatelist:CandidatesList}>(`http://localhost:3000/candidate/${id}`);
-  // }
-
-
-  // from Apis
-
-  // batch Api
-
   getBatchData() {
     return this.http.get('http://10.10.20.92:8083/api/v1/academy-inventory/batch-details')
   }

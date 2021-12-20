@@ -16,20 +16,14 @@ export class BatchesComponent implements OnInit {
 
   show = true
   show1 = false
-
   formShow = true;
   formHide = false;
-
-  trainerForm = true;
-  trainerExcel = false;
   searchValue: any
-
   selected = 'internal';
   internal = true;
   client = false
-
   batchForm!: FormGroup;
-  message!:'';
+  message!: '';
   error = true;
 
   items!: FormArray;
@@ -57,11 +51,11 @@ export class BatchesComponent implements OnInit {
   constructor(private router: Router,
     private formBuilder: FormBuilder,
     private batchService: BatchService,
-    private toastr:ToastrService
+    private toastr: ToastrService
   ) { }
 
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.getBatch();
 
     this.batchForm = this.formBuilder.group({
@@ -71,13 +65,11 @@ export class BatchesComponent implements OnInit {
       tocPath: new FormControl('', [Validators.required]),
       tyMentors: new FormControl('', [Validators.required]),
       batchType: new FormControl('', [Validators.required]),
-      clientCompanyName: new FormControl('', [Validators.required,Validators.pattern('[a-zA-Z]*')]),
+      clientCompanyName: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z]*')]),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()]),
       candidates: new FormArray([this.createCandidate()]),
     });
-
-    // console.log((this.clientMentorName.controls[0] as FormGroup).controls.clientMentorName.errors);
   }
 
   onSelect() {
@@ -105,34 +97,34 @@ export class BatchesComponent implements OnInit {
 
   createMentor(): FormGroup {
     return this.formBuilder.group({
-      clientMentorName: ['',[Validators.pattern('[a-z A-Z]*')]],
+      clientMentorName: ['', [Validators.pattern('[a-z A-Z]*')]],
       designation: [''],
-      contactNo: ['',[Validators.pattern('[6-9]{1}[0-9]{9}')]],
-      emailId: ['']
+      contactNo: ['', [Validators.pattern('[6-9]{1}[0-9]{9}')]],
+      emailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')]]
     });
   }
   createTrainer(): FormGroup {
     return this.formBuilder.group({
-      assignTrainerName: ['', [Validators.required]],
+      assignTrainerName: ['', [Validators.required, Validators.pattern('[a-z A-Z]*')]],
       technologies: ['', [Validators.required]],
       days: ['', [Validators.required]],
-      emailId: ['', [Validators.required]]
+      emailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')]]
     });
   }
   createCandidate(): FormGroup {
     return this.formBuilder.group({
-      candidateName: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required,Validators.pattern('[6-9]{1}[0-9]{9}')]],
-      emailId: ['', [Validators.required]],
+      candidateName: ['', [Validators.required, Validators.pattern('[a-z A-Z]*')]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('[6-9]{1}[0-9]{9}')]],
+      emailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')]],
       degree: ['', [Validators.required]],
       stream: ['', [Validators.required]],
-      yop: ['', [Validators.required]],
+      yop: ['', [Validators.required, Validators.pattern('[0-9]{4}')]],
       tenthPercentage: ['', [Validators.required]],
       twelfthPercentage: ['', [Validators.required]],
       degreeAggregate: ['', [Validators.required]],
       masterAggregate: ['', [Validators.required]],
       branch: ['', [Validators.required]],
-      profileId: ['', [Validators.required]],
+      profileId: [''],
     });
   }
 
@@ -184,16 +176,37 @@ export class BatchesComponent implements OnInit {
     { value: 'Basavangudi', viewValue: 'Basavangudi' },
   ];
 
-  get assignTrainerName() {
-    return (this.batchForm.controls.trainers as FormArray).controls[0].get('assignTrainerName') as FormControl
-  }
-
+  // VAlidation get methods 
   get contactNo() {
     return (this.batchForm.controls.mentors as FormArray).controls[0].get('contactNo') as FormControl
   }
 
   get clientMentorName() {
     return (this.batchForm.controls.mentors as FormArray).controls[0].get('clientMentorName') as FormControl
+  }
+
+  get clientMentorEmailId() {
+    return (this.batchForm.controls.mentors as FormArray).controls[0].get('emailId') as FormControl
+  }
+
+  get assignTrainerName() {
+    return (((this.batchForm.controls.trainers as FormArray).controls[0]) as FormGroup).controls.assignTrainerName
+  }
+
+  get assignTrainerEmailID() {
+    return (((this.batchForm.controls.trainers as FormArray).controls[0]) as FormGroup).controls.emailId
+  }
+
+  get candidateName() {
+    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.candidateName
+  }
+
+  get candidatePhoneNumber() {
+    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.phoneNumber
+  }
+
+  get candidateYOP() {
+    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.yop
   }
 
   get mentor(): FormArray {
@@ -227,7 +240,6 @@ export class BatchesComponent implements OnInit {
           // let assignTrainers =
         }
       }
-
       // client Data
       let clientBatchData = this.batches.data;
       this.clientBatch = clientBatchData.filter((batch: any) => {
@@ -269,15 +281,6 @@ export class BatchesComponent implements OnInit {
     this.formShow = false
     this.formHide = true
   }
-  trainersForm() {
-    this.trainerForm = true
-    this.trainerExcel = false
-  }
-
-  trainersExcel() {
-    this.trainerForm = false
-    this.trainerExcel = true
-  }
   sample: any
   viewCandidateList(index: number) {
 
@@ -287,7 +290,6 @@ export class BatchesComponent implements OnInit {
     this.router.navigate(['/candidatelist/'], {
       queryParams: {
         batchName: this.sample.batchName,
-        // tyMentors:this.batchesData[index]?.tyMentors
       }
     })
   }
@@ -300,51 +302,50 @@ export class BatchesComponent implements OnInit {
     this.router.navigate(['/candidatelist/'], {
       queryParams: {
         batchName: this.clientsample.batchName,
-        // clientMentorList:this.clientBatch.clientMentorList
       }
     })
 
   }
 
   addBatch(batchForm: FormGroup) {
+    console.log(batchForm.value);
+    let file = this.tocPath
+    console.log(file);
+    let date = new Date(batchForm.controls.startDate.value);
+    console.log(date);
+    let finalDate = date.toLocaleDateString().split('/');
+    let newDate = `${finalDate[2]}-${finalDate[0]}-${finalDate[1]}`
+    console.log(newDate);
 
-      console.log(batchForm.value);
-      let file = this.tocPath
-      console.log(file);
-      let date = new Date(batchForm.controls.startDate.value);
-      console.log(date);
-      let finalDate = date.toLocaleDateString().split('/');
-      let newDate = `${finalDate[2]}-${finalDate[0]}-${finalDate[1]}`
-      console.log(newDate);
-
-      let batchDetails = {
-        location: batchForm.controls.location.value,
-        technology: batchForm.controls.technology.value,
-        startDate: newDate,
-        tyMentors: batchForm.controls.tyMentors.value,
-        batchType: batchForm.controls.batchType.value,
-        clientCompanyName: batchForm.controls.clientCompanyName.value,
-        clientMentorList:this.mentor.value,
-        assignTrainerList:this.trainer.value,
-        candidateList:this.candidate.value,
-      };
-      let formData = new FormData();
-      formData.append('batchDetails',JSON.stringify(batchDetails))
-      formData.append('tocFile',file)
-      this.batchService.postBatchData(formData).subscribe(res => {
-          console.log("batch details added successfully");
-          this.toastr.success('Batch Details Added Successfully');
-          batchForm.reset();
-          this.getBatch();
-        
-      }, err => {
-        console.log(err);
-        this.toastr.error(err.error.errorMessage);
-        
-      })
-    }
-    uploadTOC(event: Event){
-      this.tocPath = (event.target as HTMLInputElement).files?.item(0)
-    }
+    let batchDetails = {
+      location: batchForm.controls.location.value,
+      technology: batchForm.controls.technology.value,
+      startDate: newDate,
+      tyMentors: batchForm.controls.tyMentors.value,
+      batchType: batchForm.controls.batchType.value,
+      clientCompanyName: batchForm.controls.clientCompanyName.value,
+      clientMentorList: this.mentor.value,
+      assignTrainerList: this.trainer.value,
+      candidateList: this.candidate.value,
+    };
+    let formData = new FormData();
+    formData.append('batchDetails', JSON.stringify(batchDetails))
+    formData.append('tocFile', file)
+    this.batchService.postBatchData(formData).subscribe((res: any) => {
+      console.log("batch details added successfully");
+      if (res.error == false) {
+        this.toastr.success('Batch Details Added Successfully');
+        batchForm.reset();
+        this.getBatch();
+      }
+    }, err => {
+      console.log(err);
+      this.toastr.error(err.error.errorMessage);
+      this.toastr.error('some error occurred')
+    })
+  }
+  uploadTOC(event: Event) {
+    this.tocPath = (event.target as HTMLInputElement).files?.item(0)
+  }
 }
 

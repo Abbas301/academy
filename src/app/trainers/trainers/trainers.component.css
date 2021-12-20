@@ -24,7 +24,6 @@ h3 {
 
 .modal-content {
   border-radius: 10px;
-  width: auto;
 }
 
 ::ng-deep .mat-drawer.mat-drawer-side {
