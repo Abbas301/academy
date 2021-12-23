@@ -43,6 +43,8 @@ export class BatchesComponent implements OnInit {
   @ViewChild('headerCheckbox') headerCheckbox!: MatCheckbox
   @ViewChildren('bodyCheckbox') bodyCheckbox!: QueryList<MatCheckbox>
   @ViewChildren('batchType') batchType!: QueryList<MatRadioButton>
+  @ViewChildren('resetData') resetData!: ElementRef;
+  @ViewChildren('closeBtn') closeBtn!: ElementRef;
   candidateList: any;
   clientMentor: any[] = [];
   assignTrainers: any[] = [];
@@ -65,11 +67,13 @@ export class BatchesComponent implements OnInit {
       tocPath: new FormControl('', [Validators.required]),
       tyMentors: new FormControl('', [Validators.required]),
       batchType: new FormControl('', [Validators.required]),
-      clientCompanyName: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z]*')]),
+      clientCompanyName: new FormControl('', [Validators.required, Validators.pattern('[a-z A-Z]*')]),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()]),
       candidates: new FormArray([this.createCandidate()]),
     });
+    console.log(this.batchForm.controls.clientCompanyName);
+    
   }
 
   onSelect() {
@@ -100,7 +104,7 @@ export class BatchesComponent implements OnInit {
       clientMentorName: ['', [Validators.pattern('[a-z A-Z]*')]],
       designation: [''],
       contactNo: ['', [Validators.pattern('[6-9]{1}[0-9]{9}')]],
-      emailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')]]
+      emailId: ['', [Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')]]
     });
   }
   createTrainer(): FormGroup {
@@ -177,6 +181,11 @@ export class BatchesComponent implements OnInit {
   ];
 
   // VAlidation get methods 
+  
+  get clientCompanyName() {
+    return this.batchForm.controls.clientCompanyName as FormControl
+  }
+
   get contactNo() {
     return (this.batchForm.controls.mentors as FormArray).controls[0].get('contactNo') as FormControl
   }
@@ -219,6 +228,18 @@ export class BatchesComponent implements OnInit {
 
   get candidate(): FormArray {
     return this.batchForm.get('candidates') as FormArray;
+  }
+
+  deleteItem(index: any) {
+    this.trainer.removeAt(index);
+  }
+
+  deleteMentorItem(index: any) {
+    this.mentor.removeAt(index);
+  }
+
+  deleteCandidateItem(index: any) {
+    this.candidate.removeAt(index);
   }
 
 
@@ -335,13 +356,17 @@ export class BatchesComponent implements OnInit {
       console.log("batch details added successfully");
       if (res.error == false) {
         this.toastr.success('Batch Details Added Successfully');
-        batchForm.reset();
+        this.resetData.nativeElement.click();
         this.getBatch();
+        setTimeout(() => {
+          this.closeBtn.nativeElement.click();
+        },500);
+        batchForm.reset();
       }
     }, err => {
       console.log(err);
-      this.toastr.error(err.error.errorMessage);
-      this.toastr.error('some error occurred')
+      this.toastr.error(err.errorMessage);
+      // this.toastr.error('some error occurred')
     })
   }
   uploadTOC(event: Event) {

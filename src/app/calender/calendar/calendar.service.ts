@@ -12,7 +12,7 @@ export class CalendarService {
 
   getCalendar() {
     return this.http.get('http://10.10.20.92:8083/api/v1/academy/calendar/batch-details')
-  }
+  }  
 
   getCalendarEvents(batchname:any) {
     return this.http.get(`http://10.10.20.92:8083/api/v1/academy/calendar/calendar-events`,{
@@ -22,8 +22,8 @@ export class CalendarService {
     })
   }
 
-  postCalendar(add:any) {
-    return this.http.post('HTTP://10.10.20.92:8083/api/v1/academy/calendar/calendar-details',add)
+  postCalendar(formData:any) {
+    return this.http.post('http://10.10.20.92:8083/api/v1/academy/calendar/calendar-details',formData)
   }
 
   updateCalendar(add:any) {
@@ -35,6 +35,10 @@ export class CalendarService {
       calendardetailsid,
       batchname
     }})
+  }
+
+  getBatchData() {
+    return this.http.get('http://10.10.20.92:8083/api/v1/academy-inventory/batch-details')
   }
 
 }

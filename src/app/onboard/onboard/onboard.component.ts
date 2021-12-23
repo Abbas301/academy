@@ -45,7 +45,8 @@ export class OnboardComponent implements OnInit {
   @ViewChild(MatAccordion) accordion !: MatAccordion;
   @ViewChild('driverCheckbox') driverCheckbox!: MatCheckbox;
   @ViewChildren("driverSubCheckbox") driverSubCheckbox!: QueryList<MatCheckbox>
-  @ViewChild('uploadToc') uploadToc!: ElementRef
+  @ViewChild('uploadToc') uploadToc!: ElementRef;
+  @ViewChild('resetButton') resetButton!: ElementRef;
 
   tyMentor = [
     { value: 'pavan', viewValue: 'pavan' },
@@ -79,6 +80,7 @@ export class OnboardComponent implements OnInit {
   status = 'ONBOARDED';
   onboardList = []
   array :any[] =[];
+  ArrayData =[];
 
   constructor(private fb: FormBuilder,
               private onboardService: OnboardService,
@@ -98,7 +100,7 @@ export class OnboardComponent implements OnInit {
       tocPath: new FormControl('', [Validators.required]),
       tyMentors: new FormControl('', [Validators.required]),
       batchType: new FormControl('', [Validators.required]),
-      clientCompanyName: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z]*')]),
+      clientCompanyName: new FormControl('', [Validators.required, Validators.pattern('[a-z A-Z]*')]),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()])
     });
@@ -112,6 +114,10 @@ export class OnboardComponent implements OnInit {
   }
 
   // VAlidation get methods 
+
+  get clientCompanyName() {
+    return this.batchForm.controls.clientCompanyName as FormControl
+  }
 
   get contactNo() {
     return (this.batchForm.controls.mentors as FormArray).controls[0].get('contactNo') as FormControl
@@ -135,6 +141,14 @@ export class OnboardComponent implements OnInit {
 
   get candidateName() {
     return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.candidateName
+  }
+
+  get candidatePhoneNumber() {
+    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.phoneNumber
+  }
+
+  get candidateYOP() {
+    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.yop
   }
 
   onSelect() {
@@ -161,10 +175,6 @@ export class OnboardComponent implements OnInit {
         element.checked = false;
       })
     }
-  }
-
-  resetForm() {
-    this.batchForm.reset()
   }
 
   createMentor(): FormGroup {
@@ -219,6 +229,15 @@ export class OnboardComponent implements OnInit {
     return this.batchForm.get('trainers') as FormArray;
   }
 
+  deleteItem(index: any) {
+    this.trainer.removeAt(index);
+  }
+
+  deleteMentorItem(index: any) {
+    this.mentor.removeAt(index);
+  }
+
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -246,13 +265,13 @@ export class OnboardComponent implements OnInit {
   }
 
   selectedCandidates(row: any) {
-    this.candidates.push(row)
-    console.log(this.candidates);
+    this.array.push(row)
+    console.log(this.array);
   }
-
   remove(row: any) {
-    this.candidates.splice(this.candidates.indexOf(row),1);
-    console.log(this.candidates);
+     this.array.splice(this.array.indexOf(row),1);
+    // console.log(this.array);
+    console.log( this.array);
   }
 
   uploadTOC(event: Event) {
@@ -269,15 +288,13 @@ export class OnboardComponent implements OnInit {
     let newDate = `${finalDate[2]}-${finalDate[0]}-${finalDate[1]}`
     console.log(newDate);
 
-    let candidatesArray = this.CandidatesListData.data;
-    console.log(candidatesArray);
-    var candidateDetails:any = []
-     candidatesArray.forEach((element:any, index:any) => {
+    // let candidatesArray = this.CandidatesListData.data;
+    // console.log(candidatesArray);
+    var candidates:any = []
+     this.array.forEach((element:any, index:any) => {
       let obj = {candidateId:'',candidateName:'',phoneNumber:'',emailId:'',branch:'',degreeAggregate:'',degree:'',stream:'',yop:'',tenthPercentage:0,twelfthPercentage:'',masterAggregate:'',profileId:''}
       
-     let  {candidateId} = obj
-     console.log(candidateId)
-      obj.candidateId = index
+      // obj.candidateId = element.candidateId
       obj.candidateName = element.name;
       obj.phoneNumber = element.contactNumber
       obj.degreeAggregate = element.degreePercentage
@@ -290,11 +307,10 @@ export class OnboardComponent implements OnInit {
       obj.twelfthPercentage = element.twelfthPercentage
       obj.masterAggregate = element.masterDegreeAggregate
       obj.profileId = element.profileId
-      candidateDetails.push(obj)     
+      candidates.push(obj)     
     });
-    console.log(candidateDetails);
-    console.log(this.candidates);
-    
+    console.log(candidates);
+
     let batchDetails = {
       location: batchForm.controls.location.value,
       technology: batchForm.controls.technology.value,
@@ -304,21 +320,23 @@ export class OnboardComponent implements OnInit {
       clientCompanyName: batchForm.controls.clientCompanyName.value,
       clientMentorList: this.mentor.value,
       assignTrainerList: this.trainer.value,
-      candidateList:this.candidates,
+      candidateList: candidates,
     };
     let formData = new FormData();
     formData.append('batchDetails', JSON.stringify(batchDetails))
     formData.append('tocFile', file)
     this.onboardService.postBatchData(formData).subscribe((res: any) => {
+      console.log(res);
+      
       console.log("batch details added successfully");
       if (res.error == false) {
         this.toastr.success('Batch Details Added Successfully');
+        this.resetButton.nativeElement.click();
         batchForm.reset();
       }
     },err => {
-      console.log(err);
-      // this.toastr.error(err.error.errorMessage);
-      this.toastr.error('some error occurred')
+      console.log(err,'err');
+      this.toastr.error(err.message);
     })
   }
 

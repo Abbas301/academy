@@ -1,4 +1,4 @@
-import { Component, OnInit, Output ,EventEmitter} from '@angular/core';
+import { Component, OnInit, Output ,EventEmitter, ViewChild, ElementRef} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BatchService } from '../batch.service';
 import { NgForm } from '@angular/forms';
@@ -23,6 +23,7 @@ export class CandidateComponent implements OnInit {
                ) { }
 
   @Output() tableDataValues = new EventEmitter<string>();
+  @ViewChild ('resetButton') resetButton:ElementRef;
 
   ngOnInit(): void {
 
@@ -67,6 +68,7 @@ export class CandidateComponent implements OnInit {
       if(res.error == false) {
       this.toastr.success('Candidate details added successfully');
       userData.reset();
+      this.resetButton.nativeElement.click();
       }
     },err => {
       console.log("err",err);

@@ -11,13 +11,13 @@ export class OnboardService {
 
 
   getOnboardList(status:any){
-    return this.http.get<any>(`http://10.10.20.92.:8083/api/v1/academy/onboard/onboard-candidates`,{params:{
+    return this.http.get<any>(`http://10.10.20.92:8098/api/v1/academy/onboard/onboard-candidates`,{params:{
       status
     }});
   }
 
   postBatchData(postData: any) {
-    return this.http.post(`http://10.10.20.92:8083/api/v1/academy-inventory/batch-details`,postData)
+    return this.http.post(`http://10.10.20.92:8098/api/v1/academy-inventory/batch-details`,postData)
   }
 
 }

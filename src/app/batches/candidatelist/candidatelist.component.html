@@ -2,29 +2,29 @@
   <mat-card>
     <div class="d-flex justify-content-between">
       <div class="">
-        <h3 class="d-inline">{{candidates?.batchName}}</h3>
+        <p class="d-inline">{{candidates?.batchName}}</p>
         <p class="d-block">{{candidates?.startDate}} - {{candidates?.endDate}}</p>
       </div>
-      <div *ngIf="candidates.batchType=='INTERNAL'">
-        <h3 class="d-inline">Mentors - </h3>
+      <div *ngIf="candidates?.batchType=='INTERNAL'">
+        <h4 class="d-inline"><b>Mentors -</b> </h4>
         <h5 class="d-inline" *ngFor="let candiate of candidates['tyMentors'] "><div>{{candiate}}</div></h5>
       </div>
-      <div *ngIf="candidates.batchType=='CLIENT'" >
-        <h4 class="d-inline">Mentors - </h4>
+      <div *ngIf="candidates?.batchType=='CLIENT'" >
+        <h4 class="d-inline"><b>Mentors </b> </h4>
         <h5 class="d-inline" *ngFor="let candiate of candidates['clientMentorList'] "><div>{{candiate.clientMentorName}}</div></h5>
       </div>
       <div class="">
-        <h4 class="d-inline">Trainers - </h4>
+        <h4 class="d-inline"><b>Trainers </b> </h4>
         <h5 class="d-inline" *ngFor="let candiate of candidates['assignTrainerList'] "><div>{{candiate.assignTrainerName}}</div></h5>
       </div>
       <div>
-        <h4>Batch Completion</h4>
-        <circle-progress [percent]="70" titleFontSize=15 subtitleFontSize=8 [outerStrokeGradient]=true
+        <h4><b>Batch Completion</b></h4>
+        <circle-progress [percent]='candidates?.batchProgress' titleFontSize=15 subtitleFontSize=8 [outerStrokeGradient]=true
           [outerStrokeColor]="'#BA7FC2'" [animationDuration]=0 [animation]=false [radius]="35" [outerStrokeWidth]="10"
           outerStrokeGradientStopColor="#5A7B8E" [showInnerStroke]=false></circle-progress>
       </div>
       <div>
-        <h4>Mock Rating</h4>
+        <h4><b>Mock Rating</b></h4>
         <circle-progress [percent]="66" titleFontSize=15 subtitleFontSize=8 [outerStrokeGradient]=true
           [outerStrokeColor]="'#BA7FC2'" [animationDuration]=0 [animation]=false [radius]="35" [outerStrokeWidth]="10"
           outerStrokeGradientStopColor="#5A7B8E" [showInnerStroke]=false></circle-progress>
@@ -36,13 +36,13 @@
 
     <div class="row">
       <div class="col-md-7 candidate">
-        <h3 class="mt-3 px-5">candidate List</h3>
+        <h3 class="mt-3 px-5">Candidate List</h3>
       </div>
       <div class="col-md-5">
         <div class="row">
           <div class="col-md-5">
             <mat-form-field class="Csearch" appearance="standard">
-              <input matInput class="hover" type="search" placeholder="First Name" (keyup)="applyFilter($event)">
+              <input matInput class="hover" type="search" placeholder="Candidate Name" (keyup)="applyFilter($event)">
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
           </div>
@@ -71,23 +71,24 @@
           </th>
           <td mat-cell *matCellDef="let row">
             <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)"
+              (change)="selection.isSelected(row)?selectedCandidates(row):remove(row)">
             </mat-checkbox>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="candidateName">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <th mat-header-cell *matHeaderCellDef> Candidate Name </th>
           <td mat-cell *matCellDef="let element"> {{element.candidateName |titlecase}} </td>
         </ng-container>
 
         <ng-container matColumnDef="phoneNumber">
-          <th mat-header-cell *matHeaderCellDef> Contact </th>
+          <th mat-header-cell *matHeaderCellDef> Phone Number </th>
           <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
         </ng-container>
 
         <ng-container matColumnDef="emailId">
-          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <th mat-header-cell *matHeaderCellDef> Email Id </th>
           <td mat-cell *matCellDef="let element"> {{element.emailId}} </td>
         </ng-container>
         <ng-container matColumnDef="degree">
@@ -106,7 +107,7 @@
         </ng-container>
 
         <ng-container matColumnDef="degreeAggregate">
-          <th mat-header-cell *matHeaderCellDef> DegreeAggregate </th>
+          <th mat-header-cell *matHeaderCellDef> Degree Aggregate </th>
           <td mat-cell *matCellDef="let element"> {{element.degreeAggregate}} </td>
         </ng-container>
 
@@ -127,7 +128,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
 
       </table>
 
@@ -228,7 +229,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-secondary p-1 px-2" data-dismiss="modal">Close</button>
             <button type="" (click)="onClickUpdate()" class="btn btn-color batch">Submit</button>
           </div>
         </form>
@@ -248,7 +249,7 @@
         <h1 style="text-align: center;">Are you sure you want to Delete this Candidate</h1>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn confirmbtn" data-toggle="modal" data-target="#confirm"
+        <button type="button" class="btn confirmbtn" data-toggle="modal" data-target=""
           (click)="deleteCandidate(this.deleteElement)">Confirm</button>
         <button type="button" class="btn deletebtn" data-dismiss="modal" #closeBtn>Close</button>
       </div>
