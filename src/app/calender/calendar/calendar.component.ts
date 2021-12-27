@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { CalendarService } from './calendar.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import * as events from 'events';
 
 export interface Events {
   id: string;
@@ -43,12 +44,14 @@ export class CalendarComponent implements OnInit {
   Cform!: FormGroup;
   selected = '';
   addEventForm: FormGroup;
+  editEventForm: FormGroup;
 
   @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
   @ViewChild('modalOpenButton') modalOpenButton!: ElementRef;
   @ViewChild('closeBtn') closeBtn!: ElementRef;
   @ViewChild('generateCalendarModal') generateCalendarModal!: ElementRef;
   @ViewChild('resetButton') resetButton!: ElementRef;
+  @ViewChild('myModal') myModal!: ElementRef;
   value: any;
   monthSelect: any
   calendarListData: any;
@@ -108,26 +111,27 @@ export class CalendarComponent implements OnInit {
       eventTextColor: "black",
       height: 700,
       contentHeight: 600,
-      events: this.calendarData,
-      //   customButtons: {
-      //     myCustomButton: {
-      //     text: 'Add Event',
-      //     click: function() {
-      //            alert("Custom Button");
-      //     }
-      //   }
-      // },
-      // eventContent: { html: '<i class="far fa-edit"></i>' },
-      eventContent: function (args: any, createElement: any) {
-        const icon = args.event._def.extendedProps.img;
-        const text = "<i class='far fa-edit" + icon + "'></i> " + args.event._def.title;
-        if (args.icon) {
-          createElement.find(".fc-title").prepend("<i class='fa fa-edit" + args.icon + "'></i>");
+      eventDrop: function (info) {
+        alert(info.event.title + " was dropped on " + info.event.start.toISOString());
+
+        if (!confirm("Are you sure about this change?")) {
+          info.revert();
         }
-        return {
-          html: text
-        };
       },
+      events: this.calendarData,
+      // eventContent: 'addEvent',
+
+      eventContent: { html: '<i data-toggle="modal" data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="padding-top:100px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>' },
+      // eventContent: function (args: any, createElement: any) {
+      //   const icon = args.event._def.extendedProps.img;
+      //   const text = "<i class='far fa-edit" + icon + "'></i> " + args.event._def.title;
+      //   if (args.icon) {
+      //     createElement.find(".fc-title").prepend("<i class='fa fa-edit" + args.icon + "'></i>");
+      //   }
+      //   return {
+      //     html: text
+      //   };
+      // },
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'prevYear,nextYear',
@@ -145,9 +149,9 @@ export class CalendarComponent implements OnInit {
     this.modalOpenButton.nativeElement.click();
     $(".Modaltitle").text("Add Event at:" + arg.dateStr);
     $(".eventsstarttitle").text(arg.dateStr);
-
     this.addEventForm.get('start').patchValue(arg.dateStr);
 
+    this.myModal.nativeElement.click();
   }
 
   handleEventClick(arg: any) {
@@ -164,6 +168,35 @@ export class CalendarComponent implements OnInit {
       this.calendarListData = this.calendarList.data
       console.log(this.calendarListData);
     })
+  }
+
+  onEdit(addEventForm: FormGroup) {
+    this.eventsArray.push({
+      calendarDetailsId: this.CalendarId,
+      batchName: this.selectedBatchName,
+      date: addEventForm.controls.start.value,
+      topic: addEventForm.controls.title.value,
+      subTopic: addEventForm.controls.subTopic.value
+    })
+    console.log(this.eventsArray);
+
+    // this.addEventForm.patchValue({ 
+    //   date: addEventForm.controls.start.value,
+    // topic: addEventForm.controls.title.value,
+    // subTopic: addEventForm.controls.subTopic.value
+    // })
+
+    const CalendarData = {
+      batchName: this.selectedBatchName,
+      updatedDates: this.eventsArray
+    }
+    this.calendarService.updateCalendar(CalendarData).subscribe((res: any) => {
+      this.toastr.success("Calendar Data Updated Successfully");
+    }, err => {
+      console.log(err);
+      this.toastr.error(err.message);
+    })
+
   }
 
   onSubmit(addEventForm: FormGroup) {
@@ -240,7 +273,7 @@ export class CalendarComponent implements OnInit {
     })
   }
 
-  visibleCalender(batchName: any,index: any) {
+  visibleCalender(batchName: any, index: any) {
     this.selectedBatchName = batchName;
     this.calendarService.getCalendarEvents(batchName).subscribe(res => {
       this.calendarEvents = res;

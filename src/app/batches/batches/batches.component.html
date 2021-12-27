@@ -8,10 +8,6 @@
     <div class="col-md-5">
       <div class="row">
         <div class="col-md-7">
-          <!-- <mat-form-field appearance="standard">
-            <input matInput class="hover" type="search" placeholder="Search">
-            <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field> -->
         </div>
         <div class="col-md-5">
           <button type="button" class="btn btn-color batch" data-toggle="modal" data-target="#exampleModal">
@@ -54,7 +50,6 @@
             <th>Ty Mentors</th>
             <th>Trainers</th>
             <th>Progress</th>
-            <!-- <th>Mock Rating</th> -->
             <th></th>
           </tr>
         </thead>
@@ -69,7 +64,6 @@
             <td>{{batchesData[i]?.tyMentors}}</td>
             <td>{{assignTrainers[i].join(',')}}</td>
             <td>{{batch?.batchProgress}}</td>
-            <!-- <td>66</td> -->
             <td>
               <mat-icon class="arrow" (click)="viewCandidateList(i)">keyboard_arrow_right</mat-icon>
             </td>
@@ -90,7 +84,6 @@
             <th>Client Mentors</th>
             <th>Trainers</th>
             <th>Progress</th>
-            <!-- <th>Mock Rating</th> -->
             <th></th>
           </tr>
         </thead>
@@ -106,7 +99,6 @@
             <td>{{clientMentor[i].join(',')}}</td>
             <td>{{clientTrainers[i].join(',')}}</td>
             <td>{{batch?.batchProgress}}</td>
-            <!-- <td>56</td> -->
             <td>
               <mat-icon class="arrow" (click)="viewClientCandidateList(i)">keyboard_arrow_right</mat-icon>
             </td>
@@ -442,9 +434,12 @@
             </div>
             <!-- excel sheet -->
             <div *ngIf="formHide">
-              <input type="file" #file style="display:none" formControlName="candidateExcel">
+                <!-- <input type="file" accept=".csv" formControlName="candidateExcel"  data-max-size="2048" [required]="false">
+                <div class="help-block text-danger" *ngIf='this.batchForm.controls.candidateExcel.invalid'>{{errMsg}}</div> -->
+              <!-- <input type="file" #file style="display:none" formControlName="candidateExcel">
               <button class="btn border-secondary uploadButton px-3 ml-3" (click)="file.click()">Upload XL <mat-icon>
-                  cloud_upload</mat-icon></button>
+                  cloud_upload</mat-icon></button> -->
+                  <input type="file" accept=".csv" (change)='onChoosingActivationFile($event)' />
             </div>
           </div>
 

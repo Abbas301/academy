@@ -21,3 +21,6 @@ mat-toolbar {
 .name {
     padding-top: 15px;
 }
+mat-toolbar {
+    background: #EAEAEA;
+}

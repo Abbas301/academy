@@ -230,8 +230,8 @@
                   <mat-form-field appearance="standard">
                     <mat-label>Batch Type</mat-label>
                     <mat-select formControlName="batchType" [(value)]="selected">
-                      <mat-option value="INTERNAL" (click)="onSelect()">INTERNAL</mat-option>
-                      <mat-option value="CLIENT" (click)="onSelect1()">CLIENT</mat-option>
+                      <mat-option value="INTERNAL">INTERNAL</mat-option>
+                      <!-- <mat-option value="CLIENT" (click)="onSelect1()">CLIENT</mat-option> -->
                     </mat-select>
                     <mat-error *ngIf="this.batchForm.controls.batchType.errors?.required">This field is required*
                     </mat-error>

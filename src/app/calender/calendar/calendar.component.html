@@ -16,7 +16,7 @@
           Calendar</button>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal"   data-backdrop="static" tabindex="-1"
+        <div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1"
           aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -44,7 +44,7 @@
                       <div class="form-group">
                         <mat-form-field appearance="standard">
                           <mat-label>Technology</mat-label>
-                          <input matInput  formControlName="technology">
+                          <input matInput formControlName="technology">
                           <mat-error>This field is required *</mat-error>
                         </mat-form-field>
                       </div>
@@ -62,9 +62,9 @@
                         <mat-form-field appearance="standard">
                           <mat-label>Include</mat-label>
                           <mat-select formControlName="include" [(value)]="selected" multiple>
-                            <mat-option value="SATURDAY" >SATURDAY</mat-option>
-                            <mat-option value="SUNDAY" >SUNDAY</mat-option>
-                            <mat-option value="HOLIDAYS" >HOLIDAYS</mat-option>
+                            <mat-option value="SATURDAY">SATURDAY</mat-option>
+                            <mat-option value="SUNDAY">SUNDAY</mat-option>
+                            <mat-option value="HOLIDAYS">HOLIDAYS</mat-option>
                           </mat-select>
                           <mat-error>This field is required *</mat-error>
                         </mat-form-field>
@@ -115,8 +115,10 @@
               [ngClass]="{'text-primary':calendar.status === 'IN PROGRESS','text-warning':calendar.status == 'YET TO START','text-success':calendar.status == 'FINISHED' }">
               {{calendar.status}}</td>
             <td>
-              <mat-icon class="icon" style="margin-left: 20px;" data-toggle="modal" data-target="#exampleModal2" (click)='visibleCalender(calendar.batchName,i)'>visibility</mat-icon>
-              <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal3" (click)='visibleCalender(calendar.batchName,i)'>edit
+              <mat-icon class="icon" style="margin-left: 20px;" data-toggle="modal" data-target="#exampleModal2"
+                (click)='visibleCalender(calendar.batchName,i)'>visibility</mat-icon>
+              <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal3"
+                (click)='visibleCalender(calendar.batchName,i)'>edit
               </mat-icon>
               <mat-icon class="icon" data-toggle="modal" data-target="#exampleModalCenter"
                 (click)="elementData(calendar)">delete_outline</mat-icon>
@@ -231,25 +233,23 @@
                   </div>
 
                   <div class="modal-body">
-                    <form [formGroup]="addEventForm" >
+                    <form [formGroup]="addEventForm">
                       <div class="row">
                         <div class="col-sm-12">
-                          <div class="form-group " >
+                          <div class="form-group ">
                             <input type="date" class="form-control eventsstarttitle" formControlName="start">
                           </div>
                         </div>
                         <div class="col-sm-12">
                           <div class="form-group">
                             <label>Topic</label>
-                            <input placeholder="Add Topic" type="text" formControlName="title" 
-                              class="form-control" >
+                            <input placeholder="Add Topic" type="text" formControlName="title" class="form-control">
                           </div>
                         </div>
                         <div class="col-sm-12">
                           <div class="form-group">
                             <label>Sub Topic</label>
-                            <input placeholder="Sub Topic" type="text" formControlName="subTopic"
-                              class="form-control" >
+                            <input placeholder="Sub Topic" type="text" formControlName="subTopic" class="form-control">
                           </div>
                         </div>
                       </div>
@@ -301,3 +301,42 @@
     </div>
   </div>
 </div>
+
+
+<!-- Edit Calendar -->
+<!-- <div class="modal" id="EditModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title Modaltitle align-center"></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="editEventForm">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group ">
+                <input type="date" class="form-control eventsstarttitle" formControlName="start">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Topic</label>
+                <input placeholder="Add Topic" type="text" formControlName="title" class="form-control">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Sub Topic</label>
+                <input placeholder="Sub Topic" type="text" formControlName="subTopic" class="form-control">
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" >Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
