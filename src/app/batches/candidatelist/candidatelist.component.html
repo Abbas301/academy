@@ -2,7 +2,7 @@
   <mat-card>
     <div class="d-flex justify-content-between">
       <div class="">
-        <p class="d-inline">{{candidates?.batchName}}</p>
+        <p class="d-inline"><b>{{candidates?.batchName}}</b></p>
         <p class="d-block">{{candidates?.startDate}} - {{candidates?.endDate}}</p>
       </div>
       <div *ngIf="candidates?.batchType=='INTERNAL'">

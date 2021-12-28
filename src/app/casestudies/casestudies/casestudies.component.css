@@ -15,11 +15,6 @@
   color: #086288;
 }
 
-input[type="file"] {
-  border: 2px dotted #086288;
-  color: #086288;
-}
-
 ::ng-deep.modal-header {
   padding: 18px 30px 0px 30px !important;
 }
@@ -44,6 +39,9 @@ input[type="file"] {
   width: 350px;
 }
 
+
+/* mat-toggle button css */
+
 .mat-button-toggle-group-appearance-standard {
   border-radius: 24px;
 }
@@ -54,6 +52,7 @@ input[type="file"] {
 
 .mat-button-toggle-group-appearance-standard {
   border: solid 1px #086288;
+  background: white;
 }
 
 ::ng-deep .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
@@ -83,6 +82,9 @@ input[type="file"] {
   margin: 1px;
 }
 
+
+/* card css */
+
 .icon.mat-icon {
   visibility: hidden;
 }
@@ -92,10 +94,33 @@ input[type="file"] {
 }
 
 .card {
-  height: 180px;
+  height: 160px;
   overflow-y: scroll;
   overflow-x: hidden;
   margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.cardheader {
+  font-weight: 700;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-body {
+  padding: 20px 0px 10px 10px !important;
+  font-size: smaller;
+}
+
+.card:hover {
+  background: rgb(255, 255, 255);
+  background: linear-gradient( 90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 86%, rgba(140, 138, 138, 1) 100%, rgba(87, 83, 83, 1) 100%);
+}
+
+.uploadfile {
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar {
@@ -117,11 +142,6 @@ input[type="file"] {
   background: lightgray;
 }
 
-.card:hover {
-  background: rgb(255, 255, 255);
-  background: linear-gradient( 90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 86%, rgba(140, 138, 138, 1) 100%, rgba(87, 83, 83, 1) 100%);
-}
-
 .icon.mat-icon:hover {
   background-color: white;
   border-radius: 50px;
@@ -135,19 +155,6 @@ input[type="file"] {
 ::ng-deep .mat-form-field-ripple {
   /*change color of underline when focused*/
   background-color: #086288 !important;
-}
-
-.cardheader {
-  font-weight: 700;
-}
-
-.card-body {
-  padding: 1rem;
-}
-
-.card-body {
-  padding: 20px 0px 10px 10px !important;
-  font-size: smaller;
 }
 
 .mat-form-field-appearance-standard .mat-form-field-flex {
@@ -192,21 +199,16 @@ input[type="file"] {
   margin-right: 20px;
 }
 
+.mat-button-toggle-button:hover {
+  background: red !important;
+}
+
 @media screen and (max-width: 1860px) {
-  /* :host ::ng-deep .card {
-      width: 425px !important;
-  } */
   @media screen and (max-width: 1440px) {
-      /* :host ::ng-deep .card {
-          width: 390px !important;
-      } */
       @media screen and (max-width: 1024px) {
            ::ng-deep.material-icons {
               font-size: 23px !important;
           }
-          /* :host ::ng-deep .card {
-              width: 410px !important;
-          } */
           body {
               font-size: 12px;
           }
@@ -243,9 +245,6 @@ input[type="file"] {
               .mat-button-toggle-group {
                   width: 100px;
               }
-              /* :host ::ng-deep .card {
-                  width: 450px !important;
-              } */
               .newbtn {
                   font-size: 10px !important;
                   width: 60px !important;
@@ -262,9 +261,6 @@ input[type="file"] {
                :host ::ng-deep.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
                   padding: 0 12px 0px 7px !important;
               }
-              /* :host ::ng-deep .card {
-                  width: 575px !important;
-              } */
           }
       }
   }
