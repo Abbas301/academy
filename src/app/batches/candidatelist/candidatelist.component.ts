@@ -122,7 +122,6 @@ export class CandidatelistComponent implements OnInit {
       this.dataSource.data = this.details;
       console.log(this.dataSource.data);
        this.dataSource.paginator = this.paginator;
-
     });
   }
 

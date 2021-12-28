@@ -12,9 +12,9 @@ import { Router } from '@angular/router';
 import * as events from 'events';
 
 export interface Events {
-  id: string;
-  title: string;
-  start: string;
+      date: string,
+      topic: string,
+      subTopic: string
 }
 export interface Calendar {
   calendarDetailsId: number;
@@ -66,6 +66,7 @@ export class CalendarComponent implements OnInit {
   eventsArray: any[] = [];
   EventsArrayData: any[];
   CalendarId: any;
+  calendarId: any;
 
   constructor(private http: HttpClient,
     private calendarService: CalendarService,
@@ -119,19 +120,9 @@ export class CalendarComponent implements OnInit {
         }
       },
       events: this.calendarData,
-      // eventContent: 'addEvent',
-
-      eventContent: { html: '<i data-toggle="modal" data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="padding-top:100px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>' },
-      // eventContent: function (args: any, createElement: any) {
-      //   const icon = args.event._def.extendedProps.img;
-      //   const text = "<i class='far fa-edit" + icon + "'></i> " + args.event._def.title;
-      //   if (args.icon) {
-      //     createElement.find(".fc-title").prepend("<i class='fa fa-edit" + args.icon + "'></i>");
-      //   }
-      //   return {
-      //     html: text
-      //   };
-      // },
+      // eventContent: { html: `<i data-toggle="modal" (click)="${this.onEdit(this.index)} "  data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="padding-top:100px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>`,events: this.calendarData },
+      // eventContent: { html: `<i data-toggle="modal"  data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="padding-top:80px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>`,events: this.calendarData },
+      
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'prevYear,nextYear',
@@ -154,8 +145,14 @@ export class CalendarComponent implements OnInit {
     this.myModal.nativeElement.click();
   }
 
-  handleEventClick(arg: any) {
-    console.log(arg);
+  handleEventClick(element: Events) {
+    console.log(element);
+    console.log(this.eventsArray);
+     this.eventsArray.forEach(element => {
+       console.log(element.date);  
+      //  this.calendarId = element.calendarEventId;
+     })  
+
   }
 
   handleEventDragStop(arg: any) {
@@ -166,36 +163,22 @@ export class CalendarComponent implements OnInit {
     return this.calendarService.getCalendar().subscribe((data: any) => {
       this.calendarList = data;
       this.calendarListData = this.calendarList.data
-      console.log(this.calendarListData);
+      // console.log(this.calendarListData);
     })
   }
 
-  onEdit(addEventForm: FormGroup) {
-    this.eventsArray.push({
-      calendarDetailsId: this.CalendarId,
-      batchName: this.selectedBatchName,
-      date: addEventForm.controls.start.value,
-      topic: addEventForm.controls.title.value,
-      subTopic: addEventForm.controls.subTopic.value
-    })
+  onEdit(editEventForm: any) {
     console.log(this.eventsArray);
+     this.eventsArray.forEach(event => {
+       console.log(event.date);
+       
+     })    
 
-    // this.addEventForm.patchValue({ 
-    //   date: addEventForm.controls.start.value,
-    // topic: addEventForm.controls.title.value,
-    // subTopic: addEventForm.controls.subTopic.value
-    // })
-
-    const CalendarData = {
-      batchName: this.selectedBatchName,
-      updatedDates: this.eventsArray
-    }
-    this.calendarService.updateCalendar(CalendarData).subscribe((res: any) => {
-      this.toastr.success("Calendar Data Updated Successfully");
-    }, err => {
-      console.log(err);
-      this.toastr.error(err.message);
-    })
+     this.editEventForm.patchValue({
+      date: editEventForm.controls.date.value,
+      topic: editEventForm.controls.topic.value,
+      subTopic: editEventForm.controls.subTopic.value
+      })
 
   }
 
@@ -279,7 +262,6 @@ export class CalendarComponent implements OnInit {
       this.calendarEvents = res;
       this.eventsArray = this.calendarEvents.data;
       console.log(this.eventsArray);
-      console.log(this.eventsArray[index].calendarEventId);
       this.CalendarId = this.eventsArray[index].calendarEventId
       var calendarData: any = []
       this.eventsArray.forEach((element: any, index: any) => {
@@ -288,7 +270,7 @@ export class CalendarComponent implements OnInit {
         obj.title = element.topic
         obj.start = element.date
         obj.subTopic = element.subTopic
-        obj.calendarDetailsId = element.calendarDetailsId
+        obj.calendarDetailsId = element.calendarEventId
         calendarData.push(obj)
       });
 

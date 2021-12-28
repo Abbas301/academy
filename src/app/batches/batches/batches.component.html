@@ -434,11 +434,6 @@
             </div>
             <!-- excel sheet -->
             <div *ngIf="formHide">
-                <!-- <input type="file" accept=".csv" formControlName="candidateExcel"  data-max-size="2048" [required]="false">
-                <div class="help-block text-danger" *ngIf='this.batchForm.controls.candidateExcel.invalid'>{{errMsg}}</div> -->
-              <!-- <input type="file" #file style="display:none" formControlName="candidateExcel">
-              <button class="btn border-secondary uploadButton px-3 ml-3" (click)="file.click()">Upload XL <mat-icon>
-                  cloud_upload</mat-icon></button> -->
                   <input type="file" accept=".csv" (change)='onChoosingActivationFile($event)' />
             </div>
           </div>

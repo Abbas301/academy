@@ -73,11 +73,18 @@ mat-icon {
   color: black !important;
   text-decoration: none !important;
 }
-.fc-day-sun {
-  color:red;
-  /* border-color: black;
-  background-color: #ffa58c; */
+::ng-deep .fc-day-sun {
+  background-color:#FFF0F0 !important;
  }
+
+ ::ng-deep .fc-day-sun .fc-daygrid-day-number {
+   color: red!important;
+ }
+
+::ng-deep .fc-day-today div.fc-daygrid-day-frame.fc-scrollgrid-sync-inner{
+  border: 1px solid #42AEDC!important;
+  background-color: #CEFFE3!important;
+}
 
  ::ng-deep .pending {
   visibility: hidden!important;

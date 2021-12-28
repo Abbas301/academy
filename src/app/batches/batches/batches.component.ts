@@ -304,15 +304,13 @@ export class BatchesComponent implements OnInit {
         }
       }
 
-
       for (let i = 0; i < this.batchesData.length; i++) {
         this.clientMentor[i] = [];
         for (let j = 0; j < this.batchesData[i]?.clientMentorList.length; j++) {
           this.clientMentor[i].push(this.batchesData[i].clientMentorList[j]?.clientMentorName);
         }
       }
-      console.log(this.clientMentor);
-      
+      console.log(this.clientMentor);     
     })
   }
 
@@ -388,16 +386,15 @@ export class BatchesComponent implements OnInit {
       if (res.error == false) {
         this.toastr.success('Batch Details Added Successfully');
         this.resetData.nativeElement.click();
-        this.getBatch();
         setTimeout(() => {
           this.closeBtn.nativeElement.click();
         },500);
+        this.getBatch();
         batchForm.reset();
       }
     }, err => {
       console.log(err);
       this.toastr.error(err.message);
-      // this.toastr.error('some error occurred')
     })
   }
   uploadTOC(event: Event) {
@@ -418,7 +415,7 @@ export class BatchesComponent implements OnInit {
         this.csvResult = [];
         let csv = reader.result;
         console.log(reader.result);
-        let lines = csv.toString().split('\n');
+        let lines = csv.toString().split('\r\n');
         console.log(lines);
         let headers = lines[0].split(',');
         for (let i = 1; i < lines.length; i++) {
@@ -433,20 +430,9 @@ export class BatchesComponent implements OnInit {
          this.csvResult.forEach((element,i)=>{
           delete element['']
           delete element["\r"]
-          // delete element["profileId\r"]
-          console.log(element);
-          element.profileId = 'TYC845741';
           return element;
-        })
-      //  this.csvResult.forEach(e  => {
-      //    Object.keys(e).forEach(key => {
-      //      if(key === 'profileId\r'){
-      //        console.log('helloS');
-      //        console.log(e['profileId\r']);
-      //      }        
-      //    })
-      //  });
-       console.log(this.csvResult);
+        });
+        console.log(this.csvResult);  
       }
     } else {
       this.toastr.warning('File Size is more than 3MB', 'Warning');
