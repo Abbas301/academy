@@ -3,12 +3,12 @@ import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from
 import { CasestudiesService } from './casestudies.service';
 import { ToastrService } from 'ngx-toastr';
 export interface CaseStudy {
-      projectName: string,
-      projectType: string,
-      projectSubType: string,
-      projectDescription: string,
-      caseStudyFile: string,
-      caseStudyId:number
+  projectName: string,
+  projectType: string,
+  projectSubType: string,
+  projectDescription: string,
+  caseStudyFile: string,
+  caseStudyId: number
 }
 
 @Component({
@@ -18,29 +18,35 @@ export interface CaseStudy {
 })
 export class CasestudiesComponent implements OnInit {
   casestudiesForm!: FormGroup;
-  casestudies!: FormGroup;
-  form !: FormGroup;
+  casestudies: FormGroup;
+  form: FormGroup;
 
   selected = '';
   pseudo = true;
   miniCase = false;
+  edit = false;
 
   plp: boolean = false;
   mini: boolean = true;
 
-  casestudiesData ;
-  caseData ;
-  miniProject ;
-  pseudoProject;
+  casestudiesData: any;
+  casestudiesFormData: any;
+  formDataValues: any;
 
-  searchText;
+  caseData: any;
+  miniProject: any;
+  pseudoProject = [];
+  patchData: any;
+
+  searchText: any
   projecTypeValue;
-  deleteData ;
-
+  deleteData: any;
+  casestudyForm: FormGroup
   @ViewChild('closeBtn') closeBtn!: ElementRef;
   @ViewChild('closeModal') closeModal!: ElementRef;
   @ViewChild('closepostmodal') closepostmodal!: ElementRef;
   @ViewChild('closeupdatemodal') closeupdatemodal!: ElementRef;
+  @ViewChild('resetpostData') resetpostData!: ElementRef;
 
   subTypes = ['All', 'Detailed', 'Abstract', 'Semi Abstract'];
 
@@ -61,8 +67,9 @@ export class CasestudiesComponent implements OnInit {
 
   fontStyleControl = new FormControl();
   fontStyle?: string;
-  caseStudyFile!: File;
+  caseStudyFile: File;
   localUrl: any;
+  pseudoProjectResult: any[];
 
   constructor(
     private fb: FormBuilder,
@@ -71,23 +78,16 @@ export class CasestudiesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.casestudies = this.fb.group({
-      projectName: ['', Validators.required],
+    this.casestudyForm = this.fb.group({
+      projectName: ['', [Validators.required, Validators.minLength(3)]],
       projectType: ['', Validators.required],
       projectSubType: ['',],
-      projectDescription: ['', Validators.required],
+      projectDescription: ['', [Validators.required, Validators.minLength(25)]],
       caseStudyFileUpload: [''],
-      // caseStudyId: ['']
+      caseStudyId: [''],
+
     })
-    this.casestudiesForm = this.fb.group({
-      projectName: ['', Validators.required],
-      projectType: ['', Validators.required],
-      projectSubType: ['',Validators.required],
-      projectDescription: ['', Validators.required],
-      caseStudyFileUpload: [''],
-      caseStudyId: ['']
-    })
-    // console.log(this.casestudies);
+
     this.form = this.fb.group({
       subtype: this.fb.control(['All'])
     });
@@ -120,6 +120,26 @@ export class CasestudiesComponent implements OnInit {
     console.log(this.plp)
 
   }
+  chooseCaseStudy() {
+    if (this.subtype.value === 'Detailed') {
+      this.pseudoProjectResult = this.pseudoProject.filter(val => {
+        return val.projectSubType === 'Detailed'
+      })
+    }
+    else if (this.subtype.value === 'Abstract') {
+      this.pseudoProjectResult = this.pseudoProject.filter(val => {
+        return val.projectSubType === 'Abstract'
+      })
+    }
+    else if (this.subtype.value === 'Semi Abstract') {
+      this.pseudoProjectResult = this.pseudoProject.filter(val => {
+        return val.projectSubType === 'Semi Abstract'
+      })
+    }
+    else {
+      this.pseudoProjectResult = this.pseudoProject
+    }
+  }
 
   getCasestudiesData() {
     return this.casestudieService.getCasestudiesData().subscribe(res => {
@@ -135,80 +155,77 @@ export class CasestudiesComponent implements OnInit {
       this.pseudoProject = pseudoData.filter((casetype: any) => {
         return casetype.projectType === 'Pseudo Live Project'
       })
+      this.pseudoProjectResult = this.pseudoProject
+
     })
   }
 
-  postCaseData(casestudies: FormGroup) {
+  postCaseData(casestudies) {
     let file = this.caseStudyFile
-    let casestudiesFormData = {
+
+    const casestudiesFormData = {
       projectName: casestudies.controls.projectName.value,
       projectType: casestudies.controls.projectType.value,
       projectSubType: casestudies.controls.projectSubType.value ? casestudies.controls.projectSubType.value : 'None',
       projectDescription: casestudies.controls.projectDescription.value,
-      // caseStudyId: this.casestudies.controls.caseStudyId.value ? this.casestudies.controls.caseStudyId.value : null,
+      caseStudyId: casestudies.controls.caseStudyId.value ? casestudies.controls.caseStudyId.value : null
+
     }
-    let formData = new FormData();
-    formData.append("caseStudies",JSON.stringify(casestudiesFormData))
-    formData.append("caseStudyFile",file?file:null)
-    this.casestudieService.postCasestudiesData( formData).subscribe(res => {
-      
-      console.log(res);
+    Object.keys(casestudiesFormData).forEach(e => { if (casestudiesFormData[e] === null) delete casestudiesFormData[e] });
+
+    const formData = new FormData();
+    formData.append("caseStudies", JSON.stringify(casestudiesFormData))
+    formData.append("caseStudyFile", file ? file : null)
+
+    this.casestudieService.postCasestudiesData(formData).subscribe(res => {
+      this.toastr.success(res.message)
+      this.resetpostData.nativeElement.click();
       this.getCasestudiesData();
-      // this.casestudies.reset();
+      this.closepostmodal.nativeElement.click();
+    }, err => {
+      this.toastr.error(err.error.message)
     })
+
   }
-  resetForm() {
-    this.casestudiesForm.reset();
-  }
+
   onUploadingCaseStudies(event: Event) {
     this.caseStudyFile = (event.target as HTMLInputElement).files[0];
-    // console.log(this.caseStudyFile)
+    console.log(this.caseStudyFile)
     // console.log(this.casestudies.get('caseStudyFileUpload').value);
   }
 
-  updateData(caseData:CaseStudy) {
-    console.log(caseData);
-    this.casestudiesForm.patchValue({
-      projectName: caseData.projectName,
-      projectType: caseData.projectType,
-      projectSubType: caseData.projectSubType,
-      projectDescription: caseData.projectDescription,
-      caseStudyFile: caseData.caseStudyFile,
-      caseStudyId:caseData.caseStudyId
-    })
-  }
-  updateCaseData() {
-    let file = this.caseStudyFile
-    // console.log(file);
-    const casestudiesFormData = {
-      projectName: (this.casestudiesForm.get('projectName') as FormControl).value?(this.casestudiesForm.get('projectName') as FormControl).value:'',
-      projectType: (this.casestudiesForm.get('projectType') as FormControl).value?(this.casestudiesForm.get('projectType') as FormControl).value:'',
-      projectSubType: (this.casestudiesForm.get('projectSubType') as FormControl).value?(this.casestudiesForm.get('projectSubType') as FormControl).value:'',
-      projectDescription: (this.casestudiesForm.get('projectDescription') as FormControl).value?(this.casestudiesForm.get('projectDescription') as FormControl).value:'',
-      // caseStudyFile: (this.casestudiesForm.get('caseStudyFileUpload') as FormControl).value?(this.casestudiesForm.get('caseStudyFileUpload') as FormControl).value:'',
-      caseStudyId: (this.casestudiesForm.get('caseStudyId') as FormControl).value?(this.casestudiesForm.get('caseStudyId') as FormControl).value:'',
-    }
-    let formData = new FormData();
-    formData.append("caseStudies",JSON.stringify(casestudiesFormData))
-    formData.append("caseStudyFile",file?file:null)
+  updateCasestudy(updateDetails: any) {
+    this.patchData = updateDetails;
+    console.log(updateDetails);
 
-    this.casestudieService.updateCasestudiesData(formData).subscribe(res => {
-      console.log("updated successfully");
-      this.getCasestudiesData();
-      this.closeModal.nativeElement.click();
+    this.casestudyForm.patchValue({
+      projectName: updateDetails?.projectName,
+      projectType: updateDetails?.projectType,
+      projectSubType: updateDetails?.projectSubType,
+      projectDescription: updateDetails?.projectDescription,
+      caseStudyFile: updateDetails?.caseStudyFile,
+      caseStudyId: updateDetails?.caseStudyId,
     })
+    console.log(this.casestudyForm);
+
+  }
+  clearCasestudy() {
+    this.resetpostData.nativeElement.click();
   }
 
-
-  deleteConfirm(cardDetail: any) {
+  deleteConfirm(cardDetail) {
     this.deleteData = cardDetail;
   }
-  deleteCasestudies(cardDetail:any) {
+  deleteCasestudies(cardDetail) {
     console.log(cardDetail);
     this.closeBtn.nativeElement.click()
     this.casestudieService.deleteCasestudiesData(cardDetail.caseStudyId).subscribe(res => {
       console.log(res);
+      this.toastr.success(res.message)
       this.getCasestudiesData();
+    }, err => {
+      this.toastr.error(err.error.message)
     })
   }
+
 }

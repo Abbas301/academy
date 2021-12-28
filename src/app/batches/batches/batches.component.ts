@@ -304,10 +304,10 @@ export class BatchesComponent implements OnInit {
         }
       }
 
-      for (let i = 0; i < this.batchesData.length; i++) {
+      for (let i = 0; i < this.clientBatch.length; i++) {
         this.clientMentor[i] = [];
-        for (let j = 0; j < this.batchesData[i]?.clientMentorList.length; j++) {
-          this.clientMentor[i].push(this.batchesData[i].clientMentorList[j]?.clientMentorName);
+        for (let j = 0; j < this.clientBatch[i]?.clientMentorList.length; j++) {
+          this.clientMentor[i].push(this.clientBatch[i].clientMentorList[j]?.clientMentorName);
         }
       }
       console.log(this.clientMentor);     

@@ -88,6 +88,13 @@ td.mat-footer-cell {
   text-align: center;
 }
 
+
+.btn-white:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
 ::ng-deep.mat-focused .mat-form-field-label {
   /*change color of label*/
   color: #086288 !important;
