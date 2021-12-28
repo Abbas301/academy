@@ -1,7 +1,7 @@
 <div class="container-fluid page">
   <div class="d-flex page__box p-3">
     <div class="col-md-7 calen mt-3 mx-4">
-      <h4><b>Calendar list</b></h4>
+      <h4><b>Calendar List</b></h4>
     </div>
     <div class=" row col-md-5">
       <div class="col-md-6 batchSearch">
@@ -16,7 +16,7 @@
           Calendar</button>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal"   data-backdrop="static" tabindex="-1"
+        <div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1"
           aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -33,23 +33,19 @@
                       <div class="form-group">
                         <mat-form-field appearance="standard">
                           <mat-label>Batch Name</mat-label>
-                          <mat-select formControlName="batchName">
-                            <mat-option *ngFor="let batch of batches" [value]="batch.value">
-                              {{batch.viewValue}}
+                          <mat-select formControlName="batchName" (selectionChange)="onChangeBatchName($event,Cform)">
+                            <mat-option *ngFor="let batches of batch" [value]="batches.batchName">
+                              {{batches.batchName}}
                             </mat-option>
                           </mat-select>
-                          <mat-error>This field is required</mat-error>
+                          <mat-error>This field is required *</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="form-group">
                         <mat-form-field appearance="standard">
                           <mat-label>Technology</mat-label>
-                          <mat-select formControlName="technology">
-                            <mat-option *ngFor="let technology of technologys" [value]="technology.value">
-                              {{technology.viewValue}}
-                            </mat-option>
-                          </mat-select>
-                          <mat-error>This field is required</mat-error>
+                          <input matInput formControlName="technology">
+                          <mat-error>This field is required *</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="form-group">
@@ -59,24 +55,24 @@
                           <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
                           <mat-datepicker #datepicker>
                           </mat-datepicker>
-                          <mat-error>This field is required</mat-error>
+                          <mat-error>This field is required *</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="form-group">
                         <mat-form-field appearance="standard">
                           <mat-label>Include</mat-label>
-                          <mat-select formControlName="include" multiple>
-                            <mat-option *ngFor="let include of includes" [value]="include.value">
-                              {{include.viewValue}}
-                            </mat-option>
+                          <mat-select formControlName="include" [(value)]="selected" multiple>
+                            <mat-option value="SATURDAY">SATURDAY</mat-option>
+                            <mat-option value="SUNDAY">SUNDAY</mat-option>
+                            <mat-option value="HOLIDAYS">HOLIDAYS</mat-option>
                           </mat-select>
-                          <mat-error>This field is required</mat-error>
+                          <mat-error>This field is required *</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="p-3 d-flex justify-content-between">
                         <div></div>
                         <div class="d-inline">
-                          <button type="button" class="btn btn-light">reset</button>
+                          <button type="reset" class="btn btn-light" #resetButton>reset</button>
                           <button type="submit" class="btn btn-color mx-3">Generate Calendar</button>
                         </div>
                       </div>
@@ -97,13 +93,13 @@
       <table class="table table-borderless text-center">
         <thead class="thead" style="background-color: #D6EFFA;">
           <tr>
-            <th>Sl.no</th>
+            <th>Sl.No</th>
             <th>Batch Name</th>
             <th>Technology</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Status
-              <mat-icon>arrow_drop_down</mat-icon>
+              <!-- <mat-icon>arrow_drop_down</mat-icon> -->
             </th>
             <th>Action</th>
           </tr>
@@ -116,11 +112,13 @@
             <td>{{calendar.startDate}}</td>
             <td>{{calendar.endDate}}</td>
             <td
-              [ngClass]="{'text-primary':calendar.status === 'in progress','text-warning':calendar.status == 'yet to start','text-success':calendar.status == 'finished' }">
-              ---</td>
+              [ngClass]="{'text-primary':calendar.status === 'IN PROGRESS','text-warning':calendar.status == 'YET TO START','text-success':calendar.status == 'FINISHED' }">
+              {{calendar.status}}</td>
             <td>
-              <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal2" (click)='visibleCalender(calendar.batchName)'>visibility</mat-icon>
-              <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal3" (click)='visibleCalender(calendar.batchName)'>edit
+              <mat-icon class="icon" style="margin-left: 20px;" data-toggle="modal" data-target="#exampleModal2"
+                (click)='visibleCalender(calendar.batchName,i)'>visibility</mat-icon>
+              <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal3"
+                (click)='visibleCalender(calendar.batchName,i)'>edit
               </mat-icon>
               <mat-icon class="icon" data-toggle="modal" data-target="#exampleModalCenter"
                 (click)="elementData(calendar)">delete_outline</mat-icon>
@@ -230,36 +228,32 @@
                 <div class="modal-content">
 
                   <div class="modal-header">
-                    <h4 class="modal-title title align-center"></h4>
+                    <h4 class="modal-title Modaltitle align-center"></h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
 
                   <div class="modal-body">
-                    <form #addEventForm="ngForm" (ngSubmit)="onSubmit(addEventForm)">
+                    <form [formGroup]="addEventForm">
                       <div class="row">
                         <div class="col-sm-12">
-                          <div class="form-group">
-                            <label>Date</label>
-                            <input placeholder="Add Event Title" type="date" id="start" name="start" ngModel #start
-                              class="titleinp form-control" required>
+                          <div class="form-group ">
+                            <input type="date" class="form-control eventsstarttitle" formControlName="start">
                           </div>
                         </div>
                         <div class="col-sm-12">
                           <div class="form-group">
                             <label>Topic</label>
-                            <input placeholder="Add Topic" type="text" id="title" name="title" ngModel #title
-                              class="form-control" required>
+                            <input placeholder="Add Topic" type="text" formControlName="title" class="form-control">
                           </div>
                         </div>
                         <div class="col-sm-12">
                           <div class="form-group">
                             <label>Sub Topic</label>
-                            <input placeholder="Sub Topic" type="text" id="subTopic" name="subTopic" ngModel #subTopic
-                              class="form-control" required>
+                            <input placeholder="Sub Topic" type="text" formControlName="subTopic" class="form-control">
                           </div>
                         </div>
                       </div>
-                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="submit" class="btn btn-primary" (click)="onSubmit(addEventForm)">Submit</button>
                     </form>
                   </div>
                 </div>
@@ -284,7 +278,7 @@
         <h1 style="text-align: center;">Are you sure you want to Delete this Calendar</h1>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn confirmbtn" data-toggle="modal" data-target="#confirm"
+        <button type="button" class="btn confirmbtn" data-toggle="modal" data-target=""
           (click)="deleteCalendarData()">Confirm</button>
         <button type="button" class="btn deletebtn" data-dismiss="modal" #closeBtn>Close</button>
       </div>
@@ -307,3 +301,42 @@
     </div>
   </div>
 </div>
+
+
+<!-- Edit Calendar -->
+<!-- <div class="modal" id="EditModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title Modaltitle align-center"></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="editEventForm">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group ">
+                <input type="date" class="form-control eventsstarttitle" formControlName="start">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Topic</label>
+                <input placeholder="Add Topic" type="text" formControlName="title" class="form-control">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Sub Topic</label>
+                <input placeholder="Sub Topic" type="text" formControlName="subTopic" class="form-control">
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" >Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->

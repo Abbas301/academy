@@ -48,12 +48,14 @@ export class CandidatelistComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('candidateModalClose') candidateModalClose!: ElementRef;
+  @ViewChild('confirm') confirm!: ElementRef;
 
   displayedColumns: string[] = ['select', 'candidateName', 'phoneNumber', 'emailId', 'degree', 'stream', 'yop', 'degreeAggregate', 'branch', 'deleteEmployee'];
   dataSource = new MatTableDataSource<Details>();
   selection = new SelectionModel<Details>(true, []);
   deleteElement: any;
   CandidateListData: any;
+  array :any[] =[];
 
 
   constructor(private router: Router,
@@ -108,6 +110,7 @@ export class CandidatelistComponent implements OnInit {
   }
 
   getAllCandidates() {
+    this.dataSource.data = [];
     console.log(this.batchName);
     this.batchService.getSingleBatch(this.batchName).subscribe(res => {
       this.candidateList = res;
@@ -117,15 +120,15 @@ export class CandidatelistComponent implements OnInit {
       this.details = this.candidateList.data[0].candidateList;
       console.log(this.details);
       this.dataSource.data = this.details;
+      console.log(this.dataSource.data);
        this.dataSource.paginator = this.paginator;
-
     });
   }
 
   updateCandidate(element: Details) {
     this.modalOpenButton.nativeElement.click();
     this.candidateId = element.candidateId
-    const formData = this.Cform.patchValue({
+     this.Cform.patchValue({
       candidateId: element?.candidateId,
       candidateName: element?.candidateName,
       phoneNumber: element?.phoneNumber,
@@ -163,16 +166,19 @@ export class CandidatelistComponent implements OnInit {
       console.log("candidate details updated successfully");
       if(res.error == false) {
         this.toastr.success('Candidate details updated successfully');
-        this.candidateModalClose.nativeElement.click();
+      setTimeout(() => {
         this.getAllCandidates();
-      } else {
+      }, 500);
+        this.candidateModalClose.nativeElement.click();
+      } 
+      else {
       this.candidateModalClose.nativeElement.click();
         this.toastr.error('some error occured');
       } 
     },err => {
       console.log('err',err);
-      this.toastr.error(err.error.message);
-      this.toastr.error('some error occured');
+      this.toastr.error(err.message);
+      // this.toastr.error('some error occured');
     })
 
   }
@@ -188,13 +194,13 @@ export class CandidatelistComponent implements OnInit {
       console.log(data, "candidate data deleted successfully");
       if(res.error == false) {
         this.toastr.success('Candidate details Deleted successfully');
+        this.confirm.nativeElement.click();
       }
-      this.getAllCandidates()
     },err =>{
       console.log(err);
-      this.toastr.error(err.error.message);
-      this.toastr.error('some error occured');
+      this.toastr.error(err.message);
     })
+    this.getAllCandidates();
 
   }
 
@@ -227,6 +233,17 @@ export class CandidatelistComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  selectedCandidates(row: any) {
+    this.array.push(row)
+    console.log(this.array);
+ }
+
+ remove(row: any) {
+   var ArrayData = this.array.splice(this.array.indexOf(row),1);
+   // console.log(this.array);
+   console.log(ArrayData);
+ }
 
 }
 

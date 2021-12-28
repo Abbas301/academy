@@ -31,8 +31,14 @@
     background: #D6EFFA !important;
 }
 
-@media only screen and (max-width: 768px) {
-     ::ng-deep .logo img {
-        width: 152px !important;
+@media only screen and (max-width: 1024px) {
+    .logo[_ngcontent-bvt-c74] img[_ngcontent-bvt-c74] {
+        width: 154px;
     }
+    @media only screen and (max-width: 768px) {
+        ::ng-deep .logo img {
+           width: 152px !important;
+       }
+   }
 }
+

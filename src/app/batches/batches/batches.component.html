@@ -8,10 +8,6 @@
     <div class="col-md-5">
       <div class="row">
         <div class="col-md-7">
-          <!-- <mat-form-field appearance="standard">
-            <input matInput class="hover" type="search" placeholder="Search">
-            <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field> -->
         </div>
         <div class="col-md-5">
           <button type="button" class="btn btn-color batch" data-toggle="modal" data-target="#exampleModal">
@@ -53,8 +49,7 @@
             <th>End Date</th>
             <th>Ty Mentors</th>
             <th>Trainers</th>
-            <th>Batch Completion</th>
-            <th>Mock Rating</th>
+            <th>Progress</th>
             <th></th>
           </tr>
         </thead>
@@ -65,11 +60,10 @@
             </td>
             <td>{{batch?.batchName}}</td>
             <td>{{batch.startDate}}</td>
-            <td>---</td>
+            <td>{{batch.endDate}}</td>
             <td>{{batchesData[i]?.tyMentors}}</td>
             <td>{{assignTrainers[i].join(',')}}</td>
-            <td>70</td>
-            <td>66</td>
+            <td>{{batch?.batchProgress}}</td>
             <td>
               <mat-icon class="arrow" (click)="viewCandidateList(i)">keyboard_arrow_right</mat-icon>
             </td>
@@ -84,15 +78,12 @@
               <mat-checkbox class="example-margin" #headerCheckbox (change)="selectAll()"></mat-checkbox>
             </th>
             <th>Batch Name</th>
-            <th>Client
-              <mat-icon>expand_more</mat-icon>
-            </th>
+            <th>Client</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Client Mentors</th>
             <th>Trainers</th>
-            <th>Batch Completion</th>
-            <th>Mock Rating</th>
+            <th>Progress</th>
             <th></th>
           </tr>
         </thead>
@@ -104,11 +95,10 @@
             <td>{{batch?.batchName}}</td>
             <td>{{batch?.clientCompanyName}}</td>
             <td>{{batch?.startDate}}</td>
-            <td>---</td>
+            <td>{{batch.endDate}}</td>
             <td>{{clientMentor[i].join(',')}}</td>
             <td>{{clientTrainers[i].join(',')}}</td>
-            <td>80</td>
-            <td>56</td>
+            <td>{{batch?.batchProgress}}</td>
             <td>
               <mat-icon class="arrow" (click)="viewClientCandidateList(i)">keyboard_arrow_right</mat-icon>
             </td>
@@ -128,7 +118,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" style="font-weight: 600;" id="exampleModalLabel">Add Batch</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" #closeBtn aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -146,7 +136,7 @@
                       {{location.viewValue}}
                     </mat-option>
                   </mat-select>
-                  <mat-error>This field is required</mat-error>
+                  <mat-error *ngIf="this.batchForm.controls.location.errors?.required">This field is required*</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-3">
@@ -157,7 +147,7 @@
                       {{technology.viewValue}}
                     </mat-option>
                   </mat-select>
-                  <mat-error>This field is required</mat-error>
+                  <mat-error >This field is required*</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-3">
@@ -166,7 +156,7 @@
                   <input matInput [matDatepicker]="picker" formControlName="startDate">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
-                  <mat-error>This field is required</mat-error>
+                  <mat-error>This field is required*</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-3">
@@ -187,7 +177,7 @@
                       {{mentor.viewValue}}
                     </mat-option>
                   </mat-select>
-                  <mat-error>This field is required</mat-error>
+                  <mat-error>This field is required*</mat-error>
                 </mat-form-field>
               </div>
 
@@ -199,15 +189,16 @@
                     <mat-option value="INTERNAL" (click)="onSelect()">INTERNAL</mat-option>
                     <mat-option value="CLIENT" (click)="onSelect1()">CLIENT</mat-option>
                   </mat-select>
+                  <mat-error *ngIf="this.batchForm.controls.batchType.errors?.required">This field is required*</mat-error>
                 </mat-form-field>
               </div>
 
               <div class="col-3">
                 <mat-form-field appearance="standard">
                   <mat-label>Company Name</mat-label>
-                  <input type="text" matInput placeholder="CompanyName" formControlName="clientCompanyName">
-                  <mat-error *ngIf="batchForm.controls.clientCompanyName.errors?.required">This field is required</mat-error>
-                  <mat-error *ngIf="batchForm.controls.clientCompanyName.errors?.pattern">Name should be Alphabets</mat-error>
+                  <input type="text" matInput formControlName="clientCompanyName">
+                  <mat-error *ngIf="clientCompanyName.errors?.required">This field is required*</mat-error>
+                  <mat-error *ngIf="clientCompanyName.errors?.pattern">Name should be Alphabets*</mat-error>
                 </mat-form-field>
               </div>
 
@@ -222,31 +213,32 @@
                 <div class="row">
                   <div class="col-3">
                     <mat-form-field appearance="standard">
-                      <input matInput class="hover" type="search" placeholder="clientMentorName" formControlName="clientMentorName">
-                      <mat-error *ngIf="clientMentorName.errors?.pattern">name should be alphabets</mat-error>
+                      <input matInput class="hover" type="text" placeholder="clientMentorName" formControlName="clientMentorName">
+                      <mat-error *ngIf="clientMentorName.errors?.pattern">name should be alphabets*</mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-3">
                     <mat-form-field appearance="standard">
-                      <input matInput class="hover" type="search" placeholder="Designation"
+                      <input matInput class="hover" type="text" placeholder="Designation"
                         formControlName="designation">
                     </mat-form-field>
                   </div>
                   <div class="col-3">
                     <mat-form-field appearance="standard">
-                      <input matInput class="hover" type="search" placeholder="Contact No" formControlName="contactNo">
-                      <mat-error *ngIf="contactNo.errors?.pattern">contact Number should be Numbers</mat-error>
+                      <input matInput class="hover" type="text" placeholder="Contact No" formControlName="contactNo">
+                      <mat-error *ngIf="contactNo.errors?.pattern">contact Number should be Numbers*</mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-3 aliq">
                     <div class="form_field">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="Email Id" formControlName="emailId">
-                        <mat-error *ngIf="clientMentorEmailId.errors?.pattern">Enter a Valid EmailId</mat-error>
+                        <input matInput class="hover" type="text" placeholder="Email Id" formControlName="emailId">
+                        <mat-error *ngIf="clientMentorEmailId.errors?.pattern">Enter a Valid EmailId*</mat-error>
                       </mat-form-field>
                     </div>
                     <div>
-                      <mat-icon class="mt-3" (click)="addMentor()">add_circle</mat-icon>
+                      <mat-icon class="mt-3" *ngIf="i === mentor.length - 1" (click)="addMentor()">add_circle</mat-icon>
+                      <mat-icon *ngIf="i !== mentor.length - 1" class="icon" (click)="deleteMentorItem(i)">delete</mat-icon>
                     </div>
                   </div>
                 </div>
@@ -262,9 +254,10 @@
                   <div class="row">
                     <div class="col-3">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="Name" formControlName="assignTrainerName">
-                        <mat-error *ngIf="assignTrainerName.errors?.required">This field is required</mat-error>
-                        <mat-error *ngIf="assignTrainerName.errors?.pattern">Assign trainer name should be alphabets</mat-error>
+                        <mat-label>assignTrainerName</mat-label>
+                        <input matInput class="hover" type="search" formControlName="assignTrainerName">
+                        <mat-error *ngIf="assignTrainerName.errors?.required">This field is required*</mat-error>
+                        <mat-error *ngIf="assignTrainerName.errors?.pattern">Assign trainer name should be alphabets*</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3">
@@ -275,7 +268,7 @@
                             {{technology.viewValue}}
                           </mat-option>
                         </mat-select>
-                        <mat-error>This field is required</mat-error>
+                        <mat-error>This field is required*</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3">
@@ -286,19 +279,23 @@
                             {{day.viewValue}}
                           </mat-option>
                         </mat-select>
-                        <mat-error>This field is required</mat-error>
+                        <mat-error>This field is required*</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3 aliq">
                       <div class="form_field">
                         <mat-form-field appearance="standard">
-                          <input matInput class="hover" type="search" placeholder="Email Id" formControlName="emailId">
-                          <mat-error *ngIf="assignTrainerEmailID.errors?.required">This field is required</mat-error>
-                          <mat-error *ngIf="assignTrainerEmailID.errors?.pattern">Enter a valid EmailId</mat-error>
+                          <mat-label>Email Id</mat-label>
+                          <input matInput class="hover" type="text" formControlName="emailId">
+                          <mat-error *ngIf="assignTrainerEmailID.errors?.required">This field is required*</mat-error>
+                          <mat-error *ngIf="assignTrainerEmailID.errors?.pattern">Enter a valid EmailId*</mat-error>
                         </mat-form-field>
                       </div>
                       <div>
-                        <mat-icon class="mt-3" (click)="addTrainer()">add_circle</mat-icon>
+                        <mat-icon class="mt-3" *ngIf="i === trainer.length - 1" (click)="addTrainer()">add_circle</mat-icon>
+                        <mat-icon *ngIf="i !== trainer.length - 1" class="icon" (click)="deleteItem(i)">
+                          delete
+                      </mat-icon>
                       </div>
                     </div>
                   </div>
@@ -319,35 +316,40 @@
                   <div class="row">
                     <div class="col-3">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="Candidate Name"
+                        <mat-label>Candidate Name</mat-label>
+                        <input matInput class="hover" type="text"
                           formControlName="candidateName">
-                        <mat-error *ngIf="candidateName.errors?.required">This field is required</mat-error>
-                        <mat-error *ngIf="candidateName.errors?.pattern">Name should be Alphabets</mat-error>
+                        <mat-error *ngIf="candidateName.errors?.required">This field is required*</mat-error>
+                        <mat-error *ngIf="candidateName.errors?.pattern">Name should be Alphabets*</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="Phone Number"
+                        <mat-label>Phone Number</mat-label>
+                        <input matInput class="hover" type="text"
                           formControlName="phoneNumber">
-                        <mat-error *ngIf="candidatePhoneNumber.errors?.required">This field is required</mat-error>
-                        <mat-error *ngIf="candidatePhoneNumber.errors?.pattern">Enter a valid phone number</mat-error>
+                        <mat-error *ngIf="candidatePhoneNumber.errors?.required">This field is required*</mat-error>
+                        <mat-error *ngIf="candidatePhoneNumber.errors?.pattern">Enter a valid phone number*</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="EmailId" formControlName="emailId">
-                        <mat-error>This field is required</mat-error>
+                        <mat-label>Email Id</mat-label>
+                        <input matInput class="hover" type="text" formControlName="emailId">
+                        <mat-error>This field is required*</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3 aliq">
                       <div class="form_field">
                         <mat-form-field appearance="standard">
-                          <input matInput class="hover" type="search" placeholder="Degree" formControlName="degree">
-                          <mat-error>This field is required</mat-error>
+                          <mat-label>Degree</mat-label>
+                          <input matInput class="hover" type="text" formControlName="degree">
+                          <mat-error>This field is required*</mat-error>
                         </mat-form-field>
                       </div>
                       <div>
-                        <mat-icon class="mt-3" (click)="addCandidate()">add_circle</mat-icon>
+                        <mat-icon class="mt-3" *ngIf="i === candidate.length - 1" (click)="addCandidate()">add_circle</mat-icon>
+                        <mat-icon *ngIf="i !== candidate.length - 1" class="icon" (click)="deleteCandidateItem(i)">delete</mat-icon>
                       </div>
                     </div>
                   </div>
@@ -355,30 +357,34 @@
                   <div class="row">
                     <div class="col-3">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="Stream" formControlName="stream">
-                        <mat-error>This field is required</mat-error>
+                        <mat-label>Stream</mat-label>
+                        <input matInput class="hover" type="text" formControlName="stream">
+                        <mat-error>This field is required*</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="YOP" formControlName="yop">
-                        <mat-error *ngIf="candidateYOP.errors?.required">This field is required</mat-error>
-                        <mat-error *ngIf="candidateYOP.errors?.pattern">this field contains numbers</mat-error>
+                        <mat-label>YOP</mat-label>
+                        <input matInput class="hover" type="text" formControlName="yop">
+                        <mat-error *ngIf="candidateYOP.errors?.required">This field is required*</mat-error>
+                        <mat-error *ngIf="candidateYOP.errors?.pattern">this field contains numbers*</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="10th Percentage"
+                        <mat-label>Tenth Percentage</mat-label>
+                        <input matInput class="hover" type="text"
                           formControlName="tenthPercentage">
-                        <mat-error>This field is required</mat-error>
+                        <mat-error>This field is required*</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3 aliq">
                       <div class="twelth" style="padding-right: 40px;">
                         <mat-form-field appearance="standard">
-                          <input matInput class="hover" type="search" placeholder="12th Percentage"
+                          <mat-label>Twelth Percentage</mat-label>
+                          <input matInput class="hover" type="text" 
                             formControlName="twelfthPercentage">
-                          <mat-error>This field is required</mat-error>
+                          <mat-error>This field is required*</mat-error>
                         </mat-form-field>
                       </div>
                     </div>
@@ -387,16 +393,18 @@
                   <div class="row">
                     <div class="col-3">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="Degree Aggregate"
+                        <mat-label>Degree Aggregate</mat-label>
+                        <input matInput class="hover" type="text"
                           formControlName="degreeAggregate">
-                        <mat-error>This field is required</mat-error>
+                        <mat-error>This field is required*</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="Masters Aggregate"
+                        <mat-label>Masters Aggregate</mat-label>
+                        <input matInput class="hover" type="text"
                           formControlName="masterAggregate">
-                        <mat-error>This field is required</mat-error>
+                        <mat-error>This field is required*</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-3">
@@ -407,13 +415,14 @@
                             {{branch.viewValue}}
                           </mat-option>
                         </mat-select>
-                        <mat-error>This field is required</mat-error>
+                        <mat-error>This field is required*</mat-error>
                       </mat-form-field>
                     </div>
 
                     <div class="col-3"  class="twelth" style="padding-left: 35px;">
                       <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="search" placeholder="ProfileId"
+                        <mat-label>Profile Id</mat-label>
+                        <input matInput class="hover" type="text"
                           formControlName="profileId">
                       </mat-form-field>
                     </div>
@@ -425,14 +434,12 @@
             </div>
             <!-- excel sheet -->
             <div *ngIf="formHide">
-              <input type="file" #file style="display:none" formControlName="candidateExcel">
-              <button class="btn border-secondary uploadButton px-3 ml-3" (click)="file.click()">Upload XL <mat-icon>
-                  cloud_upload</mat-icon></button>
+                  <input type="file" accept=".csv" (change)='onChoosingActivationFile($event)' />
             </div>
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-light ">reset</button>
+            <button type="reset" class="btn btn-light" #resetData >reset</button>
             <button type="submit" class="btn btn-color batch" (click)="addBatch(batchForm)">Create</button>
           </div>
         </form>

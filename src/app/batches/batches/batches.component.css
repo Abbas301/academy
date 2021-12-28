@@ -65,6 +65,9 @@ tr:hover .arrow {
   visibility: visible;
   background-color: #f2f2f2;
 }
+:host ::ng-deep .mat-error {
+  font-size: 13px !important;
+}   
 /* checkbox css */
 
 ::ng-deep.mat-checkbox-checked.mat-accent .mat-checkbox-background {

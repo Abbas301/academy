@@ -47,6 +47,9 @@ mat-icon {
   border: 1px solid grey;
   border-radius: 5%;
 }
+:host ::ng-deep .mat-error {
+  font-size: 13px !important;
+} 
 /* full calendar css */
 
 .calendar {
@@ -70,43 +73,51 @@ mat-icon {
   color: black !important;
   text-decoration: none !important;
 }
-.fc-day-sun {
-  color:red;
-  /* border-color: black;
-  background-color: #ffa58c; */
+::ng-deep .fc-day-sun {
+  background-color:#FFF0F0 !important;
  }
 
- .fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
-    background-image: url(/src/assets/sucess_image.png);
+ ::ng-deep .fc-day-sun .fc-daygrid-day-number {
+   color: red!important;
  }
- .fc-event.hasattention::after,
-.fc-event.hasdescr::after,
-.fc-event.hasattention.hasdescr::after {
-    content: "";
-    position: absolute;
-    top: 4px;
-    right: 0;
-    height: 13px;
-    background-repeat: no-repeat;
+
+::ng-deep .fc-day-today div.fc-daygrid-day-frame.fc-scrollgrid-sync-inner{
+  border: 1px solid #42AEDC!important;
+  background-color: #CEFFE3!important;
 }
 
-.fc-event.hasattention::after {
-    width: 13px;
-    background: url(/src/assets/sucess_image.png) top right;
-    background-size: 100%;
-}
-.fc-event.hasdescr::after {
-    width: 13px;
-    background: url(/src/assets/sucess_image.png) top right;
-    background-size: 100%;
+ ::ng-deep .pending {
+  visibility: hidden!important;
+  font-size:10px;
 }
 
-.fc-event.hasattention.hasdescr::after {
-    width: 27px;
-    background-image: url(/src/assets/sucess_image.png),
-        url(/src/assets/sucess_image.png);
-    background-size: 13px;
-    background-position: 0 0, 13px 0;
+::ng-deep .pending:hover {
+  background-color:red !important;
+  color:#fff;
+}
+
+::ng-deep .buttonsElement:hover .pending{
+  visibility: visible!important;
+  background-color:grey;
+  opacity:0.7;
+  color:#fff;
+}
+
+ ::ng-deep .complete {
+   visibility: hidden!important;
+   font-size:10px;
+ }
+
+ ::ng-deep .complete:hover {
+  background-color:green !important;
+  color: #fff;
+}
+
+ ::ng-deep .buttonsElement:hover .complete{
+  visibility: visible!important;
+  background-color:grey;
+  opacity:0.7;
+  color:#fff;
 }
 
 /* delete buttons */

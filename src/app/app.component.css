@@ -18,6 +18,7 @@ mat-drawer-container {
     display: block;
     height: 100%;
     overflow: hidden;
+    background: #EAEAEA;
 }
 
 @media screen and (max-width: 1028px) {

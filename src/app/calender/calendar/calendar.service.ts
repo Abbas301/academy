@@ -11,30 +11,34 @@ export class CalendarService {
   constructor(private http:HttpClient) { }
 
   getCalendar() {
-    return this.http.get('http://10.10.20.92:8083/api/v1/academy/calendar/batch-details')
-  }
+    return this.http.get(`${environment.baseUrl}/api/v1/academy/calendar/batch-details`)
+  }  
 
   getCalendarEvents(batchname:any) {
-    return this.http.get(`http://10.10.20.92:8083/api/v1/academy/calendar/calendar-events`,{
+    return this.http.get(`${environment.baseUrl}/api/v1/academy/calendar/calendar-events`,{
       params: {
         batchname
       }
     })
   }
 
-  postCalendar(add:any) {
-    return this.http.post('HTTP://10.10.20.92:8083/api/v1/academy/calendar/calendar-details',add)
+  postCalendar(formData:any) {
+    return this.http.post(`${environment.baseUrl}/api/v1/academy/calendar/calendar-details`,formData)
   }
 
   updateCalendar(add:any) {
-    return this.http.put(`http://10.10.20.92:8083/api/v1/academy/calendar/calendar-details`,add)
+    return this.http.put(`${environment.baseUrl}/api/v1/academy/calendar/calendar-details`,add)
   }
 
   deleteCalendar(calendardetailsid:any,batchname:any) {
-    return this.http.delete(`http://10.10.20.92:8083/api/v1/academy/calendar/calendar-details`,{params:{
+    return this.http.delete(`${environment.baseUrl}/api/v1/academy/calendar/calendar-details`,{params:{
       calendardetailsid,
       batchname
     }})
+  }
+
+  getBatchData() {
+    return this.http.get(`${environment.baseUrl}/api/v1/academy-inventory/batch-details`)
   }
 
 }
