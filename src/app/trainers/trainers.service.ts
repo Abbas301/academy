@@ -15,7 +15,7 @@ export class TrainersService {
       data:any,
       error: boolean
       message: string
-    }>(`${environment.baseUrl}/academy/trainers/trainer-details-technologies`)
+    }>(`${environment.baseUrl}/api/v1/academy/trainers/trainer-details-technologies`)
   }
   postTrainerData(trainerData:any){
     return this.http.post<any>(`${environment.baseUrl}/api/v1/academy/trainers/trainer-details-technologies`,trainerData)
