@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   baseUrl:'http://10.10.20.18:8098',
+  calendarBaseUrl:'http://10.10.20.92:8083',
 };
 
 

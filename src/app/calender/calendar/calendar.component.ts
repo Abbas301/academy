@@ -171,7 +171,6 @@ export class CalendarComponent implements OnInit {
     console.log(this.eventsArray);
      this.eventsArray.forEach(event => {
        console.log(event.date);
-       
      })    
 
      this.editEventForm.patchValue({
