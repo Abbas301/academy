@@ -65,6 +65,7 @@ export class CasestudiesComponent implements OnInit {
   ];
 
 
+
   fontStyleControl = new FormControl();
   fontStyle?: string;
   caseStudyFile: File;
@@ -162,7 +163,6 @@ export class CasestudiesComponent implements OnInit {
 
   postCaseData(casestudies) {
     let file = this.caseStudyFile
-
     const casestudiesFormData = {
       projectName: casestudies.controls.projectName.value,
       projectType: casestudies.controls.projectType.value,
@@ -188,9 +188,14 @@ export class CasestudiesComponent implements OnInit {
 
   }
 
+
+  file: string;
+
+
   onUploadingCaseStudies(event: Event) {
     this.caseStudyFile = (event.target as HTMLInputElement).files[0];
     console.log(this.caseStudyFile)
+    this.file = (event.target as HTMLInputElement). files[0].name;
     // console.log(this.casestudies.get('caseStudyFileUpload').value);
   }
 

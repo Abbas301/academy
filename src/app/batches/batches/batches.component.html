@@ -1,450 +1,442 @@
 <div class="container-fluid page">
-  <div class="d-flex row page__box p-2 mt-2">
+    <div class="d-flex row page__box p-2 mt-2">
 
-    <div class="col-md-7 mt-2">
-      <h4 style="padding-left: 40px;"><b>Batch Lists</b></h4>
-    </div>
-
-    <div class="col-md-5">
-      <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-7 mt-2">
+            <h4 style="padding-left: 40px;"><b>Batch Lists</b></h4>
         </div>
+
         <div class="col-md-5">
-          <button type="button" class="btn btn-color batch" data-toggle="modal" data-target="#exampleModal">
+            <div class="row">
+                <div class="col-md-7">
+                </div>
+                <div class="col-md-5">
+                    <button type="button" class="btn btn-color batch" data-toggle="modal" data-target="#exampleModal">
             <mat-icon>add</mat-icon>New Batch
           </button>
+                </div>
+            </div>
         </div>
-      </div>
+
     </div>
 
-  </div>
+    <div class="page__content p-3 ">
 
-  <div class="page__content p-3 ">
-    <div class="page__content-data">
-
-      <div class="row">
-        <div class="col-md-7 mt-3">
-          <mat-radio-group aria-label="Select an option">
-            <mat-radio-button value="internal" #batchType checked="true" (click)="onClick()" >Internal Batches
-            </mat-radio-button>
-            <mat-radio-button value="client" #batchType (click)="onClick1()">Client Batched</mat-radio-button>
-          </mat-radio-group>
+        <div class="row">
+            <div class="col-md-7 mt-3">
+                <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button value="internal" #batchType [checked]=true (click)="onClick()">Internal Batches
+                    </mat-radio-button>
+                    <mat-radio-button value="client" #batchType (click)="onClick1()">Client Batched</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="col-md-2" class="batchSearch">
+                <mat-form-field appearance="standard">
+                    <input class="hover" matInput type="search" placeholder="Batch Name" [(ngModel)]="searchValue">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </div>
         </div>
-        <div class="col-md-2" class="batchSearch">
-          <mat-form-field appearance="standard">
-            <input class="hover" matInput type="search" placeholder="Batch Name" [(ngModel)]="searchValue">
-            <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field>
+
+        <div style="overflow-y:scroll">
+            <table *ngIf="show" class="table table-borderless mt-1 text-center Ctable">
+                <thead class="tableHeader" style="background-color: #F2F2F2; ">
+                    <tr>
+                        <th>
+                            <mat-checkbox #headerCheckbox class="example-margin" (change)="selectAll()"></mat-checkbox>
+                        </th>
+                        <th>Batch Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Ty Mentors</th>
+                        <th>Trainers</th>
+                        <th>Progress</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size: 12px;">
+                    <tr *ngFor="let batch of internalBatch| batchfilter:searchValue;index as i" (click)="viewCandidateList(i)">
+                        <td>
+                            <mat-checkbox #bodyCheckbox class="example-margin"></mat-checkbox>
+                        </td>
+                        <td>{{batch?.batchName}}</td>
+                        <td>{{batch.startDate}}</td>
+                        <td>{{batch.endDate}}</td>
+                        <td>{{internalBatch[i]?.tyMentors}}</td>
+                        <td>{{assignTrainers[i].join(',')}}</td>
+                        <td>{{batch?.batchProgress}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-      </div>
 
-      <table *ngIf="show" class="table table-borderless mt-1 text-center Ctable">
-        <thead style="background-color: #F2F2F2;">
-          <tr>
-            <th>
-              <mat-checkbox #headerCheckbox class="example-margin" (change)="selectAll()"></mat-checkbox>
-            </th>
-            <th>Batch Name</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Ty Mentors</th>
-            <th>Trainers</th>
-            <th>Progress</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody style="font-size: 12px;">
-          <tr *ngFor="let batch of internalBatch| batchfilter:searchValue;index as i">
-            <td>
-              <mat-checkbox #bodyCheckbox class="example-margin"></mat-checkbox>
-            </td>
-            <td>{{batch?.batchName}}</td>
-            <td>{{batch.startDate}}</td>
-            <td>{{batch.endDate}}</td>
-            <td>{{batchesData[i]?.tyMentors}}</td>
-            <td>{{assignTrainers[i].join(',')}}</td>
-            <td>{{batch?.batchProgress}}</td>
-            <td>
-              <mat-icon class="arrow" (click)="viewCandidateList(i)">keyboard_arrow_right</mat-icon>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <table *ngIf="show1" class="table table-borderless mt-1 text-center Ctable">
-        <thead style="background-color: #F2F2F2;">
-          <tr>
-            <th>
-              <mat-checkbox class="example-margin" #headerCheckbox (change)="selectAll()"></mat-checkbox>
-            </th>
-            <th>Batch Name</th>
-            <th>Client</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Client Mentors</th>
-            <th>Trainers</th>
-            <th>Progress</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody style="font-size: 12px;">
-          <tr *ngFor="let batch of clientBatch| batchfilter:searchValue;index as i">
-            <td>
-              <mat-checkbox #bodyCheckbox class="example-margin"></mat-checkbox>
-            </td>
-            <td>{{batch?.batchName}}</td>
-            <td>{{batch?.clientCompanyName}}</td>
-            <td>{{batch?.startDate}}</td>
-            <td>{{batch.endDate}}</td>
-            <td>{{clientMentor[i].join(',')}}</td>
-            <td>{{clientTrainers[i].join(',')}}</td>
-            <td>{{batch?.batchProgress}}</td>
-            <td>
-              <mat-icon class="arrow" (click)="viewClientCandidateList(i)">keyboard_arrow_right</mat-icon>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <div>
+            <div id="client-table" style="overflow-y:scroll">
+                <table *ngIf="show1" class="table table-borderless mt-1 text-center Ctable">
+                    <thead style="background-color: #F2F2F2;">
+                        <tr>
+                            <th>
+                                <mat-checkbox class="example-margin" #headerCheckbox (change)="selectAll()"></mat-checkbox>
+                            </th>
+                            <th>Batch Name</th>
+                            <th>Client</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Client Mentors</th>
+                            <th>Trainers</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 12px;">
+                        <tr *ngFor="let batch of clientBatch| batchfilter:searchValue;index as i" (click)="viewClientCandidateList(i)">
+                            <td>
+                                <mat-checkbox #bodyCheckbox class="example-margin"></mat-checkbox>
+                            </td>
+                            <td>{{batch?.batchName}}</td>
+                            <td>{{batch?.clientCompanyName}}</td>
+                            <td>{{batch?.startDate}}</td>
+                            <td>{{batch.endDate}}</td>
+                            <td>{{clientMentor[i].join(',')}}</td>
+                            <td>{{clientTrainers[i].join(',')}}</td>
+                            <td>{{batch?.batchProgress}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </div>
-  </div>
 </div>
 
 
 <!-- modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" data-backdrop="static"
-  aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog  modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" style="font-weight: 600;" id="exampleModalLabel">Add Batch</h4>
-        <button type="button" class="close" data-dismiss="modal" #closeBtn aria-label="Close">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="font-weight: 600;" id="exampleModalLabel">Add Batch</h4>
+                <button type="button" class="close" data-dismiss="modal" #closeBtn aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-        <form action="" [formGroup]="batchForm" >
-
-
-          <div class="first" style="padding: 1%;">
-            <div class="row">
-              <div class="col-3">
-                <mat-form-field appearance="standard">
-                  <mat-label>Location</mat-label>
-                  <mat-select formControlName="location">
-                    <mat-option *ngFor="let location of locations" [value]="location.value">
-                      {{location.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="this.batchForm.controls.location.errors?.required">This field is required*</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-3">
-                <mat-form-field appearance="standard">
-                  <mat-label>Technology</mat-label>
-                  <mat-select formControlName="technology">
-                    <mat-option *ngFor="let technology of technologies" [value]="technology.value">
-                      {{technology.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error >This field is required*</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-3">
-                <mat-form-field appearance="standard">
-                  <mat-label>StartDate</mat-label>
-                  <input matInput [matDatepicker]="picker" formControlName="startDate">
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                  <mat-error>This field is required*</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-3">
-                <div class="row">
-                  <div class="col-7 upload">
-                    <input type="file" #tocfile formControlName="tocPath" (change)="uploadTOC($event)" hidden="hidden">
-                      <button class="btn btn-color batch mt-1" (click)="tocfile.click()" >UploadTOC</button>
-                  </div>
-                </div>
-              </div>
             </div>
-            <div class="row">
-              <div class="col-3">
-                <mat-form-field appearance="standard">
-                  <mat-label>Ty Mentor</mat-label>
-                  <mat-select formControlName="tyMentors" multiple>
-                    <mat-option *ngFor="let mentor of tyMentor" [value]="mentor.value">
-                      {{mentor.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error>This field is required*</mat-error>
-                </mat-form-field>
-              </div>
+            <div class="modal-body">
+                <form action="" [formGroup]="batchForm">
 
-              <div class="col-3">
 
-                <mat-form-field appearance="standard">
-                  <mat-label>Batch Type</mat-label>
-                  <mat-select formControlName="batchType" [(value)]="selected">
-                    <mat-option value="INTERNAL" (click)="onSelect()">INTERNAL</mat-option>
-                    <mat-option value="CLIENT" (click)="onSelect1()">CLIENT</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="this.batchForm.controls.batchType.errors?.required">This field is required*</mat-error>
-                </mat-form-field>
-              </div>
+                    <div class="first" style="padding: 1%;">
+                        <div class="row">
+                            <div class="col-3">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Location</mat-label>
+                                    <mat-select formControlName="location">
+                                        <mat-option *ngFor="let location of locations" [value]="location.value">
+                                            {{location.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="this.batchForm.controls.location.errors?.required">This field is required*</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-3">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Technology</mat-label>
+                                    <mat-select formControlName="technology">
+                                        <mat-option *ngFor="let technology of technologies" [value]="technology.value">
+                                            {{technology.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>This field is required*</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-3">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>StartDate</mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="startDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <mat-error>This field is required*</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-3">
+                                <div class="row">
+                                    <div class="col-7 upload">
+                                        <input id="myInp" #tocfile type="file" formControlName="tocPath" (change)="uploadTOC($event)">
+                                        <span class="myBtn" (click)="tocfile.click()">UploadTOC</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Ty Mentor</mat-label>
+                                    <mat-select formControlName="tyMentors">
+                                        <mat-option *ngFor="let technology of TrainerData" [value]="technology.trainerName">
+                                            {{technology.trainerName}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>This field is required*</mat-error>
+                                </mat-form-field>
+                            </div>
 
-              <div class="col-3">
-                <mat-form-field appearance="standard">
-                  <mat-label>Company Name</mat-label>
-                  <input type="text" matInput formControlName="clientCompanyName">
-                  <mat-error *ngIf="clientCompanyName.errors?.required">This field is required*</mat-error>
-                  <mat-error *ngIf="clientCompanyName.errors?.pattern">Name should be Alphabets*</mat-error>
-                </mat-form-field>
-              </div>
+                            <div class="col-3">
+
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Batch Type</mat-label>
+                                    <mat-select formControlName="batchType" [(value)]="selected">
+                                        <mat-option value="INTERNAL" (click)="onSelect()">INTERNAL</mat-option>
+                                        <mat-option value="CLIENT" (click)="onSelect1()">CLIENT</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="this.batchForm.controls.batchType.errors?.required">This field is required*</mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-3" *ngIf="client">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Company Name</mat-label>
+                                    <input type="text" matInput formControlName="clientCompanyName">
+                                    <mat-error *ngIf="clientCompanyName.errors?.pattern">Name should be Alphabets*</mat-error>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="p-3 first" *ngIf="client">
+                        <h3 style="font-weight: 600;">Client Mentors</h3>
+                        <div formArrayName="mentors" *ngFor="let item of mentor.controls; let i = index;">
+                            <div [formGroupName]="i">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <mat-form-field appearance="standard">
+                                            <input matInput class="hover" type="text" placeholder="clientMentorName" formControlName="clientMentorName">
+                                            <mat-error *ngIf="clientMentorName.errors?.pattern">name should be alphabets*</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3">
+                                        <mat-form-field appearance="standard">
+                                            <input matInput class="hover" type="text" placeholder="Designation" formControlName="designation">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3">
+                                        <mat-form-field appearance="standard">
+                                            <input matInput class="hover" type="text" placeholder="Contact No" formControlName="contactNo">
+                                            <mat-error *ngIf="contactNo.errors?.pattern">contact Number should be Numbers*</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3 aliq">
+                                        <div class="form_field">
+                                            <mat-form-field appearance="standard">
+                                                <input matInput class="hover" type="text" placeholder="Email Id" formControlName="emailId">
+                                                <mat-error *ngIf="clientMentorEmailId.errors?.pattern">Enter a Valid EmailId*</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <mat-icon class="mt-3" *ngIf="i === mentor.length - 1" (click)="addMentor()">add_circle</mat-icon>
+                                            <mat-icon *ngIf="i !== mentor.length - 1" class="icon" (click)="deleteMentorItem(i)">delete</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="p-3 first">
+                        <h3 style="font-weight: 600;">Assign Trainers</h3>
+                        <div formArrayName="trainers" *ngFor="let item of trainer.controls; let i = index;">
+                            <div [formGroupName]="i">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>Name</mat-label>
+                                            <mat-select formControlName="assignTrainerName" (selectionChange)="onChangeTrainerName($event,batchForm,i)">
+                                                <mat-option *ngFor="let technology of TrainerData" [value]="technology.trainerName">
+                                                    {{technology.trainerName}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="assignTrainerName.errors?.required">This field is required*</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>Technology</mat-label>
+                                            <input matInput class="hover" type="text" formControlName="technologies">
+                                            <mat-error>This field is required*</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>Days</mat-label>
+                                            <mat-select formControlName="days">
+                                                <mat-option *ngFor="let day of days" [value]="day.value">
+                                                    {{day.viewValue}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error>This field is required*</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3 aliq">
+                                        <div class="form_field">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Email Id</mat-label>
+                                                <input matInput class="hover" type="text" formControlName="emailId">
+                                                <mat-error *ngIf="assignTrainerEmailID.errors?.required">This field is required*</mat-error>
+                                                <!-- <mat-error *ngIf="assignTrainerEmailID.errors?.pattern">Enter a valid EmailId*</mat-error> -->
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <mat-icon class="mt-3" *ngIf="i === trainer.length - 1" (click)="addTrainer()">add_circle</mat-icon>
+                                            <mat-icon *ngIf="i !== trainer.length - 1" class="icon" (click)="deleteItem(i)">
+                                                delete
+                                            </mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="p-3 first">
+                        <h3 style="font-weight: 600;">Assign Candidate</h3>
+                        <mat-radio-group aria-label="Select an option ">
+                            <mat-radio-button value="no" [checked]=true (click)="excel()">Excel Upload</mat-radio-button>
+                            <mat-radio-button value="yes" (click)="form()">Manual Entry</mat-radio-button>
+                        </mat-radio-group>
+                        <div *ngIf="formShow">
+                            <div formArrayName="candidates" *ngFor="let item of candidate.controls; let i = index;">
+                                <div [formGroupName]="i">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Candidate Name</mat-label>
+                                                <input matInput class="hover" type="text" formControlName="candidateName">
+                                                <mat-error *ngIf="candidateName.errors?.required">This field is required*</mat-error>
+                                                <mat-error *ngIf="candidateName.errors?.pattern">Name should be Alphabets*</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Phone Number</mat-label>
+                                                <input matInput class="hover" type="text" formControlName="phoneNumber">
+                                                <mat-error *ngIf="candidatePhoneNumber.errors?.required">This field is required*</mat-error>
+                                                <mat-error *ngIf="candidatePhoneNumber.errors?.pattern">Enter a valid phone number*</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Email Id</mat-label>
+                                                <input matInput class="hover" type="text" formControlName="emailId">
+                                                <mat-error *ngIf="candidateEmail.errors?.required">This field is required*</mat-error>
+                                                <mat-error *ngIf="candidateEmail.errors?.pattern">Enter a valid Email*</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3 aliq">
+                                            <div class="form_field">
+                                                <mat-form-field appearance="standard">
+                                                    <mat-label>Degree</mat-label>
+                                                    <input matInput class="hover" type="text" formControlName="degree">
+                                                    <mat-error>This field is required*</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div>
+                                                <mat-icon class="mt-3" *ngIf="i === candidate.length - 1" (click)="addCandidate()">add_circle</mat-icon>
+                                                <mat-icon *ngIf="i !== candidate.length - 1" class="icon" (click)="deleteCandidateItem(i)">delete</mat-icon>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Stream</mat-label>
+                                                <input matInput class="hover" type="text" formControlName="stream">
+                                                <mat-error>This field is required*</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>YOP</mat-label>
+                                                <input matInput class="hover" type="text" formControlName="yop">
+                                                <mat-error *ngIf="candidateYOP.errors?.required">This field is required*</mat-error>
+                                                <mat-error *ngIf="candidateYOP.errors?.pattern">this field contains numbers*</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Tenth Percentage</mat-label>
+                                                <input matInput class="hover" type="text" formControlName="tenthPercentage">
+                                                <mat-error>This field is required*</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3 aliq">
+                                            <div class="twelth" style="padding-right: 40px;">
+                                                <mat-form-field appearance="standard">
+                                                    <mat-label>Twelth Percentage</mat-label>
+                                                    <input matInput class="hover" type="text" formControlName="twelfthPercentage">
+                                                    <mat-error>This field is required*</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Degree Aggregate</mat-label>
+                                                <input matInput class="hover" type="text" formControlName="degreeAggregate">
+                                                <mat-error>This field is required*</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Masters Aggregate</mat-label>
+                                                <input matInput class="hover" type="text" formControlName="masterAggregate">
+                                                <mat-error>This field is required*</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Branch</mat-label>
+                                                <mat-select formControlName="branch">
+                                                    <mat-option *ngFor="let branch of branchs" [value]="branch.value">
+                                                        {{branch.viewValue}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error>This field is required*</mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-3" class="twelth" style="padding-left: 35px;">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Profile Id</mat-label>
+                                                <input matInput class="hover" type="text" formControlName="profileId">
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                        <!-- excel sheet -->
+                        <div *ngIf="formHide" style="margin-left:70px;">
+                            <input id="myInput" #excelfile type="file" (change)="onChoosingActivationFile($event)">
+                            <span class="myButton" (click)="excelfile.click()">Upload Excel</span>
+
+                            <button type="button" class="btn btn-color batch" (click)="saveToExcel()">
+                      Download Excel <mat-icon>save_alt</mat-icon>
+                     </button>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-light" #resetData>reset</button>
+                        <button type="submit" class="btn btn-color batch" (click)="addBatch(batchForm)">Create</button>
+                    </div>
+                </form>
 
             </div>
-          </div>
-
-
-          <div class="p-3 first" *ngIf="client">
-            <h3 style="font-weight: 600;">Client Mentors</h3>
-            <div formArrayName="mentors" *ngFor="let item of mentor.controls; let i = index;">
-              <div [formGroupName]="i">
-                <div class="row">
-                  <div class="col-3">
-                    <mat-form-field appearance="standard">
-                      <input matInput class="hover" type="text" placeholder="clientMentorName" formControlName="clientMentorName">
-                      <mat-error *ngIf="clientMentorName.errors?.pattern">name should be alphabets*</mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-3">
-                    <mat-form-field appearance="standard">
-                      <input matInput class="hover" type="text" placeholder="Designation"
-                        formControlName="designation">
-                    </mat-form-field>
-                  </div>
-                  <div class="col-3">
-                    <mat-form-field appearance="standard">
-                      <input matInput class="hover" type="text" placeholder="Contact No" formControlName="contactNo">
-                      <mat-error *ngIf="contactNo.errors?.pattern">contact Number should be Numbers*</mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-3 aliq">
-                    <div class="form_field">
-                      <mat-form-field appearance="standard">
-                        <input matInput class="hover" type="text" placeholder="Email Id" formControlName="emailId">
-                        <mat-error *ngIf="clientMentorEmailId.errors?.pattern">Enter a Valid EmailId*</mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div>
-                      <mat-icon class="mt-3" *ngIf="i === mentor.length - 1" (click)="addMentor()">add_circle</mat-icon>
-                      <mat-icon *ngIf="i !== mentor.length - 1" class="icon" (click)="deleteMentorItem(i)">delete</mat-icon>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="p-3 first">
-            <h3 style="font-weight: 600;">Assign Trainers</h3>
-              <div formArrayName="trainers" *ngFor="let item of trainer.controls; let i = index;">
-                <div [formGroupName]="i">
-                  <div class="row">
-                    <div class="col-3">
-                      <mat-form-field appearance="standard">
-                        <mat-label>assignTrainerName</mat-label>
-                        <input matInput class="hover" type="search" formControlName="assignTrainerName">
-                        <mat-error *ngIf="assignTrainerName.errors?.required">This field is required*</mat-error>
-                        <mat-error *ngIf="assignTrainerName.errors?.pattern">Assign trainer name should be alphabets*</mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-3">
-                      <mat-form-field appearance="standard">
-                        <mat-label>Technology</mat-label>
-                        <mat-select formControlName="technologies" multiple>
-                          <mat-option *ngFor="let technology of technologies" [value]="technology.value">
-                            {{technology.viewValue}}
-                          </mat-option>
-                        </mat-select>
-                        <mat-error>This field is required*</mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-3">
-                      <mat-form-field appearance="standard">
-                        <mat-label>Days</mat-label>
-                        <mat-select formControlName="days">
-                          <mat-option *ngFor="let day of days" [value]="day.value">
-                            {{day.viewValue}}
-                          </mat-option>
-                        </mat-select>
-                        <mat-error>This field is required*</mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-3 aliq">
-                      <div class="form_field">
-                        <mat-form-field appearance="standard">
-                          <mat-label>Email Id</mat-label>
-                          <input matInput class="hover" type="text" formControlName="emailId">
-                          <mat-error *ngIf="assignTrainerEmailID.errors?.required">This field is required*</mat-error>
-                          <mat-error *ngIf="assignTrainerEmailID.errors?.pattern">Enter a valid EmailId*</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div>
-                        <mat-icon class="mt-3" *ngIf="i === trainer.length - 1" (click)="addTrainer()">add_circle</mat-icon>
-                        <mat-icon *ngIf="i !== trainer.length - 1" class="icon" (click)="deleteItem(i)">
-                          delete
-                      </mat-icon>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-
-
-          <div class="p-3 first">
-            <h3 style="font-weight: 600;">Assign Candidate</h3>
-            <mat-radio-group aria-label="Select an option ">
-              <mat-radio-button value="yes" (click)="form()">Manual Entry</mat-radio-button>
-              <mat-radio-button value="no" (click)="excel()">Excel Upload</mat-radio-button>
-            </mat-radio-group>
-            <div *ngIf="formShow">
-              <div formArrayName="candidates" *ngFor="let item of candidate.controls; let i = index;">
-                <div [formGroupName]="i">
-                  <div class="row">
-                    <div class="col-3">
-                      <mat-form-field appearance="standard">
-                        <mat-label>Candidate Name</mat-label>
-                        <input matInput class="hover" type="text"
-                          formControlName="candidateName">
-                        <mat-error *ngIf="candidateName.errors?.required">This field is required*</mat-error>
-                        <mat-error *ngIf="candidateName.errors?.pattern">Name should be Alphabets*</mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-3">
-                      <mat-form-field appearance="standard">
-                        <mat-label>Phone Number</mat-label>
-                        <input matInput class="hover" type="text"
-                          formControlName="phoneNumber">
-                        <mat-error *ngIf="candidatePhoneNumber.errors?.required">This field is required*</mat-error>
-                        <mat-error *ngIf="candidatePhoneNumber.errors?.pattern">Enter a valid phone number*</mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-3">
-                      <mat-form-field appearance="standard">
-                        <mat-label>Email Id</mat-label>
-                        <input matInput class="hover" type="text" formControlName="emailId">
-                        <mat-error>This field is required*</mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-3 aliq">
-                      <div class="form_field">
-                        <mat-form-field appearance="standard">
-                          <mat-label>Degree</mat-label>
-                          <input matInput class="hover" type="text" formControlName="degree">
-                          <mat-error>This field is required*</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div>
-                        <mat-icon class="mt-3" *ngIf="i === candidate.length - 1" (click)="addCandidate()">add_circle</mat-icon>
-                        <mat-icon *ngIf="i !== candidate.length - 1" class="icon" (click)="deleteCandidateItem(i)">delete</mat-icon>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-3">
-                      <mat-form-field appearance="standard">
-                        <mat-label>Stream</mat-label>
-                        <input matInput class="hover" type="text" formControlName="stream">
-                        <mat-error>This field is required*</mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-3">
-                      <mat-form-field appearance="standard">
-                        <mat-label>YOP</mat-label>
-                        <input matInput class="hover" type="text" formControlName="yop">
-                        <mat-error *ngIf="candidateYOP.errors?.required">This field is required*</mat-error>
-                        <mat-error *ngIf="candidateYOP.errors?.pattern">this field contains numbers*</mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-3">
-                      <mat-form-field appearance="standard">
-                        <mat-label>Tenth Percentage</mat-label>
-                        <input matInput class="hover" type="text"
-                          formControlName="tenthPercentage">
-                        <mat-error>This field is required*</mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-3 aliq">
-                      <div class="twelth" style="padding-right: 40px;">
-                        <mat-form-field appearance="standard">
-                          <mat-label>Twelth Percentage</mat-label>
-                          <input matInput class="hover" type="text" 
-                            formControlName="twelfthPercentage">
-                          <mat-error>This field is required*</mat-error>
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-3">
-                      <mat-form-field appearance="standard">
-                        <mat-label>Degree Aggregate</mat-label>
-                        <input matInput class="hover" type="text"
-                          formControlName="degreeAggregate">
-                        <mat-error>This field is required*</mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-3">
-                      <mat-form-field appearance="standard">
-                        <mat-label>Masters Aggregate</mat-label>
-                        <input matInput class="hover" type="text"
-                          formControlName="masterAggregate">
-                        <mat-error>This field is required*</mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-3">
-                      <mat-form-field appearance="standard">
-                        <mat-label>Branch</mat-label>
-                        <mat-select formControlName="branch">
-                          <mat-option *ngFor="let branch of branchs" [value]="branch.value">
-                            {{branch.viewValue}}
-                          </mat-option>
-                        </mat-select>
-                        <mat-error>This field is required*</mat-error>
-                      </mat-form-field>
-                    </div>
-
-                    <div class="col-3"  class="twelth" style="padding-left: 35px;">
-                      <mat-form-field appearance="standard">
-                        <mat-label>Profile Id</mat-label>
-                        <input matInput class="hover" type="text"
-                          formControlName="profileId">
-                      </mat-form-field>
-                    </div>
-
-                  </div>
-                </div>
-              <hr>
-              </div>
-            </div>
-            <!-- excel sheet -->
-            <div *ngIf="formHide">
-                  <input type="file" accept=".csv" (change)='onChoosingActivationFile($event)' />
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button type="reset" class="btn btn-light" #resetData >reset</button>
-            <button type="submit" class="btn btn-color batch" (click)="addBatch(batchForm)">Create</button>
-          </div>
-        </form>
-
-      </div>
+        </div>
     </div>
-  </div>
 </div>

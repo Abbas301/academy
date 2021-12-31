@@ -4,7 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 
 const routes: Routes = [
-  {path:'',redirectTo:'home',pathMatch:'full'},
+  {path:'',redirectTo:'batches',pathMatch:'full'},
   {
     path: 'batches',
     loadChildren: () => import('./batches/batches.module').then(m => m.BatchesModule)

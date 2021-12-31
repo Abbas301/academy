@@ -14,13 +14,14 @@
                 <div class="col-md-3 ">
                     <mat-form-field appearance="standard">
                         <mat-label>Technology Type</mat-label>
-                        <mat-select [formControl]="technologyFilter" (ngModelChange)="filterTrainer()" multiple>
+                        <mat-select [formControl]="technologyFilter" #allSelected (ngModelChange)="getHeader()" multiple>
+                            <mat-option (onSelectionChange)="toggleAllSelection()" value="All">All</mat-option>
                             <mat-option *ngFor="let topping of technologiesData" [value]="topping">{{topping}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="col-md-3 mt-3">
-                    <button type="button" class="btn subbtn" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">+ New Trainer</button>
+                    <button type="button" class="btn subbtn" data-toggle="modal" data-target="#exampleModal" (click)="trainerModel()" data-whatever="@getbootstrap">+ New Trainer</button>
                 </div>
             </div>
         </div>
@@ -29,25 +30,11 @@
     <div class="table-responsive" style="overflow-x: auto">
         <table class="table  table-bordered mt-3" style="vertical-align: middle;">
             <thead class="table-header">
-                <!-- <tr>
-                    <th rowspan="2" style="vertical-align: middle;z-index: 1;" class="fixed">Trainer Name</th>
-                    <th colspan="6" *ngIf="technologyFilter.value.includes('Frontend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
-                        Frontend</th>
-                    <th colspan="4" *ngIf="technologyFilter.value.includes('Backend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
-                        Backend</th>
-                    <th colspan="3" *ngIf="technologyFilter.value.includes('Database') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
-                        Database</th>
-                    <th rowspan="2" style="vertical-align: middle;" class="fixed">Actions</th>
-                </tr> -->
-
                 <tr>
                     <th rowspan="2" style="vertical-align: middle;z-index: 0;" class="fixed">Trainer Name</th>
                     <th *ngFor="let techType of technologyType" [attr.colspan]="techType==='Frontend'?FrontendTechnologies[0]?.value.length:techType==='Backend'?BackendTechnologies[0]?.value.length:techType==='Database'?DatabaseTechnologies[0]?.value.length:0">
                         {{techType}}
                     </th>
-                    <!-- <th *ngFor="let techType of technologyType" [attr.colspan]="techType==='Frontend'?FrontendTechnologies.length:0">{{technologyType[0]}}</th>
-                    <th *ngFor="let techType of technologyType" [attr.colspan]="techType==='Backend'?BackendTechnologies.length:0">{{technologyType[1]}}</th>
-                    <th *ngFor="let techType of technologyType" [attr.colspan]="techType==='Database'?DatabaseTechnologies.length:0">{{technologyType[2]}}</th> -->
                     <th rowspan="2" style="vertical-align: middle;" class="fixed">Actions</th>
                 </tr>
                 <tr>
@@ -72,6 +59,7 @@
                 <tr *ngFor="let trainer of trainerData | trainerfilter:searchValue;index as i">
                     <td class="fixed">{{trainer.trainerName | titlecase}}</td>
                     <ng-container *ngFor="let item of this.trainerTechnologiesRes[i]; index as i">
+
                         <td>{{item.value}}</td>
                     </ng-container>
                     <ng-container>
@@ -89,11 +77,11 @@
 <!-- Modal for create New Trainer -->
 
 <div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <!-- <div [ngClass]="{'modal-dialog modal-dialog-centered modal-xl': itemsArray?.length > 1,'modal-dialog': itemsArray?.length === 1}"> -->
-    <div class="modal-dialog modal-dialog-centered modal-xl" style="width: auto;">
+    <!-- <div class="modal-dialog modal-dialog-centered" [ngClass]="{'modal-dialog modal-xl': itemsArray?.length > 1,'modal-dialog': itemsArray?.length === 1}"> -->
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Create New Trainer</h3>
+                <h3 class="modal-title" id="exampleModalLabel">{{modelHeader}}</h3>
                 <button type="button" class="close" #closepostmodal data-dismiss="modal" aria-label="Close" (click)='clearItemsArray()'>
           <span aria-hidden="true">&times;</span>
         </button>
@@ -109,7 +97,8 @@
                             </mat-form-field>
                             <mat-form-field>
                                 <input type="text" formControlName="emailId" matInput appearance="standard" placeholder="Trainer emailId">
-                                <mat-error>Trainer emailId is required *</mat-error>
+                                <mat-error *ngIf="trainerForm.controls.emailId.errors?.required">emailId is required *</mat-error>
+                                <mat-error *ngIf="trainerForm.controls.emailId.errors?.pattern">Enter Valid emailId*</mat-error>
                             </mat-form-field>
                         </div>
                     </div>

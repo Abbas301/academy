@@ -23,7 +23,7 @@ export class CandidateComponent implements OnInit {
                ) { }
 
   @Output() tableDataValues = new EventEmitter<string>();
-  @ViewChild ('resetButton') resetButton:ElementRef;
+  // @ViewChild ('resetButton') resetButton:ElementRef;
 
   ngOnInit(): void {
 
@@ -41,9 +41,9 @@ export class CandidateComponent implements OnInit {
     {value: 'BasavanaGudi', viewValue: 'BasavanaGudi'},
   ];
 
-  redirect(){
-    this.router.navigate(['/candidatelist/']);
-  }
+  // redirect(){
+  //   this.router.navigate(['/candidatelist/']);
+  // }
 
   onSubmit(userData:NgForm) {
     if(userData.valid){
@@ -67,8 +67,10 @@ export class CandidateComponent implements OnInit {
       console.log("candidate details posted successfully");
       if(res.error == false) {
       this.toastr.success('Candidate details added successfully');
-      userData.reset();
-      this.resetButton.nativeElement.click();
+      // userData.reset();
+      this.router.navigate(['/candidatelist/'],{   queryParams: {
+        batchName: this.candidates['batchName'],
+      }});
       }
     },err => {
       console.log("err",err);

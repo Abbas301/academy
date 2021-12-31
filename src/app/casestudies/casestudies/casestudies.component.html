@@ -39,7 +39,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4 text-right cardheader">Project Name :</div>
+                            <div class="col-md-4 text-right cardheader">Project Name:</div>
                             <div class="col-md-6">
                                 <p>{{cardDetail.projectName}}</p>
                             </div>
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 text-right cardheader">Description :</div>
+                            <div class="col-md-4 text-right cardheader">Description:</div>
                             <div class="col-md-6">
                                 <p>{{cardDetail.projectDescription}}</p>
                             </div>
@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 text-right cardheader">Type :</div>
+                            <div class="col-md-4 text-right cardheader">Type:</div>
                             <div class="col-md-6">
                                 <p>{{cardDetail.projectType}}</p>
                             </div>
@@ -81,13 +81,13 @@
     </div>
 
 
-    <div class="Pseudo-content mini-content" *ngIf="plp">
+    <div class="Pseudo-content" *ngIf="plp">
         <div class="row casestudies">
             <div class="col-md-12 col-lg-6 col-xl-4" *ngFor='let cardDetail of pseudoProjectResult | casestudiesfilter:searchText'>
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4 text-right cardheader">Project Name :</div>
+                            <div class="col-md-4 text-right cardheader">Project Name:</div>
                             <div class="col-md-6 ">
                                 <p>{{cardDetail.projectName}}</p>
                             </div>
@@ -97,7 +97,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4 text-right cardheader">Description :</div>
+                            <div class="col-md-4 text-right cardheader">Description:</div>
                             <div class="col-md-6">
                                 <p>{{cardDetail.projectDescription}}</p>
                             </div>
@@ -106,7 +106,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 text-right cardheader">Type :</div>
+                            <div class="col-md-4 text-right cardheader">Type:</div>
                             <div class="col-md-6">
                                 <p>{{cardDetail.projectType}}</p>
                             </div>
@@ -115,7 +115,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 text-right cardheader">Subtype :</div>
+                            <div class="col-md-4 text-right cardheader">Subtype:</div>
                             <div class="col-md-6">
                                 <p>{{cardDetail.projectSubType}}</p>
                             </div>
@@ -182,10 +182,13 @@
                                     </mat-form-field>
                                 </div>
                                 <div>
-                                    <input type="file" class="uploadfile" formControlName="caseStudyFileUpload" #case (change)='onUploadingCaseStudies($event)'>
+                                    <input #fileInput type="file" hidden formControlName="caseStudyFileUpload" (change)="onUploadingCaseStudies($event)">
+                                    <button mat-button class="uploadfile" (click)="fileInput.click()">Upload Case Studies</button>{{file}}
                                 </div>
                             </div>
+
                         </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="reset" class="btn resetbtn" #resetpostData>Reset</button>

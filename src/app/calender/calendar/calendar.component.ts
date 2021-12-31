@@ -45,6 +45,7 @@ export class CalendarComponent implements OnInit {
   selected = '';
   addEventForm: FormGroup;
   editEventForm: FormGroup;
+  element: any;
 
   @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
   @ViewChild('modalOpenButton') modalOpenButton!: ElementRef;
@@ -121,7 +122,7 @@ export class CalendarComponent implements OnInit {
       },
       events: this.calendarData,
       // eventContent: { html: `<i data-toggle="modal" (click)="${this.onEdit(this.index)} "  data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="padding-top:100px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>`,events: this.calendarData },
-      // eventContent: { html: `<i data-toggle="modal"  data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="padding-top:80px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>`,events: this.calendarData },
+      eventContent: { html: `<i data-toggle="modal" (click)="${this.onEdit(this.element)}"  data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="padding-top:80px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>`,events: this.calendarData },
       
       initialView: 'dayGridMonth',
       headerToolbar: {
@@ -146,10 +147,11 @@ export class CalendarComponent implements OnInit {
   }
 
   handleEventClick(element: Events) {
-    console.log(element);
-    console.log(this.eventsArray);
-     this.eventsArray.forEach(element => {
-       console.log(element.date);  
+    // console.log(element);
+    // console.log(this.eventsArray);
+     this.eventsArray.forEach((element,index) => {
+      //  console.log(element);  
+      //  console.log(index);
       //  this.calendarId = element.calendarEventId;
      })  
 
@@ -167,17 +169,17 @@ export class CalendarComponent implements OnInit {
     })
   }
 
-  onEdit(editEventForm: any) {
-    console.log(this.eventsArray);
-     this.eventsArray.forEach(event => {
-       console.log(event.date);
-     })    
+  onEdit(element: Events) {
 
-     this.editEventForm.patchValue({
-      date: editEventForm.controls.date.value,
-      topic: editEventForm.controls.topic.value,
-      subTopic: editEventForm.controls.subTopic.value
-      })
+    this.eventsArray.forEach((element,index) => {
+    console.log(element[index],"sdfghjkl");
+    }) 
+
+    //  this.editEventForm.patchValue({
+    //   date: editEventForm.controls.date.value,
+    //   topic: editEventForm.controls.topic.value,
+    //   subTopic: editEventForm.controls.subTopic.value
+    //   })
 
   }
 

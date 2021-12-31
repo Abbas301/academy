@@ -24,6 +24,7 @@ export class CsvData {
   // public batchName: any;
 }
 
+
 @Component({
   selector: 'app-batches',
   templateUrl: './batches.component.html',
@@ -33,8 +34,8 @@ export class BatchesComponent implements OnInit {
 
   show = true
   show1 = false
-  formShow = true;
-  formHide = false;
+  formShow = false;
+  formHide = true;
   searchValue: any
   selected = 'internal';
   internal = true;
@@ -67,14 +68,18 @@ export class BatchesComponent implements OnInit {
   assignTrainers: any[] = [];
   clientTrainers: any[] = [];
   errMsg: string;
+  json: any;
 
   name = 'Angular ' + VERSION.major;
   public records: any[] = [];
   @ViewChild('csvReader') csvReader: any;
-  jsondatadisplay:any;
+  jsondatadisplay: any;
   activationFile: File;
   formDataActivation: FormData;
   csvResult: any[];
+  trainerDetails: any;
+  TrainerData: any;
+  trainerTechnology: any;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -84,7 +89,10 @@ export class BatchesComponent implements OnInit {
 
 
   ngOnInit(): void {
+
     this.getBatch();
+    this.getTrainerDetails();
+    this.getExcel();
 
     this.batchForm = this.formBuilder.group({
       location: new FormControl('', [Validators.required]),
@@ -93,13 +101,12 @@ export class BatchesComponent implements OnInit {
       tocPath: new FormControl('', [Validators.required]),
       tyMentors: new FormControl('', [Validators.required]),
       batchType: new FormControl('', [Validators.required]),
-      clientCompanyName: new FormControl('', [Validators.required, Validators.pattern('[a-z A-Z]*')]),
+      clientCompanyName: new FormControl('', [Validators.pattern('[a-z A-Z]*')]),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()]),
       candidates: new FormArray([this.createCandidate()]),
     });
-    console.log(this.batchForm.controls.clientCompanyName);
-    
+
   }
 
   onSelect() {
@@ -154,8 +161,7 @@ export class BatchesComponent implements OnInit {
       degreeAggregate: ['', [Validators.required]],
       masterAggregate: ['', [Validators.required]],
       branch: ['', [Validators.required]],
-      profileId: ['',[Validators.required]],
-      excelUpload:['']
+      profileId: ['',],
     });
   }
 
@@ -181,12 +187,8 @@ export class BatchesComponent implements OnInit {
   ];
 
   technologies = [
-    { value: 'HTML', viewValue: 'HTML' },
-    { value: 'CSS', viewValue: 'CSS' },
-    { value: 'Angular', viewValue: 'Angular' },
-    { value: 'React', viewValue: 'React' },
-    { value: 'Node JS', viewValue: 'Node JS' },
-    { value: 'Mongo DB', viewValue: 'Mongo DB' },
+    { value: 'JAVAWITHANGULAR', viewValue: 'JAVA_WITH_ANGULAR' },
+    { value: 'JAVAWITHREACT', viewValue: 'JAVA_WITH_REACT' }
   ];
 
   days = [
@@ -208,7 +210,7 @@ export class BatchesComponent implements OnInit {
   ];
 
   // VAlidation get methods 
-  
+
   get clientCompanyName() {
     return this.batchForm.controls.clientCompanyName as FormControl
   }
@@ -239,6 +241,10 @@ export class BatchesComponent implements OnInit {
 
   get candidatePhoneNumber() {
     return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.phoneNumber
+  }
+
+  get candidateEmail() {
+    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.emailId
   }
 
   get candidateYOP() {
@@ -283,7 +289,7 @@ export class BatchesComponent implements OnInit {
       this.internalBatch = interBatchData.filter((batch: any) => {
         return batch.batchType === 'INTERNAL'
       })
-      // console.log(this.internalBatch, 'internal');
+      console.log(this.internalBatch, 'internal');
 
       for (let i = 0; i < this.internalBatch.length; i++) {
         this.assignTrainers[i] = [];
@@ -310,7 +316,7 @@ export class BatchesComponent implements OnInit {
           this.clientMentor[i].push(this.clientBatch[i].clientMentorList[j]?.clientMentorName);
         }
       }
-      console.log(this.clientMentor);     
+      console.log(this.clientMentor);
     })
   }
 
@@ -371,12 +377,12 @@ export class BatchesComponent implements OnInit {
       location: batchForm.controls.location.value,
       technology: batchForm.controls.technology.value,
       startDate: newDate,
-      tyMentors: batchForm.controls.tyMentors.value,
+      tyMentors: [batchForm.controls.tyMentors.value],
       batchType: batchForm.controls.batchType.value,
       clientCompanyName: batchForm.controls.clientCompanyName.value,
       clientMentorList: this.mentor.value,
       assignTrainerList: this.trainer.value,
-      candidateList: this.formHide? this.csvResult:this.candidate.value,
+      candidateList: this.formHide ? this.csvResult : this.candidate.value,
     };
     let formData = new FormData();
     formData.append('batchDetails', JSON.stringify(batchDetails))
@@ -388,7 +394,7 @@ export class BatchesComponent implements OnInit {
         this.resetData.nativeElement.click();
         setTimeout(() => {
           this.closeBtn.nativeElement.click();
-        },500);
+        }, 500);
         this.getBatch();
         batchForm.reset();
       }
@@ -400,7 +406,7 @@ export class BatchesComponent implements OnInit {
   uploadTOC(event: Event) {
     this.tocPath = (event.target as HTMLInputElement).files?.item(0)
   }
-  
+
   // upload file
 
   onChoosingActivationFile(event: Event) {
@@ -427,16 +433,52 @@ export class BatchesComponent implements OnInit {
           this.csvResult.push(obj);
         }
         this.csvResult.pop();
-         this.csvResult.forEach((element,i)=>{
+        this.csvResult.forEach((element, i) => {
           delete element['']
           delete element["\r"]
           return element;
         });
-        console.log(this.csvResult);  
+        console.log(this.csvResult);
       }
     } else {
       this.toastr.warning('File Size is more than 3MB', 'Warning');
     }
+  }
+
+  saveToExcel() {
+    this.batchService.exportAsExcelFile(this.json['data'], 'Candidate List','csv');
+  }
+
+  getExcel() {
+    this.batchService.getJson().subscribe(res => {
+      this.json = res;
+    })
+  }
+
+  // Dropdown Patches
+  getTrainerDetails() {
+    this.batchService.getTrainerData().subscribe((res: any) => {
+      this.trainerDetails = res;
+      this.TrainerData = this.trainerDetails.data
+      console.log(this.TrainerData);
+    })
+  }
+
+  onChangeTrainerName(event: any, batchForm: FormGroup, index: number) {
+    console.log(this.TrainerData);
+    this.TrainerData.forEach((ele) => {
+      if (ele.trainerName === event.value) {
+        const technology = []
+        console.log(ele.trainerTechnologies);
+        ele.trainerTechnologies.forEach(e => {
+          technology.push(e.technology)
+        });
+        console.log(technology);
+        let emailId = ele.emailId;
+        (batchForm.get('trainers') as FormArray).controls[index].get('technologies').patchValue(technology);
+        (batchForm.get('trainers') as FormArray).controls[index].get('emailId').setValue(emailId);        
+      }
+    })
   }
 
 }
