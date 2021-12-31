@@ -30,7 +30,7 @@ export class OnboardComponent implements OnInit {
   searchValue: any
   formShow = true;
   formHide = false;
-  selected = 'internal';
+  selected = 'INTERNAL';
   internal = true;
   client = false;
   tocPath: any;
@@ -47,6 +47,7 @@ export class OnboardComponent implements OnInit {
   @ViewChildren("driverSubCheckbox") driverSubCheckbox!: QueryList<MatCheckbox>
   @ViewChild('uploadToc') uploadToc!: ElementRef;
   @ViewChild('resetButton') resetButton!: ElementRef;
+  @ViewChild('headerCheckbox') headerCheckbox!: MatCheckbox;
 
   tyMentor = [
     { value: 'pavan', viewValue: 'pavan' },
@@ -57,12 +58,8 @@ export class OnboardComponent implements OnInit {
   ];
 
   technologies = [
-    { value: 'HTML', viewValue: 'HTML' },
-    { value: 'CSS', viewValue: 'CSS' },
-    { value: 'Angular', viewValue: 'Angular' },
-    { value: 'React', viewValue: 'React' },
-    { value: 'Node JS', viewValue: 'Node JS' },
-    { value: 'Mongo DB', viewValue: 'Mongo DB' },
+    { value: 'JAVAWITHANGULAR', viewValue: 'JAVA WITH ANGULAR' },
+    { value: 'JAVAWITHANGULAR', viewValue: 'JAVA WITH REACT' }
   ];
 
   days = [
@@ -81,6 +78,8 @@ export class OnboardComponent implements OnInit {
   onboardList = []
   array :any[] =[];
   ArrayData =[];
+  trainerDetails: any;
+  TrainerData: any;
 
   constructor(private fb: FormBuilder,
               private onboardService: OnboardService,
@@ -92,6 +91,7 @@ export class OnboardComponent implements OnInit {
   selection = new SelectionModel<OnboardList>(true, []);
 
   ngOnInit(): void {
+    this.getTrainerDetails();
 
     this.batchForm = this.fb.group({
       location: new FormControl('', [Validators.required]),
@@ -99,8 +99,7 @@ export class OnboardComponent implements OnInit {
       startDate: new FormControl('', [Validators.required]),
       tocPath: new FormControl('', [Validators.required]),
       tyMentors: new FormControl('', [Validators.required]),
-      batchType: new FormControl('', [Validators.required]),
-      clientCompanyName: new FormControl('', [Validators.required, Validators.pattern('[a-z A-Z]*')]),
+      batchType: new FormControl('INTERNAL', [Validators.required]),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()])
     });
@@ -114,10 +113,6 @@ export class OnboardComponent implements OnInit {
   }
 
   // VAlidation get methods 
-
-  get clientCompanyName() {
-    return this.batchForm.controls.clientCompanyName as FormControl
-  }
 
   get contactNo() {
     return (this.batchForm.controls.mentors as FormArray).controls[0].get('contactNo') as FormControl
@@ -262,6 +257,7 @@ export class OnboardComponent implements OnInit {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name + 1}`;
+
   }
 
   selectedCandidates(row: any) {
@@ -270,7 +266,6 @@ export class OnboardComponent implements OnInit {
   }
   remove(row: any) {
      this.array.splice(this.array.indexOf(row),1);
-    // console.log(this.array);
     console.log( this.array);
   }
 
@@ -279,6 +274,7 @@ export class OnboardComponent implements OnInit {
   }
 
   addBatch(batchForm: FormGroup) {
+    console.log(batchForm.value);
 
     let file = this.tocPath
     console.log(file);
@@ -315,9 +311,8 @@ export class OnboardComponent implements OnInit {
       location: batchForm.controls.location.value,
       technology: batchForm.controls.technology.value,
       startDate: newDate,
-      tyMentors: batchForm.controls.tyMentors.value,
+      tyMentors: [batchForm.controls.tyMentors.value],
       batchType: batchForm.controls.batchType.value,
-      clientCompanyName: batchForm.controls.clientCompanyName.value,
       clientMentorList: this.mentor.value,
       assignTrainerList: this.trainer.value,
       candidateList: candidates,
@@ -339,5 +334,40 @@ export class OnboardComponent implements OnInit {
       this.toastr.error(err.message);
     })
   }
+
+
+  getTrainerDetails() {
+    this.onboardService.getTrainerData().subscribe((res: any) => {
+      this.trainerDetails = res;
+      this.TrainerData = this.trainerDetails.data
+      console.log(this.TrainerData);
+    })
+  }
+
+  onChangeTrainerName(event: any, batchForm: FormGroup, index: number) {
+    console.log(this.TrainerData);
+    this.TrainerData.forEach((ele) => {
+      if (ele.trainerName === event.value) {
+        const technology = []
+        console.log(ele.trainerTechnologies);
+        ele.trainerTechnologies.forEach(e => {
+          technology.push(e.technology)
+        });
+        console.log(technology);
+        let emailId = ele.emailId;
+        (batchForm.get('trainers') as FormArray).controls[index].get('technologies').patchValue(technology);
+        (batchForm.get('trainers') as FormArray).controls[index].get('emailId').setValue(emailId);        
+      }
+    })
+
+  }
+  buttonShow = false;
+  buttonHide = true;
+  visibleButton() {
+    if((this.headerCheckbox as MatCheckbox).checked) {
+      this.buttonShow == true;
+    } 
+  }
+
 
 }

@@ -1,288 +1,309 @@
 .header {
-  font-size: 17px !important;
+    font-size: 17px !important;
 }
 
 .main {
-  min-height: calc(105vh - 178px);
-  border-radius: 10px;
-  border: 1px solid #70707099;
-  margin-top: 1rem;
-  background: white;
-  color: black;
+    min-height: calc(105vh - 178px);
+    border-radius: 10px;
+    border: 1px solid #70707099;
+    margin-top: 1rem;
+    background: white;
+    color: black;
 }
 
 .container {
-  z-index: 100;
-  position: absolute;
+    z-index: 100;
+    position: absolute;
 }
 
 .creatbtn {
-  background-color: #086288;
-  color: white;
+    background-color: #086288;
+    color: white;
 }
 
 .subbtn {
-  color: #086288;
+    color: #086288;
 }
 
 .modal-dialog {
-  max-width: 600px;
+    max-width: 600px;
 }
 
 .modal-content {
-  border-radius: 10px;
+    border-radius: 10px;
 }
 
 ::ng-deep .mat-drawer.mat-drawer-side {
-  z-index: 0;
+    z-index: 0;
 }
 
 ::ng-deep .modal-backdrop {
-  z-index: 0 !important;
+    z-index: 0 !important;
 }
 
 table {
-  width: 100%;
+    width: 100%;
 }
 
 ::ng-deep .tables {
-  position: relative;
-  min-height: 200px;
-  max-height: 500px;
-  overflow: auto;
+    position: relative;
+    min-height: 200px;
+    max-height: 500px;
+    overflow: auto;
 }
 
 .mat-elevation-z8 {
-  box-shadow: none;
+    box-shadow: none;
 }
 
 .mat-cell,
 .mat-footer-cell {
-  font-size: 13px !important;
+    font-size: 13px !important;
 }
 
-table,th {
-  font-size: 14px !important;
+table,
+th {
+    font-size: 14px !important;
 }
+
 tr.mat-header-row {
-  background-color: #F2F2F2;
+    background-color: #F2F2F2;
 }
 
 ::ng-deep.mat-checkbox-checked.mat-accent .mat-checkbox-background {
-  background-color: #086288;
+    background-color: #086288;
 }
 
 ::ng-deep.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-  background-color: #086288;
+    background-color: #086288;
 }
 
 .icon {
-  font-size: 25px !important;
-  padding-right: 10px;
+    font-size: 25px !important;
+    padding-right: 10px;
 }
 
 th.mat-header-cell,
 td.mat-cell,
 td.mat-footer-cell {
-  font-weight: 500 !important;
-  text-align: center;
+    font-weight: 500 !important;
+    text-align: center;
 }
 
-
 .btn-white:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
 }
 
 ::ng-deep.mat-focused .mat-form-field-label {
-  /*change color of label*/
-  color: #086288 !important;
+    /*change color of label*/
+    color: #086288 !important;
 }
 
 ::ng-deep .mat-form-field-ripple {
-  /*change color of underline when focused*/
-  background-color: #086288 !important;
+    /*change color of underline when focused*/
+    background-color: #086288 !important;
 }
 
 
 /* modal styles */
 
 .modal-dialog {
-  max-width: 1200px;
+    max-width: 1200px;
 }
 
 .first {
-  border-bottom: 2px solid #70707099;
-  width: 98%;
-  margin-left: 1%;
-  margin-right: 1%;
+    border-bottom: 2px solid #70707099;
+    width: 98%;
+    margin-left: 1%;
+    margin-right: 1%;
 }
 
 .aliq {
-  display: flex;
-  justify-content: space-evenly;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .matFirst {
-  width: 360px !important;
+    width: 360px !important;
 }
 
 .btn-color {
-  background-color: #086288;
+    background-color: #086288;
 }
 
 .upload {
-  width: 60.33%;
-  padding-left: 40px;
+    width: 60.33%;
+    padding-left: 40px;
 }
 
 .file {
-  width: 39%;
+    width: 39%;
 }
 
 .uploadButton {
-  color: #086288;
-  margin-right: 15px;
+    color: #086288;
+    margin-right: 15px;
 }
 
 .arrow {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 tr:hover {
-  background-color: #F2F2F2;
+    background-color: #F2F2F2;
 }
 
 tr:hover .arrow {
-  visibility: visible;
-  background-color: #F2F2F2;
+    visibility: visible;
+    background-color: #F2F2F2;
 }
 
 mat-icon {
-  vertical-align: middle;
-  cursor: pointer;
+    vertical-align: middle;
+    cursor: pointer;
 }
 
 .mat-radio-button {
-  margin-left: 40px;
-  font-size: 13px;
+    margin-left: 40px;
+    font-size: 13px;
 }
 
 .my_icon {
-  position: absolute;
+    position: absolute;
 }
 
 :host ::ng-deep .mat-form-field-appearance-standard .mat-form-field-flex {
-  padding-top: 0em !important;
+    padding-top: 0em !important;
 }
 
 .hover:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .batch {
-  color: #fff;
-  font: size 12px;
+    color: #fff;
+    font: size 12px;
 }
+
 
 /* filter Css */
 
-
  :host ::ng-deep button:active {
-  outline: none !important;
-  border: none !important;
+    outline: none !important;
+    border: none !important;
 }
+
 .filter-card {
-  width: 270px;
+    width: 270px;
 }
 
 .add {
-  height: 550px !important;
-  overflow: auto;
-  position: absolute;
-  border-radius: 8px;
-  z-index: 10 !important;
-  /* border: 1px solid grey; */
+    height: 550px !important;
+    overflow: auto;
+    position: absolute;
+    border-radius: 8px;
+    z-index: 10 !important;
+    /* border: 1px solid grey; */
 }
 
 :host ::ng-deep .mat-panel-title {
-  width: 10px !important;
+    width: 10px !important;
 }
 
 :host ::ng-deep .mat-expansion-panel-body {
-  padding: 0 42px 0px !important;
+    padding: 0 42px 0px !important;
 }
 
 .mat-expansion-panel-header.mat-expanded {
-  height: 38px;
+    height: 38px;
 }
 
 .mat-expansion-panel-header {
-  height: 35px;
+    height: 35px;
 }
 
 :host::ng-deep.mat-card {
-  border-radius: 8px;
-  /* box-shadow: 5px 2px 5px 2px black !important; */
-  padding: 15px 0px 0px 0px;
+    border-radius: 8px;
+    /* box-shadow: 5px 2px 5px 2px black !important; */
+    padding: 15px 0px 0px 0px;
 }
 
 .mat-card-title {
-  display: block;
-  margin-bottom: 0px;
-  padding-left: 24px;
-  padding-bottom: 10px;
-  font-size: 20px;
-  marker-end: 45px;
-  border-bottom: 1px solid #00000029;
+    display: block;
+    margin-bottom: 0px;
+    padding-left: 24px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    marker-end: 45px;
+    border-bottom: 1px solid #00000029;
 }
 
 :host ::ng-deep .mat-expansion-panel-header-title .mat-checkbox-inner-container {
-  height: 13px !important;
-  width: 13px !important;
-  font-size: 15px !important;
+    height: 13px !important;
+    width: 13px !important;
+    font-size: 15px !important;
 }
 
 :host ::ng-deep .mat-expansion-panel-body .mat-checkbox-inner-container {
-  height: 12px !important;
-  width: 12px !important;
-  font-size: 10px !important;
+    height: 12px !important;
+    width: 12px !important;
+    font-size: 10px !important;
 }
 
 .mat-expansion-panel {
-  box-shadow: none;
+    box-shadow: none;
 }
 
 @media screen and (max-width: 1110px) {
-  .margin {
-      padding-left: 0px !important;
-  }
-  .candidate {
-      font-size: 15px;
-      padding: 0px !important;
-  }
-  mat-form-field {
-      width: 180px;
-  }
-  .creatbtn {
-      font-size: 11px;
-      text-align: center;
-  }
+    .margin {
+        padding-left: 0px !important;
+    }
+    .candidate {
+        font-size: 15px;
+        padding: 0px !important;
+    }
+    mat-form-field {
+        width: 180px;
+    }
+    .creatbtn {
+        font-size: 11px;
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 768px) {
-  .mat-cell {
-      font-size: 10px !important;
-  }
-  .mat-form-field {
-      width: 145px !important;
-  }
-  .upload {
-      padding-left: 0px !important;
-  }
-  .file {
-      width: 0px !important;
-      padding-left: 1px;
-  }
+    .mat-cell {
+        font-size: 10px !important;
+    }
+    .mat-form-field {
+        width: 145px !important;
+    }
+    .upload {
+        padding-left: 0px !important;
+    }
+    .file {
+        width: 0px !important;
+        padding-left: 1px;
+    }
+}
+
+.myBtn {
+    position: absolute;
+    top: 5px;
+    left: 0px;
+    padding: 5px 10px;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #086288;
+    color: white;
+    border-radius: 5px;
+}
+
+#myInp {
+    position: absolute;
+    left: 8px;
+    top: 8px;
 }

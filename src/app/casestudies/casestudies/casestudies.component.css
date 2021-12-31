@@ -1,267 +1,295 @@
 .mini-content {
-  height: 100vh;
-  overflow-y: scroll;
-  box-shadow: 0px 0px 2px gray;
-  padding: 6px;
-  overflow-x: hidden;
+    height: 100vh;
+    overflow-y: scroll;
+    box-shadow: 0px 0px 2px gray;
+    padding: 6px;
+    overflow-x: hidden;
+}
+
+.Pseudo-content {
+    height: 100vh;
+    overflow-y: scroll;
+    box-shadow: 0px 0px 2px gray;
+    padding: 6px;
+    overflow-x: hidden;
 }
 
 .newbtn {
-  background-color: #086288;
-  color: white;
+    background-color: #086288;
+    color: white;
 }
 
 .resetbtn {
-  color: #086288;
+    color: #086288;
 }
 
 ::ng-deep.modal-header {
-  padding: 18px 30px 0px 30px !important;
+    padding: 18px 30px 0px 30px !important;
 }
 
 .modal-dialog {
-  max-width: 600px;
+    max-width: 600px;
 }
 
 .modal-content {
-  border-radius: 10px;
+    border-radius: 10px;
 }
 
 ::ng-deep .mat-drawer.mat-drawer-side {
-  z-index: 0;
+    z-index: 0;
 }
 
 ::ng-deep .modal-backdrop {
-  z-index: 0 !important;
+    z-index: 0 !important;
 }
 
 .modal-body mat-form-field {
-  width: 350px;
+    width: 350px;
 }
 
 
 /* mat-toggle button css */
 
 .mat-button-toggle-group-appearance-standard {
-  border-radius: 24px;
+    border-radius: 24px;
 }
 
 .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
-  color: white;
+    color: white;
 }
 
 .mat-button-toggle-group-appearance-standard {
-  border: solid 1px #086288;
-  background: white;
+    border: solid 1px #086288;
+    background: white;
 }
 
 ::ng-deep .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
-  line-height: 35px;
+    line-height: 35px;
 }
 
 ::ng-deep .mat-button-toggle-checked {
-  background-color: #086288;
-  color: #086288;
-  border-radius: 1px solid 086288;
+    background-color: #086288;
+    color: #086288;
+    border-radius: 1px solid 086288;
 }
 
 .mat-button-toggle-appearance-standard {
-  color: #086288;
+    color: #086288;
 }
 
 .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
-  padding: 0 20px;
+    padding: 0 20px;
 }
 
 .mat-button-toggle-group-appearance-standard .mat-button-toggle+.mat-button-toggle {
-  border-left: none !important;
+    border-left: none !important;
 }
 
 .mat-button-toggle-checked {
-  border-radius: 20px;
-  margin: 1px;
+    border-radius: 20px;
+    margin: 1px;
 }
 
 
 /* card css */
 
 .icon.mat-icon {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 .card:hover .mat-icon {
-  visibility: visible;
+    visibility: visible;
 }
 
 .card {
-  height: 160px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  margin-bottom: 15px;
-  cursor: pointer;
+    height: 170px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-bottom: 15px;
+    cursor: pointer;
 }
 
 .cardheader {
-  font-weight: 700;
+    font-weight: 700;
 }
 
 .card-body {
-  padding: 1rem;
-}
-
-.card-body {
-  padding: 20px 0px 10px 10px !important;
-  font-size: smaller;
+    padding-right: 0px;
+    padding-left: 0px;
+    font-size: smaller;
 }
 
 .card:hover {
-  background: rgb(255, 255, 255);
-  background: linear-gradient( 90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 86%, rgba(140, 138, 138, 1) 100%, rgba(87, 83, 83, 1) 100%);
+    background: rgb(255, 255, 255);
+    background: linear-gradient( 90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 86%, rgba(140, 138, 138, 1) 100%, rgba(87, 83, 83, 1) 100%);
 }
 
 .uploadfile {
-  cursor: pointer;
+    cursor: pointer;
+    background-color: #086288;
+    color: white;
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
+    width: 0px;
+}
+
+.fileupload {
+    margin-left: 158px;
+}
+
+.myButton {
+    position: absolute;
+    top: 245px;
+    right: 313px;
+    padding: 7px 10px;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #086288;
+    color: white;
+    border-radius: 5px;
+}
+
+.myButton {
+    font-size: 16px;
 }
 
 
 /* Handle */
 
 ::-webkit-scrollbar-thumb {
-  background: lightgray;
-  border-radius: 15px;
+    background: lightgray;
+    border-radius: 15px;
 }
 
 
 /* Handle on hover */
 
 ::-webkit-scrollbar-thumb:hover {
-  background: lightgray;
+    background: lightgray;
 }
 
 .icon.mat-icon:hover {
-  background-color: white;
-  border-radius: 50px;
+    background-color: white;
+    border-radius: 50px;
 }
 
 ::ng-deep.mat-focused .mat-form-field-label {
-  /*change color of label*/
-  color: #086288 !important;
+    /*change color of label*/
+    color: #086288 !important;
 }
 
 ::ng-deep .mat-form-field-ripple {
-  /*change color of underline when focused*/
-  background-color: #086288 !important;
+    /*change color of underline when focused*/
+    background-color: #086288 !important;
 }
 
 .mat-form-field-appearance-standard .mat-form-field-flex {
-  width: 50px !important;
+    width: 50px !important;
 }
 
 
 /* delete modal css */
 
 .deletelogo {
-  height: 150px;
-  width: 150px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+    height: 150px;
+    width: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .confirmbtn {
-  color: #086288;
-  box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.3);
-  margin-right: 50px;
+    color: #086288;
+    box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.3);
+    margin-right: 50px;
 }
 
 .deletebtn {
-  background-color: #086288;
-  color: white;
-  margin-right: 180px;
+    background-color: #086288;
+    color: white;
+    margin-right: 180px;
 }
 
 .okbtn {
-  margin-left: 260px;
-  background-color: #086288;
-  color: white;
-  margin-bottom: 30px;
+    margin-left: 260px;
+    background-color: #086288;
+    color: white;
+    margin-bottom: 30px;
 }
 
 .mat-icon {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .maiclicon {
-  margin-right: 20px;
+    margin-right: 20px;
 }
 
 .mat-button-toggle-button:hover {
-  background: red !important;
+    background: red !important;
 }
 
 @media screen and (max-width: 1860px) {
-  @media screen and (max-width: 1440px) {
-      @media screen and (max-width: 1024px) {
-           ::ng-deep.material-icons {
-              font-size: 23px !important;
-          }
-          body {
-              font-size: 12px;
-          }
-          .newbtn {
-              font-size: 13px !important;
-              width: 75px !important;
-              margin-left: 10px;
-          }
-          .mini {
-              font-size: 10px !important;
-          }
-          .search .mat-form-field-infix {
-              padding: 5px !important;
-          }
-          .searchtype {
-              padding: 5px !important;
-          }
-          .material-icons {
-              font-size: 20px !important;
-          }
-           ::ng-deep .matsearch .mat-form-field-infix {
-              width: 100px !important;
-          }
-          .cardbody p {
-              margin: 0px !important;
-          }
-          @media screen and (max-width: 768px) {
-              .mini {
-                  font-size: 8px !important;
-              }
-              .case {
-                  padding-left: 0px !important;
-              }
-              .mat-button-toggle-group {
-                  width: 100px;
-              }
-              .newbtn {
-                  font-size: 10px !important;
-                  width: 60px !important;
-              }
-               :host::ng-deep.mat-form-field-appearance-standard .mat-form-field-flex {
-                  width: 100px !important;
-              }
-               :host::ng-deep .searchtype .mat-form-field-infix {
-                  width: 80px !important;
-              }
-              .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
-                  line-height: 29px !important;
-              }
-               :host ::ng-deep.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
-                  padding: 0 12px 0px 7px !important;
-              }
-          }
-      }
-  }
+    @media screen and (max-width: 1440px) {
+        @media screen and (max-width: 1024px) {
+             ::ng-deep.material-icons {
+                font-size: 23px !important;
+            }
+            body {
+                font-size: 12px;
+            }
+            .newbtn {
+                font-size: 13px !important;
+                width: 75px !important;
+                margin-left: 10px;
+            }
+            .mini {
+                font-size: 10px !important;
+            }
+            .search .mat-form-field-infix {
+                padding: 5px !important;
+            }
+            .searchtype {
+                padding: 5px !important;
+            }
+            .material-icons {
+                font-size: 20px !important;
+            }
+             ::ng-deep .matsearch .mat-form-field-infix {
+                width: 100px !important;
+            }
+            .cardbody p {
+                margin: 0px !important;
+            }
+            @media screen and (max-width: 768px) {
+                .mini {
+                    font-size: 8px !important;
+                }
+                .case {
+                    padding-left: 0px !important;
+                }
+                .mat-button-toggle-group {
+                    width: 100px;
+                }
+                .newbtn {
+                    font-size: 10px !important;
+                    width: 60px !important;
+                }
+                 :host::ng-deep.mat-form-field-appearance-standard .mat-form-field-flex {
+                    width: 100px !important;
+                }
+                 :host::ng-deep .searchtype .mat-form-field-infix {
+                    width: 80px !important;
+                }
+                .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+                    line-height: 29px !important;
+                }
+                 :host ::ng-deep.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+                    padding: 0 12px 0px 7px !important;
+                }
+            }
+        }
+    }
 }

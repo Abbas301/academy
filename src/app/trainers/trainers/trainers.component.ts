@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TrainersService } from '../trainers.service';
@@ -25,29 +26,24 @@ export class TrainersComponent implements OnInit {
 
   trainerForm: FormGroup;
   items: FormArray;
-  updateitems: FormArray
+  updateitems: FormArray;
+  modelHeader = '';
   searchValue: any
   trainerTechnologiesRes = [];
   trainerDetails: any;
-  technologiesData = ['All', 'Frontend', 'Backend', 'Database'];
+  technologiesData = ['Frontend', 'Backend', 'Database'];
   form: FormGroup;
-  // frontendDetails: any;
-  // backendDetails: any;
-  // databaseDetails: any;
+
   trainerData = []
   updateForm: FormGroup
   deleteTrainerData: any
-  // trainerWiseTechnologies = [];
-  // frontend = []
-  // backend = [];
-  // database = [];
-  // trainerArray = [];
 
 
   FrontendTechnologies = [];
   BackendTechnologies = [];
   DatabaseTechnologies = [];
   setOfTechnologies: string[];
+  select: any;
   constructor(private http: HttpClient,
     private fb: FormBuilder,
     private router: Router,
@@ -132,13 +128,13 @@ export class TrainersComponent implements OnInit {
   ];
 
   technologyType = ["Frontend", "Backend", "Database"]
-  // getTrainerData = []
 
+  @ViewChild('allSelected') private allSelected: MatSelect;
 
   ngOnInit(): void {
     this.trainerForm = this.fb.group({
       trainerName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      emailId: new FormControl('', [Validators.required]),
+      emailId: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')]),
       items: new FormArray([this.createItem()]),
       trainerId: [],
     })
@@ -147,6 +143,10 @@ export class TrainersComponent implements OnInit {
     });
     this.getHeader()
 
+  }
+
+  trainerModel() {
+    this.modelHeader = 'Create New Trainer'
   }
 
   get technologyFilter() {
@@ -182,9 +182,10 @@ export class TrainersComponent implements OnInit {
   getHeader() {
     this.trainerService.getTrainerHeader().subscribe(res => {
       const technologies = res['data'][0];
-      this.FrontendTechnologies .push ({value:technologies.frontendTechnology,technology:'Frontend'})
-      this.BackendTechnologies .push ({value:technologies.backendTechnology,technology:'Backend'})
-      this.DatabaseTechnologies .push ({value:technologies.databaseList,technology:'Database'})
+      this.FrontendTechnologies.push({ value: technologies.frontendTechnology, technology: 'Frontend' })
+      this.BackendTechnologies.push({ value: technologies.backendTechnology, technology: 'Backend' })
+      this.DatabaseTechnologies.push({ value: technologies.databaseList, technology: 'Database' })
+
       this.getTrainer()
     }, err => {
       // console.log(err)
@@ -196,12 +197,47 @@ export class TrainersComponent implements OnInit {
     this.trainerService.getTrainerData().subscribe(res => {
       this.trainerData = res.data;
       let frontendResults = [];
-      this.setOfTechnologies = this.FrontendTechnologies[0].value.concat(this.BackendTechnologies[0].value).concat(this.DatabaseTechnologies[0].value)
+      if (this.technologyFilter.value.includes('All') || (this.technologyFilter.value.includes('Frontend') && this.technologyFilter.value.includes('Backend') && this.technologyFilter.value.includes('Database'))) {
+        this.technologyType = ["Frontend", "Backend", "Database"];
+        this.setOfTechnologies = this.FrontendTechnologies[0].value.concat(this.BackendTechnologies[0].value).concat(this.DatabaseTechnologies[0].value)
+      }
+      else if (!this.technologyFilter.value.includes('All') && (this.technologyFilter.value.includes('Frontend') && this.technologyFilter.value.includes('Backend'))) {
+        this.technologyType = ["Frontend", "Backend"];
+        this.setOfTechnologies = this.FrontendTechnologies[0].value.concat(this.BackendTechnologies[0].value)
+      }
+      else if (!this.technologyFilter.value.includes('All') && (this.technologyFilter.value.includes('Frontend') && this.technologyFilter.value.includes('Database'))) {
+        this.technologyType = ["Frontend", "Database"];
+        this.setOfTechnologies = this.FrontendTechnologies[0].value.concat(this.DatabaseTechnologies[0].value)
+      }
+      else if (!this.technologyFilter.value.includes('All') && (this.technologyFilter.value.includes('Backend') && this.technologyFilter.value.includes('Database'))) {
+        this.technologyType = ["Backend", "Database"];
+        this.setOfTechnologies = this.BackendTechnologies[0].value.concat(this.DatabaseTechnologies[0].value)
+      }
+      else if (!this.technologyFilter.value.includes('All') && (this.technologyFilter.value.includes('Frontend') && !this.technologyFilter.value.includes('Backend') && !this.technologyFilter.value.includes('Database'))) {
+        this.technologyType = ["Frontend"];
+        this.setOfTechnologies = this.FrontendTechnologies[0].value
+
+      }
+      else if (!this.technologyFilter.value.includes('All') && (!this.technologyFilter.value.includes('Frontend') && this.technologyFilter.value.includes('Backend') && !this.technologyFilter.value.includes('Database'))) {
+        this.technologyType = ["Backend"];
+        this.setOfTechnologies = this.BackendTechnologies[0].value
+
+      }
+      else if (!this.technologyFilter.value.includes('All') && (!this.technologyFilter.value.includes('Frontend') && !this.technologyFilter.value.includes('Backend') && this.technologyFilter.value.includes('Database'))) {
+        this.technologyType = ["Database"];
+        this.setOfTechnologies = this.DatabaseTechnologies[0].value
+
+      }
+      else {
+        this.technologyType = ["Frontend", "Backend", "Database"];
+        this.setOfTechnologies = this.FrontendTechnologies[0].value.concat(this.BackendTechnologies[0].value).concat(this.DatabaseTechnologies[0].value)
+
+      }
       for (let i = 0; i < this.trainerData.length; i++) {
         const element = this.trainerData[i].trainerTechnologies;
         frontendResults = [];
         for (let j = 0; j < this.setOfTechnologies.length; j++) {
-          frontendResults.push({ key: this.setOfTechnologies[j], value: ''})
+          frontendResults.push({ key: this.setOfTechnologies[j], value: '' })
           element.forEach(element => {
             if (element.technology.toLowerCase() === (this.setOfTechnologies[j].toLowerCase())) {
               frontendResults.forEach(res => {
@@ -220,7 +256,6 @@ export class TrainersComponent implements OnInit {
         this.trainerTechnologiesRes.push(frontendResults)
         // console.log(frontendResults)
       }
-      console.log(this.trainerTechnologiesRes);
     })
   }
 
@@ -260,6 +295,7 @@ export class TrainersComponent implements OnInit {
   }
 
   updateTrainerData(trainerDetails: any) {
+    this.modelHeader = 'Update Trainer'
     this.trainerForm.patchValue({
       'trainerName': trainerDetails.trainerName,
       'emailId': trainerDetails.emailId,
@@ -283,43 +319,23 @@ export class TrainersComponent implements OnInit {
   }
 
   clearItemsArray() {
-      this.resetpostmodal.nativeElement.click()
+    this.resetpostmodal.nativeElement.click()
     this.itemsArray.clear();
     this.itemsArray.push(this.createItem());
   }
-  filterTrainer(){
-    console.log(this.trainerTechnologiesRes)
-
-    if(this.technologyFilter.value.includes('All') || (this.technologyFilter.value.includes('Frontend') && this.technologyFilter.value.includes('Backend') && this.technologyFilter.value.includes('Database'))){
-      this.technologyType = ["Frontend", "Backend", "Database"];
-      this.trainerTechnologiesRes=this.trainerTechnologiesRes
+  toggleAllSelection() {
+    console.log(this.allSelected?.options?.first?.selected)
+    if (this.allSelected.options.first.selected) {
+      this.allSelected.options.map((element: MatOption) => {
+        console.log(element);
+        element.select()
+      })
     }
-    else if(!this.technologyFilter.value.includes('All') &&  (this.technologyFilter.value.includes('Frontend') && this.technologyFilter.value.includes('Backend'))){
-      this.technologyType = ["Frontend", "Backend"];
-      // this.trainerTechnologiesRes = this.trainerTechnologiesRes.forEach(element=>{
-
-      //   for (let i = 0; i < this.FrontendTechnologies.length; i++) {
-
-      //   }
-      // })
-    }
-    else if(!this.technologyFilter.value.includes('All') &&  (this.technologyFilter.value.includes('Frontend') && this.technologyFilter.value.includes('Database'))){
-      this.technologyType = ["Frontend", "Database"]
-    }
-    else if(!this.technologyFilter.value.includes('All') &&  (this.technologyFilter.value.includes('Backend') && this.technologyFilter.value.includes('Database'))){
-      this.technologyType = ["Backend", "Database"]
-    }
-    else if(!this.technologyFilter.value.includes('All') &&  (this.technologyFilter.value.includes('Frontend') && !this.technologyFilter.value.includes('Backend') && !this.technologyFilter.value.includes('Database'))){
-      this.technologyType = ["Frontend"]
-    }
-    else if(!this.technologyFilter.value.includes('All') &&  (!this.technologyFilter.value.includes('Frontend') && this.technologyFilter.value.includes('Backend') && !this.technologyFilter.value.includes('Database'))){
-      this.technologyType = ["Backend"]
-    }
-    else if(!this.technologyFilter.value.includes('All') && (!this.technologyFilter.value.includes('Frontend') && !this.technologyFilter.value.includes('Backend') && this.technologyFilter.value.includes('Database'))){
-      this.technologyType = ["Database"]
-    }
-    else{
-      this.technologyType = []
+    else {
+      this.allSelected.options.map((element: MatOption) => {
+        console.log(element);
+        element.deselect();
+      })
     }
   }
 

@@ -20,4 +20,12 @@ export class OnboardService {
     return this.http.post(`${environment.baseUrl}/api/v1/academy-inventory/batch-details`,postData)
   }
 
+  getTrainerData(){
+    return this.http.get<{
+      data:any,
+      error: boolean
+      message: string
+    }>(`${environment.baseUrl}/api/v1/academy/trainers/trainer-details-technologies`)
+  }
+
 }

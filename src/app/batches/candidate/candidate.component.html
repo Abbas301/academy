@@ -1,6 +1,6 @@
 <div class="container-fluid page mt-2">
   <div class="box">
-    <form action="" #rform="ngForm" (ngSubmit)="onSubmit(rform)">
+    <form action="" #rform="ngForm" >
 
       <div class="row">
         <div class="col-md-6">
@@ -156,8 +156,7 @@
         <div class="col-md-10">
         </div>
         <div class="col-md-2">
-          <button type="reset" class="btn btn-light batch" #resetButton>Submit</button>
-          <button type="submit" class="btn btn-color batch">Submit</button>
+          <button type="submit" class="btn btn-color batch" (click)="onSubmit(rform)">Submit</button>
         </div>
       </div>
     </form>
