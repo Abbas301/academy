@@ -41,7 +41,9 @@ export class CasestudiesComponent implements OnInit {
   searchText: any
   projecTypeValue;
   deleteData: any;
-  casestudyForm: FormGroup
+  casestudyForm: FormGroup;
+  file: string;
+
   @ViewChild('closeBtn') closeBtn!: ElementRef;
   @ViewChild('closeModal') closeModal!: ElementRef;
   @ViewChild('closepostmodal') closepostmodal!: ElementRef;
@@ -182,21 +184,23 @@ export class CasestudiesComponent implements OnInit {
       this.resetpostData.nativeElement.click();
       this.getCasestudiesData();
       this.closepostmodal.nativeElement.click();
+      this.refreshFile()
     }, err => {
       this.toastr.error(err.error.message)
     })
 
   }
+  refreshFile() {
+    this.file = null;
+  }
 
-
-  file: string;
 
 
   onUploadingCaseStudies(event: Event) {
     this.caseStudyFile = (event.target as HTMLInputElement).files[0];
     console.log(this.caseStudyFile)
-    this.file = (event.target as HTMLInputElement). files[0].name;
-    // console.log(this.casestudies.get('caseStudyFileUpload').value);
+    this.file = (event.target as HTMLInputElement).files[0].name;
+
   }
 
   updateCasestudy(updateDetails: any) {
@@ -216,6 +220,7 @@ export class CasestudiesComponent implements OnInit {
   }
   clearCasestudy() {
     this.resetpostData.nativeElement.click();
+    this.refreshFile()
   }
 
   deleteConfirm(cardDetail) {

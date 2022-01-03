@@ -1,32 +1,38 @@
 .box {
-  width: 800px;
-  margin: auto;
+    width: 800px;
+    margin: auto;
 }
+
 .mat-form-field {
-  width: 100%;
-  font-size: 16px;
-  cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
 }
+
 .btn-color {
-  background-color: #086288;
+    background-color: #086288;
 }
+
 .batch {
-  color: #fff;
-  font: size 12px;
+    color: #fff;
+    font: size 12px;
 }
+
 :host ::ng-deep .mat-error {
-  font-size: 13px !important;
-} 
+    font-size: 13px !important;
+}
+
+
 /* media queries */
 
 @media screen and (max-width: 1024px) {
-  body {
-    font-size: 12px;
-  }
-  .box {
-    width: 400px;
-    height: 350px;
-    margin: auto;
-    margin-top: 10%;
-  }
+    body {
+        font-size: 12px;
+    }
+    .box {
+        width: 400px;
+        height: 350px;
+        margin: auto;
+        margin-top: 10%;
+    }
 }

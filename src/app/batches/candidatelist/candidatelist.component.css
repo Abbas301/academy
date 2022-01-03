@@ -1,119 +1,135 @@
 mat-icon {
-  vertical-align: middle;
+    vertical-align: middle;
 }
+
 #circle {
-  background-color: transparent;
+    background-color: transparent;
 }
+
 .btn-color {
-  background-color: #086288;
+    background-color: #086288;
 }
-::ng-deep .mat-form-field-appearance-standard .mat-form-field-flex {
-  padding-top: 0em !important;
+
+:host ::ng-deep .mat-form-field-appearance-standard .mat-form-field-flex {
+    padding-top: 0em !important;
 }
+
 .batch {
-  color: #fff;
-  font-size: 12px;
+    color: #fff;
+    font-size: 12px;
 }
+
 .page__content {
-  min-height: calc(70vh - 178px);
-  border-radius: 10px;
-  border: 1px solid #70707099;
-  margin-top: 2rem;
-  background: white;
-  color: black;
+    min-height: calc(70vh - 178px);
+    border-radius: 10px;
+    border: 1px solid #70707099;
+    margin-top: 2rem;
+    background: white;
+    color: black;
 }
+
 ::ng-deep svg {
-  margin-right: 40px;
+    margin-right: 40px;
 }
+
 table {
-  width: 100%;
-  text-align: center;
+    width: 100%;
+    text-align: center;
 }
+
 th {
-  text-align: center !important;
-  background-color: #f2f2f2;
-  position: sticky;
-  top: 0px;
-  z-index: 1;
-  /* font-size: 14px !important; */
+    text-align: center !important;
+    background-color: #f2f2f2;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    /* font-size: 14px !important; */
 }
+
 .tableData {
-  height: 260px;
-  max-width: 100%;
-  overflow: auto;
+    height: 260px;
+    max-width: 100%;
+    overflow: auto;
 }
+
 
 /* delete buttons */
 
 .confirmbtn {
-  color: #086288;
-  box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.3);
-  margin-right: 30px;
+    color: #086288;
+    box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.3);
+    margin-right: 30px;
 }
+
 .deletebtn {
-  background-color: #086288;
-  color: white;
-  margin-right: 150px;
+    background-color: #086288;
+    color: white;
+    margin-right: 150px;
 }
+
 .okbtn {
-  margin-left: 210px;
-  background-color: #086288;
-  color: white;
-  margin-bottom: 30px;
+    margin-left: 210px;
+    background-color: #086288;
+    color: white;
+    margin-bottom: 30px;
 }
+
 .deletelogo {
-  height: 150px;
-  width: 150px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+    height: 150px;
+    width: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
+
 
 /* checkbox css */
 
 ::ng-deep.mat-checkbox-checked.mat-accent .mat-checkbox-background {
-  background-color: #086288;
+    background-color: #086288;
 }
+
 ::ng-deep.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-  background-color: #086288;
+    background-color: #086288;
 }
+
 
 /* media queries */
 
 @media screen and (max-width: 1024px) {
-  .batch {
-    font-size: 10px;
-  }
-  mat-form-field {
-    width: 150px;
-  }
-  .mat-cell,
-  .mat-footer-cell {
-    font-size: 11px;
-  }
-  @media screen and (max-width: 768px) {
-    .candidate {
-      font-size: 9px;
+    .batch {
+        font-size: 10px;
     }
-    mat-card {
-      font-size: 12.5px;
-    }
-    mat-icon {
-      font-size: 10.5px;
-      height: 0px;
-    }
-    .btn {
-      width: 64px !important;
-    }
-    .del {
-      padding-left: opx !important;
+    mat-form-field {
+        width: 150px;
     }
     .mat-cell,
     .mat-footer-cell {
-      font-size: 8.5px;
+        font-size: 11px;
     }
-    .Csearch {
-      width: 100px;
+    @media screen and (max-width: 768px) {
+        .candidate {
+            font-size: 9px;
+        }
+        mat-card {
+            font-size: 12.5px;
+        }
+        mat-icon {
+            font-size: 10.5px;
+            height: 0px;
+        }
+        .btn {
+            width: 64px !important;
+        }
+        .del {
+            padding-left: opx !important;
+        }
+        .mat-cell,
+        .mat-footer-cell {
+            font-size: 8.5px;
+        }
+        .Csearch {
+            width: 100px;
+        }
     }
-  }
 }

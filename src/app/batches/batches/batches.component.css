@@ -53,11 +53,11 @@ mat-icon {
     position: absolute;
 }
 
-::ng-deep .mat-form-field-appearance-standard .mat-form-field-flex {
+:host ::ng-deep .mat-form-field-appearance-standard .mat-form-field-flex {
     padding-top: 0em !important;
 }
 
-.mat-form-field {
+:host .mat-form-field {
     width: 100%;
 }
 

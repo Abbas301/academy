@@ -138,6 +138,10 @@
     margin-left: 158px;
 }
 
+.name {
+    text-transform: capitalize;
+}
+
 .myButton {
     position: absolute;
     top: 245px;

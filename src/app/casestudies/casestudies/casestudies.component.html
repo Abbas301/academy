@@ -183,7 +183,7 @@
                                 </div>
                                 <div>
                                     <input #fileInput type="file" hidden formControlName="caseStudyFileUpload" (change)="onUploadingCaseStudies($event)">
-                                    <button mat-button class="uploadfile" (click)="fileInput.click()">Upload Case Studies</button>{{file}}
+                                    <button mat-button type="button" class="uploadfile" (click)="fileInput.click()">Upload Case Studies</button><span>{{file}}</span>
                                 </div>
                             </div>
 
