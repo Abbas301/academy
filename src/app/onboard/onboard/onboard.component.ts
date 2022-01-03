@@ -7,6 +7,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { OnboardService } from '../onboard.service';
 import { ToastrService } from 'ngx-toastr';
 import { ThirdPartyDraggable } from '@fullcalendar/interaction';
+import * as moment from 'moment';
+
+
 
 export interface OnboardList {
   name: string;
@@ -39,7 +42,7 @@ export class OnboardComponent implements OnInit {
   mentors!: FormArray;
   trainers!: FormArray;
   hideMat = false;
-  candidates :any[] = [];
+  candidates: any[] = [];
 
   panelOpenState = false;
   @ViewChild(MatAccordion) accordion !: MatAccordion;
@@ -76,15 +79,15 @@ export class OnboardComponent implements OnInit {
   CandidatesListData: any;
   status = 'ONBOARDED';
   onboardList = []
-  array :any[] =[];
-  ArrayData =[];
+  array: any[] = [];
+  ArrayData = [];
   trainerDetails: any;
   TrainerData: any;
 
   constructor(private fb: FormBuilder,
-              private onboardService: OnboardService,
-              private toastr: ToastrService
-              ) { }
+    private onboardService: OnboardService,
+    private toastr: ToastrService,
+  ) { }
 
   displayedColumns: string[] = ['select', 'name', 'contactNumber', 'emailId', 'degree', 'stream', 'yop', 'degreePercentage', 'jspiderBranch'];
   dataSource = new MatTableDataSource<OnboardList>();
@@ -265,8 +268,8 @@ export class OnboardComponent implements OnInit {
     console.log(this.array);
   }
   remove(row: any) {
-     this.array.splice(this.array.indexOf(row),1);
-    console.log( this.array);
+    this.array.splice(this.array.indexOf(row), 1);
+    console.log(this.array);
   }
 
   uploadTOC(event: Event) {
@@ -274,22 +277,19 @@ export class OnboardComponent implements OnInit {
   }
 
   addBatch(batchForm: FormGroup) {
-    console.log(batchForm.value);
 
     let file = this.tocPath
     console.log(file);
     let date = new Date(batchForm.controls.startDate.value);
-    console.log(date);
-    let finalDate = date.toLocaleDateString().split('/');
-    let newDate = `${finalDate[2]}-${finalDate[0]}-${finalDate[1]}`
-    console.log(newDate);
+    // console.log(date);
+    var dateObj = new Date(date);
+    var momentObj = moment(dateObj);
+    var momentString = momentObj.format('YYYY-MM-DD');
 
-    // let candidatesArray = this.CandidatesListData.data;
-    // console.log(candidatesArray);
-    var candidates:any = []
-     this.array.forEach((element:any, index:any) => {
-      let obj = {candidateId:'',candidateName:'',phoneNumber:'',emailId:'',branch:'',degreeAggregate:'',degree:'',stream:'',yop:'',tenthPercentage:0,twelfthPercentage:'',masterAggregate:'',profileId:''}
-      
+    var candidates: any = []
+    this.array.forEach((element: any, index: any) => {
+      let obj = { candidateId: '', candidateName: '', phoneNumber: '', emailId: '', branch: '', degreeAggregate: '', degree: '', stream: '', yop: '', tenthPercentage: 0, twelfthPercentage: '', masterAggregate: '', profileId: '' }
+
       // obj.candidateId = element.candidateId
       obj.candidateName = element.name;
       obj.phoneNumber = element.contactNumber
@@ -303,14 +303,14 @@ export class OnboardComponent implements OnInit {
       obj.twelfthPercentage = element.twelfthPercentage
       obj.masterAggregate = element.masterDegreeAggregate
       obj.profileId = element.profileId
-      candidates.push(obj)     
+      candidates.push(obj)
     });
     console.log(candidates);
 
     let batchDetails = {
       location: batchForm.controls.location.value,
       technology: batchForm.controls.technology.value,
-      startDate: newDate,
+      startDate: momentString,
       tyMentors: [batchForm.controls.tyMentors.value],
       batchType: batchForm.controls.batchType.value,
       clientMentorList: this.mentor.value,
@@ -322,15 +322,15 @@ export class OnboardComponent implements OnInit {
     formData.append('tocFile', file)
     this.onboardService.postBatchData(formData).subscribe((res: any) => {
       console.log(res);
-      
+
       console.log("batch details added successfully");
       if (res.error == false) {
         this.toastr.success('Batch Details Added Successfully');
         this.resetButton.nativeElement.click();
         batchForm.reset();
       }
-    },err => {
-      console.log(err,'err');
+    }, err => {
+      console.log(err, 'err');
       this.toastr.error(err.message);
     })
   }
@@ -356,7 +356,7 @@ export class OnboardComponent implements OnInit {
         console.log(technology);
         let emailId = ele.emailId;
         (batchForm.get('trainers') as FormArray).controls[index].get('technologies').patchValue(technology);
-        (batchForm.get('trainers') as FormArray).controls[index].get('emailId').setValue(emailId);        
+        (batchForm.get('trainers') as FormArray).controls[index].get('emailId').setValue(emailId);
       }
     })
 
@@ -364,9 +364,9 @@ export class OnboardComponent implements OnInit {
   buttonShow = false;
   buttonHide = true;
   visibleButton() {
-    if((this.headerCheckbox as MatCheckbox).checked) {
+    if ((this.headerCheckbox as MatCheckbox).checked) {
       this.buttonShow == true;
-    } 
+    }
   }
 
 

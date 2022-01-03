@@ -1,10 +1,11 @@
 {
     "data": [{
-        "candiateName": "",
+        "candidateName": "",
         "emailId": "",
         "stream": "",
         "tenthPercentage": "",
         "degreeAggregate": "",
+        "degree": "",
         "branch": "",
         "phoneNumber": "",
         "yop": "",

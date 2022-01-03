@@ -4,15 +4,15 @@
             <h4><b>Calendar List</b></h4>
         </div>
         <div class=" row col-md-5">
-            <div class="col-md-6 batchSearch">
-                <mat-form-field appearance="standard">
+            <div class="col-md-6 ">
+                <mat-form-field class="batchSearch" appearance="standard">
                     <mat-label>Batch Name</mat-label>
                     <input matInput type="search" [(ngModel)]="searchText">
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
             </div>
-            <div class="col-md-5 mt-2 Gcalendar">
-                <button type="button" class="btn btn-color" data-toggle="modal" data-target="#exampleModal">Generate
+            <div class="col-md-6 mt-2 Gcalendar">
+                <button type="button" class="btn btncolor" data-toggle="modal" data-target="#exampleModal">Generate
           Calendar</button>
 
                 <!-- Modal -->
@@ -89,7 +89,7 @@
     <div class="page__content">
         <div class="page__content-data">
 
-            <table class="table table-borderless text-center">
+            <table class="table table-borderless text-center" style="overflow-y:scroll">
                 <thead class="thead" style="background-color: #D6EFFA;">
                     <tr>
                         <th>Sl.No</th>

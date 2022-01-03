@@ -6,6 +6,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { data } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
+import * as moment from 'moment';
 
 export class CsvData {
   public candidateId: string;
@@ -21,7 +22,6 @@ export class CsvData {
   public twelfthPercentage: string;
   public masterAggregate: string;
   public profileId: string;
-  // public batchName: any;
 }
 
 
@@ -61,8 +61,8 @@ export class BatchesComponent implements OnInit {
   @ViewChild('headerCheckbox') headerCheckbox!: MatCheckbox
   @ViewChildren('bodyCheckbox') bodyCheckbox!: QueryList<MatCheckbox>
   @ViewChildren('batchType') batchType!: QueryList<MatRadioButton>
+  @ViewChildren('closeBatch') closeBatch!: ElementRef;
   @ViewChildren('resetData') resetData!: ElementRef;
-  @ViewChildren('closeBtn') closeBtn!: ElementRef;
   candidateList: any;
   clientMentor: any[] = [];
   assignTrainers: any[] = [];
@@ -187,8 +187,8 @@ export class BatchesComponent implements OnInit {
   ];
 
   technologies = [
-    { value: 'JAVAWITHANGULAR', viewValue: 'JAVA_WITH_ANGULAR' },
-    { value: 'JAVAWITHREACT', viewValue: 'JAVA_WITH_REACT' }
+    { value: 'java', viewValue: 'java' },
+    { value: 'javascript', viewValue: 'javascript' }
   ];
 
   days = [
@@ -370,13 +370,14 @@ export class BatchesComponent implements OnInit {
     console.log(file);
     let date = new Date(batchForm.controls.startDate.value);
     console.log(date);
-    let finalDate = date.toLocaleDateString().split('/');
-    let newDate = `${finalDate[2]}-${finalDate[0]}-${finalDate[1]}`
+    var dateObj = new Date(date);
+    var momentObj = moment(dateObj);
+    var momentString = momentObj.format('YYYY-MM-DD');
     console.log(this.formHide);
     let batchDetails = {
       location: batchForm.controls.location.value,
       technology: batchForm.controls.technology.value,
-      startDate: newDate,
+      startDate: momentString,
       tyMentors: [batchForm.controls.tyMentors.value],
       batchType: batchForm.controls.batchType.value,
       clientCompanyName: batchForm.controls.clientCompanyName.value,
@@ -389,19 +390,20 @@ export class BatchesComponent implements OnInit {
     formData.append('tocFile', file)
     this.batchService.postBatchData(formData).subscribe((res: any) => {
       console.log("batch details added successfully");
-      if (res.error == false) {
+      // if (res.error == false) {
         this.toastr.success('Batch Details Added Successfully');
-        this.resetData.nativeElement.click();
-        setTimeout(() => {
-          this.closeBtn.nativeElement.click();
-        }, 500);
+        this.resetFormData();
         this.getBatch();
-        batchForm.reset();
-      }
+      // }
     }, err => {
       console.log(err);
       this.toastr.error(err.message);
     })
+  }
+
+  resetFormData() {
+    this.batchForm.reset();
+    this.closeBatch.nativeElement.click();
   }
   uploadTOC(event: Event) {
     this.tocPath = (event.target as HTMLInputElement).files?.item(0)

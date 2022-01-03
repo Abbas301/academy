@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
@@ -33,17 +33,17 @@ export class TrainersComponent implements OnInit {
   trainerDetails: any;
   technologiesData = ['Frontend', 'Backend', 'Database'];
   form: FormGroup;
+  allSelected=false;
 
   trainerData = []
   updateForm: FormGroup
   deleteTrainerData: any
-
-
+  selectAll = false;
   FrontendTechnologies = [];
   BackendTechnologies = [];
   DatabaseTechnologies = [];
   setOfTechnologies: string[];
-  select: any;
+  // select: any;
   constructor(private http: HttpClient,
     private fb: FormBuilder,
     private router: Router,
@@ -129,7 +129,9 @@ export class TrainersComponent implements OnInit {
 
   technologyType = ["Frontend", "Backend", "Database"]
 
-  @ViewChild('allSelected') private allSelected: MatSelect;
+  // @ViewChild('allSelected') private allSelected: MatSelect;
+  @ViewChild('select') private select: MatSelect;
+  @ViewChildren('selectTechnology') selectTechnology: QueryList<MatOption>
 
   ngOnInit(): void {
     this.trainerForm = this.fb.group({
@@ -272,11 +274,9 @@ export class TrainersComponent implements OnInit {
       this.toster.success(res.message)
       this.getHeader();
       this.closepostmodal.nativeElement.click()
-      // console.log(res);
     }, err => {
       this.toster.error(err.error.message)
     })
-    // console.log(trainerFormData);
   }
 
 
@@ -323,20 +323,23 @@ export class TrainersComponent implements OnInit {
     this.itemsArray.clear();
     this.itemsArray.push(this.createItem());
   }
+
   toggleAllSelection() {
-    console.log(this.allSelected?.options?.first?.selected)
-    if (this.allSelected.options.first.selected) {
-      this.allSelected.options.map((element: MatOption) => {
-        console.log(element);
-        element.select()
-      })
-    }
-    else {
-      this.allSelected.options.map((element: MatOption) => {
-        console.log(element);
-        element.deselect();
-      })
+    if (this.allSelected) {
+      this.select.options.forEach((item: MatOption) => item.select());
+    } else {
+      this.select.options.forEach((item: MatOption) => item.deselect());
     }
   }
+   optionClick() {
+    let newStatus = true;
+    this.select.options.forEach((item: MatOption) => {
+      if (!item.selected) {
+        newStatus = false;
+      }
+    });
+    this.allSelected = newStatus;
+  }
+
 
 }
