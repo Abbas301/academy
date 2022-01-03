@@ -414,7 +414,7 @@ export class BatchesComponent implements OnInit {
     if (this.activationFile && this.activationFile.size < 3000000) {
       this.formDataActivation = new FormData()
       this.formDataActivation.append('filename', this.activationFile);
-      this.formDataActivation.append('document_type', '.xls');
+      this.formDataActivation.append('document_type', 'xls');
       let reader = new FileReader();
       reader.readAsText(this.activationFile);
       reader.onload = () => {
@@ -446,7 +446,7 @@ export class BatchesComponent implements OnInit {
   }
 
   saveToExcel() {
-    this.batchService.exportAsExcelFile(this.json['data'], 'Candidate List','csv');
+    this.batchService.exportAsExcelFile(this.json['data'], 'Candidate List','xls');
   }
 
   getExcel() {

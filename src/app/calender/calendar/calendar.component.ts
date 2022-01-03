@@ -59,10 +59,12 @@ export class CalendarComponent implements OnInit {
   calendarEvents: any;
   batchname: any;
   calendarDetailsId: any;
-  index: any;
   batchesDetails: any;
   batch: any;
   selectedBatchName: any;
+  selectedTechnology: any;
+  selectedStartDate: any;
+  selectedEndDate: any;
   start: Date;
   eventsArray: any[] = [];
   EventsArrayData: any[];
@@ -96,8 +98,8 @@ export class CalendarComponent implements OnInit {
   }
 
   technologys = [
-    { value: 'JAVAWITHANGULAR', viewValue: 'JAVA WITH ANGULAR' },
-    { value: 'JAVAWITHREACT', viewValue: 'JAVA WITH REACT' },
+    { value: 'JAVAWITHANGULAR', viewValue: 'JAVA_WITH_ANGULAR' },
+    { value: 'JAVAWITHREACT', viewValue: 'JAVA_WITH_REACT' },
   ];
 
   calenderSetup() {
@@ -113,16 +115,16 @@ export class CalendarComponent implements OnInit {
       eventTextColor: "black",
       height: 700,
       contentHeight: 600,
-      eventDrop: function (info) {
-        alert(info.event.title + " was dropped on " + info.event.start.toISOString());
+      // eventDrop: function (info) {
+      //   alert(info.event.title + " was dropped on " + info.event.start.toISOString());
 
-        if (!confirm("Are you sure about this change?")) {
-          info.revert();
-        }
-      },
+      //   if (!confirm("Are you sure about this change?")) {
+      //     info.revert();
+      //   }
+      // },
       events: this.calendarData,
       // eventContent: { html: `<i data-toggle="modal" (click)="${this.onEdit(this.index)} "  data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="padding-top:100px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>`,events: this.calendarData },
-      eventContent: { html: `<i data-toggle="modal" (click)="${this.onEdit(this.element)}"  data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="padding-top:80px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>`,events: this.calendarData },
+      eventContent: { html: `<i data-toggle="modal" (click)="${this.onEdit(this.element)}"  data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="padding-top:80px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>`},
       
       initialView: 'dayGridMonth',
       headerToolbar: {
@@ -161,6 +163,7 @@ export class CalendarComponent implements OnInit {
     console.log(arg);
   }
 
+  index: number;
   getCalendarData() {
     return this.calendarService.getCalendar().subscribe((data: any) => {
       this.calendarList = data;
@@ -258,7 +261,11 @@ export class CalendarComponent implements OnInit {
   }
 
   visibleCalender(batchName: any, index: any) {
-    this.selectedBatchName = batchName;
+    this.selectedBatchName = batchName;    
+    this.selectedTechnology = this.calendarListData[index].technology;
+    this.selectedStartDate = this.calendarListData[index].startDate;
+    this.selectedEndDate = this.calendarListData[index].endDate;
+
     this.calendarService.getCalendarEvents(batchName).subscribe(res => {
       this.calendarEvents = res;
       this.eventsArray = this.calendarEvents.data;
