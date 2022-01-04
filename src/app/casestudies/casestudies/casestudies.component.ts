@@ -44,6 +44,8 @@ export class CasestudiesComponent implements OnInit {
   casestudyForm: FormGroup;
   file: string;
 
+  modelHeader = '';
+
   @ViewChild('closeBtn') closeBtn!: ElementRef;
   @ViewChild('closeModal') closeModal!: ElementRef;
   @ViewChild('closepostmodal') closepostmodal!: ElementRef;
@@ -86,7 +88,7 @@ export class CasestudiesComponent implements OnInit {
       projectType: ['', Validators.required],
       projectSubType: ['',],
       projectDescription: ['', [Validators.required, Validators.minLength(25)]],
-      caseStudyFileUpload: [''],
+      caseStudyFileUpload: ['',],
       caseStudyId: [''],
 
     })
@@ -95,6 +97,9 @@ export class CasestudiesComponent implements OnInit {
       subtype: this.fb.control(['All'])
     });
     this.getCasestudiesData();
+  }
+  caseStudyModel() {
+    this.modelHeader = 'Create New Case Studies'
   }
 
   onselectMini() {
@@ -206,6 +211,7 @@ export class CasestudiesComponent implements OnInit {
   updateCasestudy(updateDetails: any) {
     this.patchData = updateDetails;
     console.log(updateDetails);
+    this.modelHeader = 'Edit Case Studies'
 
     this.casestudyForm.patchValue({
       projectName: updateDetails?.projectName,

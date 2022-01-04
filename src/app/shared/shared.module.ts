@@ -21,7 +21,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatRadioModule} from '@angular/material/radio';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import {MatExpansionModule} from '@angular/material/expansion';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -48,7 +48,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatCardModule,
     MatRadioModule,
     FullCalendarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTooltipModule
   ],
   imports: [
     MatTableModule,
