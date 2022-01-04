@@ -8,19 +8,23 @@
 }
 
 #client-table {
-    height: 450px;
+    height: 600px;
     overflow-y: scroll;
 }
 
+.tableHeader {
+    position: sticky;
+    top: 0;
+}
+
 #internal-table {
-    height: 450px;
+    height: 600px;
     overflow-y: scroll;
 }
 
 thead {
     position: sticky;
     top: 0px;
-    z-index: 100;
 }
 
 .page__content {
@@ -31,7 +35,16 @@ thead {
     background: white;
     color: black;
     width: 100%!important;
-    overflow: auto;
+    height: 600px;
+}
+
+.toggleHead {
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    color: black;
+    /* background: white; */
+    /* border: 2px solid black; */
 }
 
 mat-icon {
@@ -247,4 +260,9 @@ tr:hover .arrow {
             width: 140px !important;
         }
     }
+}
+
+.over {
+    overflow-y: auto;
+    height: 500px;
 }

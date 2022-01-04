@@ -7,6 +7,7 @@ import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { data } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
+import { MatButton } from '@angular/material/button';
 
 export class CsvData {
   public candidateId: string;
@@ -61,7 +62,7 @@ export class BatchesComponent implements OnInit {
   @ViewChild('headerCheckbox') headerCheckbox!: MatCheckbox
   @ViewChildren('bodyCheckbox') bodyCheckbox!: QueryList<MatCheckbox>
   @ViewChildren('batchType') batchType!: QueryList<MatRadioButton>
-  @ViewChildren('closeBatch') closeBatch!: ElementRef;
+  @ViewChild('closeModal', { read: ElementRef }) closeModal: ElementRef;
   @ViewChildren('resetData') resetData!: ElementRef;
   candidateList: any;
   clientMentor: any[] = [];
@@ -178,17 +179,9 @@ export class BatchesComponent implements OnInit {
     this.candidates.push(this.createCandidate());
   }
 
-  tyMentor = [
-    { value: 'pavan', viewValue: 'pavan' },
-    { value: 'gangadhar', viewValue: 'gangadhar' },
-    { value: 'divya', viewValue: 'divya' },
-    { value: 'manohar', viewValue: 'manohar' },
-    { value: 'rajesh', viewValue: 'rajesh' },
-  ];
-
   technologies = [
-    { value: 'java', viewValue: 'java' },
-    { value: 'javascript', viewValue: 'javascript' }
+    { value: 'JAVA_WITH_ANGULAR', viewValue: 'JAVA_WITH_ANGULAR' },
+    { value: 'JAVA_WITH_REACT', viewValue: 'JAVA_WITH_REACT' }
   ];
 
   days = [
@@ -392,19 +385,18 @@ export class BatchesComponent implements OnInit {
       console.log("batch details added successfully");
       // if (res.error == false) {
         this.toastr.success('Batch Details Added Successfully');
-        this.resetFormData();
+        batchForm.reset();
+        this.closeModal.nativeElement.click();
         this.getBatch();
+        // this.resetFormData();
+        // $('#closemodal').modal('hide');
       // }
     }, err => {
       console.log(err);
-      this.toastr.error(err.message);
+      this.toastr.error(err.error.message);
     })
   }
 
-  resetFormData() {
-    this.batchForm.reset();
-    this.closeBatch.nativeElement.click();
-  }
   uploadTOC(event: Event) {
     this.tocPath = (event.target as HTMLInputElement).files?.item(0)
   }

@@ -75,7 +75,6 @@ export class CandidateComponent implements OnInit {
     },err => {
       console.log("err",err);
       this.toastr.error(err.error.message);
-      this.toastr.error('some error occured');
     })
   }
 }

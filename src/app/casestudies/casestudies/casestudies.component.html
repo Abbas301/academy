@@ -26,7 +26,7 @@
                     </mat-select>
                 </mat-form-field>
                 </span>
-                    <button type="button" class="btn newbtn" data-toggle="modal" data-target="#exampleModal">+ New</button>
+                    <button type="button" class="btn newbtn" data-toggle="modal" (click)="caseStudyModel()" data-target="#exampleModal">+ New</button>
                 </div>
             </form>
         </div>
@@ -41,19 +41,19 @@
                         <div class="row">
                             <div class="col-md-4 text-right cardheader">Project Name:</div>
                             <div class="col-md-6">
-                                <p>{{cardDetail.projectName}}</p>
+                                <p class="name">{{cardDetail.projectName}}</p>
                             </div>
                             <div class="col-md-2">
-                                <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal" (click)="updateCasestudy(cardDetail)">edit</mat-icon>
+                                <mat-icon class="icon" data-toggle="modal" matTooltip="Edit" data-target="#exampleModal" (click)="updateCasestudy(cardDetail)">edit</mat-icon>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4 text-right cardheader">Description:</div>
                             <div class="col-md-6">
-                                <p>{{cardDetail.projectDescription}}</p>
+                                <p class="">{{cardDetail.projectDescription}}</p>
                             </div>
                             <div class="col-md-2">
-                                <mat-icon class="icon" data-toggle="modal" data-target="#exampleModalCenter" (click)="deleteConfirm(cardDetail)">delete</mat-icon>
+                                <mat-icon class="icon" data-toggle="modal" matTooltip="Delete" data-target="#exampleModalCenter" (click)="deleteConfirm(cardDetail)">delete</mat-icon>
                             </div>
                         </div>
                         <div class="row">
@@ -62,7 +62,7 @@
                                 <p>{{cardDetail.projectType}}</p>
                             </div>
                             <div class="col-md-2">
-                                <mat-icon class="icon">download</mat-icon>
+                                <mat-icon class="icon" matTooltip="Download">download</mat-icon>
                             </div>
                         </div>
                         <div class="row">
@@ -70,7 +70,7 @@
                             <div class="col-md-6">
                             </div>
                             <div class="col-md-2">
-                                <mat-icon class="icon">mail</mat-icon>
+                                <mat-icon class="icon" matTooltip="Mail">mail</mat-icon>
                             </div>
 
                         </div>
@@ -89,10 +89,10 @@
                         <div class="row">
                             <div class="col-md-4 text-right cardheader">Project Name:</div>
                             <div class="col-md-6 ">
-                                <p>{{cardDetail.projectName}}</p>
+                                <p class="name">{{cardDetail.projectName}}</p>
                             </div>
                             <div class="col-md-2">
-                                <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal" (click)="updateCasestudy(cardDetail)">edit</mat-icon>
+                                <mat-icon class="icon" data-toggle="modal" matTooltip="Edit" data-target="#exampleModal" (click)="updateCasestudy(cardDetail)">edit</mat-icon>
                             </div>
                         </div>
 
@@ -102,7 +102,7 @@
                                 <p>{{cardDetail.projectDescription}}</p>
                             </div>
                             <div class="col-md-2">
-                                <mat-icon class="icon" data-toggle="modal" data-target="#exampleModalCenter" (click)="deleteConfirm(cardDetail)">delete</mat-icon>
+                                <mat-icon class="icon" data-toggle="modal" matTooltip="Delete" data-target="#exampleModalCenter" (click)="deleteConfirm(cardDetail)">delete</mat-icon>
                             </div>
                         </div>
                         <div class="row">
@@ -111,7 +111,7 @@
                                 <p>{{cardDetail.projectType}}</p>
                             </div>
                             <div class="col-md-2">
-                                <mat-icon class="icon">download</mat-icon>
+                                <mat-icon class="icon" matTooltip="Download">download</mat-icon>
                             </div>
                         </div>
                         <div class="row">
@@ -120,7 +120,7 @@
                                 <p>{{cardDetail.projectSubType}}</p>
                             </div>
                             <div class="col-md-2">
-                                <mat-icon class="icon">mail</mat-icon>
+                                <mat-icon class="icon" matTooltip="Mail">mail</mat-icon>
                             </div>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
         <div class="modal-dialog .modal-lg  modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="exampleModalLabel">New Case Studies</h2>
+                    <h2 class="modal-title" id="exampleModalLabel">{{modelHeader}}</h2>
                     <button type="button" class="close" #closepostmodal data-dismiss="modal" (click)="clearCasestudy()" aria-label="Close">
                    <span aria-hidden="true">&times;</span>
                  </button>
@@ -184,6 +184,7 @@
                                 <div>
                                     <input #fileInput type="file" hidden formControlName="caseStudyFileUpload" (change)="onUploadingCaseStudies($event)">
                                     <button mat-button type="button" class="uploadfile" (click)="fileInput.click()">Upload Case Studies</button><span>{{file}}</span>
+
                                 </div>
                             </div>
 
@@ -191,7 +192,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="reset" class="btn resetbtn" #resetpostData>Reset</button>
+                        <button type="reset" class="btn btn-light" #resetpostData>Reset</button>
                         <button type="submit" class="btn newbtn" (click)="postCaseData(casestudyForm)">Submit</button>
                     </div>
                 </form>

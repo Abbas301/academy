@@ -173,17 +173,14 @@ export class CandidatelistComponent implements OnInit {
       if (res.error == false) {
         this.toastr.success('Candidate details updated successfully');
         this.candidateModalClose.nativeElement.click();
-        //      this.dataSource.data = this.details;
         this.getAllCandidates();
       }
       else {
         this.candidateModalClose.nativeElement.click();
-        this.toastr.error('some error occured');
       }
     }, err => {
       console.log('err', err);
-      this.toastr.error(err.message);
-      // this.toastr.error('some error occured');
+      this.toastr.error(err.error.message);
     })
 
   }
@@ -213,25 +210,9 @@ export class CandidatelistComponent implements OnInit {
       }
     }, err => {
       console.log(err);
-      this.toastr.error(err.message);
+      this.toastr.error(err.error.message);
     })
   }
-
-  // deleteAllCandidate() {
-  //   this.closeBtn.nativeElement.click();
-  //   const formData = this.dataSource.data
-  //   this.batchService.deleteCandidateData(formData).subscribe((res: any) => {
-  //     console.log(data, "candidate data deleted successfully");
-  //     if (res.error == false) {
-  //       this.confirm.nativeElement.click();
-  //       this.toastr.success('All Candidate details Deleted successfully');
-  //       this.getAllCandidates();
-  //     }
-  //   }, err => {
-  //     console.log(err);
-  //     this.toastr.error(err.message);
-  //   })
-  // }
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;

@@ -295,7 +295,7 @@ export class TrainersComponent implements OnInit {
   }
 
   updateTrainerData(trainerDetails: any) {
-    this.modelHeader = 'Update Trainer'
+    this.modelHeader = 'Edit Trainer'
     this.trainerForm.patchValue({
       'trainerName': trainerDetails.trainerName,
       'emailId': trainerDetails.emailId,

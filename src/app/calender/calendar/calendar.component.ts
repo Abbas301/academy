@@ -10,11 +10,12 @@ import { CalendarService } from './calendar.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import * as events from 'events';
+import * as moment from 'moment';
 
 export interface Events {
-      date: string,
-      topic: string,
-      subTopic: string
+  date: string,
+  topic: string,
+  subTopic: string
 }
 export interface Calendar {
   calendarDetailsId: number;
@@ -98,8 +99,8 @@ export class CalendarComponent implements OnInit {
   }
 
   technologys = [
-    { value: 'JAVAWITHANGULAR', viewValue: 'JAVA_WITH_ANGULAR' },
-    { value: 'JAVAWITHREACT', viewValue: 'JAVA_WITH_REACT' },
+    { value: 'JAVA_WITH_ANGULAR', viewValue: 'JAVA_WITH_ANGULAR' },
+    { value: 'JAVA_WITH_REACT', viewValue: 'JAVA_WITH_REACT' },
   ];
 
   calenderSetup() {
@@ -114,6 +115,10 @@ export class CalendarComponent implements OnInit {
       eventBorderColor: "#fff",
       eventTextColor: "black",
       height: 700,
+      // dayRender: (info) => {
+      //   info.el.innerHTML += "<button class='dayButton' data-date='" + info.date + "'>Click me</button>";
+      //   info.el.style.padding = "20px 0 0 10px";
+      // },
       contentHeight: 600,
       // eventDrop: function (info) {
       //   alert(info.event.title + " was dropped on " + info.event.start.toISOString());
@@ -123,9 +128,8 @@ export class CalendarComponent implements OnInit {
       //   }
       // },
       events: this.calendarData,
-      // eventContent: { html: `<i data-toggle="modal" (click)="${this.onEdit(this.index)} "  data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="padding-top:100px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>`,events: this.calendarData },
-      // eventContent: { html: `<i data-toggle="modal" (click)="${this.onEdit(this.element)}"  data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="padding-top:80px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>`},
-      
+      dayCellContent: { html: `<i data-toggle="modal" (click)="${this.onEdit(this.element)}"  data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="padding-top:80px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>`},
+
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'prevYear,nextYear',
@@ -151,11 +155,11 @@ export class CalendarComponent implements OnInit {
   handleEventClick(element: Events) {
     // console.log(element);
     // console.log(this.eventsArray);
-     this.eventsArray.forEach((element,index) => {
+    this.eventsArray.forEach((element, index) => {
       //  console.log(element);  
       //  console.log(index);
       //  this.calendarId = element.calendarEventId;
-     })  
+    })
 
   }
 
@@ -174,9 +178,9 @@ export class CalendarComponent implements OnInit {
 
   onEdit(element: Events) {
 
-    this.eventsArray.forEach((element,index) => {
-    console.log(element[index],"sdfghjkl");
-    }) 
+    this.eventsArray.forEach((element, index) => {
+      console.log(element[index], "sdfghjkl");
+    })
 
     //  this.editEventForm.patchValue({
     //   date: editEventForm.controls.date.value,
@@ -188,11 +192,16 @@ export class CalendarComponent implements OnInit {
 
   onSubmit(addEventForm: FormGroup) {
 
+    let date = new Date(addEventForm.controls.start.value);
+    console.log(date);
+    var dateObj = new Date(date);
+    var momentObj = moment(dateObj);
+    var momentString = momentObj.format('YYYY-MM-DD');
+
     this.eventsArray.push({
-      // calendarDetailsId: this.CalendarId,
       batchName: this.selectedBatchName,
       date: addEventForm.controls.start.value,
-      topic: addEventForm.controls.title.value,
+      topic: momentString,
       subTopic: addEventForm.controls.subTopic.value
     })
     const CalendarData = {
@@ -203,7 +212,7 @@ export class CalendarComponent implements OnInit {
       this.toastr.success("Calendar Data Updated Successfully");
     }, err => {
       console.log(err);
-      this.toastr.error(err.message);
+      this.toastr.error(err.error.message);
     })
   }
 
@@ -225,23 +234,22 @@ export class CalendarComponent implements OnInit {
       }
     }, err => {
       console.log("err", err);
-      this.toastr.error(err.message);
+      this.toastr.error(err.error.message);
     })
   }
 
   onSubmitForm(Cform: FormGroup) {
     // console.log(this.Cform.value);
-
     let date = new Date(Cform.controls.startDate.value);
-    // console.log(date);
-    let finalDate = date.toLocaleDateString().split('/');
-    let newDate = `${finalDate[2]}-${finalDate[0]}-${finalDate[1]}`
-    // console.log(newDate);
+    console.log(date);
+    var dateObj = new Date(date);
+    var momentObj = moment(dateObj);
+    var momentString = momentObj.format('YYYY-MM-DD');
 
     const formData = {
       batchName: Cform.controls.batchName.value,
       technology: Cform.controls.technology.value,
-      startDate: newDate,
+      startDate: momentString,
       include: Cform.controls.include.value,
     }
     this.calendarService.postCalendar(formData).subscribe((res: any) => {
@@ -256,12 +264,11 @@ export class CalendarComponent implements OnInit {
     }, err => {
       console.log("err", err);
       this.toastr.error(err.error.message);
-      this.toastr.error('some error occured');
     })
   }
 
   visibleCalender(batchName: any, index: any) {
-    this.selectedBatchName = batchName;    
+    this.selectedBatchName = batchName;
     this.selectedTechnology = this.calendarListData[index].technology;
     this.selectedStartDate = this.calendarListData[index].startDate;
     this.selectedEndDate = this.calendarListData[index].endDate;

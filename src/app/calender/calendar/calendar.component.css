@@ -9,14 +9,37 @@
 }
 
 .page__content {
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     border-radius: 10px;
     margin-top: -2rem;
     background: white;
     color: black;
     overflow-y: scroll !important;
-    height: 550px !important;
+    height: 540px !important;
     cursor: pointer;
+}
+
+.calenderTable {
+    overflow-y: scroll !important;
+    height: 570px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    background-color: #EAEAEA !important
+}
+
+.calenderheader {
+    margin-top: 15px !important;
+    padding-left: 30px !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+}
+
+.table {
+    background-color: #FFFFFF !important;
+    border: 1px solid grey !important;
+    border-radius: 5px !important;
+    z-index: 5px !important;
+    padding: 0 !important;
 }
 
 ::-webkit-scrollbar {
@@ -188,10 +211,10 @@ mat-icon {
     body {
         font-size: 25px;
     }
-    .btncolor {
+    /* .btncolor {
         font-size: 10px;
         width: 110px
-    }
+    } */
     .batchSearch {
         width: 150px !important
     }
@@ -240,11 +263,11 @@ mat-icon {
             font-size: 11px;
         }
         .btncolor {
-            font-size: 9px;
-            width: 60px
+            font-size: 11px;
+            width: 90px
         }
         .batchSearch {
-            width: 90px !important
+            width: 100px !important
         }
         .modal-dialog {
             max-width: 500px;

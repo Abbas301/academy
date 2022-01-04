@@ -50,19 +50,12 @@ export class OnboardComponent implements OnInit {
   @ViewChildren("driverSubCheckbox") driverSubCheckbox!: QueryList<MatCheckbox>
   @ViewChild('uploadToc') uploadToc!: ElementRef;
   @ViewChild('resetButton') resetButton!: ElementRef;
+  @ViewChild('closeModal', { read: ElementRef }) closeModal!: ElementRef;
   @ViewChild('headerCheckbox') headerCheckbox!: MatCheckbox;
 
-  tyMentor = [
-    { value: 'pavan', viewValue: 'pavan' },
-    { value: 'gangadhar', viewValue: 'gangadhar' },
-    { value: 'divya', viewValue: 'divya' },
-    { value: 'manohar', viewValue: 'manohar' },
-    { value: 'rajesh', viewValue: 'rajesh' },
-  ];
-
   technologies = [
-    { value: 'JAVAWITHANGULAR', viewValue: 'JAVA WITH ANGULAR' },
-    { value: 'JAVAWITHANGULAR', viewValue: 'JAVA WITH REACT' }
+    { value: 'JAVA_WITH_ANGULAR', viewValue: 'JAVA_WITH_ANGULAR' },
+    { value: 'JAVA_WITH_REACT', viewValue: 'JAVA_WITH_REACT' }
   ];
 
   days = [
@@ -95,6 +88,7 @@ export class OnboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTrainerDetails();
+    this.getOnboard();
 
     this.batchForm = this.fb.group({
       location: new FormControl('', [Validators.required]),
@@ -106,12 +100,13 @@ export class OnboardComponent implements OnInit {
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()])
     });
-
+    
+  }
+  getOnboard() {
     this.onboardService.getOnboardList(this.status).subscribe(res => {
       this.CandidatesListData = res;
       console.log(this.CandidatesListData);
       this.dataSource.data = this.CandidatesListData.data;
-
     })
   }
 
@@ -327,11 +322,13 @@ export class OnboardComponent implements OnInit {
       if (res.error == false) {
         this.toastr.success('Batch Details Added Successfully');
         this.resetButton.nativeElement.click();
+        this.getOnboard();
         batchForm.reset();
+        this.closeModal.nativeElement.click();
       }
     }, err => {
       console.log(err, 'err');
-      this.toastr.error(err.message);
+      this.toastr.error(err.error.message);
     })
   }
 
