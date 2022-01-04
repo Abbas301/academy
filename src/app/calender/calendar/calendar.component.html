@@ -121,137 +121,6 @@
 
 </div>
 
-<!-- <div class="container-fluid page">
-
-    <div class="d-flex page__box p-3"> -->
-<!-- <div class="col-md-7 calen mt-3 mx-4">
-            <h4><b>Calendar List</b></h4>
-        </div>
-        <div class=" row col-md-5">
-            <div class="col-md-6 ">
-                <mat-form-field class="batchSearch" appearance="standard">
-                    <mat-label>Batch Name</mat-label>
-                    <input matInput type="search" [(ngModel)]="searchText">
-                    <mat-icon matSuffix>search</mat-icon>
-                </mat-form-field>
-            </div>
-            <div class="col-md-6 mt-2 Gcalendar">
-                <button type="button" class="btn btncolor" data-toggle="modal" data-target="#exampleModal">Generate
-          Calendar</button> -->
-
-
-<!-- Modal -->
-<!-- <div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header Gcalendar">
-                        <h2 class="modal-title" id="exampleModalLabel">New Calendar Generation</h2>
-                        <button type="button" #generateCalendarModal class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-8 offset-1">
-                                <form [formGroup]="Cform" (ngSubmit)="onSubmitForm(Cform)">
-                                    <div class="form-group">
-                                        <mat-form-field appearance="standard">
-                                            <mat-label>Batch Name</mat-label>
-                                            <mat-select formControlName="batchName" (selectionChange)="onChangeBatchName($event,Cform)">
-                                                <mat-option *ngFor="let batches of batch" [value]="batches.batchName">
-                                                    {{batches.batchName}}
-                                                </mat-option>
-                                            </mat-select>
-                                            <mat-error>This field is required *</mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="form-group">
-                                        <mat-form-field appearance="standard">
-                                            <mat-label>Technology</mat-label>
-                                            <input matInput formControlName="technology">
-                                            <mat-error>This field is required *</mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="form-group">
-                                        <mat-form-field appearance="standard" class="example-form-field">
-                                            <mat-label>Start Date</mat-label>
-                                            <input matInput [matDatepicker]="datepicker" formControlName="startDate">
-                                            <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-                                            <mat-datepicker #datepicker>
-                                            </mat-datepicker>
-                                            <mat-error>This field is required *</mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="form-group">
-                                        <mat-form-field appearance="standard">
-                                            <mat-label>Include</mat-label>
-                                            <mat-select formControlName="include" [(value)]="selected" multiple>
-                                                <mat-option value="SATURDAY">SATURDAY</mat-option>
-                                                <mat-option value="SUNDAY">SUNDAY</mat-option>
-                                                <mat-option value="HOLIDAYS">HOLIDAYS</mat-option>
-                                            </mat-select>
-                                            <mat-error>This field is required *</mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="p-3 d-flex justify-content-between">
-                                        <div></div>
-                                        <div class="d-inline">
-                                            <button type="reset" class="btn btn-light" #resetButton>reset</button>
-                                            <button type="submit" class="btn btn-color mx-3">Generate Calendar</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div> -->
-
-<!-- <div class="page__content"> -->
-<!-- <div class="page__content-data">
-
-        <table class="table table-borderless text-center" style="overflow-y:scroll">
-            <thead class="thead" style="background-color: #D6EFFA;">
-                <tr>
-                    <th>Sl.No</th>
-                    <th>Batch Name</th>
-                    <th>Technology</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Status -->
-<!-- <mat-icon>arrow_drop_down</mat-icon> -->
-<!-- </th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let calendar of calendarListData | tablefilter:searchText ; index as i">
-                    <td>{{i+1}}</td>
-                    <td>{{calendar.batchName}}</td>
-                    <td>{{calendar.technology}}</td>
-                    <td>{{calendar.startDate}}</td>
-                    <td>{{calendar.endDate}}</td>
-                    <td [ngClass]="{'text-primary':calendar.status === 'IN PROGRESS','text-warning':calendar.status == 'YET TO START','text-success':calendar.status == 'FINISHED' }">
-                        {{calendar.status}}</td>
-                    <td>
-                        <mat-icon class="icon" style="margin-left: 20px;" data-toggle="modal" data-target="#exampleModal2" (click)='visibleCalender(calendar.batchName,i)'>visibility</mat-icon>
-                        <mat-icon class="icon" data-toggle="modal" data-target="#exampleModal3" (click)='visibleCalender(calendar.batchName,i)'>edit
-                        </mat-icon>
-                        <mat-icon class="icon" data-toggle="modal" data-target="#exampleModalCenter" (click)="elementData(calendar)">delete_outline</mat-icon>
-                    </td>
-                </tr>
-            </tbody>
-        </table> -->
-
-<!-- </div>
-</div> -->
-
-
-
 <!-- Modal 2 -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal2 modal-dialog-centered">
@@ -262,7 +131,7 @@
         </button>
                 <div class="row ">
                     <div class="col-md-6">
-                        <h2>New Calendar Generation</h2>
+                        <h2>View Calendar</h2>
                     </div>
                     <div class="col-md-6 text-right">
                         <div class="dropdown ">
