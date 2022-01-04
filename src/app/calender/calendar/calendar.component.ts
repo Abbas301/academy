@@ -128,8 +128,7 @@ export class CalendarComponent implements OnInit {
       //   }
       // },
       events: this.calendarData,
-      dayCellContent: { html: `<i data-toggle="modal" (click)="${this.onEdit(this.element)}"  data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="padding-top:80px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>`},
-
+      dayCellContent : { html: `<i data-toggle="modal"  data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="margin-top:10px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button style="display:flex" class="pending btn">pending</button></div>`},
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'prevYear,nextYear',
@@ -153,12 +152,7 @@ export class CalendarComponent implements OnInit {
   }
 
   handleEventClick(element: Events) {
-    // console.log(element);
-    // console.log(this.eventsArray);
     this.eventsArray.forEach((element, index) => {
-      //  console.log(element);  
-      //  console.log(index);
-      //  this.calendarId = element.calendarEventId;
     })
 
   }
@@ -239,7 +233,6 @@ export class CalendarComponent implements OnInit {
   }
 
   onSubmitForm(Cform: FormGroup) {
-    // console.log(this.Cform.value);
     let date = new Date(Cform.controls.startDate.value);
     console.log(date);
     var dateObj = new Date(date);
