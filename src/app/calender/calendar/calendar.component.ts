@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, forwardRef, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, forwardRef, ElementRef, TemplateRef } from '@angular/core';
 declare let $: any;
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -9,7 +9,6 @@ import { HttpClient } from '@angular/common/http';
 import { CalendarService } from './calendar.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import * as events from 'events';
 import * as moment from 'moment';
 
 export interface Events {
@@ -39,7 +38,8 @@ export class CalendarComponent implements OnInit {
   successdata: any;
   searchText: any;
 
-  calendarData: Events[] = [];
+  // calendarData: Events[] = [];
+  calendarData: any = [];
   calendarList: any
   calenderObject: Calendar | undefined;
   Cform!: FormGroup;
@@ -54,6 +54,8 @@ export class CalendarComponent implements OnInit {
   @ViewChild('generateCalendarModal') generateCalendarModal!: ElementRef;
   @ViewChild('resetButton') resetButton!: ElementRef;
   @ViewChild('myModal') myModal!: ElementRef;
+  @ViewChild('closeModal',{ read: ElementRef}) closeModal!: ElementRef;
+  @ViewChild("fcEventContent") eventContent: TemplateRef<any>;
   value: any;
   monthSelect: any
   calendarListData: any;
@@ -71,6 +73,10 @@ export class CalendarComponent implements OnInit {
   EventsArrayData: any[];
   CalendarId: any;
   calendarId: any;
+  batchName: any;
+  candidateList = [];
+  candidates: any;
+  selectedTrainer: any;
 
   constructor(private http: HttpClient,
     private calendarService: CalendarService,
@@ -96,12 +102,16 @@ export class CalendarComponent implements OnInit {
     this.getCalendarData();
     this.calenderSetup();
     this.getBatch();
+    // this.getAllCandidates();
+    console.log(this.selectedBatchName);
+    
   }
 
   technologys = [
     { value: 'JAVA_WITH_ANGULAR', viewValue: 'JAVA_WITH_ANGULAR' },
     { value: 'JAVA_WITH_REACT', viewValue: 'JAVA_WITH_REACT' },
   ];
+
 
   calenderSetup() {
     this.calendarOptions = {
@@ -128,7 +138,30 @@ export class CalendarComponent implements OnInit {
       //   }
       // },
       events: this.calendarData,
-      dayCellContent : { html: `<i data-toggle="modal"  data-target="#myModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="margin-top:10px;"><button style="margin-right: 20px;" class="complete btn">complete</button><button style="display:flex" class="pending btn">pending</button></div>`},
+    //   eventContent: function(event, element) { 
+    //     element.find('.fc-title').append("<br/>" + event.description); 
+    // },
+    eventContent: { html: `<p>${this.selectedTitle }</p><p>${this.selectedSubTopic}</p><p>${this.selectedTrainer}</p>` },
+    //   dayHeaderContent: (args) => {
+    //     return moment(args.date).format('ddd')
+    // },
+    dayCellDidMount : function(arg){
+      if(arg.el.classList.contains("fc-daygrid-day")){
+        var theElement = arg.el.querySelectorAll(".fc-daygrid-day-frame > .fc-daygrid-day-events")[0]
+        setTimeout(function(){
+          if(theElement.querySelectorAll(".fc-daygrid-event-harness").length === 0){ 
+            theElement.innerHTML = theElement.innerHTML + '<div><i data-toggle="modal" data-target="#EditModal" class="fa fa-pencil fa-fw"></i></div><div class="text-center buttonsElement" style="margin-top:10px;"><button style="margin-right:3px;" class="complete btn">Complete</button><button class="pending btn">Pending</button></span></div>';
+          }
+        }, 10)
+      }
+    },
+  //   dayCellContent: function(info, create) {
+  //     const element = create('span', {
+  //        id: "fc-day-span-" + info.date.getDayOfYear()
+  //     }, info.dayNumberText);
+  //     return element;
+
+  //  },
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'prevYear,nextYear',
@@ -138,7 +171,13 @@ export class CalendarComponent implements OnInit {
       dateClick: this.handleDateClick.bind(this),
       eventClick: this.handleEventClick.bind(this),
       eventDragStop: this.handleEventDragStop.bind(this),
+    //   eventRender: function(event, element) { 
+    //     element.find('.fc-title').append("<br/>" + event.description); 
+    // } ,
     }
+  }
+  eventClick(event){
+    console.log(event);
   }
 
   handleDateClick(arg: any) {
@@ -147,14 +186,14 @@ export class CalendarComponent implements OnInit {
     $(".Modaltitle").text("Add Event at:" + arg.dateStr);
     $(".eventsstarttitle").text(arg.dateStr);
     this.addEventForm.get('start').patchValue(arg.dateStr);
-
-    this.myModal.nativeElement.click();
+    // this.handleEventClick(arg);
+    // const getDayOfYear = arg.dateStr;
+    // console.log(getDayOfYear);
+    
   }
 
   handleEventClick(element: Events) {
-    this.eventsArray.forEach((element, index) => {
-    })
-
+    console.log(element);
   }
 
   handleEventDragStop(arg: any) {
@@ -166,7 +205,9 @@ export class CalendarComponent implements OnInit {
     return this.calendarService.getCalendar().subscribe((data: any) => {
       this.calendarList = data;
       this.calendarListData = this.calendarList.data
-      // console.log(this.calendarListData);
+      console.log(this.calendarListData);
+      this.batchName = this.calendarListData[0].batchName
+      console.log(this.batchName);
     })
   }
 
@@ -194,8 +235,8 @@ export class CalendarComponent implements OnInit {
 
     this.eventsArray.push({
       batchName: this.selectedBatchName,
-      date: addEventForm.controls.start.value,
-      topic: momentString,
+      date: momentString,
+      topic: addEventForm.controls.title.value,
       subTopic: addEventForm.controls.subTopic.value
     })
     const CalendarData = {
@@ -204,6 +245,7 @@ export class CalendarComponent implements OnInit {
     }
     this.calendarService.updateCalendar(CalendarData).subscribe((res: any) => {
       this.toastr.success("Calendar Data Updated Successfully");
+      this.closeModal.nativeElement.click();
     }, err => {
       console.log(err);
       this.toastr.error(err.error.message);
@@ -260,6 +302,8 @@ export class CalendarComponent implements OnInit {
     })
   }
 
+  selectedTitle;
+  selectedSubTopic;
   visibleCalender(batchName: any, index: any) {
     this.selectedBatchName = batchName;
     this.selectedTechnology = this.calendarListData[index].technology;
@@ -279,8 +323,12 @@ export class CalendarComponent implements OnInit {
         obj.start = element.date
         obj.subTopic = element.subTopic
         obj.calendarDetailsId = element.calendarEventId
-        calendarData.push(obj)
+        calendarData.push(obj) 
+             
       });
+      this.selectedTitle = calendarData[index].title;
+      this.selectedSubTopic = calendarData[index].subTopic;  
+      // console.log(calendarData[index].subTopic);
 
       if (Array.isArray(calendarData) && calendarData.length > 0) {
         // console.log("calendarData", calendarData);
@@ -292,6 +340,7 @@ export class CalendarComponent implements OnInit {
         // console.log("calendarData", calendarData);
         console.log("Array is empty")
       }
+      this.getAllCandidates()
     })
     setTimeout(() => {
       this.calenderSetup()
@@ -322,6 +371,37 @@ export class CalendarComponent implements OnInit {
       }
     })
 
+  }
+
+  
+  getAllCandidates() {
+    console.log(this.selectedBatchName)
+    
+    this.calendarService.getSingleBatch(this.selectedBatchName).subscribe(res => {
+      this.candidateList = res['data'][0].assignTrainerList;
+      // this.TrainerData.forEach((ele) => {
+      //   if (ele.trainerName === event.value) {
+      //     const technology = []
+      //     console.log(ele.trainerTechnologies);
+      //     ele.trainerTechnologies.forEach(e => {
+      //       technology.push(e.technology)
+      //     });
+      //     console.log(technology);
+      
+      this.candidateList.forEach(candidate=>{
+        // console.log(candidate.assignTrainerName);
+        // this.selectedTrainer = candidate.assignTrainerName;
+      console.log(candidate.assignTrainerName);
+        const trainer = [];
+        candidate.selectedTrainer.forEach(element => {
+          trainer.push(element.assignTrainerName);
+        });
+        console.log(trainer);
+        
+      })
+      console.log(this.candidateList);
+      
+    });
   }
 
 }

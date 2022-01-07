@@ -76,6 +76,7 @@ export class OnboardComponent implements OnInit {
   ArrayData = [];
   trainerDetails: any;
   TrainerData: any;
+  fileName: string;
 
   constructor(private fb: FormBuilder,
     private onboardService: OnboardService,
@@ -268,7 +269,12 @@ export class OnboardComponent implements OnInit {
   }
 
   uploadTOC(event: Event) {
-    this.tocPath = (event.target as HTMLInputElement).files?.item(0)
+    this.tocPath = (event.target as HTMLInputElement).files?.item(0);
+    this.fileName = (event.target as HTMLInputElement).files[0].name;
+  }
+
+  refreshFile(){
+    this.fileName = null;
   }
 
   addBatch(batchForm: FormGroup) {
@@ -325,6 +331,7 @@ export class OnboardComponent implements OnInit {
         this.getOnboard();
         batchForm.reset();
         this.closeModal.nativeElement.click();
+        this.refreshFile();
       }
     }, err => {
       console.log(err, 'err');
@@ -332,6 +339,14 @@ export class OnboardComponent implements OnInit {
     })
   }
 
+  resetFormData() {
+    this.batchForm.reset();
+    this.refreshData();
+  }
+
+  refreshData() {
+    this.fileName = null;
+  }
 
   getTrainerDetails() {
     this.onboardService.getTrainerData().subscribe((res: any) => {
@@ -357,13 +372,6 @@ export class OnboardComponent implements OnInit {
       }
     })
 
-  }
-  buttonShow = false;
-  buttonHide = true;
-  visibleButton() {
-    if ((this.headerCheckbox as MatCheckbox).checked) {
-      this.buttonShow == true;
-    }
   }
 
 

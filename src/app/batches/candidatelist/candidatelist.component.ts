@@ -10,6 +10,11 @@ import { HttpClient } from '@angular/common/http';
 import { data } from 'jquery';
 import { ToastrService } from '../../../../node_modules/ngx-toastr';
 import { MatCheckbox } from '@angular/material/checkbox';
+// calendar
+import { CalendarOptions } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 
 export interface Details {
   candidateName: string;
@@ -43,6 +48,7 @@ export class CandidatelistComponent implements OnInit {
   id: any;
   batchName: any;
   batchType: any;
+  calendarOptions !: CalendarOptions;
 
   @ViewChild('modalOpenButton') modalOpenButton!: ElementRef;
   @ViewChild('closeBtn') closeBtn!: ElementRef;
@@ -58,6 +64,18 @@ export class CandidatelistComponent implements OnInit {
   deleteElement = [];
   CandidateListData: any;
   array: any[] = [];
+  selectedBatchName: any;
+  selectedTechnology: any;
+  selectedStartDate: any;
+  selectedEndDate: any;
+  calendarListData: any;
+  calendarList: any;
+  calendarEvents: Object;
+  eventsArray: any;
+  calendarData: any[];
+  CalendarId: any;
+  candidateList: any;
+  candidateId: string;
 
 
   constructor(private router: Router,
@@ -66,13 +84,10 @@ export class CandidatelistComponent implements OnInit {
     private toastr: ToastrService
   ) { }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void {    
     this.ActivatedRouter.queryParams
       .subscribe(params => {
         this.batchName = params.batchName;
-        console.log(this.batchName);
-
       });
 
     this.Cform = new FormGroup({
@@ -93,6 +108,10 @@ export class CandidatelistComponent implements OnInit {
     })
 
     this.getAllCandidates()
+    this.calenderSetup();
+    this.getCalendarData();
+    console.log(this.calendarListData);
+
   }
 
   branches = [
@@ -113,19 +132,16 @@ export class CandidatelistComponent implements OnInit {
 
   getAllCandidates() {
     this.candidateList = [];
-    console.log(this.batchName);
     this.batchService.getSingleBatch(this.batchName).subscribe(res => {
       this.candidateList = res;
-      console.log(this.candidateList);
-
+      // console.log(this.candidateList);
       this.candidates = this.candidateList.data[0];
-      console.log(this.candidates, 'candidates');
-
+      // console.log(this.candidates, 'candidates');
       this.details = this.candidateList.data[0].candidateList;
       console.log(this.details);
       setTimeout(() => {
         this.dataSource.data = this.details;
-        console.log(this.dataSource.data);
+        // console.log(this.dataSource.data);
         this.dataSource.paginator = this.paginator;
       }, 500);
     });
@@ -259,15 +275,95 @@ export class CandidatelistComponent implements OnInit {
     this.buttonShow = !this.buttonShow;
   }
 
-  //  toogleBool = true;
-  //  changeEvent(event) {
-  //   if (event.target.checked) {
-  //       this.toggleBool= false;
-  //   }
-  //   else {
-  //       this.toggleBool= true;
-  //   }
-  // }
+  getCalendarData() {
+    return this.batchService.getCalendar().subscribe(data => {
+      this.calendarList = data;
+      this.calendarListData = this.calendarList.data
+      console.log(this.calendarListData);
+    })
+  }
+
+
+  calenderSetup() {
+    this.calendarOptions = {
+      plugins: [dayGridPlugin, interactionPlugin],
+      editable: true,
+      droppable: true,
+      selectable: true,
+      eventColor: "#086288",
+      eventStartEditable: true,
+      eventBackgroundColor: "#fff",
+      eventBorderColor: "#fff",
+      eventTextColor: "black",
+      height: 700,
+      // dayRender: (info) => {
+      //   info.el.innerHTML += "<button class='dayButton' data-date='" + info.date + "'>Click me</button>";
+      //   info.el.style.padding = "20px 0 0 10px";
+      // },
+      contentHeight: 600,
+      events: this.calendarData,
+      dayCellContent : { html: `<i data-toggle="modal" data-target="#EditModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="margin-top:10px;"><button style="margin-right:0.8px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>`},
+      initialView: 'dayGridMonth',
+      headerToolbar: {
+        left: 'prevYear,nextYear',
+        center: 'title',
+        right: 'dayGridMonth prev,next'
+      },
+      dateClick: this.handleDateClick.bind(this),
+      eventClick: this.handleEventClick.bind(this),
+      eventDragStop: this.handleEventDragStop.bind(this),
+    }
+  }
+  handleDateClick(arg:any) {
+    console.log(arg);
+    
+  }
+  handleEventClick(arg:any) {
+    console.log(arg);
+    
+  }
+  handleEventDragStop(arg:any) {
+    console.log(arg);
+    
+  }
+
+  visibleCalender(batchName: any) {  
+    console.log(batchName);
+     
+    this.selectedBatchName = batchName;
+    // if(batchName == )
+    
+
+    this.batchService.getCalendarEvents(batchName).subscribe(res => {
+      this.calendarEvents = res['data'];
+      this.eventsArray = this.calendarEvents;
+      var calendarData: any = []
+      this.eventsArray.forEach((element: any, index: any) => {
+        let obj = { id: '', title: '', start: '', subTopic: '', calendarDetailsId: '' }
+        obj.id = index
+        obj.title = element.topic
+        obj.start = element.date
+        obj.subTopic = element.subTopic
+        obj.calendarDetailsId = element.calendarEventId
+        calendarData.push(obj)        
+      });
+
+      if (Array.isArray(calendarData) && calendarData.length > 0) {
+        // console.log("calendarData", calendarData);
+        this.calendarData = calendarData;
+        this.calendarOptions.events = calendarData;
+        this.calenderSetup()
+      }
+      else {
+        // console.log("calendarData", calendarData);
+        console.log("Array is empty")
+      }
+    })
+    setTimeout(() => {
+      this.calenderSetup();
+    },500);
+  }
+
 }
 
 

@@ -24,7 +24,7 @@
     height: 570px;
     padding-left: 20px !important;
     padding-right: 20px !important;
-    background-color: #EAEAEA !important
+    background-color: #EAEAEA !important;
 }
 
 .calenderheader {
@@ -34,7 +34,7 @@
     font-size: 16px !important;
 }
 
-.table {
+:host .table {
     background-color: #FFFFFF !important;
     border: 1px solid grey !important;
     border-radius: 5px !important;
@@ -97,6 +97,13 @@ mat-icon {
 :host ::ng-deep .mat-error {
     font-size: 13px !important;
 }
+
+
+/* :host ::ng-deep .table {
+    -moz-border-radius: 10px!important;
+    -webkit-border-radius: 10px!important;
+    border-radius: 10px!important;
+} */
 
 
 /* full calendar css */
@@ -172,6 +179,10 @@ mat-icon {
     background-color: grey;
     opacity: 0.7;
     color: #fff;
+}
+
+:host ::ng-deep .fc-day-other {
+    visibility: hidden!important;
 }
 
 

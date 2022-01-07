@@ -53,6 +53,90 @@ th {
 }
 
 
+/* full calendar css */
+
+.calendar {
+    margin: 3%;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+::ng-deep .fc-col-header-cell.fc-day {
+    background-color: #086288 !important;
+    height: 40px;
+}
+
+::ng-deep .fc-col-header-cell-cushion {
+    padding-top: 10px !important;
+}
+
+::ng-deep .fc .fc-col-header-cell-cushion {
+    display: inline-block;
+    padding: 2px 4px;
+    color: white;
+}
+
+::ng-deep .fc-daygrid-day-number {
+    color: black !important;
+    text-decoration: none !important;
+}
+
+::ng-deep .fc-day-sun {
+    background-color: #FFF0F0 !important;
+}
+
+ ::ng-deep .fc-day-sun .fc-daygrid-day-number {
+    color: red!important;
+}
+
+::ng-deep .fc-day-today div.fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
+    border: 1px solid #42AEDC!important;
+    background-color: #CEFFE3!important;
+}
+
+ ::ng-deep .pending {
+    visibility: hidden!important;
+    font-size: 10px;
+}
+
+::ng-deep .pending:hover {
+    background-color: red !important;
+    color: #fff;
+}
+
+::ng-deep .buttonsElement:hover .pending {
+    visibility: visible!important;
+    background-color: grey;
+    opacity: 0.7;
+    color: #fff;
+}
+
+ ::ng-deep .complete {
+    visibility: hidden!important;
+    font-size: 10px;
+}
+
+ ::ng-deep .complete:hover {
+    background-color: green !important;
+    color: #fff;
+}
+
+ ::ng-deep .buttonsElement:hover .complete {
+    visibility: visible!important;
+    background-color: grey;
+    opacity: 0.7;
+    color: #fff;
+}
+
+:host ::ng-deep .fc-day-other {
+    visibility: hidden!important;
+}
+
+.modal2 {
+    max-width: 1250px;
+}
+
+
 /* delete buttons */
 
 .confirmbtn {

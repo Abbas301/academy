@@ -41,4 +41,8 @@ export class CalendarService {
     return this.http.get(`${environment.baseUrl}/api/v1/academy-inventory/batch-details`)
   }
 
+  getSingleBatch(batchName:any) {
+    return this.http.get(`${environment.baseUrl}/api/v1/academy-inventory/batch-details/${batchName}`);
+  }
+
 }

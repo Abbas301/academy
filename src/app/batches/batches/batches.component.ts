@@ -81,6 +81,8 @@ export class BatchesComponent implements OnInit {
   trainerDetails: any;
   TrainerData: any;
   trainerTechnology: any;
+  file: string;
+  fileName: string;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -106,6 +108,7 @@ export class BatchesComponent implements OnInit {
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()]),
       candidates: new FormArray([this.createCandidate()]),
+      uploadXL: new FormControl('',),
     });
 
   }
@@ -383,22 +386,25 @@ export class BatchesComponent implements OnInit {
     formData.append('tocFile', file)
     this.batchService.postBatchData(formData).subscribe((res: any) => {
       console.log("batch details added successfully");
-      // if (res.error == false) {
         this.toastr.success('Batch Details Added Successfully');
         batchForm.reset();
         this.closeModal.nativeElement.click();
         this.getBatch();
-        // this.resetFormData();
-        // $('#closemodal').modal('hide');
-      // }
+        this.refreshFile();
     }, err => {
       console.log(err);
       this.toastr.error(err.error.message);
     })
   }
 
+  resetFormData() {
+     this.batchForm.reset();
+     this.refreshFile();
+  }
+
   uploadTOC(event: Event) {
-    this.tocPath = (event.target as HTMLInputElement).files?.item(0)
+    this.tocPath = (event.target as HTMLInputElement).files?.item(0);
+    this.fileName = (event.target as HTMLInputElement).files[0].name;
   }
 
   // upload file
@@ -434,9 +440,14 @@ export class BatchesComponent implements OnInit {
         });
         console.log(this.csvResult);
       }
+      this.file = (event.target as HTMLInputElement).files[0].name;
     } else {
       this.toastr.warning('File Size is more than 3MB', 'Warning');
     }
+  }
+  refreshFile(){
+    this.file = null;
+    this.fileName = null;
   }
 
   saveToExcel() {

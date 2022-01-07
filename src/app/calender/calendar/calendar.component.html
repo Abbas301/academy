@@ -111,7 +111,7 @@
                     {{calendar.status}}</td>
                 <td>
                     <mat-icon class="icon" matTooltip="View" style="margin-left: 20px;" data-toggle="modal" data-target="#exampleModal2" (click)='visibleCalender(calendar.batchName,i)'>visibility</mat-icon>
-                    <mat-icon class="icon" matTooltip="Edit" data-toggle="modal" data-target="#exampleModal3" (click)='visibleCalender(calendar.batchName,i)'>edit
+                    <mat-icon class="icon" matTooltip="Ed2it" data-toggle="modal" data-target="#exampleModal3" (click)='visibleCalender(calendar.batchName,i)'>edit
                     </mat-icon>
                     <mat-icon class="icon" matTooltip="Delete" data-toggle="modal" data-target="#exampleModalCenter" (click)="elementData(calendar)">delete_outline</mat-icon>
                 </td>
@@ -158,7 +158,12 @@
                 </div>
                 <div class="calendar">
                     <div class="p-3">
-                        <full-calendar *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions"></full-calendar>
+                        <full-calendar id="calendar" *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions">
+                            <!-- <ng-template #fcEventContent let-arg='arg'>
+                                <b>{{ arg.timeText }}</b>
+                                <i>{{ 2+3 }}</i>
+                            </ng-template> -->
+                        </full-calendar>
                     </div>
                 </div>
             </div>
@@ -204,19 +209,17 @@
                 </div>
                 <div class="calendar">
                     <div class="p-3">
-                        <full-calendar *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions"></full-calendar>
+                        <full-calendar (click)="eventClick($event)" *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions"></full-calendar>
 
                         <button #modalOpenButton type="button" hidden data-target="#myModal" data-toggle="modal"></button>
 
-                        <div class="modal" id="myModal">
+                        <div class="modal" id="myModal" data-backdrop="static">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-
                                     <div class="modal-header">
                                         <h4 class="modal-title Modaltitle align-center"></h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <button type="button" #closeModal class="close" data-dismiss="modal">&times;</button>
                                     </div>
-
                                     <div class="modal-body">
                                         <form [formGroup]="addEventForm">
                                             <div class="row">
@@ -269,55 +272,42 @@
     </div>
 </div>
 
-<!--- delete-sucess-popup-modal -->
 
-<div class="modal fade" id="confirm" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<!-- Edit Calendar -->
+<!-- <button #modalOpenButton type="button" hidden data-target="#EditModal" data-toggle="modal"></button> -->
+<!-- <div class="modal" id="EditModal">
+    <div class="modal-dialog">
         <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title Modaltitle align-center">Edit Event</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
             <div class="modal-body">
-                <img class="deletelogo" src="../../../assets/images/—Pngtree—check mark icon design template_4085369 (1).png" alt="">
-                <h1 style="text-align: center;">Calendar Successfully Deleted</h1>
-                <button type="button" class="btn okbtn" data-dismiss="modal">OK</button>
+                <form [formGroup]="editEventForm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group ">
+                                <input type="date" class="form-control eventsstarttitle" formControlName="start">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Topic</label>
+                                <input placeholder="Add Topic" type="text" formControlName="title" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Sub Topic</label>
+                                <input placeholder="Sub Topic" type="text" formControlName="subTopic" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
         </div>
     </div>
-</div>
-
-
-<!-- Edit Calendar -->
-<!-- <div class="modal" id="EditModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h4 class="modal-title Modaltitle align-center"></h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <div class="modal-body">
-        <form [formGroup]="editEventForm">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="form-group ">
-                <input type="date" class="form-control eventsstarttitle" formControlName="start">
-              </div>
-            </div>
-            <div class="col-sm-12">
-              <div class="form-group">
-                <label>Topic</label>
-                <input placeholder="Add Topic" type="text" formControlName="title" class="form-control">
-              </div>
-            </div>
-            <div class="col-sm-12">
-              <div class="form-group">
-                <label>Sub Topic</label>
-                <input placeholder="Sub Topic" type="text" formControlName="subTopic" class="form-control">
-              </div>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary" >Submit</button>
-        </form>
-      </div>
-    </div>
-  </div>
 </div> -->

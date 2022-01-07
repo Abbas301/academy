@@ -9,7 +9,7 @@
     margin-top: 1rem;
     background: white;
     color: black;
-    height: 610px;
+    height: 540px;
 }
 
 .container {
@@ -61,7 +61,7 @@ table {
     width: 100%;
 }
 
-::ng-deep .tables {
+:host ::ng-deep .tables {
     position: relative;
     min-height: 200px;
     max-height: 500px;
@@ -150,7 +150,6 @@ td.mat-footer-cell {
 }
 
 .upload {
-    width: 60.33%;
     padding-left: 40px;
 }
 
@@ -328,7 +327,7 @@ mat-icon {
     top: 5px;
     left: 0px;
     padding: 5px 10px;
-    font-size: 15px;
+    font-size: 14px;
     text-align: center;
     cursor: pointer;
     background-color: #086288;
@@ -338,6 +337,6 @@ mat-icon {
 
 #myInp {
     position: absolute;
-    left: 8px;
+    left: 3px;
     top: 8px;
 }

@@ -33,7 +33,7 @@
         <table class="table  table-bordered mt-3" style="vertical-align: middle;">
             <thead class="table-header">
                 <tr>
-                    <th rowspan="2" style="vertical-align: middle;z-index: 0;" class="fixed">Trainer Name</th>
+                    <th rowspan="2" style="vertical-align: middle;z-index: 5;" class="fixed">Trainer Name</th>
                     <th *ngFor="let techType of technologyType" [attr.colspan]="techType==='Frontend'?FrontendTechnologies[0]?.value.length:techType==='Backend'?BackendTechnologies[0]?.value.length:techType==='Database'?DatabaseTechnologies[0]?.value.length:0">
                         {{techType}}
                     </th>
@@ -66,8 +66,8 @@
                     </ng-container>
                     <ng-container>
                         <td>
-                            <mat-icon class="icons pr-3" matTooltip="Edit" data-toggle="modal" data-target="#exampleModal" (click)="updateTrainerData(trainer)">edit</mat-icon>
-                            <mat-icon class="icons" matTooltip="Delete" data-toggle="modal" data-target="#exampleModalCenter" (click)="deleteConfirm(trainer)">delete_outline</mat-icon>
+                            <mat-icon class="icons pr-3" data-toggle="modal" matTooltip="Edit" data-target="#exampleModal" (click)="updateTrainerData(trainer)">edit</mat-icon>
+                            <mat-icon class="icons" data-toggle="modal" matTooltip="Delete" data-target="#exampleModalCenter" (click)="deleteConfirm(trainer)">delete_outline</mat-icon>
                         </td>
                     </ng-container>
                 </tr>
@@ -94,13 +94,13 @@
                         <div class="header hdata">
                             <mat-form-field>
                                 <input type="text" formControlName="trainerName" matInput appearance="standard" placeholder="Trainer Name">
-                                <mat-error *ngIf="trainerForm.controls.trainerName.errors?.required">TrainerName is required *</mat-error>
-                                <mat-error *ngIf="trainerForm.controls.trainerName.errors?.minlength">TrainerName is required *</mat-error>
+                                <mat-error *ngIf="trainerForm.controls.trainerName.errors?.required">TrainerName is Required *</mat-error>
+                                <mat-error *ngIf="trainerForm.controls.trainerName.errors?.minlength">TrainerName is Required *</mat-error>
                             </mat-form-field>
                             <mat-form-field>
                                 <input type="text" formControlName="emailId" matInput appearance="standard" placeholder="Trainer EmailId">
-                                <mat-error *ngIf="trainerForm.controls.emailId.errors?.required">emailId is required *</mat-error>
-                                <mat-error *ngIf="trainerForm.controls.emailId.errors?.pattern">Enter Valid emailId*</mat-error>
+                                <mat-error *ngIf="trainerForm.controls.emailId.errors?.required">EmailId is Required *</mat-error>
+                                <mat-error *ngIf="trainerForm.controls.emailId.errors?.pattern">Enter Valid EmailId*</mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                                                         {{Technology_type.viewValue}}
                                                     </mat-option>
                                                 </mat-select>
-                                                <mat-error>Technology type required *</mat-error>
+                                                <mat-error>Technology Type Required *</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group data ">
@@ -129,7 +129,7 @@
                                                         {{Technologie.viewValue}}
                                                     </mat-option>
                                                 </mat-select>
-                                                <mat-error>Technologies required *</mat-error>
+                                                <mat-error>Technologies Required *</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group  data">
@@ -140,7 +140,7 @@
                                                         {{Proficiency.viewValue}}
                                                     </mat-option>
                                                 </mat-select>
-                                                <mat-error>Proficiency level required *</mat-error>
+                                                <mat-error>Proficiency Level Required *</mat-error>
                                             </mat-form-field>
                                         </div>
                                     </div>
@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="reset" class="btn btn-light" #resetpostmodal>Reset</button>
+                        <button type="reset" class="btn newbtn" #resetpostmodal>Reset</button>
                         <button type="submit" class="btn  subbtn" (click)="postTrainer(trainerForm)">Submit</button>
                     </div>
                 </form>
