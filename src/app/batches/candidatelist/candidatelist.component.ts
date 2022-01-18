@@ -84,7 +84,7 @@ export class CandidatelistComponent implements OnInit {
     private toastr: ToastrService
   ) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.ActivatedRouter.queryParams
       .subscribe(params => {
         this.batchName = params.batchName;
@@ -295,14 +295,23 @@ export class CandidatelistComponent implements OnInit {
       eventBackgroundColor: "#fff",
       eventBorderColor: "#fff",
       eventTextColor: "black",
-      height: 700,
-      // dayRender: (info) => {
-      //   info.el.innerHTML += "<button class='dayButton' data-date='" + info.date + "'>Click me</button>";
-      //   info.el.style.padding = "20px 0 0 10px";
-      // },
+      height: 800,
       contentHeight: 600,
       events: this.calendarData,
-      dayCellContent : { html: `<i data-toggle="modal" data-target="#EditModal" class="fa fa-pencil fa-fw"></i><div class="buttonsElement" style="margin-top:10px;"><button style="margin-right:0.8px;" class="complete btn">complete</button><button class="pending btn">pending</button></div>`},
+    eventContent: { html: `<p>${this.selectedTitle }</p><p>${this.selectedSubTopic}</p><p>${this.selectedTrainer}</p>` },
+    //   dayHeaderContent: (args) => {
+    //     return moment(args.date).format('ddd')
+    // },
+    dayCellDidMount : function(arg){
+      if(arg.el.classList.contains("fc-daygrid-day")){
+        var theElement = arg.el.querySelectorAll(".fc-daygrid-day-frame > .fc-daygrid-day-events")[0]
+        setTimeout(function(){
+          if(theElement.querySelectorAll(".fc-daygrid-event-harness").length === 0){
+            theElement.innerHTML = theElement.innerHTML + '<div><i data-toggle="modal" data-target="#EditModal" class="fa fa-pencil fa-fw"></i></div><div class="text-center buttonsElement" style="margin-top:10px;"><button style="margin-right:3px;" class="complete btn">Complete</button><button class="pending btn">Pending</button></span></div>';
+          }
+        }, 10)
+      }
+    },
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'prevYear,nextYear',
@@ -316,23 +325,25 @@ export class CandidatelistComponent implements OnInit {
   }
   handleDateClick(arg:any) {
     console.log(arg);
-    
+
   }
   handleEventClick(arg:any) {
     console.log(arg);
-    
+
   }
   handleEventDragStop(arg:any) {
     console.log(arg);
-    
+
   }
 
-  visibleCalender(batchName: any) {  
+  selectedTitle:any;
+  selectedSubTopic:any;
+  visibleCalender(batchName: any) {
     console.log(batchName);
-     
+
     this.selectedBatchName = batchName;
     // if(batchName == )
-    
+
 
     this.batchService.getCalendarEvents(batchName).subscribe(res => {
       this.calendarEvents = res['data'];
@@ -345,9 +356,12 @@ export class CandidatelistComponent implements OnInit {
         obj.start = element.date
         obj.subTopic = element.subTopic
         obj.calendarDetailsId = element.calendarEventId
-        calendarData.push(obj)        
-      });
+        calendarData.push(obj)
+        // console.log(calendarData[index].title);
+        this.selectedTitle = calendarData[index].title;
+        this.selectedSubTopic = calendarData[index].subTopic;
 
+      });
       if (Array.isArray(calendarData) && calendarData.length > 0) {
         // console.log("calendarData", calendarData);
         this.calendarData = calendarData;
@@ -358,10 +372,25 @@ export class CandidatelistComponent implements OnInit {
         // console.log("calendarData", calendarData);
         console.log("Array is empty")
       }
+      this.getAllDetails();
     })
     setTimeout(() => {
       this.calenderSetup();
     },500);
+  }
+
+  getAllDetails() {
+    // console.log(this.selectedBatchName);
+    this.batchService.getSingleCalendarBatch(this.selectedBatchName).subscribe(res => {
+      this.candidateList = res['data'][0].assignTrainerList;
+      console.log(this.candidateList);
+      const trainer = [];
+      for(var i=0 ; i <= this.candidateList.length;i++) {
+            trainer.push(this.candidateList[i]?.assignTrainerName);
+            this.selectedTrainer = trainer;
+            // console.log(this.selectedTrainer);
+      }
+    });
   }
 
 }

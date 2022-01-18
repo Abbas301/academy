@@ -9,11 +9,13 @@ import { CalendarComponent } from './calendar/calendar.component';
 
 import {MatSelectModule} from '@angular/material/select';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @NgModule({
   declarations: [
     CalendarComponent,
-    TablefilterPipe
+    TablefilterPipe,
+    SpinnerComponent
   ],
   imports: [
     MatSelectModule,
@@ -22,7 +24,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
-    FullCalendarModule
+    FullCalendarModule,
   ]
 })
 export class CalendarModule { }

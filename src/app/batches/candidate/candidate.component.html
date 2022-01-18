@@ -143,7 +143,7 @@
                 <div class="col-md-10">
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-color batch" (click)="onSubmit(rform)">Submit</button>
+                    <button type="submit" class="btn btn-color batch" [disabled]="rform.invalid" (click)="onSubmit(rform)">Submit</button>
                 </div>
             </div>
         </form>

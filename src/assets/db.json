@@ -1,576 +1,533 @@
 {
-  "details": [
-    {
-      "employeeId": "TYP0001",
-      "trainerName": "Shrath",
-      "frontend": [
-        {
-          "name": "Html",
-          "Proficiency": "Proficient"
+    "error": false,
+    "message": "Events found successfully for the given batchname",
+    "data": [{
+            "calendarEventId": 6926,
+            "date": "2022-01-18",
+            "day": "TUESDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "core java",
+            "subTopic": "Introduction to java, Methods, Class and objects, Class members",
+            "progressStatus": null
         },
         {
-          "name": "Css",
-          "Proficiency": "0"
+            "calendarEventId": 6927,
+            "date": "2022-01-19",
+            "day": "WEDNESDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "core java",
+            "subTopic": "Inheritance, Constructor",
+            "progressStatus": null
         },
         {
-          "name": "Javascript",
-          "Proficiency": "Proficient"
+            "calendarEventId": 6928,
+            "date": "2022-01-20",
+            "day": "THURSDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "core java",
+            "subTopic": "Absraction, Packages and access specifiers, Coding conventions and logging ",
+            "progressStatus": null
         },
         {
-          "name": "Angular",
-          "Proficiency": "NA"
+            "calendarEventId": 6929,
+            "date": "2022-01-21",
+            "day": "FRIDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "core java",
+            "subTopic": "Has-a relationship, Encapsulation, Polymorphism",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6930,
+            "date": "2022-01-22",
+            "day": "SATURDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "core java",
+            "subTopic": "Array, Access modifiers, Object",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6931,
+            "date": "2022-01-23",
+            "day": "SUNDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "core java",
+            "subTopic": " String, Wrapper class",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6932,
+            "date": "2022-01-24",
+            "day": "MONDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "core java",
+            "subTopic": "Exception handling, Collection",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6933,
+            "date": "2022-01-25",
+            "day": "TUESDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "core java",
+            "subTopic": "Collection",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6934,
+            "date": "2022-01-26",
+            "day": "WEDNESDAY",
+            "status": "HOLIDAY",
+            "description": "republic day",
+            "batchName": "B12JANJA_95757",
+            "topic": "none",
+            "subTopic": "none",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6935,
+            "date": "2022-01-27",
+            "day": "THURSDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "core java",
+            "subTopic": "Collection",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6936,
+            "date": "2022-01-28",
+            "day": "FRIDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "core java",
+            "subTopic": "Threads, Java 8 features",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6937,
+            "date": "2022-01-29",
+            "day": "SATURDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "Log4J ",
+            "subTopic": "Log4J",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6938,
+            "date": "2022-01-30",
+            "day": "SUNDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "Junit",
+            "subTopic": "Junit 5 Testing",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6939,
+            "date": "2022-01-31",
+            "day": "MONDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "SQL",
+            "subTopic": "Introduction, Constraints, Operators, Data Definition Language, Data Manipulation Language, Transaction Control Language, Data Query Language",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6940,
+            "date": "2022-02-01",
+            "day": "TUESDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "SQL",
+            "subTopic": "Data Control Language, Functions, Sub Queries, Joins, Stored Procedures, Views",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6941,
+            "date": "2022-02-02",
+            "day": "WEDNESDAY",
+            "status": "HOLIDAY",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "none",
+            "subTopic": "none",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6942,
+            "date": "2022-02-03",
+            "day": "THURSDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "J2EE ",
+            "subTopic": "JDBC (DAY 1)",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6943,
+            "date": "2022-02-04",
+            "day": "FRIDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "J2EE ",
+            "subTopic": "JDBC (DAY 2)",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6944,
+            "date": "2022-02-05",
+            "day": "SATURDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "J2EE ",
+            "subTopic": "JPA with Hibernate (DAY1)",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6945,
+            "date": "2022-02-06",
+            "day": "SUNDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "J2EE ",
+            "subTopic": "JPA with Hibernate (DAY 2)",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6946,
+            "date": "2022-02-07",
+            "day": "MONDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "J2EE ",
+            "subTopic": "Design Pattern (DAY 1)",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6947,
+            "date": "2022-02-08",
+            "day": "TUESDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "J2EE",
+            "subTopic": "Servlets Introduction",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6948,
+            "date": "2022-02-09",
+            "day": "WEDNESDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "J2EE",
+            "subTopic": "JSP",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6949,
+            "date": "2022-02-10",
+            "day": "THURSDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "Spring Core",
+            "subTopic": "IOC Container, Beans, Dependency Injection, Wiring Beans",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6950,
+            "date": "2022-02-11",
+            "day": "FRIDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "Spring Core",
+            "subTopic": "Bean Container, Lifecycle of Bean, Scope of Bean, Customizing beans with BeanPostProcessors &BeanFactoryPostProcessors",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6951,
+            "date": "2022-02-12",
+            "day": "SATURDAY",
+            "status": "HOLIDAY",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "none",
+            "subTopic": "none",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6952,
+            "date": "2022-02-13",
+            "day": "SUNDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "Spring Core",
+            "subTopic": "Annotations, XML-Annotations-based and mixed configurations, Java Configuration,  Spring Aware Interfaces",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6953,
+            "date": "2022-02-14",
+            "day": "MONDAY",
+            "status": "HOLIDAY",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "none",
+            "subTopic": "none",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6954,
+            "date": "2022-02-15",
+            "day": "TUESDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "Spring MVC",
+            "subTopic": "Introduction & Flow of Spring MVC / WEBMVC, DispatcherServlet, Controller Classes",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6955,
+            "date": "2022-02-16",
+            "day": "WEDNESDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "Spring MVC",
+            "subTopic": "Annotation-based controller configuration, Redirect, Forward & Include,  Attributes",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6956,
+            "date": "2022-02-17",
+            "day": "THURSDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "Spring MVC",
+            "subTopic": "Cookies, Session, Steps to work with session",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6957,
+            "date": "2022-02-18",
+            "day": "FRIDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "Spring MVC",
+            "subTopic": "Handler mappings, Resolving views, Filters & Interceptors, Datasources",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6958,
+            "date": "2022-02-19",
+            "day": "SATURDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "Spring JPA Integration",
+            "subTopic": "Spring support for JPA , Implementing Spring JPA integration, Spring Data",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6959,
+            "date": "2022-02-20",
+            "day": "SUNDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "Spring Rest",
+            "subTopic": "Overview of Web Services, Introduction to XML, Introduction to JAXB API, Introduction to JSON, HTTP Protocol, URI-URL & URN, Spring REST",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6960,
+            "date": "2022-02-21",
+            "day": "MONDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "Spring Boot",
+            "subTopic": "Getting started with Spring Boot, Customizing configuration, Testing with Spring Boot, Spring Boot DevOps Tools",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6961,
+            "date": "2022-02-22",
+            "day": "TUESDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "HTML5",
+            "subTopic": "HTML5 Basics, Tables, List, Anchors and Hyperlinks, Image Handling, HTML Forms, Sectioning Element",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6962,
+            "date": "2022-02-23",
+            "day": "WEDNESDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "CSS3",
+            "subTopic": "Introduction to CSS3, Selectors, Fonts and Text Effect, Color-Gradients-Background Images and Masks, Border and Box Effects",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6963,
+            "date": "2022-02-24",
+            "day": "THURSDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "Bootstrap",
+            "subTopic": "Introduction to Bootstrap, Bootstrap grid system, Bootstrap with CSS, Bootstrap ComponentS",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6964,
+            "date": "2022-02-25",
+            "day": "FRIDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "JavaScript",
+            "subTopic": "Introduction to JavaScript, JavaScript Language, Working with Predefined Core Objects, Working with arrays",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6965,
+            "date": "2022-02-26",
+            "day": "SATURDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "JavaScript",
+            "subTopic": "Document Object Model, Browser Object Model, Working with Form Object, Work with Regular Expressions",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6966,
+            "date": "2022-02-27",
+            "day": "SUNDAY",
+            "status": "HOLIDAY",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "none",
+            "subTopic": "none",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6967,
+            "date": "2022-02-28",
+            "day": "MONDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "JavaScript",
+            "subTopic": "Closures-Callbacks and Recursion, JSON, . ES6 Features ",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6968,
+            "date": "2022-03-01",
+            "day": "TUESDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "React.js",
+            "subTopic": "React Introduction, React Essential Features and Syntax, React Components, Props and State",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6969,
+            "date": "2022-03-02",
+            "day": "WEDNESDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "React.js",
+            "subTopic": "Styling Components, React Component in Details",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6970,
+            "date": "2022-03-03",
+            "day": "THURSDAY",
+            "status": "HOLIDAY",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "none",
+            "subTopic": "none",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6971,
+            "date": "2022-03-04",
+            "day": "FRIDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "React.js",
+            "subTopic": "React Component life cycle",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6972,
+            "date": "2022-03-05",
+            "day": "SATURDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "React.js",
+            "subTopic": "React Hook",
+            "progressStatus": null
+        },
+        {
+            "calendarEventId": 6973,
+            "date": "2022-03-06",
+            "day": "SUNDAY",
+            "status": "WORKING",
+            "description": "holiday",
+            "batchName": "B12JANJA_95757",
+            "topic": "React.js",
+            "subTopic": " HTTP Requests/Ajax Calls, React Routing",
+            "progressStatus": null
         }
-      ],
-      "backend": [
-        {
-          "name": "Java",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "J2EE",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Spring MVC",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Hibernate",
-          "Proficiency": "Proficient"
-        }
-      ],
-      "database": [
-        {
-          "name": "MongoDb",
-          "Proficiency": "Intermediate"
-        },
-        {
-          "name": "SQL",
-          "Proficiency": "Proficient"
-        }
-      ]
-    },
-    {
-      "employeeId": "TYP0002",
-      "trainerName": "Harsha",
-      "frontend": [
-        {
-          "name": "Html",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Css",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Javascript",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Angular",
-          "Proficiency": "Basic"
-        }
-      ],
-      "backend": [
-        {
-          "name": "Java",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "J2EE",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Spring MVC",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Hibernate",
-          "Proficiency": "Proficient"
-        }
-      ],
-      "database": [
-        {
-          "name": "MongoDb",
-          "Proficiency": "Intermediate"
-        },
-        {
-          "name": "SQL",
-          "Proficiency": "Proficient"
-        }
-      ]
-    },
-    {
-      "employeeId": "TYP0003",
-      "trainerName": "Abbas",
-      "frontend": [
-        {
-          "name": "Html",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Css",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Javascript",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Angular",
-          "Proficiency": "Intermediate"
-        }
-      ],
-      "backend": [
-        {
-          "name": "Java",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "J2EE",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Spring MVC",
-          "Proficiency": "Basic"
-        },
-        {
-          "name": "Hibernate",
-          "Proficiency": "Intermediate"
-        }
-      ],
-      "database": [
-        {
-          "name": "MongoDb",
-          "Proficiency": "Intermediate"
-        },
-        {
-          "name": "SQL",
-          "Proficiency": "NA"
-        }
-      ]
-    },
-    {
-      "employeeId": "TYP0004",
-      "trainerName": "Priyanka",
-      "frontend": [
-        {
-          "name": "Html",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Css",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Javascript",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Angular",
-          "Proficiency": "Intermediate"
-        }
-      ],
-      "backend": [
-        {
-          "name": "Java",
-          "Proficiency": "Intermediate"
-        },
-        {
-          "name": "J2EE",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Spring MVC",
-          "Proficiency": "Proficient"
-        },
-        {
-          "name": "Hibernate",
-          "Proficiency": "Proficient"
-        }
-      ],
-      "database": [
-        {
-          "name": "MongoDb",
-          "Proficiency": "Intermediate"
-        },
-        {
-          "name": "SQL",
-          "Proficiency": "NA"
-        }
-      ]
-    }
-  ],
-  "mini-case-studeis": [
-    {
-      "projectName": "Asset Management System",
-      "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
-      "projectType": "Mini Project"
-    },
-    {
-      "projectName": "Banking System",
-      "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
-      "projectType": "Mini Project"
-    },
-    {
-      "projectName": "Leave Management System",
-      "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
-      "projectType": "Mini Project"
-    },
-    {
-      "projectName": "Book My Doctor",
-      "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
-      "projectType": "Mini Project"
-    },
-    {
-      "projectName": "Airline Management System",
-      "projectDescription": "Helped to uncover some of the problems with Conventional Asset Management Systems.",
-      "projectType": "Mini Project"
-    }
-  ],
-  "Plp-case-studies": [
-    {
-      "projectName": "Asset Management System",
-      "projectDescription": "To Manage records of the company",
-      "projectType": "Pseudo Live Project",
-      "projectSubType": "Detailed"
-    },
-    {
-      "projectName": "Banking System",
-      "projectDescription": "System which manages banking related operations",
-      "projectType": "Pseudo Live Project",
-      "projectSubType": "Abstract"
-    },
-    {
-      "projectName": "Employee Management System",
-      "projectDescription": "Managing the employees data.",
-      "projectType": "Pseudo Live Project",
-      "projectSubType": "Semi Abstract"
-    },
-    {
-      "projectName": "Book My Doctor",
-      "projectDescription": "To Book the doctor appointment and manages the patient related records",
-      "projectType": "Pseudo Live Project",
-      "projectSubType": "Detailed"
-    },
-    {
-      "projectName": "Leave Management System",
-      "projectDescription": "Managing employees leaves and expeses and help to apply the leaves",
-      "projectType": "Pseudo Live Project",
-      "projectSubType": "Abstract"
-    }
-  ],
-  "events": [
-    {
-      "title": "angular",
-      "start": "2021-12-28"
-    },
-    {
-      "title": "hands on",
-      "start": "2021-12-17"
-    },
-    {
-      "title": "lunch",
-      "start": "2021-12-03"
-    },
-    {
-      "title": "R&D",
-      "start": "2021-12-22"
-    },
-    {
-      "title": "Demo",
-      "start": "2021-12-24"
-    },
-    {
-      "id": "a",
-      "title": "my event",
-      "start": "2021-12-18"
-    },
-    {
-      "groupId": 999,
-      "title": "repeating event",
-      "start": "2021-12-12"
-    },
-    {
-      "title": "meeting",
-      "start": "2021-12-15 "
-    },
-    {
-      "id": "305",
-      "title": "tyytdjg",
-      "start": "2021-12-06"
-    },
-    {
-      "id": "306",
-      "title": "games",
-      "start": "2021-12-04"
-    },
-    {
-      "id": "870",
-      "title": "prepare notes",
-      "start": "2021-12-04"
-    },
-    {
-      "id": "30",
-      "title": "qwertyu",
-      "start": "2021-06-01"
-    },
-    {
-      "id": "123",
-      "title": "qwerty",
-      "start": "2021-12-25"
-    },
-    {
-      "id": "90",
-      "title": "revising angular",
-      "start": "2021-12-02",
-      "end": "2021-12-05"
-    },
-    {
-      "id": "54",
-      "title": "task assigning",
-      "start": "2021-12-03",
-      "end": "2021-12-03"
-    }
-  ],
-  "candidate": [
-    {
-      "candidateName": "abbas",
-      "phoneNumber": "8546921456",
-      "emailId": "abbas123@gmail.com",
-      "degree": "B.tech",
-      "stream": "mechanical",
-      "yop": "2020",
-      "tenthPercentage": "92",
-      "twelfthPercentage": "79",
-      "degreeAggregate": "73",
-      "masterAggregate": "NA",
-      "branch": "Hebbal",
-      "profileId": "TYC042654",
-      "id": "396"
-    },
-    {
-      "id": "754",
-      "batchName": "batch 45",
-      "candidateName": "sharath",
-      "phoneNumber": "8575785958",
-      "emailId": "sharath@gmail.com",
-      "degree": "B.tech",
-      "stream": "computers",
-      "yop": "2019",
-      "tenthPercentage": "92",
-      "twelfthPercentage": "84",
-      "degreeAggregate": "75",
-      "masterAggregate": "73",
-      "branch": "Hebbal",
-      "profileId": "TYC046352"
-    },
-    {
-      "id": "879",
-      "batchName": "",
-      "candidateName": "john burg",
-      "phoneNumber": "6300580835",
-      "emailId": "john134@gmail.com",
-      "degree": "B.tech",
-      "tenthPercentage": "92",
-      "twelfthPercentage": "79",
-      "stream": "computer science",
-      "yop": "2020",
-      "masterAggregate": "NA",
-      "degreeAggregate": "73",
-      "branch": "BTM",
-      "profileId": "TYC042666"
-    },
-    {
-      "id": "125",
-      "batchName": "",
-      "candidateName": "sanjay Gowda",
-      "phoneNumber": "9390522542",
-      "emailId": "sanjay@123gmail.com",
-      "degree": "B.tech",
-      "tenthPercentage": "92",
-      "twelfthPercentage": "79",
-      "stream": "computer science",
-      "yop": "2020",
-      "masterAggregate": "NA",
-      "degreeAggregate": "73",
-      "branch": "BTM",
-      "profileId": "TYC042668"
-    }
-  ],
-  "batches": [
-    {
-      "batchName": "BA58JAH",
-      "startDate": "28/06/2021",
-      "endDate": "28/08/2021",
-      "mentors": [
-        "ABC",
-        "XYZ"
-      ],
-      "trainers": [
-        "ABC",
-        "XYZ"
-      ],
-      "batchCompletion": "80",
-      "mockRating": "74"
-    },
-    {
-      "batchName": "BA35JAH",
-      "startDate": "23/03/2021",
-      "endDate": "23/05/2021",
-      "mentors": [
-        "ABC",
-        "XYZ"
-      ],
-      "trainers": [
-        "ABC",
-        "XYZ"
-      ],
-      "batchCompletion": "70",
-      "mockRating": "60"
-    },
-    {
-      "batchName": "BA02JAH",
-      "startDate": "20/05/2021",
-      "endDate": "20/07/2021",
-      "mentors": [
-        "ABC",
-        "XYZ"
-      ],
-      "trainers": [
-        "ABC",
-        "XYZ"
-      ],
-      "batchCompletion": "50",
-      "mockRating": "68"
-    },
-    {
-      "batchName": "BA26JAH",
-      "startDate": "10/01/2021",
-      "endDate": "28/03/2021",
-      "mentors": [
-        "ABC",
-        "XYZ"
-      ],
-      "trainers": [
-        "ABC",
-        "XYZ"
-      ],
-      "batchCompletion": "80",
-      "mockRating": "90"
-    }
-  ],
-  "clientBatches": [
-    {
-      "batchName": "BA58JAH",
-      "client": "capgemini",
-      "startDate": "28/06/2021",
-      "endDate": "28/08/2021",
-      "mentors": [
-        "ABC",
-        "XYZ"
-      ],
-      "trainers": [
-        "ABC",
-        "XYZ"
-      ],
-      "batchCompletion": "75",
-      "mockRating": "80"
-    },
-    {
-      "batchName": "BA35JAH",
-      "client": "infosis",
-      "startDate": "23/03/2021",
-      "endDate": "23/05/2021",
-      "mentors": [
-        "ABC",
-        "XYZ"
-      ],
-      "trainers": [
-        "ABC",
-        "XYZ"
-      ],
-      "batchCompletion": "70",
-      "mockRating": "55"
-    },
-    {
-      "batchName": "BA02JAH",
-      "client": "accenture",
-      "startDate": "20/05/2021",
-      "endDate": "20/07/2021",
-      "mentors": [
-        "ABC",
-        "XYZ"
-      ],
-      "trainers": [
-        "ABC",
-        "XYZ"
-      ],
-      "batchCompletion": "50",
-      "mockRating": "64"
-    },
-    {
-      "batchName": "BA26JAH",
-      "client": "google",
-      "startDate": "10/01/2021",
-      "endDate": "28/03/2021",
-      "mentors": [
-        "ABC",
-        "XYZ"
-      ],
-      "trainers": [
-        "ABC",
-        "XYZ"
-      ],
-      "batchCompletion": "70",
-      "mockRating": "55"
-    }
-  ],
-  "calendarList": [
-    {
-      "id": "1",
-      "slno": "01",
-      "batchName": "CG_JSF JAN18",
-      "technology": "core Java",
-      "startDate": "28/08/2021",
-      "endDate": "28/10/2021",
-      "status": "finished"
-    },
-    {
-      "id": "2",
-      "slno": "02",
-      "batchName": "CG_JSF JAN24",
-      "technology": "core Java",
-      "startDate": "28/04/2021",
-      "endDate": "28/06/2021",
-      "status": "yet to start"
-    },
-    {
-      "id": "3",
-      "slno": "03",
-      "batchName": "CG_JHS sep20",
-      "technology": "Javascript",
-      "startDate": "28/04/2021",
-      "endDate": "28/06/2021",
-      "status": "finished"
-    },
-    {
-      "id": "4",
-      "slno": "04",
-      "batchName": "CG_ERT sep20",
-      "technology": "React",
-      "startDate": "28/04/2021",
-      "endDate": "28/06/2021",
-      "status": "yet to start"
-    },
-    {
-      "id": "45",
-      "batchName": "JA05HJH",
-      "technology": "Angular",
-      "startDate": "2021-12-29T18:30:00.000Z",
-      "include": [
-        "Sunday"
-      ]
-    }
-  ]
+    ]
 }

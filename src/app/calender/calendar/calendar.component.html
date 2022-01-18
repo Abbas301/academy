@@ -27,6 +27,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
             </div>
+            <!--spinner  -->
+            <div class="text-center mt-5" *ngIf="isloading">
+                <app-spinner></app-spinner>
+            </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-8 offset-1">
@@ -111,7 +115,7 @@
                     {{calendar.status}}</td>
                 <td>
                     <mat-icon class="icon" matTooltip="View" style="margin-left: 20px;" data-toggle="modal" data-target="#exampleModal2" (click)='visibleCalender(calendar.batchName,i)'>visibility</mat-icon>
-                    <mat-icon class="icon" matTooltip="Ed2it" data-toggle="modal" data-target="#exampleModal3" (click)='visibleCalender(calendar.batchName,i)'>edit
+                    <mat-icon class="icon" matTooltip="Edit" data-toggle="modal" data-target="#exampleModal3" (click)='visibleCalender(calendar.batchName,i)'>edit
                     </mat-icon>
                     <mat-icon class="icon" matTooltip="Delete" data-toggle="modal" data-target="#exampleModalCenter" (click)="elementData(calendar)">delete_outline</mat-icon>
                 </td>
@@ -159,10 +163,6 @@
                 <div class="calendar">
                     <div class="p-3">
                         <full-calendar id="calendar" *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions">
-                            <!-- <ng-template #fcEventContent let-arg='arg'>
-                                <b>{{ arg.timeText }}</b>
-                                <i>{{ 2+3 }}</i>
-                            </ng-template> -->
                         </full-calendar>
                     </div>
                 </div>
@@ -209,10 +209,9 @@
                 </div>
                 <div class="calendar">
                     <div class="p-3">
-                        <full-calendar (click)="eventClick($event)" *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions"></full-calendar>
+                        <full-calendar *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions"></full-calendar>
 
                         <button #modalOpenButton type="button" hidden data-target="#myModal" data-toggle="modal"></button>
-
                         <div class="modal" id="myModal" data-backdrop="static">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -274,8 +273,8 @@
 
 
 <!-- Edit Calendar -->
-<!-- <button #modalOpenButton type="button" hidden data-target="#EditModal" data-toggle="modal"></button> -->
-<!-- <div class="modal" id="EditModal">
+<!-- <button #editModalOpen type="button" hidden data-target="#EditModal" data-toggle="modal"></button>
+<div class="modal" id="EditModal" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
 

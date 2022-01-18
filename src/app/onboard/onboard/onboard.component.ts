@@ -98,10 +98,11 @@ export class OnboardComponent implements OnInit {
       tocPath: new FormControl('', [Validators.required]),
       tyMentors: new FormControl('', [Validators.required]),
       batchType: new FormControl('INTERNAL', [Validators.required]),
+      deliveryManager: new FormControl('', [Validators.required]),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()])
     });
-    
+
   }
   getOnboard() {
     this.onboardService.getOnboardList(this.status).subscribe(res => {
@@ -111,7 +112,7 @@ export class OnboardComponent implements OnInit {
     })
   }
 
-  // VAlidation get methods 
+  // VAlidation get methods
 
   get contactNo() {
     return (this.batchForm.controls.mentors as FormArray).controls[0].get('contactNo') as FormControl
@@ -314,6 +315,7 @@ export class OnboardComponent implements OnInit {
       startDate: momentString,
       tyMentors: [batchForm.controls.tyMentors.value],
       batchType: batchForm.controls.batchType.value,
+      deliveryManager: batchForm.controls.deliveryManager.value,
       clientMentorList: this.mentor.value,
       assignTrainerList: this.trainer.value,
       candidateList: candidates,

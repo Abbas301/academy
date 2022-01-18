@@ -104,6 +104,7 @@ export class BatchesComponent implements OnInit {
       tocPath: new FormControl('', [Validators.required]),
       tyMentors: new FormControl('', [Validators.required]),
       batchType: new FormControl('', [Validators.required]),
+      deliveryManager: new FormControl('', [Validators.required]),
       clientCompanyName: new FormControl('', [Validators.pattern('[a-z A-Z]*')]),
       mentors: new FormArray([this.createMentor()]),
       trainers: new FormArray([this.createTrainer()]),
@@ -205,7 +206,7 @@ export class BatchesComponent implements OnInit {
     { value: 'Basavangudi', viewValue: 'Basavangudi' },
   ];
 
-  // VAlidation get methods 
+  // VAlidation get methods
 
   get clientCompanyName() {
     return this.batchForm.controls.clientCompanyName as FormControl
@@ -376,6 +377,7 @@ export class BatchesComponent implements OnInit {
       startDate: momentString,
       tyMentors: [batchForm.controls.tyMentors.value],
       batchType: batchForm.controls.batchType.value,
+      deliveryManager: batchForm.controls.deliveryManager.value,
       clientCompanyName: batchForm.controls.clientCompanyName.value,
       clientMentorList: this.mentor.value,
       assignTrainerList: this.trainer.value,
@@ -481,7 +483,7 @@ export class BatchesComponent implements OnInit {
         console.log(technology);
         let emailId = ele.emailId;
         (batchForm.get('trainers') as FormArray).controls[index].get('technologies').patchValue(technology);
-        (batchForm.get('trainers') as FormArray).controls[index].get('emailId').setValue(emailId);        
+        (batchForm.get('trainers') as FormArray).controls[index].get('emailId').setValue(emailId);
       }
     })
   }

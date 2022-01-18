@@ -15,9 +15,9 @@ export class BatchService {
   // batch Api
 
   getBatchData() {
-    return this.http.get(`${environment.baseUrl}/api/v1/academy-inventory/batch-details`)
+    return this.http.get(`${environment.baseUrl}/api/v1/academy-inventory/all-batch-details`)
   }
-  
+
   getSingleBatch(batchName:any) {
     return this.http.get(`${environment.baseUrl}/api/v1/academy-inventory/batch-details/${batchName}`);
   }
@@ -74,7 +74,7 @@ export class BatchService {
 //  calendar APi
  getCalendar() {
   return this.http.get(`${environment.baseUrl}/api/v1/academy/calendar/batch-details`)
-}  
+}
 
 getCalendarEvents(batchname:any) {
   return this.http.get(`${environment.baseUrl}/api/v1/academy/calendar/calendar-events`,{
@@ -82,6 +82,10 @@ getCalendarEvents(batchname:any) {
       batchname
     }
   })
+}
+
+getSingleCalendarBatch(batchName:any) {
+  return this.http.get(`${environment.baseUrl}/api/v1/academy-inventory/batch-details/${batchName}`);
 }
 
 }

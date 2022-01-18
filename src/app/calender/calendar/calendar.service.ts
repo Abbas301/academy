@@ -12,7 +12,7 @@ export class CalendarService {
 
   getCalendar() {
     return this.http.get(`${environment.baseUrl}/api/v1/academy/calendar/batch-details`)
-  }  
+  }
 
   getCalendarEvents(batchname:any) {
     return this.http.get(`${environment.baseUrl}/api/v1/academy/calendar/calendar-events`,{
@@ -38,11 +38,22 @@ export class CalendarService {
   }
 
   getBatchData() {
-    return this.http.get(`${environment.baseUrl}/api/v1/academy-inventory/batch-details`)
+    return this.http.get(`${environment.baseUrl}/api/v1/academy-inventory/all-batch-details`)
   }
 
   getSingleBatch(batchName:any) {
     return this.http.get(`${environment.baseUrl}/api/v1/academy-inventory/batch-details/${batchName}`);
+  }
+
+  getEventByDate(batchName,date) {
+    return this.http.post<{
+      error: Boolean,
+    message: string,
+    data
+    }>(`${environment.baseUrl}/api/v1/academy/calendar/batch-calendar-event`,{
+        batchName,
+        date
+      });
   }
 
 }
