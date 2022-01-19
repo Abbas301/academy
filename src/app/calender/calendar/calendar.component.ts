@@ -240,27 +240,28 @@ export class CalendarComponent implements OnInit {
     };
     console.log(this.eventsArray);
 
-    this.eventsArray.forEach((ele, i) => {
+    this.eventsArray[0].forEach((ele, i) => {
       if (ele?.calendarEventId === calenderObj.calendarEventId) {
         console.log(ele?.calendarEventId);
         console.log(calenderObj.calendarEventId);
-        this.eventsArray.splice(i, 1, calenderObj);
+        this.eventsArray[0].splice(i, 1, calenderObj);
       }
     });
 
     const updateCalendarData = {
       batchName: this.selectedBatchName,
-      updatedDates: this.eventsArray,
+      updatedDates: this.eventsArray[0],
     };
     console.log(updateCalendarData);
 
-    this.calendarService.updateCalendar(updateCalendarData).subscribe((res:any) => {
-      if (res.error == false) {
-        this.toastr.success('Calendar Data updated Successfully');
-        this.closeModal.nativeElement.click();
-      } else {
-        this.router.navigate(['/', 'calendar']);
-      }
+    this.calendarService.updateCalendar(updateCalendarData).subscribe(
+      (res: any) => {
+        if (res.error == false) {
+          this.toastr.success('Calendar Data updated Successfully');
+          this.closeModal.nativeElement.click();
+        } else {
+          this.router.navigate(['/', 'calendar']);
+        }
       },
       (err) => {
         console.log(err);
@@ -272,15 +273,8 @@ export class CalendarComponent implements OnInit {
   changeEvents(event) {
     console.log(event, 'event');
   }
-  // eventClick(event) {
-  //   console.log(event);
-  // }
 
   handleDateClick(arg: any) {
-    console.log(arg);
-
-    // console.log(arg);
-    // this.getUpdateEventDate();
     this.modalOpenButton.nativeElement.click();
     $('.Modaltitle').text('Add Event at:' + arg.dateStr);
     $('.eventsstarttitle').text(arg.dateStr);
@@ -311,7 +305,6 @@ export class CalendarComponent implements OnInit {
   }
 
   onSubmit(addEventForm: FormGroup) {
-
     let date = new Date(addEventForm.controls.start.value);
     var dateObj = new Date(date);
     var momentObj = moment(dateObj);
@@ -327,29 +320,24 @@ export class CalendarComponent implements OnInit {
       subTopic: addEventForm.controls.subTopic.value,
       progressStatus: this.clickProgress,
     };
-    console.log(this.eventsArray);
 
-    this.eventsArray.forEach((ele, i) => {
+    this.eventsArray[0].forEach((ele, i) => {
       if (ele?.calendarEventId === calenderObj.calendarEventId) {
         console.log(ele?.calendarEventId);
         console.log(calenderObj.calendarEventId);
-        this.eventsArray.splice(i, 1, calenderObj);
+        this.eventsArray[0].splice(i, 1, calenderObj);
       }
     });
 
     const updateCalendarData = {
       batchName: this.selectedBatchName,
-      updatedDates: this.eventsArray,
+      updatedDates: this.eventsArray[0],
     };
-    console.log(updateCalendarData);
-
-    this.calendarService.updateCalendar(updateCalendarData).subscribe((res:any) => {
-      if (res.error == false) {
+    // console.log(updateCalendarData);
+    this.calendarService.updateCalendar(updateCalendarData).subscribe(
+      (res) => {
         this.toastr.success('Calendar Data updated Successfully');
         this.closeModal.nativeElement.click();
-      } else {
-        this.router.navigate(['/', 'calendar']);
-      }
       },
       (err) => {
         console.log(err);
@@ -366,10 +354,13 @@ export class CalendarComponent implements OnInit {
     this.closeBtn.nativeElement.click();
     console.log(this.batchname);
 
-    this.calendarService.deleteCalendar(
+    this.calendarService
+      .deleteCalendar(
         this.calenderObject?.calendarDetailsId,
         this.calenderObject?.batchName
-      ).subscribe((res: any) => {
+      )
+      .subscribe(
+        (res: any) => {
           console.log('Calendar list deleted successfully');
           if (res.error == false) {
             this.toastr.success('Calendar list deleted successfully');
@@ -429,7 +420,7 @@ export class CalendarComponent implements OnInit {
     this.calendarService.getCalendarEvents(batchName).subscribe((res) => {
       this.calendarEvents = res;
       this.eventsArray.push(this.calendarEvents.data);
-      // console.log(this.eventsArray,'events');
+      console.log(this.eventsArray, 'events');
 
       var calendarData: any = [];
       this.eventsArray[0].forEach((element: any, index: any) => {
@@ -439,25 +430,15 @@ export class CalendarComponent implements OnInit {
           start: '',
           subTopic: '',
           calendarDetailsId: '',
-          day: '',
-          progressStatus: '',
         };
         obj.calendarEventId = element.calendarEventId;
         obj.title = element.topic;
         obj.start = element.date;
         obj.subTopic = element.subTopic;
         obj.calendarDetailsId = element.calendarEventId;
-        obj.day = element.day;
-        obj.progressStatus = element.progressStatus;
         calendarData.push(obj);
       });
       console.log(calendarData);
-      this.eventsArray = this.eventsArray[0];
-      console.log(this.eventsArray);
-
-      this.CalendarId = this.eventsArray[0].calendarEventId;
-      console.log(this.calendarId);
-
       this.selectedTitle = calendarData[index].title;
       this.selectedSubTopic = calendarData[index].subTopic;
       // console.log(this.selectedSubTopic);
@@ -502,7 +483,9 @@ export class CalendarComponent implements OnInit {
   }
 
   getAllCandidates() {
-    this.calendarService.getSingleBatch(this.selectedBatchName).subscribe((res) => {
+    this.calendarService
+      .getSingleBatch(this.selectedBatchName)
+      .subscribe((res) => {
         this.candidateList = res['data'][0].assignTrainerList;
         const trainer = [];
         for (var i = 0; i <= this.candidateList.length; i++) {
@@ -520,6 +503,7 @@ export class CalendarComponent implements OnInit {
       .getEventByDate(this.selectedBatchName, this.selectedDate)
       .subscribe((res: any) => {
         this.GetEvent = res;
+        this.CalendarId = this.GetEvent.data.calendarEventId;
         this.clickDay = this.GetEvent.data.day;
         this.clickProgress = this.GetEvent.data.progressStatus;
 
