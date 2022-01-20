@@ -185,6 +185,53 @@ mat-icon {
     visibility: hidden!important;
 }
 
+::ng-deep .fc-daygrid-event {
+    white-space: inherit !important;
+}
+
+::ng-deep ::after .fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
+    display: none !important;
+}
+
+
+/* ::ng-deep .fc-scroller.fc-scroller-liquid-absolute {
+    overflow: scroll !important;
+} */
+
+
+/* harsha */
+
+:host ::ng-deep.completed {
+    visibility: hidden !important;
+    font-size: 11px;
+    color: white;
+    background-color: #0A9200;
+    /* background-color:white !important; */
+    padding: 1px;
+    padding-inline-start: 6px;
+    padding-inline-end: 6px;
+}
+
+:host ::ng-deep .fc .fc-daygrid-day-frame:hover .completed {
+    visibility: visible !important;
+}
+
+:host ::ng-deep.pendings {
+    visibility: hidden !important;
+    font-size: 11px;
+    color: white;
+    background-color: #AF001C;
+    /* background-color: white; */
+    margin-left: 30px;
+    padding: 1px;
+    padding-inline-start: 6px;
+    padding-inline-end: 6px;
+}
+
+:host ::ng-deep .fc .fc-daygrid-day-frame:hover .pendings {
+    visibility: visible !important;
+}
+
 
 /* delete buttons */
 

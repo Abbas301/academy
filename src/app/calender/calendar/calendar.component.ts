@@ -25,6 +25,8 @@ import { CalendarService } from './calendar.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { MatCardTitleGroup } from '@angular/material/card';
+import { of } from 'rxjs';
 
 export interface Events {
   date: string;
@@ -69,6 +71,7 @@ export class CalendarComponent implements OnInit {
   @ViewChild('closeBtn') closeBtn!: ElementRef;
   @ViewChild('generateCalendarModal') generateCalendarModal!: ElementRef;
   @ViewChild('resetButton') resetButton!: ElementRef;
+  @ViewChild('my_button') my_button!: ElementRef;
   @ViewChild('myModal') myModal!: ElementRef;
   @ViewChild('closeModal', { read: ElementRef }) closeModal!: ElementRef;
   @ViewChild('fcEventContent') eventContent: TemplateRef<any>;
@@ -102,7 +105,8 @@ export class CalendarComponent implements OnInit {
     private http: HttpClient,
     private calendarService: CalendarService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router ,
+    private elementRef:ElementRef
   ) {}
 
   ngOnInit() {
@@ -118,10 +122,10 @@ export class CalendarComponent implements OnInit {
       title: new FormControl('', [Validators.required]),
       subTopic: new FormControl('', [Validators.required]),
     });
-
     this.getCalendarData();
-    this.calenderSetup();
+    this.calendarSetup();
     this.getBatch();
+
   }
 
   technologys = [
@@ -132,8 +136,9 @@ export class CalendarComponent implements OnInit {
   event: any;
   calendar: any = [];
   newDate: any;
+  flag:Boolean = false;
 
-  calenderSetup() {
+  calendarSetup() {
     this.calendarOptions = {
       plugins: [dayGridPlugin, interactionPlugin],
       editable: true,
@@ -145,16 +150,10 @@ export class CalendarComponent implements OnInit {
       eventBorderColor: '#fff',
       eventTextColor: 'black',
       height: 800,
-      // dayRender: (info) => {
-      //   info.el.innerHTML += "<button class='dayButton' data-date='" + info.date + "'>Click me</button>";
-      //   info.el.style.padding = "20px 0 0 10px";
-      // },
       contentHeight: 400,
       eventDrop: (info) => {
         let id = info.event.extendedProps.calendarDetailsId;
-        // console.log(id);
         this.dateObj = info.event._instance.range.start;
-        // console.log(this.dateObj);
         let year = this.dateObj.getFullYear();
         let month = this.dateObj.getMonth();
         let monthNumber = month + 1;
@@ -164,40 +163,97 @@ export class CalendarComponent implements OnInit {
         if (paddedMonth.length < 2) {
           paddedMonth = '0' + paddedMonth;
         }
-
         let paddedDate = date.toString();
         if (paddedDate.length < 2) {
           paddedDate = '0' + paddedDate;
         }
-
         this.toStoreDate = `${year}-${paddedMonth}-${paddedDate}`;
         console.log('toStoreDate', this.toStoreDate);
       },
       events: this.calendarData,
-      // eventContent: {
-      //   html: `<p>${this.selectedTitle}</p><p>${this.selectedSubTopic}</p><p>${this.selectedTrainer}</p><button data-target="#myModal" data-toggle="modal">event</button>`,
-      // },
-      //   dayHeaderContent: (args) => {
-      //     return moment(args.date).format('ddd')
-      // },
-      dayCellDidMount: function (arg) {
-        if (arg.el.classList.contains('fc-daygrid-day')) {
-          var theElement = arg.el.querySelectorAll(
-            '.fc-daygrid-day-frame > .fc-daygrid-day-events'
-          )[0];
-          setTimeout(function () {
-            if (
-              theElement.querySelectorAll('.fc-daygrid-event-harness')
-                .length === 0
-            ) {
-              // theElement.innerHTML = theElement.innerHTML +'<div><i data-toggle="modal" data-target="#EditModal" class="fa fa-pencil fa-fw"></i></div><div class="text-center buttonsElement" style="margin-top:10px;"><button style="margin-right:3px;" class="complete btn">Complete</button><button class="pending btn">Pending</button></span></div>';
-              theElement.innerHTML =
-                theElement.innerHTML +
-                `<div><i data-toggle="modal" data-target="#EditModal" class="fa fa-pencil fa-fw"></i></div><div class="text-center buttonsElement" style="margin-top:10px;"><button style="margin-right:3px;" class="complete btn">Complete</button><button class="pending btn">Pending</button></span></div>`;
-            }
-          }, 10);
-        }
+      eventContent:(arg)=>{
+
+        let title = document.createElement('div');
+        let subTopic = document.createElement('div');
+        let trainer = document.createElement('div');
+        let complete = document.createElement('button');
+        let pending = document.createElement('button');
+        // let success = document.createElement('button');
+        complete.innerHTML = "complete"
+        complete.id = "Completed_btn"
+        complete.className = "completed btn"
+        // let fail = document.createElement('button');
+        pending.innerHTML = "pending";
+        pending.className = "pendings btn";
+
+            //  complete.append(success)
+            //  pending.append(fail)
+          title.innerHTML = arg.event.title;
+          subTopic.innerHTML = arg.event.extendedProps.subTopic;
+          trainer.innerHTML = this.selectedTrainer;
+          // if(this.flag === false){
+          //   console.log("Completed");
+          //   complete.innerHTML = `<button>Completed</button>`;
+          //   pending.innerHTML = `<button>Pending</button>`;
+          // }else {
+          //   console.log("Pending");
+          //   complete.innerHTML = `<button>success</button>`;
+          // }
+
+        title.style.fontWeight = 'bold';
+        title.style.color = 'blue';
+        trainer.style.color = 'red';
+        complete.addEventListener('click',()=>{
+          let date = new Date(arg.event._instance.range.start);
+          var dateObj = new Date(date);
+          var momentObj = moment(dateObj);
+          var momentString = momentObj.format('YYYY-MM-DD');
+
+          const progressData ={
+            batchName:this.selectedBatchName,
+            progressStatus:'COMPLETED',
+            noOfWorkingDays:42,
+            date:momentString
+          }
+          console.log(progressData);
+
+          var x = document.getElementById("myDIV");
+          if (x.innerHTML === "Completed") {
+            x.innerHTML = "Success";
+          } else {
+            x.innerHTML = "Completed";
+          }
+
+          // alert(this.flag)
+          // this.calendarService.postBatchProgress(progressData).subscribe((res:any)=>{
+          //   if(!res.error) {
+          //     console.log(res);
+          //   this.toastr.success(res.message);
+          //   } else {
+          //     this.router.navigate(['/', 'calendar']);
+          //   }
+          // },
+          // err => {
+          //   this.toastr.error(err.error.message)
+          // })
+          // this.my_button.nativeElement.addEventListener('click', this.openAlert());
+
+        })
+        let arrayOfDomNodes = [title,subTopic,trainer,complete,pending];
+        return {domNodes:arrayOfDomNodes}
       },
+      // dayCellDidMount: function (arg) {
+      //   if (arg.el.classList.contains('fc-daygrid-day')) {
+      //     var theElement = arg.el.querySelectorAll('.fc-daygrid-day-frame > .fc-daygrid-day-events')[0];
+      //     setTimeout(function () {
+      //       if (theElement.querySelectorAll('.fc-daygrid-event-harness').length == 0) {
+      //         theElement.innerHTML =
+      //           theElement.innerHTML +
+      //           `<div><i data-toggle="modal" data-target="#EditModal" class="fa fa-pencil fa-fw"></i></div><div class="text-center buttonsElement" style="margin-top:10px;"><button style="margin-right:3px;" class="complete btn">Complete</button><button class="pending btn">Pending</button></span></div>`;
+      //       }
+      //     }, 10);
+      //   }
+      // },
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'prevYear,nextYear',
@@ -210,16 +266,19 @@ export class CalendarComponent implements OnInit {
     };
   }
 
-  alertOpen() {
-    console.log('opened modal');
+  // ngAfterViewChecked (){
+  //   if(this.my_button){
+  //     this.my_button.nativeElement.addEventListener('click', this.openAlert);
+  //   }
+  // }
 
-    alert('success');
-  }
-
+  // openAlert() {
+  //   alert("hello")
+  // }
   newTitle: any;
   newSubTitle: any;
   calendarEventDragged(arg: any) {
-    this.calenderSetup();
+    this.calendarSetup();
     let id = arg.event.extendedProps.calendarDetailsId;
     let newTitle = arg.event._def.title;
     let newSubTopic = arg.event.extendedProps.subTopic;
@@ -439,28 +498,39 @@ export class CalendarComponent implements OnInit {
         calendarData.push(obj);
       });
       console.log(calendarData);
-      this.selectedTitle = calendarData[index].title;
-      this.selectedSubTopic = calendarData[index].subTopic;
-      // console.log(this.selectedSubTopic);
+      calendarData.map((ele,index) => {
+        // if(calendarData.index == index) {
+        this.selectedTitle = ele?.title;
+        this.selectedSubTopic = ele?.subTopic;
+        // console.log(ele?.title);
+        // console.log(ele?.subTopic);
+        for(let i=0;i< ele.length;i++) {
+          console.log(ele[i].title);
+
+        }
+        // }
+      });
 
       if (Array.isArray(calendarData) && calendarData.length > 0) {
         this.calendarData = calendarData;
-        this.calendarOptions.events = calendarData;
-        this.calenderSetup();
+        // this.calendarOptions.events = this.calendarData;
+        this.calendarSetup();
       } else {
         console.log('Array is empty');
       }
       this.getAllCandidates();
+    console.log(this.calendarOptions);
+
     });
 
     setTimeout(() => {
-      this.calenderSetup();
+      this.calendarSetup();
     }, 1000);
   }
 
   editCalender(row) {
     setTimeout(() => {
-      this.calenderSetup();
+      this.calendarSetup();
     }, 500);
   }
 
@@ -483,9 +553,7 @@ export class CalendarComponent implements OnInit {
   }
 
   getAllCandidates() {
-    this.calendarService
-      .getSingleBatch(this.selectedBatchName)
-      .subscribe((res) => {
+    this.calendarService.getSingleBatch(this.selectedBatchName).subscribe((res) => {
         this.candidateList = res['data'][0].assignTrainerList;
         const trainer = [];
         for (var i = 0; i <= this.candidateList.length; i++) {
@@ -499,9 +567,7 @@ export class CalendarComponent implements OnInit {
   clickDay: any;
   clickProgress: any;
   getUpdateEventDate() {
-    this.calendarService
-      .getEventByDate(this.selectedBatchName, this.selectedDate)
-      .subscribe((res: any) => {
+    this.calendarService.getEventByDate(this.selectedBatchName, this.selectedDate).subscribe((res: any) => {
         this.GetEvent = res;
         this.CalendarId = this.GetEvent.data.calendarEventId;
         this.clickDay = this.GetEvent.data.day;
@@ -511,4 +577,25 @@ export class CalendarComponent implements OnInit {
         this.addEventForm.get('subTopic').patchValue(res?.data?.subTopic);
       });
   }
+
+  batchProgress(){
+    const progressData ={
+      batchName:this.selectedBatchName,
+      progressStatus:'COMPLETED',
+      noOfWorkingDays:42,
+      date:this.selectedDate
+    }
+    console.log(progressData);
+
+  //   this.calendarService.postBatchProgress(progressData).subscribe((res)=>{
+  //     console.log(res);
+  //     this.toastr.success(res.message)
+  //   },
+  //   err => {
+  //     this.toastr.error(err.error.message)
+  //   })
+  }
+
 }
+
+

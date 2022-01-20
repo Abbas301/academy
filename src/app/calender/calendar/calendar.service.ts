@@ -56,4 +56,12 @@ export class CalendarService {
       });
   }
 
+  postBatchProgress(progress:any){
+    return this.http.post<{
+      error: Boolean,
+    message: string,
+    data
+    }>(`${environment.baseUrl}/api/v1/academy/batch-details/progress`,progress)
+  }
+
 }
