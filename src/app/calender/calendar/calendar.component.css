@@ -194,11 +194,6 @@ mat-icon {
 }
 
 
-/* ::ng-deep .fc-scroller.fc-scroller-liquid-absolute {
-    overflow: scroll !important;
-} */
-
-
 /* harsha */
 
 :host ::ng-deep.completed {
@@ -221,7 +216,6 @@ mat-icon {
     font-size: 11px;
     color: white;
     background-color: #AF001C;
-    /* background-color: white; */
     margin-left: 30px;
     padding: 1px;
     padding-inline-start: 6px;
@@ -230,6 +224,16 @@ mat-icon {
 
 :host ::ng-deep .fc .fc-daygrid-day-frame:hover .pendings {
     visibility: visible !important;
+}
+
+:host ::ng-deep .icon_check {
+    height: 30px;
+    width: 30px;
+}
+
+:host ::ng-deep .icon_edit {
+    height: 1.2em;
+    width: 10%;
 }
 
 

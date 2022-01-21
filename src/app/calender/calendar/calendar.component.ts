@@ -106,7 +106,6 @@ export class CalendarComponent implements OnInit {
     private calendarService: CalendarService,
     private toastr: ToastrService,
     private router: Router ,
-    private elementRef:ElementRef
   ) {}
 
   ngOnInit() {
@@ -173,32 +172,35 @@ export class CalendarComponent implements OnInit {
       events: this.calendarData,
       eventContent:(arg)=>{
 
+        let edit = document.createElement('img');
         let title = document.createElement('div');
         let subTopic = document.createElement('div');
         let trainer = document.createElement('div');
+        let span1 = document.createElement('span');
+        let span2 = document.createElement('span');
+        let icon1 = document.createElement('img');
+        let icon2 = document.createElement('img');
         let complete = document.createElement('button');
         let pending = document.createElement('button');
-        // let success = document.createElement('button');
-        complete.innerHTML = "complete"
+
+        span1.append(complete)
+        span2.append(pending)
+        edit.src = '../../../assets/images/edit.png';
+        edit.className = 'icon_edit';
+        icon1.src = '../../../assets/images/check.jpg';
+        icon1.className = 'icon_check';
+        icon2.src = "../../../assets/images/cancel.png";
+        icon2.className = 'icon_check';
+        complete.innerText = "complete"
         complete.id = "Completed_btn"
         complete.className = "completed btn"
-        // let fail = document.createElement('button');
-        pending.innerHTML = "pending";
+        pending.innerText = "pending";
         pending.className = "pendings btn";
 
-            //  complete.append(success)
-            //  pending.append(fail)
+
           title.innerHTML = arg.event.title;
           subTopic.innerHTML = arg.event.extendedProps.subTopic;
           trainer.innerHTML = this.selectedTrainer;
-          // if(this.flag === false){
-          //   console.log("Completed");
-          //   complete.innerHTML = `<button>Completed</button>`;
-          //   pending.innerHTML = `<button>Pending</button>`;
-          // }else {
-          //   console.log("Pending");
-          //   complete.innerHTML = `<button>success</button>`;
-          // }
 
         title.style.fontWeight = 'bold';
         title.style.color = 'blue';
@@ -215,31 +217,30 @@ export class CalendarComponent implements OnInit {
             noOfWorkingDays:42,
             date:momentString
           }
-          console.log(progressData);
 
-          var x = document.getElementById("myDIV");
-          if (x.innerHTML === "Completed") {
-            x.innerHTML = "Success";
-          } else {
-            x.innerHTML = "Completed";
-          }
+         span1.removeChild(complete);
+         span2.removeChild(pending);
+         span1.append(icon1)
 
-          // alert(this.flag)
-          // this.calendarService.postBatchProgress(progressData).subscribe((res:any)=>{
-          //   if(!res.error) {
-          //     console.log(res);
-          //   this.toastr.success(res.message);
-          //   } else {
-          //     this.router.navigate(['/', 'calendar']);
-          //   }
-          // },
-          // err => {
-          //   this.toastr.error(err.error.message)
-          // })
-          // this.my_button.nativeElement.addEventListener('click', this.openAlert());
+          this.calendarService.postBatchProgress(progressData).subscribe((res:any)=>{
+            if(!res.error) {
+            this.toastr.success(res.message);
+            } else {
+              this.router.navigate(['/', 'calendar']);
+            }
+          },
+          err => {
+            this.toastr.error(err.error.message)
+          })
 
+        });
+
+        pending.addEventListener('click',()=>{
+          span1.removeChild(complete);
+          span2.removeChild(pending);
+          span2.append(icon2);
         })
-        let arrayOfDomNodes = [title,subTopic,trainer,complete,pending];
+        let arrayOfDomNodes = [edit,title,subTopic,trainer,span1,span2];
         return {domNodes:arrayOfDomNodes}
       },
       // dayCellDidMount: function (arg) {
@@ -266,15 +267,6 @@ export class CalendarComponent implements OnInit {
     };
   }
 
-  // ngAfterViewChecked (){
-  //   if(this.my_button){
-  //     this.my_button.nativeElement.addEventListener('click', this.openAlert);
-  //   }
-  // }
-
-  // openAlert() {
-  //   alert("hello")
-  // }
   newTitle: any;
   newSubTitle: any;
   calendarEventDragged(arg: any) {
@@ -284,7 +276,6 @@ export class CalendarComponent implements OnInit {
     let newSubTopic = arg.event.extendedProps.subTopic;
     let newDay = arg.event.extendedProps.day;
     let ProgressStatus = arg.event.extendedProps.progressStatus;
-    // console.log(arg.event);
 
     let calenderObj = {
       calendarEventId: id,
@@ -334,19 +325,23 @@ export class CalendarComponent implements OnInit {
   }
 
   handleDateClick(arg: any) {
-    this.modalOpenButton.nativeElement.click();
-    $('.Modaltitle').text('Add Event at:' + arg.dateStr);
-    $('.eventsstarttitle').text(arg.dateStr);
-    this.addEventForm.get('start').patchValue(arg.dateStr);
-    // this.handleEventClick(arg);
-    this.selectedDate = arg.dateStr;
-    console.log(this.selectedDate);
-    this.getUpdateEventDate();
+
   }
 
-  handleEventClick(element: Events) {
-    // console.log(element);
-    // this.editModalOpen.nativeElement.click();
+  handleEventClick(arg: any) {
+          let date = new Date(arg.event._instance.range.start);
+          var dateObj = new Date(date);
+          var momentObj = moment(dateObj);
+          var momentString = momentObj.format('YYYY-MM-DD');
+
+    this.modalOpenButton.nativeElement.click();
+    $('.Modaltitle').text('Add Event at:' + momentString);
+    $('.eventsstarttitle').text(momentString);
+    this.addEventForm.get('start').patchValue(momentString);
+    // this.handleEventClick(arg);
+    this.selectedDate = momentString;
+    console.log(this.selectedDate);
+    this.getUpdateEventDate();
   }
 
   handleEventDragStop(arg: any) {

@@ -15,6 +15,7 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FullCalendarComponent } from '@fullcalendar/angular';
+import * as moment from 'moment';
 
 export interface Details {
   candidateName: string;
@@ -290,38 +291,130 @@ export class CandidatelistComponent implements OnInit {
       editable: true,
       droppable: true,
       selectable: true,
-      eventColor: "#086288",
+      eventColor: '#086288',
       eventStartEditable: true,
-      eventBackgroundColor: "#fff",
-      eventBorderColor: "#fff",
-      eventTextColor: "black",
+      eventBackgroundColor: '#fff',
+      eventBorderColor: '#fff',
+      eventTextColor: 'black',
       height: 800,
-      contentHeight: 600,
+      contentHeight: 400,
+      eventDrop: (info) => {
+        let id = info.event.extendedProps.calendarDetailsId;
+        this.dateObj = info.event._instance.range.start;
+        let year = this.dateObj.getFullYear();
+        let month = this.dateObj.getMonth();
+        let monthNumber = month + 1;
+        let date = this.dateObj.getDate();
+
+        let paddedMonth = monthNumber.toString();
+        if (paddedMonth.length < 2) {
+          paddedMonth = '0' + paddedMonth;
+        }
+        let paddedDate = date.toString();
+        if (paddedDate.length < 2) {
+          paddedDate = '0' + paddedDate;
+        }
+        this.toStoreDate = `${year}-${paddedMonth}-${paddedDate}`;
+        console.log('toStoreDate', this.toStoreDate);
+      },
       events: this.calendarData,
-    eventContent: { html: `<p>${this.selectedTitle }</p><p>${this.selectedSubTopic}</p><p>${this.selectedTrainer}</p>` },
-    //   dayHeaderContent: (args) => {
-    //     return moment(args.date).format('ddd')
-    // },
-    dayCellDidMount : function(arg){
-      if(arg.el.classList.contains("fc-daygrid-day")){
-        var theElement = arg.el.querySelectorAll(".fc-daygrid-day-frame > .fc-daygrid-day-events")[0]
-        setTimeout(function(){
-          if(theElement.querySelectorAll(".fc-daygrid-event-harness").length === 0){
-            theElement.innerHTML = theElement.innerHTML + '<div><i data-toggle="modal" data-target="#EditModal" class="fa fa-pencil fa-fw"></i></div><div class="text-center buttonsElement" style="margin-top:10px;"><button style="margin-right:3px;" class="complete btn">Complete</button><button class="pending btn">Pending</button></span></div>';
+      eventContent:(arg)=>{
+
+        let edit = document.createElement('img');
+        let title = document.createElement('div');
+        let subTopic = document.createElement('div');
+        let trainer = document.createElement('div');
+        let span1 = document.createElement('span');
+        let span2 = document.createElement('span');
+        let icon1 = document.createElement('img');
+        let icon2 = document.createElement('img');
+        let complete = document.createElement('button');
+        let pending = document.createElement('button');
+
+        span1.append(complete)
+        span2.append(pending)
+        edit.src = '../../../assets/edit.png';
+        edit.className = 'icon_edit';
+        icon1.src = '../../../assets/check.jpg';
+        icon1.className = 'icon_check';
+        icon2.src = "../../../assets/cancel.png";
+        icon2.className = 'icon_check';
+        complete.innerText = "complete"
+        complete.id = "Completed_btn"
+        complete.className = "completed btn"
+        pending.innerText = "pending";
+        pending.className = "pendings btn";
+
+
+          title.innerHTML = arg.event.title;
+          subTopic.innerHTML = arg.event.extendedProps.subTopic;
+          trainer.innerHTML = this.selectedTrainer;
+
+        title.style.fontWeight = 'bold';
+        title.style.color = 'blue';
+        trainer.style.color = 'red';
+        complete.addEventListener('click',()=>{
+          let date = new Date(arg.event._instance.range.start);
+          var dateObj = new Date(date);
+          var momentObj = moment(dateObj);
+          var momentString = momentObj.format('YYYY-MM-DD');
+
+          const progressData ={
+            batchName:this.selectedBatchName,
+            progressStatus:'COMPLETED',
+            noOfWorkingDays:42,
+            date:momentString
           }
-        }, 10)
-      }
-    },
+          // console.log(progressData);
+          // console.log(span1);
+
+         span1.removeChild(complete);
+         span2.removeChild(pending);
+         span1.append(icon1)
+
+          this.calendarService.postBatchProgress(progressData).subscribe((res:any)=>{
+            if(!res.error) {
+            this.toastr.success(res.message);
+            } else {
+              this.router.navigate(['/', 'calendar']);
+            }
+          },
+          err => {
+            this.toastr.error(err.error.message)
+          })
+
+        });
+
+        pending.addEventListener('click',()=>{
+          span1.removeChild(complete);
+          span2.removeChild(pending);
+          span2.append(icon2)
+        })
+        let arrayOfDomNodes = [edit,title,subTopic,trainer,span1,span2];
+        return {domNodes:arrayOfDomNodes}
+      },
+      // dayCellDidMount: function (arg) {
+      //   if (arg.el.classList.contains('fc-daygrid-day')) {
+      //     var theElement = arg.el.querySelectorAll('.fc-daygrid-day-frame > .fc-daygrid-day-events')[0];
+      //     setTimeout(function () {
+      //       if (theElement.querySelectorAll('.fc-daygrid-event-harness').length == 0) {
+      //         theElement.innerHTML =
+      //           theElement.innerHTML +
+      //           `<div><i data-toggle="modal" data-target="#EditModal" class="fa fa-pencil fa-fw"></i></div><div class="text-center buttonsElement" style="margin-top:10px;"><button style="margin-right:3px;" class="complete btn">Complete</button><button class="pending btn">Pending</button></span></div>`;
+      //       }
+      //     }, 10);
+      //   }
+      // },
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'prevYear,nextYear',
         center: 'title',
-        right: 'dayGridMonth prev,next'
+        right: 'dayGridMonth prev,next',
       },
       dateClick: this.handleDateClick.bind(this),
       eventClick: this.handleEventClick.bind(this),
       eventDragStop: this.handleEventDragStop.bind(this),
-    }
+    };
   }
   handleDateClick(arg:any) {
     console.log(arg);
