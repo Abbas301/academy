@@ -52,6 +52,18 @@ th {
     overflow: auto;
 }
 
+.mocktitle {
+    font-weight: bolder;
+}
+
+.mockHeader {
+    padding: 14px 20px 0px 20px;
+}
+
+.modal-body .mockcontent mat-form-field {
+    width: 300px;
+}
+
 
 /* full calendar css */
 

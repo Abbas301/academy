@@ -171,26 +171,28 @@ export class CalendarComponent implements OnInit {
       },
       events: this.calendarData,
       eventContent:(arg)=>{
+        let progressStatus = arg.event.extendedProps.progressStatus
 
         let edit = document.createElement('img');
         let title = document.createElement('div');
         let subTopic = document.createElement('div');
         let trainer = document.createElement('div');
         let span1 = document.createElement('span');
-        let span2 = document.createElement('span');
+        // let span2 = document.createElement('span');
         let icon1 = document.createElement('img');
-        let icon2 = document.createElement('img');
+        // let icon2 = document.createElement('img');
         let complete = document.createElement('button');
         let pending = document.createElement('button');
+        let status = document.createElement('img');
 
         span1.append(complete)
-        span2.append(pending)
+        // span2.append(pending)
         edit.src = '../../../assets/images/edit.png';
         edit.className = 'icon_edit';
         icon1.src = '../../../assets/images/check.jpg';
         icon1.className = 'icon_check';
-        icon2.src = "../../../assets/images/cancel.png";
-        icon2.className = 'icon_check';
+        // icon2.src = "../../../assets/images/cancel.png";
+        // icon2.className = 'icon_check';
         complete.innerText = "complete"
         complete.id = "Completed_btn"
         complete.className = "completed btn"
@@ -201,10 +203,19 @@ export class CalendarComponent implements OnInit {
           title.innerHTML = arg.event.title;
           subTopic.innerHTML = arg.event.extendedProps.subTopic;
           trainer.innerHTML = this.selectedTrainer;
+          if( progressStatus == 'COMPLETED'){
+          status.src = '../../../assets/images/check.jpg';
+          status.className = "icon_check"
+          span1.removeChild(complete);
+          // span2.removeChild(pending);
+        } else {
+
+        }
 
         title.style.fontWeight = 'bold';
         title.style.color = 'blue';
         trainer.style.color = 'red';
+
         complete.addEventListener('click',()=>{
           let date = new Date(arg.event._instance.range.start);
           var dateObj = new Date(date);
@@ -218,13 +229,12 @@ export class CalendarComponent implements OnInit {
             date:momentString
           }
 
-         span1.removeChild(complete);
-         span2.removeChild(pending);
-         span1.append(icon1)
-
           this.calendarService.postBatchProgress(progressData).subscribe((res:any)=>{
             if(!res.error) {
             this.toastr.success(res.message);
+            span1.removeChild(complete);
+            // span2.removeChild(pending);
+            span1.append(icon1)
             } else {
               this.router.navigate(['/', 'calendar']);
             }
@@ -235,26 +245,14 @@ export class CalendarComponent implements OnInit {
 
         });
 
-        pending.addEventListener('click',()=>{
-          span1.removeChild(complete);
-          span2.removeChild(pending);
-          span2.append(icon2);
-        })
-        let arrayOfDomNodes = [edit,title,subTopic,trainer,span1,span2];
+        // pending.addEventListener('click',()=>{
+        //   span1.removeChild(complete);
+        //   span2.removeChild(pending);
+        //   span2.append(icon2);
+        // })
+        let arrayOfDomNodes = [edit,title,subTopic,trainer,span1,status];
         return {domNodes:arrayOfDomNodes}
       },
-      // dayCellDidMount: function (arg) {
-      //   if (arg.el.classList.contains('fc-daygrid-day')) {
-      //     var theElement = arg.el.querySelectorAll('.fc-daygrid-day-frame > .fc-daygrid-day-events')[0];
-      //     setTimeout(function () {
-      //       if (theElement.querySelectorAll('.fc-daygrid-event-harness').length == 0) {
-      //         theElement.innerHTML =
-      //           theElement.innerHTML +
-      //           `<div><i data-toggle="modal" data-target="#EditModal" class="fa fa-pencil fa-fw"></i></div><div class="text-center buttonsElement" style="margin-top:10px;"><button style="margin-right:3px;" class="complete btn">Complete</button><button class="pending btn">Pending</button></span></div>`;
-      //       }
-      //     }, 10);
-      //   }
-      // },
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'prevYear,nextYear',
@@ -338,7 +336,6 @@ export class CalendarComponent implements OnInit {
     $('.Modaltitle').text('Add Event at:' + momentString);
     $('.eventsstarttitle').text(momentString);
     this.addEventForm.get('start').patchValue(momentString);
-    // this.handleEventClick(arg);
     this.selectedDate = momentString;
     console.log(this.selectedDate);
     this.getUpdateEventDate();
@@ -484,27 +481,17 @@ export class CalendarComponent implements OnInit {
           start: '',
           subTopic: '',
           calendarDetailsId: '',
+          progressStatus: '',
         };
         obj.calendarEventId = element.calendarEventId;
         obj.title = element.topic;
         obj.start = element.date;
         obj.subTopic = element.subTopic;
         obj.calendarDetailsId = element.calendarEventId;
+        obj.progressStatus = element.progressStatus;
         calendarData.push(obj);
       });
       console.log(calendarData);
-      calendarData.map((ele,index) => {
-        // if(calendarData.index == index) {
-        this.selectedTitle = ele?.title;
-        this.selectedSubTopic = ele?.subTopic;
-        // console.log(ele?.title);
-        // console.log(ele?.subTopic);
-        for(let i=0;i< ele.length;i++) {
-          console.log(ele[i].title);
-
-        }
-        // }
-      });
 
       if (Array.isArray(calendarData) && calendarData.length > 0) {
         this.calendarData = calendarData;
@@ -573,23 +560,6 @@ export class CalendarComponent implements OnInit {
       });
   }
 
-  batchProgress(){
-    const progressData ={
-      batchName:this.selectedBatchName,
-      progressStatus:'COMPLETED',
-      noOfWorkingDays:42,
-      date:this.selectedDate
-    }
-    console.log(progressData);
-
-  //   this.calendarService.postBatchProgress(progressData).subscribe((res)=>{
-  //     console.log(res);
-  //     this.toastr.success(res.message)
-  //   },
-  //   err => {
-  //     this.toastr.error(err.error.message)
-  //   })
-  }
 
 }
 

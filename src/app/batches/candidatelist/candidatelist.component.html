@@ -81,7 +81,7 @@
                         <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
                         </mat-checkbox>
                     </th>
-                    <td mat-cell *matCellDef="let row">
+                    <td mat-cell *matCellDef="let row" data-toggle="modal" data-target="#exampleModal5">
                         <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)" (change)="selection.isSelected(row)?selectedCandidates(row):remove(row)">
                         </mat-checkbox>
                     </td>
@@ -89,51 +89,51 @@
 
                 <ng-container matColumnDef="candidateName">
                     <th mat-header-cell *matHeaderCellDef> Candidate Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element.candidateName |titlecase}} </td>
+                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.candidateName |titlecase}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="phoneNumber">
                     <th mat-header-cell *matHeaderCellDef> Phone Number </th>
-                    <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.phoneNumber}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="emailId">
                     <th mat-header-cell *matHeaderCellDef> Email Id </th>
-                    <td mat-cell *matCellDef="let element"> {{element.emailId}} </td>
+                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.emailId}} </td>
                 </ng-container>
                 <ng-container matColumnDef="degree">
                     <th mat-header-cell *matHeaderCellDef> Degree </th>
-                    <td mat-cell *matCellDef="let element"> {{element.degree}} </td>
+                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.degree}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="stream">
                     <th mat-header-cell *matHeaderCellDef> Stream </th>
-                    <td mat-cell *matCellDef="let element"> {{element.stream}} </td>
+                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.stream}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="yop">
                     <th mat-header-cell *matHeaderCellDef> YOP </th>
-                    <td mat-cell *matCellDef="let element"> {{element.yop}} </td>
+                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.yop}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="degreeAggregate">
                     <th mat-header-cell *matHeaderCellDef> Degree Aggregate </th>
-                    <td mat-cell *matCellDef="let element"> {{element.degreeAggregate}} </td>
+                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.degreeAggregate}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="branch">
                     <th mat-header-cell *matHeaderCellDef> Branch </th>
-                    <td mat-cell *matCellDef="let element"> {{element.branch}} </td>
+                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.branch}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="deleteEmployee">
                     <th mat-header-cell *matHeaderCellDef> Action </th>
-                    <td mat-cell *matCellDef="let element">
+                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5">
                         <button mat-icon-button aria-label="Example icon button with a home icon">
-              <mat-icon matTooltip="Edit" (click)="updateCandidate(element)">edit</mat-icon>
-              <mat-icon matTooltip="Delete" class="px-3" data-toggle="modal" data-target="#exampleModalCenter"
-                (click)="deleteConfirm(element)">delete</mat-icon>
-            </button>
+          <mat-icon matTooltip="Edit" (click)="updateCandidate(element)">edit</mat-icon>
+          <mat-icon matTooltip="Delete" class="px-3" data-toggle="modal" data-target="#exampleModalCenter"
+            (click)="deleteConfirm(element)">delete</mat-icon>
+        </button>
                     </td>
                 </ng-container>
 
@@ -309,6 +309,88 @@
                         <full-calendar *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions"></full-calendar>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Mock Rating modal -->
+
+<div class="modal fade" id="exampleModal5" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header mockHeader">
+                <h3 class="modal-title mocktitle" id="exampleModalLabel">Mock Feedback</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-8 offset-2 mockcontent p-0">
+                            <div class="form-group">
+                                <mat-form-field class="example-full-width" appearance="standard">
+                                    <mat-label>Mock taken by</mat-label>
+                                    <input matInput>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Technology</mat-label>
+                                    <mat-select disableRipple>
+                                        <mat-option value="1">JAVA_WITH_ANGULAR</mat-option>
+                                        <mat-option value="2">JAVA_WITH_REACT</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Communication Skills</mat-label>
+                                    <mat-select disableRipple>
+                                        <mat-option value="1">Excellent</mat-option>
+                                        <mat-option value="2">Good</mat-option>
+                                        <mat-option value="3">Average</mat-option>
+                                        <mat-option value="4">Below Average</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Presentation</mat-label>
+                                    <mat-select disableRipple>
+                                        <mat-option value="1">Excellent</mat-option>
+                                        <mat-option value="2">Good</mat-option>
+                                        <mat-option value="3">Average</mat-option>
+                                        <mat-option value="4">Below Average</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Learning Ability</mat-label>
+                                    <mat-select disableRipple>
+                                        <mat-option value="1">Excellent</mat-option>
+                                        <mat-option value="2">Good</mat-option>
+                                        <mat-option value="3">Average</mat-option>
+                                        <mat-option value="4">Below Average</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Technical Skills</mat-label>
+                                    <mat-select disableRipple>
+                                        <mat-option value="1">Excellent</mat-option>
+                                        <mat-option value="2">Good</mat-option>
+                                        <mat-option value="3">Average</mat-option>
+                                        <mat-option value="4">Below Average</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field class="example-full-width" appearance="standard">
+                                    <mat-label>Feedback</mat-label>
+                                    <input matInput>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-light" data-dismiss="modal">Reset</button>
+                <button type="submit" class="btn btn-color batch">Submit</button>
             </div>
         </div>
     </div>
