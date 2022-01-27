@@ -174,13 +174,13 @@
 <!-- modal3 -->
 <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal2 modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content" id="calendar_content">
             <div class="modal-header d-block">
                 <h2 class="modal-title title"></h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-                <div class="row ">
+                <div class="row do-not-print">
                     <div class="col-md-6">
                         <h2>Edit Calendar Generation</h2>
                     </div>
@@ -190,7 +190,7 @@
                 Download as
               </button>
                             <div class=" ml-auto dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <p class="dropdown-item">Pdf</p>
+                                <p class="dropdown-item" (click)="openPDF()">Pdf</p>
                                 <p class="dropdown-item">Word Doc</p>
                                 <p class="dropdown-item">Excel Doc</p>
                             </div>
@@ -198,7 +198,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="fullcalendar">
                 <div class="d-flex justify-content-between">
                     <div>
                         <a routerLink="">{{selectedBatchName}}</a>|<a routerLink="">{{selectedTechnology}}</a>
@@ -217,7 +217,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title Modaltitle align-center"></h4>
-                                        <button type="button" #closeModal class="close" data-dismiss="modal">&times;</button>
+                                        <button type="button" #closeModal (click)="closemodal()" class="close">&times;</button>
                                     </div>
                                     <div class="modal-body">
                                         <form [formGroup]="addEventForm">

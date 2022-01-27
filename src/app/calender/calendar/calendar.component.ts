@@ -27,6 +27,8 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { MatCardTitleGroup } from '@angular/material/card';
 import { of } from 'rxjs';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 export interface Events {
   date: string;
@@ -148,8 +150,8 @@ export class CalendarComponent implements OnInit {
       eventBackgroundColor: '#fff',
       eventBorderColor: '#fff',
       eventTextColor: 'black',
-      height: 800,
-      contentHeight: 400,
+      height: 'auto',
+      contentHeight: 200,
       eventDrop: (info) => {
         let id = info.event.extendedProps.calendarDetailsId;
         this.dateObj = info.event._instance.range.start;
@@ -263,6 +265,11 @@ export class CalendarComponent implements OnInit {
       eventClick: this.handleEventClick.bind(this),
       eventDragStop: this.handleEventDragStop.bind(this),
     };
+  }
+
+  closemodal(){
+    $("#myModal").modal("hide");
+    $('.modal').css('overflow-y', 'auto');
   }
 
   newTitle: any;
@@ -536,10 +543,11 @@ export class CalendarComponent implements OnInit {
 
   getAllCandidates() {
     this.calendarService.getSingleBatch(this.selectedBatchName).subscribe((res) => {
-        this.candidateList = res['data'][0].assignTrainerList;
+        // this.candidateList = res['data'][0].assignTrainerList;
+        this.candidateList = res['data'];
         const trainer = [];
         for (var i = 0; i <= this.candidateList.length; i++) {
-          trainer.push(this.candidateList[i]?.assignTrainerName);
+          trainer.push(this.candidateList[0]?.assignTrainerList[i]?.assignTrainerName);
           this.selectedTrainer = trainer;
         }
       });
@@ -560,6 +568,30 @@ export class CalendarComponent implements OnInit {
       });
   }
 
+  onDownload() {
+    // let content = document.getElementById('calendar_content').innerHTML;
+    // const full_content = document.body.innerHTML;
+    // document.body.innerHTML = content;
+    // window.print();
+    // document.body.innerHTML = full_content;
+    // window.location.reload();
+  }
+  public openPDF():void {
+    let DATA = document.getElementById('fullcalendar');
+
+    html2canvas(DATA).then(canvas => {
+
+        let fileWidth = 208;
+        let fileHeight = canvas.height * fileWidth / canvas.width;
+
+        const FILEURI = canvas.toDataURL('image/png')
+        let PDF = new jsPDF('p', 'mm', 'a4');
+        let position = 0;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
+
+        PDF.save('academy-calendar.pdf');
+    });
+    }
 
 }
 

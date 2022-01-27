@@ -193,6 +193,10 @@ mat-icon {
     display: none !important;
 }
 
+::ng-deep .fc-daygrid-day-events {
+    font-size: 0.9em;
+}
+
 
 /* harsha */
 
