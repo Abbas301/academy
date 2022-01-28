@@ -1,6 +1,19 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,8 +21,6 @@ import { OnboardService } from '../onboard.service';
 import { ToastrService } from 'ngx-toastr';
 import { ThirdPartyDraggable } from '@fullcalendar/interaction';
 import * as moment from 'moment';
-
-
 
 export interface OnboardList {
   name: string;
@@ -22,15 +33,117 @@ export interface OnboardList {
   jspiderBranch: string;
 }
 
+const ELEMENT_DATA: OnboardList[] = [
+  {
+    contactNumber: '1',
+    name: 'Hydrogen',
+    emailId: '1.0079',
+    degree: 'MTECH',
+    stream: 'big',
+    yop: 'big',
+    degreePercentage: 'big',
+    jspiderBranch: 'big',
+  },
+  {
+    contactNumber: '2',
+    name: 'Helium',
+    emailId: '4.0026',
+    degree: 'BE',
+    stream: 'big',
+    yop: 'big',
+    degreePercentage: 'big',
+    jspiderBranch: 'big',
+  },
+  {
+    contactNumber: '3',
+    name: 'Lithium',
+    emailId: '6.941',
+    degree: 'BCA',
+    stream: 'big',
+    yop: 'big',
+    degreePercentage: 'big',
+    jspiderBranch: 'big',
+  },
+  {
+    contactNumber: '4',
+    name: 'Beryllium',
+    emailId: '9.0122',
+    degree: 'BE',
+    stream: 'small',
+    yop: 'big',
+    degreePercentage: 'big',
+    jspiderBranch: 'big',
+  },
+  {
+    contactNumber: '5',
+    name: 'Boron',
+    emailId: '10.811',
+    degree: 'MTECH',
+    stream: 'big',
+    yop: 'big',
+    degreePercentage: 'big',
+    jspiderBranch: 'big',
+  },
+  {
+    contactNumber: '6',
+    name: 'Carbon',
+    emailId: '12.0107',
+    degree: 'BCA',
+    stream: 'small',
+    yop: 'big',
+    degreePercentage: 'big',
+    jspiderBranch: 'big',
+  },
+  {
+    contactNumber: '7',
+    name: 'Nitrogen',
+    emailId: '14.0067',
+    degree: 'MTECH',
+    stream: 'big',
+    yop: 'big',
+    degreePercentage: 'big',
+    jspiderBranch: 'big',
+  },
+  {
+    contactNumber: '8',
+    name: 'Oxygen',
+    emailId: '15.9994',
+    degree: 'BE',
+    stream: 'small',
+    yop: 'big',
+    degreePercentage: 'big',
+    jspiderBranch: 'big',
+  },
+  {
+    contactNumber: '9',
+    name: 'Fluorine',
+    emailId: '18.9984',
+    degree: 'BCA',
+    stream: 'big',
+    yop: 'big',
+    degreePercentage: 'big',
+    jspiderBranch: 'big',
+  },
+  {
+    contactNumber: '10',
+    name: 'Neon',
+    emailId: '20.1797',
+    degree: 'MTECH',
+    stream: 'big',
+    yop: 'big',
+    degreePercentage: 'big',
+    jspiderBranch: 'big',
+  },
+];
+
 @Component({
   selector: 'app-onboard',
   templateUrl: './onboard.component.html',
-  styleUrls: ['./onboard.component.css']
+  styleUrls: ['./onboard.component.css'],
 })
 export class OnboardComponent implements OnInit {
-
   onboardForm!: FormGroup;
-  searchValue: any
+  searchValue: any;
   formShow = true;
   formHide = false;
   selected = 'INTERNAL';
@@ -45,17 +158,22 @@ export class OnboardComponent implements OnInit {
   candidates: any[] = [];
 
   panelOpenState = false;
-  @ViewChild(MatAccordion) accordion !: MatAccordion;
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
   @ViewChild('driverCheckbox') driverCheckbox!: MatCheckbox;
-  @ViewChildren("driverSubCheckbox") driverSubCheckbox!: QueryList<MatCheckbox>
+  @ViewChildren('driverSubCheckbox') driverSubCheckbox!: QueryList<MatCheckbox>;
   @ViewChild('uploadToc') uploadToc!: ElementRef;
   @ViewChild('resetButton') resetButton!: ElementRef;
   @ViewChild('closeModal', { read: ElementRef }) closeModal!: ElementRef;
   @ViewChild('headerCheckbox') headerCheckbox!: MatCheckbox;
+  @ViewChildren('YearPassFilter') yearPassFilter!: QueryList<MatCheckbox>;
+  @ViewChildren('PercentageFilter') percentageFilter!: QueryList<MatCheckbox>;
+  @ViewChildren('StreamFilter') streamFilter!: QueryList<MatCheckbox>;
+
+  @ViewChildren('DegreeFilter') degreeFilter!: QueryList<MatCheckbox>;
 
   technologies = [
     { value: 'JAVA_WITH_ANGULAR', viewValue: 'JAVA_WITH_ANGULAR' },
-    { value: 'JAVA_WITH_REACT', viewValue: 'JAVA_WITH_REACT' }
+    { value: 'JAVA_WITH_REACT', viewValue: 'JAVA_WITH_REACT' },
   ];
 
   days = [
@@ -71,19 +189,46 @@ export class OnboardComponent implements OnInit {
   ];
   CandidatesListData: any;
   status = 'ONBOARDED';
-  onboardList = []
+  onboardList = [];
   array: any[] = [];
   ArrayData = [];
   trainerDetails: any;
   TrainerData: any;
   fileName: string;
+  Percentage = ['90', '80', '70', '60', '50', '40'];
+  yearPass = ['2022', '2021', '2020', '2019', '2018', '2017'];
+  degrees: [];
+  stream: any;
 
-  constructor(private fb: FormBuilder,
+  filterForm = new FormGroup({
+    filter: new FormControl(),
+    name: new FormControl(),
+    contactNumber: new FormControl(),
+    emailId: new FormControl(),
+    degree: new FormControl(),
+    stream: new FormControl(),
+    yop: new FormControl(),
+    degreePercentage: new FormControl(),
+    jspiderBranch: new FormControl(),
+  });
+
+  constructor(
+    private fb: FormBuilder,
     private onboardService: OnboardService,
-    private toastr: ToastrService,
-  ) { }
+    private toastr: ToastrService
+  ) {}
 
-  displayedColumns: string[] = ['select', 'name', 'contactNumber', 'emailId', 'degree', 'stream', 'yop', 'degreePercentage', 'jspiderBranch'];
+  displayedColumns: string[] = [
+    'select',
+    'name',
+    'contactNumber',
+    'emailId',
+    'degree',
+    'stream',
+    'yop',
+    'degreePercentage',
+    'jspiderBranch',
+  ];
   dataSource = new MatTableDataSource<OnboardList>();
   selection = new SelectionModel<OnboardList>(true, []);
 
@@ -100,75 +245,195 @@ export class OnboardComponent implements OnInit {
       batchType: new FormControl('INTERNAL', [Validators.required]),
       deliveryManager: new FormControl('', [Validators.required]),
       mentors: new FormArray([this.createMentor()]),
-      trainers: new FormArray([this.createTrainer()])
+      trainers: new FormArray([this.createTrainer()]),
     });
+    this.getdroupdown();
 
+    // this.dataSource.filterPredicate = (data: OnboardList, filter: string) => {
+    //   const obj = JSON.parse(filter);
+    //   console.log(obj);
+    //   let find: boolean = !obj.filter && !obj.yop;
+    //   if (obj.filter) {
+    //     const value =
+    //       '~' +
+    //       data.name +
+    //       '~' +
+    //       data.contactNumber +
+    //       '~' +
+    //       data.emailId +
+    //       '~' +
+    //       data.stream +
+    //       '~' +
+    //       data.yop +
+    //       '~' +
+    //       data.degree +
+    //       '~' +
+    //       data.degreePercentage +
+    //       '~' +
+    //       data.jspiderBranch +
+    //       '~';
+    //     find = value.toLowerCase().indexOf(obj.filter.toLowerCase()) >= 0;
+    //   } else find = true;
+
+    //   if (obj.yop)
+    //   find = find && +obj.yop.indexOf(data.yop) >= 0;
+    //   console.log(obj.yop);
+    //   console.log(data.yop);
+    //   console.log(find);
+    //   return find;
+    // };
+
+    // this.filterForm.valueChanges.subscribe((res) => {
+    //   this.dataSource.filter = JSON.stringify(res);
+    // });
+  }
+
+  isChecked(field: string, value: string) {
+    const control = this.filterForm.get(field);
+    return control && control.value && control.value.indexOf(value) >= 0;
+  }
+  // change(list: any[], field: string, value: string, isChecked: boolean) {
+  //   this.getOnboard();
+  //   console.log('before', this.dataSource.data);
+  //   const control = this.filterForm.get(field);
+  //   const oldValue = control ? control.value || [] : [];
+
+  //   if (control) {
+  //     if (!isChecked) {
+  //       const newValue = oldValue.filter((x: string) => x != value);
+  //       control.setValue(newValue.length > 0 ? newValue : null);
+  //     } else {
+  //       const newValue = list.filter(
+  //         (x) => oldValue.indexOf(x) >= 0 || x == value
+  //       );
+  //       control.setValue(newValue);
+  //       console.log(newValue);
+  //     }
+  //   }
+  // }
+
+  dataChange(typeOfFilter,arrayOfCheckBox) {
+    let newValue = [];
+    console.log(arrayOfCheckBox);
+    arrayOfCheckBox.forEach((checkBox, i) => {
+      if (checkBox.checked) {
+        newValue.push(checkBox.value);
+      } else {
+        newValue.splice(i, 1);
+      }
+    });
+    console.log(newValue);
+    this.dataSource.data = this.CandidatesListData.data;
+    if (newValue.length > 0) {
+      console.log(newValue);
+      this.dataSource.data = this.dataSource.data.filter((ele) => {
+        if(typeOfFilter==='degreePercentage'){
+          console.log(newValue.includes(ele?.degreePercentage.toString()));
+
+          return newValue.includes(ele?.degreePercentage.toString());
+        }
+        else if(typeOfFilter==='yop'){
+          console.log(newValue.includes(ele?.yop.toString()));
+
+          return newValue.includes(ele?.yop.toString());
+        }
+        else if(typeOfFilter==='degree'){
+          console.log(newValue,(ele?.degree),newValue.includes(ele?.degree));
+
+          return newValue.includes(ele?.degree.toUpperCase());
+        }
+        else if(typeOfFilter==='stream'){
+          console.log(newValue,(ele?.stream),newValue.includes(ele?.stream));
+
+          return newValue.includes(ele?.stream.toUpperCase());
+        }
+      });
+    }
+    else if(newValue.length===0){
+      this.dataSource.data = this.CandidatesListData.data;
+    }
+    console.log(this.dataSource.data)
   }
   getOnboard() {
-    this.onboardService.getOnboardList(this.status).subscribe(res => {
+    this.onboardService.getOnboardList(this.status).subscribe((res) => {
       this.CandidatesListData = res;
-      console.log(this.CandidatesListData);
+      // console.log(this.CandidatesListData);
       this.dataSource.data = this.CandidatesListData.data;
-    })
+    });
   }
 
   // VAlidation get methods
 
   get contactNo() {
-    return (this.batchForm.controls.mentors as FormArray).controls[0].get('contactNo') as FormControl
+    return (this.batchForm.controls.mentors as FormArray).controls[0].get(
+      'contactNo'
+    ) as FormControl;
   }
 
   get clientMentorName() {
-    return (this.batchForm.controls.mentors as FormArray).controls[0].get('clientMentorName') as FormControl
+    return (this.batchForm.controls.mentors as FormArray).controls[0].get(
+      'clientMentorName'
+    ) as FormControl;
   }
 
   get clientMentorEmailId() {
-    return (this.batchForm.controls.mentors as FormArray).controls[0].get('emailId') as FormControl
+    return (this.batchForm.controls.mentors as FormArray).controls[0].get(
+      'emailId'
+    ) as FormControl;
   }
 
   get assignTrainerName() {
-    return (((this.batchForm.controls.trainers as FormArray).controls[0]) as FormGroup).controls.assignTrainerName
+    return (
+      (this.batchForm.controls.trainers as FormArray).controls[0] as FormGroup
+    ).controls.assignTrainerName;
   }
 
   get assignTrainerEmailID() {
-    return (((this.batchForm.controls.trainers as FormArray).controls[0]) as FormGroup).controls.emailId
+    return (
+      (this.batchForm.controls.trainers as FormArray).controls[0] as FormGroup
+    ).controls.emailId;
   }
 
   get candidateName() {
-    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.candidateName
+    return (
+      (this.batchForm.controls.candidates as FormArray).controls[0] as FormGroup
+    ).controls.candidateName;
   }
 
   get candidatePhoneNumber() {
-    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.phoneNumber
+    return (
+      (this.batchForm.controls.candidates as FormArray).controls[0] as FormGroup
+    ).controls.phoneNumber;
   }
 
   get candidateYOP() {
-    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.yop
+    return (
+      (this.batchForm.controls.candidates as FormArray).controls[0] as FormGroup
+    ).controls.yop;
   }
 
   onSelect() {
     this.internal = true;
-    this.client = false
+    this.client = false;
   }
 
   onSelect1() {
     this.internal = false;
-    this.client = true
+    this.client = true;
   }
 
   displayData() {
-    this.hideMat = !this.hideMat
+    this.hideMat = !this.hideMat;
   }
   selectAll() {
     if (this.driverCheckbox.checked) {
-      this.driverSubCheckbox.forEach(element => {
+      this.driverSubCheckbox.forEach((element) => {
         element.checked = true;
-      })
-    }
-    else {
-      this.driverSubCheckbox.forEach(element => {
+      });
+    } else {
+      this.driverSubCheckbox.forEach((element) => {
         element.checked = false;
-      })
+      });
     }
   }
 
@@ -177,15 +442,30 @@ export class OnboardComponent implements OnInit {
       clientMentorName: ['', [Validators.pattern('[a-z A-Z]*')]],
       designation: [''],
       contactNo: ['', [Validators.pattern('[6-9]{1}[0-9]{9}')]],
-      emailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')]]
+      emailId: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}'),
+        ],
+      ],
     });
   }
   createTrainer(): FormGroup {
     return this.fb.group({
-      assignTrainerName: ['', [Validators.required, Validators.pattern('[a-z A-Z]*')]],
+      assignTrainerName: [
+        '',
+        [Validators.required, Validators.pattern('[a-z A-Z]*')],
+      ],
       technologies: ['', [Validators.required]],
       days: ['', [Validators.required]],
-      emailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')]]
+      emailId: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}'),
+        ],
+      ],
     });
   }
 
@@ -199,17 +479,18 @@ export class OnboardComponent implements OnInit {
   }
 
   form() {
-    this.formShow = true
-    this.formHide = false
-
+    this.formShow = true;
+    this.formHide = false;
   }
   excel() {
-    this.formShow = false
-    this.formHide = true
+    this.formShow = false;
+    this.formHide = true;
   }
 
   get contact() {
-    return (this.batchForm.get('mentors') as FormArray).controls[0].get('contact') as FormControl
+    return (this.batchForm.get('mentors') as FormArray).controls[0].get(
+      'contact'
+    ) as FormControl;
   }
 
   get item(): FormArray {
@@ -231,7 +512,6 @@ export class OnboardComponent implements OnInit {
   deleteMentorItem(index: any) {
     this.mentor.removeAt(index);
   }
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -256,12 +536,13 @@ export class OnboardComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name + 1}`;
-
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+      row.name + 1
+    }`;
   }
 
   selectedCandidates(row: any) {
-    this.array.push(row)
+    this.array.push(row);
     console.log(this.array);
   }
   remove(row: any) {
@@ -274,13 +555,12 @@ export class OnboardComponent implements OnInit {
     this.fileName = (event.target as HTMLInputElement).files[0].name;
   }
 
-  refreshFile(){
+  refreshFile() {
     this.fileName = null;
   }
 
   addBatch(batchForm: FormGroup) {
-
-    let file = this.tocPath
+    let file = this.tocPath;
     console.log(file);
     let date = new Date(batchForm.controls.startDate.value);
     // console.log(date);
@@ -288,24 +568,38 @@ export class OnboardComponent implements OnInit {
     var momentObj = moment(dateObj);
     var momentString = momentObj.format('YYYY-MM-DD');
 
-    var candidates: any = []
+    var candidates: any = [];
     this.array.forEach((element: any, index: any) => {
-      let obj = { candidateId: '', candidateName: '', phoneNumber: '', emailId: '', branch: '', degreeAggregate: '', degree: '', stream: '', yop: '', tenthPercentage: 0, twelfthPercentage: '', masterAggregate: '', profileId: '' }
+      let obj = {
+        candidateId: '',
+        candidateName: '',
+        phoneNumber: '',
+        emailId: '',
+        branch: '',
+        degreeAggregate: '',
+        degree: '',
+        stream: '',
+        yop: '',
+        tenthPercentage: 0,
+        twelfthPercentage: '',
+        masterAggregate: '',
+        profileId: '',
+      };
 
       // obj.candidateId = element.candidateId
       obj.candidateName = element.name;
-      obj.phoneNumber = element.contactNumber
-      obj.degreeAggregate = element.degreePercentage
-      obj.emailId = element.emailId
-      obj.branch = element.jspiderBranch
-      obj.degree = element.degree
-      obj.stream = element.stream
-      obj.yop = element.yop
-      obj.tenthPercentage = element.tenthPercentage
-      obj.twelfthPercentage = element.twelfthPercentage
-      obj.masterAggregate = element.masterDegreeAggregate
-      obj.profileId = element.profileId
-      candidates.push(obj)
+      obj.phoneNumber = element.contactNumber;
+      obj.degreeAggregate = element.degreePercentage;
+      obj.emailId = element.emailId;
+      obj.branch = element.jspiderBranch;
+      obj.degree = element.degree;
+      obj.stream = element.stream;
+      obj.yop = element.yop;
+      obj.tenthPercentage = element.tenthPercentage;
+      obj.twelfthPercentage = element.twelfthPercentage;
+      obj.masterAggregate = element.masterDegreeAggregate;
+      obj.profileId = element.profileId;
+      candidates.push(obj);
     });
     console.log(candidates);
 
@@ -321,24 +615,27 @@ export class OnboardComponent implements OnInit {
       candidateList: candidates,
     };
     let formData = new FormData();
-    formData.append('batchDetails', JSON.stringify(batchDetails))
-    formData.append('tocFile', file)
-    this.onboardService.postBatchData(formData).subscribe((res: any) => {
-      console.log(res);
+    formData.append('batchDetails', JSON.stringify(batchDetails));
+    formData.append('tocFile', file);
+    this.onboardService.postBatchData(formData).subscribe(
+      (res: any) => {
+        console.log(res);
 
-      console.log("batch details added successfully");
-      if (res.error == false) {
-        this.toastr.success('Batch Details Added Successfully');
-        this.resetButton.nativeElement.click();
-        this.getOnboard();
-        batchForm.reset();
-        this.closeModal.nativeElement.click();
-        this.refreshFile();
+        console.log('batch details added successfully');
+        if (res.error == false) {
+          this.toastr.success('Batch Details Added Successfully');
+          this.resetButton.nativeElement.click();
+          this.getOnboard();
+          batchForm.reset();
+          this.closeModal.nativeElement.click();
+          this.refreshFile();
+        }
+      },
+      (err) => {
+        console.log(err, 'err');
+        this.toastr.error(err.error.message);
       }
-    }, err => {
-      console.log(err, 'err');
-      this.toastr.error(err.error.message);
-    })
+    );
   }
 
   resetFormData() {
@@ -353,28 +650,37 @@ export class OnboardComponent implements OnInit {
   getTrainerDetails() {
     this.onboardService.getTrainerData().subscribe((res: any) => {
       this.trainerDetails = res;
-      this.TrainerData = this.trainerDetails.data
+      this.TrainerData = this.trainerDetails.data;
       console.log(this.TrainerData);
-    })
+    });
   }
 
   onChangeTrainerName(event: any, batchForm: FormGroup, index: number) {
     console.log(this.TrainerData);
     this.TrainerData.forEach((ele) => {
       if (ele.trainerName === event.value) {
-        const technology = []
+        const technology = [];
         console.log(ele.trainerTechnologies);
-        ele.trainerTechnologies.forEach(e => {
-          technology.push(e.technology)
+        ele.trainerTechnologies.forEach((e) => {
+          technology.push(e.technology);
         });
         console.log(technology);
         let emailId = ele.emailId;
-        (batchForm.get('trainers') as FormArray).controls[index].get('technologies').patchValue(technology);
-        (batchForm.get('trainers') as FormArray).controls[index].get('emailId').setValue(emailId);
+        (batchForm.get('trainers') as FormArray).controls[index]
+          .get('technologies')
+          .patchValue(technology);
+        (batchForm.get('trainers') as FormArray).controls[index]
+          .get('emailId')
+          .setValue(emailId);
       }
-    })
-
+    });
   }
 
-
+  getdroupdown() {
+    this.onboardService.getDroupdown().subscribe((res: any) => {
+      // console.log(res.data.degree);
+      this.degrees = res.data.degree;
+      this.stream = res.data.specialization;
+    });
+  }
 }

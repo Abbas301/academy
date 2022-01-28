@@ -580,7 +580,6 @@ export class CalendarComponent implements OnInit {
     let DATA = document.getElementById('fullcalendar');
 
     html2canvas(DATA).then(canvas => {
-
         let fileWidth = 208;
         let fileHeight = canvas.height * fileWidth / canvas.width;
 
@@ -590,6 +589,8 @@ export class CalendarComponent implements OnInit {
         PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
 
         PDF.save('academy-calendar.pdf');
+    }).catch((err)=> {
+      this.toastr.error("Failed to download the PDF");
     });
     }
 

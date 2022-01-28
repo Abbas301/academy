@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FilterComponent } from './filter/filter.component';
 import { HeaderComponent } from './header/header.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 
@@ -27,7 +28,8 @@ const routes: Routes = [
   },
   { path: 'header', component:HeaderComponent},
   {path:'sidenav', component:SidenavComponent},
-  
+  {path:'filter', component:FilterComponent},
+
 ];
 
 @NgModule({

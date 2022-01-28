@@ -37,6 +37,7 @@ export class CandidateComponent implements OnInit {
 
   branches = [
     {value: 'Hebbal', viewValue: 'Hebbal'},
+    {value: 'OAR', viewValue: 'OAR'},
     {value: 'BTM', viewValue: 'BTM'},
     {value: 'BasavanaGudi', viewValue: 'BasavanaGudi'},
   ];

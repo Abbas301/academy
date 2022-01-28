@@ -28,4 +28,8 @@ export class OnboardService {
     }>(`${environment.baseUrl}/api/v1/academy/trainers/trainer-details-technologies`)
   }
 
+  getDroupdown(){
+    return this.http.get(`http://10.10.20.18:8095/api/v1/dropdown`)
+  }
+
 }

@@ -3,13 +3,12 @@
 }
 
 .main {
-    /* min-height: calc(105vh - 178px); */
+    min-height: calc(105vh - 178px);
     border-radius: 10px;
     border: 1px solid #70707099;
     margin-top: 1rem;
     background: white;
     color: black;
-    height: 540px;
 }
 
 .container {
@@ -61,7 +60,7 @@ table {
     width: 100%;
 }
 
-:host ::ng-deep .tables {
+::ng-deep .tables {
     position: relative;
     min-height: 200px;
     max-height: 500px;
@@ -150,6 +149,7 @@ td.mat-footer-cell {
 }
 
 .upload {
+    width: 60.33%;
     padding-left: 40px;
 }
 
@@ -211,11 +211,24 @@ mat-icon {
 }
 
 .filter-card {
-    width: 270px;
+    width: 260px;
+    /* font-size: 10px !important; */
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    margin-top: 8px;
+    margin-left: 5px;
+    color: #14274E;
+}
+
+.mat-expansion-panel-header-title {
+    color: #14274E !important;
+}
+
+:host ::ng-deep .mat-checkbox-layout .mat-checkbox-label {
+    color: #14274E !important;
 }
 
 .add {
-    height: 550px !important;
+    height: 350px !important;
     overflow: auto;
     position: absolute;
     border-radius: 8px;
@@ -223,12 +236,13 @@ mat-icon {
     /* border: 1px solid grey; */
 }
 
-:host ::ng-deep .mat-panel-title {
-    width: 10px !important;
-}
+
+/* :host ::ng-deep .mat-panel-title {
+  width: 10px !important;
+} */
 
 :host ::ng-deep .mat-expansion-panel-body {
-    padding: 0 42px 0px !important;
+    padding: 0 21px 0px !important;
 }
 
 .mat-expansion-panel-header.mat-expanded {
@@ -237,6 +251,8 @@ mat-icon {
 
 .mat-expansion-panel-header {
     height: 35px;
+    padding: 0px 10px;
+    /* padding: 0px 10px 0px 10px; */
 }
 
 :host::ng-deep.mat-card {
@@ -327,7 +343,7 @@ mat-icon {
     top: 5px;
     left: 0px;
     padding: 5px 10px;
-    font-size: 14px;
+    font-size: 15px;
     text-align: center;
     cursor: pointer;
     background-color: #086288;
@@ -337,6 +353,6 @@ mat-icon {
 
 #myInp {
     position: absolute;
-    left: 3px;
+    left: 8px;
     top: 8px;
 }
