@@ -15,7 +15,6 @@ import { BatchesModule } from './batches/batches.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { ToastrModule } from 'ngx-toastr';
-import { FilterComponent } from './filter/filter.component';
 
 
 
@@ -25,7 +24,6 @@ import { FilterComponent } from './filter/filter.component';
     AppComponent,
     HeaderComponent,
     SidenavComponent,
-    FilterComponent,
 
   ],
   imports: [
