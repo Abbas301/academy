@@ -29,11 +29,11 @@
         </div>
     </div>
 
-    <div class="table-responsive" style="overflow-x: auto">
-        <table class="table  table-bordered mt-3" style="vertical-align: middle;">
+    <div class="table-responsive">
+        <table class="table table-bordered mt-3" style="vertical-align: middle;">
             <thead class="table-header">
                 <tr>
-                    <th rowspan="2" style="vertical-align: middle;z-index: 5;" class="fixed">Trainer Name</th>
+                    <th rowspan="2" style="vertical-align: middle;z-index: 1;" class="fixed">Trainer Name</th>
                     <th *ngFor="let techType of technologyType" [attr.colspan]="techType==='Frontend'?FrontendTechnologies[0]?.value.length:techType==='Backend'?BackendTechnologies[0]?.value.length:techType==='Database'?DatabaseTechnologies[0]?.value.length:0">
                         {{techType}}
                     </th>
@@ -41,17 +41,17 @@
                 </tr>
                 <tr>
                     <ng-container *ngIf="technologyFilter.value.includes('Frontend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
-                        <ng-container *ngFor="let FrontendData of FrontendTechnologies[0]?.value">
+                        <ng-container class="table-tech" *ngFor="let FrontendData of FrontendTechnologies[0]?.value">
                             <th>{{FrontendData}}</th>
                         </ng-container>
                     </ng-container>
                     <ng-container *ngIf="technologyFilter.value.includes('Backend') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
-                        <ng-container *ngFor="let BackendData of BackendTechnologies[0]?.value">
+                        <ng-container class="table-tech" *ngFor="let BackendData of BackendTechnologies[0]?.value">
                             <th>{{BackendData}}</th>
                         </ng-container>
                     </ng-container>
                     <ng-container *ngIf="technologyFilter.value.includes('Database') || technologyFilter.value.includes('All') || technologyFilter.value.length === 0">
-                        <ng-container *ngFor="let DatabaseData of DatabaseTechnologies[0]?.value">
+                        <ng-container class="table-tech" *ngFor="let DatabaseData of DatabaseTechnologies[0]?.value">
                             <th>{{DatabaseData}}</th>
                         </ng-container>
                     </ng-container>
@@ -83,22 +83,24 @@
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">{{modelHeader}}</h3>
+                <h2 class="modal-title" id="exampleModalLabel">{{modelHeader}}</h2>
                 <button type="button" class="close" #closepostmodal data-dismiss="modal" aria-label="Close" (click)='clearItemsArray()'>
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <span aria-hidden="true">&times;</span>
+      </button>
             </div>
             <div class="modal-body">
                 <form [formGroup]="trainerForm">
                     <div class="form-group">
                         <div class="header hdata">
                             <mat-form-field>
-                                <input type="text" formControlName="trainerName" matInput appearance="standard" placeholder="Trainer Name">
+                                <mat-label>Trainer Name</mat-label>
+                                <input type="text" formControlName="trainerName" matInput appearance="standard">
                                 <mat-error *ngIf="trainerForm.controls.trainerName.errors?.required">TrainerName is Required *</mat-error>
                                 <mat-error *ngIf="trainerForm.controls.trainerName.errors?.minlength">TrainerName is Required *</mat-error>
                             </mat-form-field>
                             <mat-form-field>
-                                <input type="text" formControlName="emailId" matInput appearance="standard" placeholder="Trainer EmailId">
+                                <mat-label>Trainer EmailId</mat-label>
+                                <input type="text" formControlName="emailId" matInput appearance="standard">
                                 <mat-error *ngIf="trainerForm.controls.emailId.errors?.required">EmailId is Required *</mat-error>
                                 <mat-error *ngIf="trainerForm.controls.emailId.errors?.pattern">Enter Valid EmailId*</mat-error>
                             </mat-form-field>
@@ -113,9 +115,9 @@
                                         <div class="form-group data ">
                                             <mat-form-field appearance="standard" class="field">
                                                 <mat-label>Technology Type</mat-label>
-                                                <mat-select formControlName="technologyType">
-                                                    <mat-option *ngFor="let Technology_type of Technology_types" [value]="Technology_type.value">
-                                                        {{Technology_type.viewValue}}
+                                                <mat-select formControlName="technologyType" #technologyTypes (selectionChange)='onTechnologySelection(technologyTypes.value, i)'>
+                                                    <mat-option *ngFor="let Technology_type of technologyType" [value]="Technology_type">
+                                                        {{Technology_type}}
                                                     </mat-option>
                                                 </mat-select>
                                                 <mat-error>Technology Type Required *</mat-error>
@@ -125,8 +127,8 @@
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Technologies</mat-label>
                                                 <mat-select formControlName="technology">
-                                                    <mat-option *ngFor="let Technologie of Technologies" [value]="Technologie.value">
-                                                        {{Technologie.viewValue}}
+                                                    <mat-option *ngFor="let Technologie of techonologies[i].techonlogy" [value]="Technologie">
+                                                        {{Technologie}}
                                                     </mat-option>
                                                 </mat-select>
                                                 <mat-error>Technologies Required *</mat-error>

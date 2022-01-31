@@ -1,20 +1,24 @@
 <div class="container-fluid page mt-2">
+    <div>
+        <button (click)="navigateCandidateList()" class=" d-inline btn btn-color batch"><mat-icon matTooltip="Back">keyboard_backspace</mat-icon></button>
+        <h2 class="d-inline f-bold" style="margin-left: 40%;">Candidate Details</h2>
+    </div>
     <div class="box">
-        <form action="" #rform="ngForm">
+        <form action="" [formGroup]="rform">
 
             <div class="row">
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
                         <mat-label>Batch Id</mat-label>
-                        <input class="hover" matInput type="search" name="batchId" #batchId="ngModel" ngModel={{candidates.batchId}} placeholder="Batch Id" required>
-                        <mat-error *ngIf='batchId?.errors?.required'>This field is required *</mat-error>
+                        <input class="hover" readonly matInput type="search" formControlName="batchId" ngModel={{candidates.batchId}} placeholder="Batch Id">
+                        <mat-error *ngIf='this.rform.controls.batchId?.errors?.required'>This field is required *</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
                         <mat-label>Batch Name</mat-label>
-                        <input class="hover" matInput type="search" name="batchName" #batchName="ngModel" ngModel={{candidates.batchName}} placeholder="Batch Name" required>
-                        <mat-error *ngIf='batchName.errors?.required'>This field is required *</mat-error>
+                        <input class="hover" readonly matInput type="search" formControlName="batchName" ngModel={{candidates.batchName}} placeholder="Batch Name">
+                        <mat-error *ngIf='this.rform.controls.batchName.errors?.required'>This field is required *</mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -23,20 +27,20 @@
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
                         <mat-label>Candidate Name</mat-label>
-                        <input class="hover" matInput type="search" name="candidateName" #candidateName="ngModel" ngModel minlength="3" maxlength="15" pattern="^[a-z A-Z]+$" placeholder="Candidate Name" required>
-                        <mat-error *ngIf='candidateName.errors?.required'> CandidateName is required *</mat-error>
-                        <mat-error *ngIf='candidateName.errors?.maxlength'> Max 15 characters should be accept *</mat-error>
-                        <mat-error *ngIf='candidateName.errors?.pattern'> Name should be Alphabets *</mat-error>
+                        <input class="hover" matInput type="search" formControlName="candidateName" placeholder="Candidate Name">
+                        <mat-error *ngIf='this.rform.controls.candidateName.errors?.required'> Candidate Name is required *</mat-error>
+                        <mat-error *ngIf='this.rform.controls.candidateName.errors?.maxlength'> Max 15 characters should be accept *</mat-error>
+                        <mat-error *ngIf='this.rform.controls.candidateName.errors?.pattern'> Name should be Alphabets *</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
                         <mat-label>Phone Number</mat-label>
-                        <input class="hover" matInput type="search" name="phoneNumber" #phoneNumber="ngModel" pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$" ngModel placeholder="Phone Number" required>
-                        <mat-error *ngIf='phoneNumber.errors?.required'>
+                        <input class="hover" matInput type="search" formControlName="phoneNumber" placeholder="Phone Number">
+                        <mat-error *ngIf='this.rform.controls.phoneNumber.errors?.required'>
                             Phone Number is Mandatory *
                         </mat-error>
-                        <mat-error *ngIf='phoneNumber.errors?.pattern'>
+                        <mat-error *ngIf='this.rform.controls.phoneNumber.errors?.pattern'>
                             Enter Valid Number *
                         </mat-error>
                     </mat-form-field>
@@ -47,11 +51,11 @@
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
                         <mat-label>Email ID</mat-label>
-                        <input class="hover" matInput type="search" name="emailId" pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$" #emailId="ngModel" ngModel placeholder="EmailID" required>
-                        <mat-error *ngIf='emailId.errors?.required'>
+                        <input class="hover" matInput type="search" formControlName="emailId" placeholder="EmailID">
+                        <mat-error *ngIf='this.rform.controls.emailId.errors?.required'>
                             Email is Mandatory *
                         </mat-error>
-                        <mat-error *ngIf='emailId.errors?.pattern'>
+                        <mat-error *ngIf='this.rform.controls.emailId.errors?.pattern'>
                             Enter Valid Email *
                         </mat-error>
                     </mat-form-field>
@@ -59,8 +63,9 @@
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
                         <mat-label>Degree</mat-label>
-                        <input class="hover" matInput type="search" name="degree" #degree="ngModel" ngModel placeholder="Degree" required>
-                        <mat-error *ngIf='degree.errors?.required'>This field is required *</mat-error>
+                        <input class="hover" matInput type="search" formControlName="degree" placeholder="Degree">
+                        <mat-error *ngIf='this.rform.controls.degree.errors?.required'>This field is required *</mat-error>
+                        <mat-error *ngIf='this.rform.controls.degree.errors?.pattern'>Degree Sould be Alphabets *</mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -69,17 +74,18 @@
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
                         <mat-label>Stream</mat-label>
-                        <input class="hover" matInput type="search" minlength="2" name="stream" #stream="ngModel" ngModel placeholder="Stream" required>
-                        <mat-error *ngIf='stream.errors?.required'>This field is required *</mat-error>
-                        <mat-error *ngIf='stream.errors?.minlength'>Min 2 characters Need *</mat-error>
+                        <input class="hover" matInput type="search" formControlName="stream" placeholder="Stream">
+                        <mat-error *ngIf='this.rform.controls.stream.errors?.required'>This field is required *</mat-error>
+                        <mat-error *ngIf='this.rform.controls.stream.errors?.minlength'>Min 2 characters Need *</mat-error>
+                        <mat-error *ngIf='this.rform.controls.stream.errors?.pattern'>Degree Sould be Alphabets *</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
                         <mat-label>YOP</mat-label>
-                        <input class="hover" matInput type="search" name="yop" #yop="ngModel" pattern="^[0-9]{4}$" ngModel placeholder="YOP" required>
-                        <mat-error *ngIf='yop.errors?.required'>This field is required *</mat-error>
-                        <mat-error *ngIf='yop.errors?.pattern'>Enter a valid year *</mat-error>
+                        <input class="hover" matInput type="search" formControlName="yop" placeholder="YOP">
+                        <mat-error *ngIf='this.rform.controls.yop.errors?.required'>This field is required *</mat-error>
+                        <mat-error *ngIf='this.rform.controls.yop.errors?.pattern'>Enter a valid year *</mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -88,15 +94,17 @@
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
                         <mat-label>Tenth Percentage</mat-label>
-                        <input class="hover" matInput type="search" name="tenthPercentage" #tenthPercentage="ngModel" ngModel placeholder="Tenth Percentage" required>
-                        <mat-error *ngIf='tenthPercentage.errors?.required'>This field is required *</mat-error>
+                        <input class="hover" matInput type="search" id="tenthPercentage" formControlName="tenthPercentage" placeholder="Tenth Percentage">
+                        <mat-error *ngIf='this.rform.controls.tenthPercentage.errors?.required'>This field is required *</mat-error>
+                        <mat-error *ngIf='this.rform.controls.tenthPercentage.errors?.tenthPercentage'>Percentage should not be lessthan 35 *</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
                         <mat-label>Twelth Percentage</mat-label>
-                        <input class="hover" matInput type="search" name="twelfthPercentage" #twelfthPercentage="ngModel" ngModel placeholder="Twelth Percentage" required>
-                        <mat-error *ngIf='twelfthPercentage.errors?.required'>This field is required *</mat-error>
+                        <input class="hover" matInput type="search" formControlName="twelfthPercentage" placeholder="Twelth Percentage">
+                        <mat-error *ngIf='this.rform.controls.twelfthPercentage.errors?.required'>This field is required *</mat-error>
+                        <mat-error *ngIf='this.rform.controls.twelfthPercentage.errors?.twelfthPercentage'>Percentage should not be lessthan 35 *</mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -105,15 +113,17 @@
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
                         <mat-label>Degree Aggregate</mat-label>
-                        <input class="hover" matInput type="search" name="degreeAggregate" #degreeAggregate="ngModel" ngModel placeholder="Degree Aggregate" required>
-                        <mat-error *ngIf='degreeAggregate.errors?.required'>This field is required *</mat-error>
+                        <input class="hover" matInput type="search" formControlName="degreeAggregate" placeholder="Degree Aggregate">
+                        <mat-error *ngIf='this.rform.controls.degreeAggregate.errors?.required'>This field is required *</mat-error>
+                        <mat-error *ngIf='this.rform.controls.degreeAggregate.errors?.degreeAggregate'>Percentage should not be lessthan 35 *</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
-                        <mat-label>Masters Aggregate</mat-label>
-                        <input class="hover" matInput type="search" name="masterAggregate" #masterAggregate="ngModel" ngModel placeholder="Masters Aggregate">
-                        <!-- <mat-error *ngIf='masterAggregate.errors?.required'>This field is required *</mat-error> -->
+                        <mat-label>Masters Aggregate (optional)</mat-label>
+                        <input class="hover" matInput type="search" formControlName="masterAggregate" placeholder="Masters Aggregate">
+                        <!-- <mat-error *ngIf='this.rform.controls.masterAggregate.errors?.required'>This field is required *</mat-error> -->
+                        <mat-error *ngIf='this.rform.controls.masterAggregate.errors?.masterAggregate'>Percentage should not be lessthan 35 *</mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -122,19 +132,20 @@
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
                         <mat-label>Branch</mat-label>
-                        <mat-select name="branch" #branch="ngModel" ngModel required>
+                        <mat-select formControlName="branch">
                             <mat-option *ngFor="let branch of branches" [value]="branch.value">
                                 {{branch.viewValue}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf='branch.errors?.required'>This field is required *</mat-error>
+                        <mat-error *ngIf='this.rform.controls.branch.errors?.required'>This field is required *</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field appearance="standard">
-                        <mat-label>Profile Id</mat-label>
-                        <input class="hover" matInput type="search" name="profileId" #profileId="ngModel" ngModel placeholder="Profile Id" required>
-                        <mat-error *ngIf="profileId?.errors?.required">This field is required *</mat-error>
+                        <mat-label>Profile Id (optional)</mat-label>
+                        <input class="hover" matInput type="search" formControlName="profileId" placeholder="Profile Id">
+                        <!-- <mat-error *ngIf="this.rform.controls.profileId?.errors?.required">This field is required *</mat-error> -->
+                        <mat-error *ngIf="this.rform.controls.profileId?.errors?.pattern">Should not accept special characters *</mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -143,7 +154,7 @@
                 <div class="col-md-10">
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-color batch" [disabled]="rform.invalid" (click)="onSubmit(rform)">Submit</button>
+                    <button type="submit" class="btn btn-color batch" (click)="onSubmit(rform)">Submit</button>
                 </div>
             </div>
         </form>

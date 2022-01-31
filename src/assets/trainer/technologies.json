@@ -1,0 +1,27 @@
+{
+    "technologyType": [
+        "Frontend",
+        "Backend",
+        "Database"
+    ],
+    "frontend": [
+        "HTML",
+        "CSS",
+        "Javascript",
+        "Vue js",
+        "React JS",
+        "Angular"
+
+    ],
+    "backend": [
+        "Java",
+        "J2EE",
+        "Spring",
+        "Hibernate"
+    ],
+    "database": [
+        "MySQL",
+        "MongoDB",
+        "Oracle"
+    ]
+}

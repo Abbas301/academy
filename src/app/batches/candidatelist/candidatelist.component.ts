@@ -203,7 +203,7 @@ export class CandidatelistComponent implements OnInit {
   }
 
   deleteConfirm(element: any) {
-    console.log(element)
+    // console.log(element)
     if(this.isAllSelected()){
       this.deleteElement = this.dataSource.data
     }
@@ -213,7 +213,7 @@ export class CandidatelistComponent implements OnInit {
     else{
       this.deleteElement.push(element)
     }
-    console.log(this.deleteElement)
+    // console.log(this.deleteElement)
   }
   deleteCandidate() {
     this.closeBtn.nativeElement.click();
@@ -224,6 +224,8 @@ export class CandidatelistComponent implements OnInit {
         this.toastr.success('Candidate details Deleted successfully');
         this.confirm.nativeElement.click();
         this.getAllCandidates();
+      } else {
+        this.router.navigate(['/candidatelist/']);
       }
     }, err => {
       console.log(err);
@@ -393,18 +395,6 @@ export class CandidatelistComponent implements OnInit {
         let arrayOfDomNodes = [edit,title,subTopic,trainer,span1,span2];
         return {domNodes:arrayOfDomNodes}
       },
-      // dayCellDidMount: function (arg) {
-      //   if (arg.el.classList.contains('fc-daygrid-day')) {
-      //     var theElement = arg.el.querySelectorAll('.fc-daygrid-day-frame > .fc-daygrid-day-events')[0];
-      //     setTimeout(function () {
-      //       if (theElement.querySelectorAll('.fc-daygrid-event-harness').length == 0) {
-      //         theElement.innerHTML =
-      //           theElement.innerHTML +
-      //           `<div><i data-toggle="modal" data-target="#EditModal" class="fa fa-pencil fa-fw"></i></div><div class="text-center buttonsElement" style="margin-top:10px;"><button style="margin-right:3px;" class="complete btn">Complete</button><button class="pending btn">Pending</button></span></div>`;
-      //       }
-      //     }, 10);
-      //   }
-      // },
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'prevYear,nextYear',

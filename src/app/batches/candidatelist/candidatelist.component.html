@@ -170,13 +170,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for=""><b>candidate Id</b></label>
+                                <label for="">Candidate Id</label>
                                 <input class="hover" matInput type="search" formControlName="candidateId" placeholder=" CandidateId" required>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for=""><b>Degree Aggregate</b></label>
+                                <label for="">Degree Aggregate</label>
                                 <input class="hover" matInput type="search" formControlName="degreeAggregate" placeholder="Degree Aggregate" required>
                             </mat-form-field>
                         </div>
@@ -185,13 +185,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for=""><b>Candidate Name</b></label>
+                                <label for="">Candidate Name</label>
                                 <input class="hover" matInput type="search" formControlName="candidateName" placeholder="candidateName" required>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for=""><b>Phone Number</b></label>
+                                <label for="">Phone Number</label>
                                 <input class="hover" matInput type="search" formControlName="phoneNumber" placeholder="phoneNumber" required>
                             </mat-form-field>
                         </div>
@@ -200,13 +200,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for=""><b>Email Id</b></label>
+                                <label for="">Email Id</label>
                                 <input class="hover" matInput type="search" formControlName="emailId" placeholder="Email ID" required>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for=""><b>Degree</b></label>
+                                <label for="">Degree</label>
                                 <input class="hover" matInput type="search" formControlName="degree" placeholder="Degree" required>
                             </mat-form-field>
                         </div>
@@ -215,13 +215,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for=""><b>Stream</b></label>
+                                <label for="">Stream</label>
                                 <input class="hover" matInput type="search" formControlName="stream" placeholder="Stream" required>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for=""><b>YOP</b></label>
+                                <label for="">YOP</label>
                                 <input class="hover" matInput type="search" formControlName="yop" placeholder="YOP" required>
                             </mat-form-field>
                         </div>
@@ -230,7 +230,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <mat-label><b>Branch</b></mat-label>
+                                <mat-label>Branch</mat-label>
                                 <mat-select formControlName="branch" required>
                                     <mat-option *ngFor="let branch of branches" [value]="branch.value">
                                         {{branch.viewValue}}
@@ -243,8 +243,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary p-1 px-2" data-dismiss="modal">Close</button>
-                        <button type="submit" (click)="onClickUpdate()" class="btn btn-color batch">Submit</button>
+                        <button type="button" class="btn btn-light p-1 px-2" data-dismiss="modal">Close</button>
+                        <button type="submit" (click)="onClickUpdate()" class="btn btnText">Submit</button>
                     </div>
                 </form>
             </div>

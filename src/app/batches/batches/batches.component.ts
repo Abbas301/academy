@@ -112,6 +112,37 @@ export class BatchesComponent implements OnInit {
       uploadXL: new FormControl('',),
     });
 
+    (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).get('tenthPercentage').valueChanges.subscribe(res =>{
+      if(res<35) {
+        (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).get('tenthPercentage').setErrors({tenthPercentage:true})
+      } else {
+        (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).get('tenthPercentage').setErrors(null)
+      }
+    });
+
+    (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).get('degreeAggregate').valueChanges.subscribe(res =>{
+      if(res<35) {
+        (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).get('degreeAggregate').setErrors({degreeAggregate:true})
+      } else {
+        (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).get('degreeAggregate').setErrors(null)
+      }
+    });
+
+    (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).get('twelfthPercentage').valueChanges.subscribe(res =>{
+      if(res<35) {
+        (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).get('twelfthPercentage').setErrors({twelfthPercentage:true})
+      } else {
+        (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).get('twelfthPercentage').setErrors(null)
+      }
+    });
+
+    (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).get('masterAggregate').valueChanges.subscribe(res =>{
+      if(res<35) {
+        (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).get('masterAggregate').setErrors({masterAggregate:true})
+      } else {
+        (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).get('masterAggregate').setErrors(null)
+      }
+    });
   }
 
   onSelect() {
@@ -158,15 +189,15 @@ export class BatchesComponent implements OnInit {
       candidateName: ['', [Validators.required, Validators.pattern('[a-z A-Z]*')]],
       phoneNumber: ['', [Validators.required, Validators.pattern('[6-9]{1}[0-9]{9}')]],
       emailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')]],
-      degree: ['', [Validators.required]],
-      stream: ['', [Validators.required]],
+      degree: ['', [Validators.required,Validators.pattern('[a-z A-Z]*')]],
+      stream: ['', [Validators.required,Validators.pattern('[a-z A-Z]*')]],
       yop: ['', [Validators.required, Validators.pattern('[0-9]{4}')]],
-      tenthPercentage: ['', [Validators.required]],
-      twelfthPercentage: ['', [Validators.required]],
-      degreeAggregate: ['', [Validators.required]],
-      masterAggregate: ['', [Validators.required]],
+      tenthPercentage: ['', [Validators.required,Validators.pattern('[0-9]{2}')]],
+      twelfthPercentage: ['', [Validators.required,Validators.pattern('[0-9]{2}')]],
+      degreeAggregate: ['', [Validators.required,Validators.pattern('[0-9]{2}')]],
+      masterAggregate: ['', [Validators.pattern('[0-9]{2}')]],
       branch: ['', [Validators.required]],
-      profileId: ['',],
+      profileId: ['',[Validators.pattern('[a-z A-Z 0-9]*')]],
     });
   }
 
@@ -247,6 +278,31 @@ export class BatchesComponent implements OnInit {
   get candidateYOP() {
     return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.yop
   }
+
+  get degree() {
+    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.degree
+  }
+
+  get stream() {
+    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.stream
+  }
+
+  get tenthPercentage() {
+    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.tenthPercentage
+  }
+
+  get twelfthPercentage() {
+    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.twelfthPercentage
+  }
+
+  get degreeAggregate() {
+    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.degreeAggregate
+  }
+
+  get masterAggregate() {
+    return (((this.batchForm.controls.candidates as FormArray).controls[0]) as FormGroup).controls.masterAggregate
+  }
+
 
   get mentor(): FormArray {
     return this.batchForm.get('mentors') as FormArray;

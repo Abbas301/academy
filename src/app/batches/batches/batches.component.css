@@ -8,8 +8,8 @@
 }
 
 .tableHeader {
-    position: sticky;
-    top: 0;
+    position: sticky !important;
+    top: 0px !important;
 }
 
 thead {
@@ -32,6 +32,12 @@ thead {
     top: 0px;
     z-index: 1;
     color: black;
+    background-color: #fff;
+}
+
+#client-table {
+    overflow-y: auto;
+    height: 430px;
 }
 
 mat-icon {

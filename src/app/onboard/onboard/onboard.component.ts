@@ -249,68 +249,12 @@ export class OnboardComponent implements OnInit {
     });
     this.getdroupdown();
 
-    // this.dataSource.filterPredicate = (data: OnboardList, filter: string) => {
-    //   const obj = JSON.parse(filter);
-    //   console.log(obj);
-    //   let find: boolean = !obj.filter && !obj.yop;
-    //   if (obj.filter) {
-    //     const value =
-    //       '~' +
-    //       data.name +
-    //       '~' +
-    //       data.contactNumber +
-    //       '~' +
-    //       data.emailId +
-    //       '~' +
-    //       data.stream +
-    //       '~' +
-    //       data.yop +
-    //       '~' +
-    //       data.degree +
-    //       '~' +
-    //       data.degreePercentage +
-    //       '~' +
-    //       data.jspiderBranch +
-    //       '~';
-    //     find = value.toLowerCase().indexOf(obj.filter.toLowerCase()) >= 0;
-    //   } else find = true;
-
-    //   if (obj.yop)
-    //   find = find && +obj.yop.indexOf(data.yop) >= 0;
-    //   console.log(obj.yop);
-    //   console.log(data.yop);
-    //   console.log(find);
-    //   return find;
-    // };
-
-    // this.filterForm.valueChanges.subscribe((res) => {
-    //   this.dataSource.filter = JSON.stringify(res);
-    // });
   }
 
   isChecked(field: string, value: string) {
     const control = this.filterForm.get(field);
     return control && control.value && control.value.indexOf(value) >= 0;
   }
-  // change(list: any[], field: string, value: string, isChecked: boolean) {
-  //   this.getOnboard();
-  //   console.log('before', this.dataSource.data);
-  //   const control = this.filterForm.get(field);
-  //   const oldValue = control ? control.value || [] : [];
-
-  //   if (control) {
-  //     if (!isChecked) {
-  //       const newValue = oldValue.filter((x: string) => x != value);
-  //       control.setValue(newValue.length > 0 ? newValue : null);
-  //     } else {
-  //       const newValue = list.filter(
-  //         (x) => oldValue.indexOf(x) >= 0 || x == value
-  //       );
-  //       control.setValue(newValue);
-  //       console.log(newValue);
-  //     }
-  //   }
-  // }
 
   dataChange(typeOfFilter,arrayOfCheckBox) {
     let newValue = [];

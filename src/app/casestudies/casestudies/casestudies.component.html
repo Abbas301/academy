@@ -11,21 +11,21 @@
             <form [formGroup]="form">
                 <div>
                     <span class="px-2 search">
-                <mat-form-field appearance="standard">
-                    <input type="text"  matInput placeholder="Search by Project Name" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" >
-                    <mat-icon matSuffix>search</mat-icon>
-                </mat-form-field>
-                </span>
+              <mat-form-field appearance="standard">
+                  <input type="text"  matInput placeholder="Search by Project Name" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" >
+                  <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+              </span>
                     <span class="px-5 searchtype">
-                <mat-form-field>
-                    <mat-label>Sub Type</mat-label>
-                    <mat-select name="SubType" [formControl]="subtype" (ngModelChange)="chooseCaseStudy()">
-                        <mat-option *ngFor="let sub of subTypes" [value]="sub">
-                            {{sub}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                </span>
+              <mat-form-field>
+                  <mat-label>Sub Type</mat-label>
+                  <mat-select name="SubType" [formControl]="subtype" (ngModelChange)="chooseCaseStudy()">
+                      <mat-option *ngFor="let sub of subTypes" [value]="sub">
+                          {{sub}}
+                      </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              </span>
                     <button type="button" class="btn newbtn" data-toggle="modal" (click)="caseStudyModel()" data-target="#exampleModal">+ New</button>
                 </div>
             </form>
@@ -136,8 +136,8 @@
                 <div class="modal-header">
                     <h2 class="modal-title" id="exampleModalLabel">{{modelHeader}}</h2>
                     <button type="button" class="close" #closepostmodal data-dismiss="modal" (click)="clearCasestudy()" aria-label="Close">
-                   <span aria-hidden="true">&times;</span>
-                 </button>
+                 <span aria-hidden="true">&times;</span>
+               </button>
                 </div>
                 <form [formGroup]="casestudyForm">
                     <div class="modal-body">
@@ -153,14 +153,14 @@
                                 <div class="form-group">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Project Type</mat-label>
-                                        <mat-select [(value)]="selected" formControlName="projectType">
-                                            <mat-option (click)="onselectPseudo()" value="Pseudo Live Project">Pseudo Live Project</mat-option>
-                                            <mat-option (click)="onselectMini()" value="Mini Project">Mini Project</mat-option>
+                                        <mat-select formControlName="projectType">
+                                            <mat-option value="Pseudo Live Project">Pseudo Live Project</mat-option>
+                                            <mat-option value="Mini Project">Mini Project</mat-option>
                                         </mat-select>
                                         <mat-error>project type is required *</mat-error>
                                     </mat-form-field>
                                 </div>
-                                <div class="form-group" *ngIf="miniCase">
+                                <div class="form-group" *ngIf="projectType.value !== 'Mini Project'">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Project Subtype</mat-label>
                                         <mat-select formControlName="projectSubType">
@@ -192,7 +192,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="reset" class="btn btn-light" #resetpostData>Reset</button>
+                        <button type="reset" class="btn resetbtn" #resetpostData>Reset</button>
                         <button type="submit" class="btn newbtn" (click)="postCaseData(casestudyForm)">Submit</button>
                     </div>
                 </form>

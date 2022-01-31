@@ -98,6 +98,10 @@ export class CasestudiesComponent implements OnInit {
     });
     this.getCasestudiesData();
   }
+  get projectType() : FormControl{
+    return this.casestudyForm.get('projectType') as FormControl;
+  }
+
   caseStudyModel() {
     this.modelHeader = 'Create New Case Studies'
   }
@@ -238,7 +242,7 @@ export class CasestudiesComponent implements OnInit {
     this.casestudieService.deleteCasestudiesData(cardDetail.caseStudyId).subscribe(res => {
       console.log(res);
       this.toastr.success(res.message)
-      this.getCasestudiesData();
+      this.getCasestudiesData()
     }, err => {
       this.toastr.error(err.error.message)
     })

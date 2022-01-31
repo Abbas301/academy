@@ -9,7 +9,6 @@
 }
 
 .page__content {
-    /* border: 1px solid grey; */
     border-radius: 10px;
     margin-top: -2rem;
     background: white;
@@ -69,7 +68,7 @@ mat-icon {
 .btncolor {
     background-color: #086288;
     color: #fff;
-    font-size: 14px;
+    font-size: 16px;
     height: 40px;
 }
 
@@ -97,13 +96,6 @@ mat-icon {
 :host ::ng-deep .mat-error {
     font-size: 13px !important;
 }
-
-
-/* :host ::ng-deep .table {
-    -moz-border-radius: 10px!important;
-    -webkit-border-radius: 10px!important;
-    border-radius: 10px!important;
-} */
 
 
 /* full calendar css */
@@ -277,10 +269,6 @@ mat-icon {
     body {
         font-size: 25px;
     }
-    /* .btncolor {
-        font-size: 10px;
-        width: 110px
-    } */
     .batchSearch {
         width: 150px !important
     }

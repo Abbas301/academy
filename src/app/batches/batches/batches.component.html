@@ -70,7 +70,7 @@
             </table>
         </div>
 
-        <div *ngIf="show1" id="client-table" class="overflow-auto">
+        <div *ngIf="show1" id="client-table">
             <table class="table table-borderless mt-1 text-center ">
                 <thead class="tableHeader" style="background-color: #F2F2F2;">
                     <tr>
@@ -87,7 +87,7 @@
                         <th>Progress</th>
                     </tr>
                 </thead>
-                <tbody style="font-size: 12px;">
+                <tbody style="font-size: 12px;overflow-y: auto;">
                     <tr *ngFor="let batch of clientBatch| batchfilter:searchValue;index as i" (click)="viewClientCandidateList(i)">
                         <!-- <td>
                             <mat-checkbox #bodyCheckbox class="example-margin"></mat-checkbox>
@@ -158,8 +158,6 @@
                             <div class="col-3">
                                 <div class="row">
                                     <div class="upload">
-                                        <!-- <input #fileInputData type="file" hidden formControlName="tocPath" (change)="uploadTOC($event)">
-                                        <button mat-button type="button" class="btn btn-color batch" (click)="fileInputData.click()">Upload TOC</button><span>{{fileName}}</span> -->
                                         <input id="myInp" #files type="file" formControlName="tocPath" (change)="uploadTOC($event)">
                                         <span class="myBtn" (click)="files.click()">UploadTOC</span>
                                     </div>
@@ -217,7 +215,7 @@
                                 <div class="row">
                                     <div class="col-3">
                                         <mat-form-field appearance="standard">
-                                            <input matInput class="hover" type="text" placeholder="clientMentorName" formControlName="clientMentorName">
+                                            <input matInput class="hover" type="text" placeholder="ClientMentor Name" formControlName="clientMentorName">
                                             <mat-error *ngIf="clientMentorName.errors?.pattern">name should be alphabets*</mat-error>
                                         </mat-form-field>
                                     </div>
@@ -344,7 +342,8 @@
                                                 <mat-form-field appearance="standard">
                                                     <mat-label>Degree</mat-label>
                                                     <input matInput class="hover" type="text" formControlName="degree">
-                                                    <mat-error>This field is required*</mat-error>
+                                                    <mat-error *ngIf="degree.errors?.required">This field is required*</mat-error>
+                                                    <mat-error *ngIf='degree.errors?.pattern'>Degree Sould be Alphabets *</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div>
@@ -359,7 +358,8 @@
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Stream</mat-label>
                                                 <input matInput class="hover" type="text" formControlName="stream">
-                                                <mat-error>This field is required*</mat-error>
+                                                <mat-error *ngIf='stream.errors?.required'>This field is required*</mat-error>
+                                                <mat-error *ngIf='stream.errors?.pattern'>Degree Sould be Alphabets *</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-3">
@@ -374,7 +374,8 @@
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Tenth Percentage</mat-label>
                                                 <input matInput class="hover" type="text" formControlName="tenthPercentage">
-                                                <mat-error>This field is required*</mat-error>
+                                                <mat-error *ngIf="tenthPercentage.errors?.required">This field is required*</mat-error>
+                                                <mat-error *ngIf='tenthPercentage.errors?.tenthPercentage'>Percentage should not be lessthan 35 *</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-3 aliq">
@@ -382,8 +383,9 @@
                                                 <mat-form-field appearance="standard">
                                                     <mat-label>Twelth Percentage</mat-label>
                                                     <input matInput class="hover" type="text" formControlName="twelfthPercentage">
-                                                    <mat-error>This field is required*</mat-error>
+                                                    <mat-error *ngIf='twelfthPercentage.errors?.required'>This field is required*</mat-error>
                                                 </mat-form-field>
+                                                <mat-error *ngIf='twelfthPercentage.errors?.twelfthPercentage'>Percentage should not be lessthan 35 *</mat-error>
                                             </div>
                                         </div>
                                     </div>
@@ -393,14 +395,15 @@
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Degree Aggregate</mat-label>
                                                 <input matInput class="hover" type="text" formControlName="degreeAggregate">
-                                                <mat-error>This field is required*</mat-error>
+                                                <mat-error *ngIf='degreeAggregate.errors?.required'>This field is required*</mat-error>
+                                                <mat-error *ngIf='degreeAggregate.errors?.degreeAggregate'>Percentage should not be lessthan 35 *</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-3">
                                             <mat-form-field appearance="standard">
-                                                <mat-label>Masters Aggregate</mat-label>
+                                                <mat-label>Masters Aggregate (optional)</mat-label>
                                                 <input matInput class="hover" type="text" formControlName="masterAggregate">
-                                                <mat-error>This field is required*</mat-error>
+                                                <mat-error *ngIf='masterAggregate.errors?.masterAggregate'>Percentage should not be lessthan 35 *</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-3">
@@ -417,7 +420,7 @@
 
                                         <div class="col-3" class="twelth" style="padding-left: 35px;">
                                             <mat-form-field appearance="standard">
-                                                <mat-label>Profile Id</mat-label>
+                                                <mat-label>Profile Id (optional)</mat-label>
                                                 <input matInput class="hover" type="text" formControlName="profileId">
                                             </mat-form-field>
                                         </div>
@@ -445,7 +448,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="reset" class="btn btn-light" #resetData>reset</button>
+                        <button type="reset" class="btn btn-light" #resetData>Reset</button>
                         <button type="submit" class="btn btn-color batch" (click)="addBatch(batchForm)">create</button>
                     </div>
                 </form>

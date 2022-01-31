@@ -6,6 +6,8 @@ import { MatSelect } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TrainersService } from '../trainers.service';
+import * as traineesData from '../../../assets/trainer/technologies.json';
+
 export interface trainerinterface {
   trainerName: string,
   emailId: string,
@@ -51,72 +53,72 @@ export class TrainersComponent implements OnInit {
     private toster: ToastrService
   ) { }
 
-  Technology_types = [{
-    value: 'Frontend',
-    viewValue: 'Frontend',
-  },
-  {
-    value: 'Backend',
-    viewValue: 'Backend',
-  },
-  {
-    value: 'Database',
-    viewValue: 'Database',
-  },
-  ];
-  Technologies = [{
-    value: 'HTML',
-    viewValue: 'HTML'
-  },
-  {
-    value: 'CSS',
-    viewValue: 'CSS'
-  },
-  {
-    value: 'javascript',
-    viewValue: 'javascript'
-  },
-  {
-    value: 'Angular',
-    viewValue: 'Angular'
-  },
-  {
-    value: 'React JS',
-    viewValue: 'React JS'
-  },
-  {
-    value: 'Vue JS',
-    viewValue: 'Vue JS'
-  },
-  {
-    value: 'Java',
-    viewValue: 'Java'
-  },
-  {
-    value: 'J2EE',
-    viewValue: 'J2EE'
-  },
-  {
-    value: 'Hibernate',
-    viewValue: 'Hibernate'
-  },
-  {
-    value: 'Spring',
-    viewValue: 'Spring'
-  },
-  {
-    value: 'Oracle',
-    viewValue: 'Oracle'
-  },
-  {
-    value: 'MySQL',
-    viewValue: 'MySQL'
-  },
-  {
-    value: 'MongoDB',
-    viewValue: 'MongoDB'
-  },
-  ];
+  // Technology_types = [{
+  //   value: 'Frontend',
+  //   viewValue: 'Frontend',
+  // },
+  // {
+  //   value: 'Backend',
+  //   viewValue: 'Backend',
+  // },
+  // {
+  //   value: 'Database',
+  //   viewValue: 'Database',
+  // },
+  // ];
+  // Technologies = [{
+  //   value: 'HTML',
+  //   viewValue: 'HTML'
+  // },
+  // {
+  //   value: 'CSS',
+  //   viewValue: 'CSS'
+  // },
+  // {
+  //   value: 'javascript',
+  //   viewValue: 'javascript'
+  // },
+  // {
+  //   value: 'Angular',
+  //   viewValue: 'Angular'
+  // },
+  // {
+  //   value: 'React JS',
+  //   viewValue: 'React JS'
+  // },
+  // {
+  //   value: 'Vue JS',
+  //   viewValue: 'Vue JS'
+  // },
+  // {
+  //   value: 'Java',
+  //   viewValue: 'Java'
+  // },
+  // {
+  //   value: 'J2EE',
+  //   viewValue: 'J2EE'
+  // },
+  // {
+  //   value: 'Hibernate',
+  //   viewValue: 'Hibernate'
+  // },
+  // {
+  //   value: 'Spring',
+  //   viewValue: 'Spring'
+  // },
+  // {
+  //   value: 'Oracle',
+  //   viewValue: 'Oracle'
+  // },
+  // {
+  //   value: 'MySQL',
+  //   viewValue: 'MySQL'
+  // },
+  // {
+  //   value: 'MongoDB',
+  //   viewValue: 'MongoDB'
+  // },
+  // ];
   Proficiencys = [{
     value: 'Proficient',
     viewValue: 'Proficient'
@@ -127,7 +129,8 @@ export class TrainersComponent implements OnInit {
   }
   ];
 
-  technologyType = ["Frontend", "Backend", "Database"]
+  technologyType = (traineesData as any).default.technologyType;
+  techonologies = [{ techonlogy: [] }];
 
   // @ViewChild('allSelected') private allSelected: MatSelect;
   @ViewChild('select') private select: MatSelect;
@@ -169,11 +172,12 @@ export class TrainersComponent implements OnInit {
 
   addItem(): void {
     this.itemsArray.push(this.createItem());
-    console.log(this.items)
+    this.techonologies.push({techonlogy: []});
   }
 
   deleteItem(index) {
-    this.itemsArray.removeAt(index)
+    this.itemsArray.removeAt(index);
+    this.techonologies.splice(index, 1);
   }
 
   onSubmit(form: FormGroup) {
@@ -282,13 +286,15 @@ export class TrainersComponent implements OnInit {
 
   setTrainers(trainerData: any): FormArray {
     const formArray = new FormArray([]);
-    trainerData.forEach(element => {
+    trainerData.forEach((element, index) => {
       const formGroup = new FormBuilder().group({
         technologyType: [element.technologyType],
         technology: [element.technology],
         proficiencyLevel: [element.proficiencyLevel]
       })
       formArray.push(formGroup);
+      this.techonologies.push({techonlogy: []});
+      this.onTechnologySelection(element.technologyType, index);
     });
     return formArray;
 
@@ -302,6 +308,16 @@ export class TrainersComponent implements OnInit {
       'trainerId': trainerDetails.trainerDetailsId
     });
     this.trainerForm.setControl('items', this.setTrainers(trainerDetails.trainerTechnologies));
+  }
+
+  onTechnologySelection(technolgy, index){
+     if(technolgy === 'Frontend'){
+       this.techonologies[index].techonlogy = (traineesData as any).default.frontend;
+     } else if (technolgy === 'Backend'){
+       this.techonologies[index].techonlogy = (traineesData as any).default.backend;
+     } else {
+       this.techonologies[index].techonlogy = (traineesData as any).default.database;
+     }
   }
 
 

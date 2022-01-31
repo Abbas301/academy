@@ -126,8 +126,9 @@
 
 .uploadfile {
     cursor: pointer;
-    background-color: #086288;
-    color: white;
+    background-color: white;
+    color: #086288;
+    border: 2px dotted #086288;
 }
 
 ::-webkit-scrollbar {

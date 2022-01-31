@@ -19,6 +19,12 @@ mat-icon {
     font-size: 12px;
 }
 
+.btnText {
+    background-color: #086288;
+    color: #fff;
+    font-size: 12px;
+}
+
 .page__content {
     min-height: calc(70vh - 178px);
     border-radius: 10px;
@@ -26,6 +32,8 @@ mat-icon {
     margin-top: 2rem;
     background: white;
     color: black;
+    height: 325px !important;
+    z-index: 10;
 }
 
 ::ng-deep svg {
@@ -47,7 +55,7 @@ th {
 }
 
 .tableData {
-    height: 260px;
+    height: 190px;
     max-width: 100%;
     overflow: auto;
 }
