@@ -20,11 +20,11 @@ thead {
 .page__content {
     border-radius: 10px;
     border: 1px solid #70707099;
-    margin-top: -3rem;
+    margin-top: -2rem;
     background: white;
     color: black;
     width: 100%!important;
-    height: 490px !important;
+    height: 477px !important;
 }
 
 .toggleHead {
@@ -32,7 +32,7 @@ thead {
     top: 0px;
     z-index: 1;
     color: black;
-    background-color: #fff;
+    /* background-color: #fff; */
 }
 
 #client-table {
@@ -45,9 +45,14 @@ mat-icon {
     cursor: pointer;
 }
 
-.mat-radio-button {
-    margin-left: 40px;
+.matButtons {
+    margin-left: 4.5em !important;
     font-size: 13px;
+    padding-top: 1.5em;
+}
+
+.clientRadioBtn {
+    margin-left: 2em;
 }
 
 .batch {

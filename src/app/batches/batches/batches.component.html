@@ -2,7 +2,7 @@
     <div class="d-flex row page__box p-2 mt-2">
 
         <div class="col-md-7 mt-2">
-            <h4 style="padding-left: 40px;"><b>Batch Lists</b></h4>
+            <h4><b>Batch Lists</b></h4>
         </div>
 
         <div class="col-md-5">
@@ -22,11 +22,11 @@
     <div class="page__content">
 
         <div class="row toggleHead">
-            <div class="col-md-6 mt-3">
+            <div class="col-md-6 mt-3" class="matButtons">
                 <mat-radio-group aria-label="Select an option">
                     <mat-radio-button value="internal" #batchType [checked]=true (click)="onClick()">Internal Batches
                     </mat-radio-button>
-                    <mat-radio-button value="client" #batchType (click)="onClick1()">Client Batches</mat-radio-button>
+                    <mat-radio-button class="clientRadioBtn" value="client" #batchType (click)="onClick1()">Client Batches</mat-radio-button>
                 </mat-radio-group>
             </div>
             <div class="col-md-2" class="batchSearch">
@@ -148,7 +148,7 @@
                             </div>
                             <div class="col-3">
                                 <mat-form-field appearance="standard">
-                                    <mat-label>StartDate</mat-label>
+                                    <mat-label>Start Date</mat-label>
                                     <input matInput [matDatepicker]="picker" formControlName="startDate">
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
@@ -159,7 +159,7 @@
                                 <div class="row">
                                     <div class="upload">
                                         <input id="myInp" #files type="file" formControlName="tocPath" (change)="uploadTOC($event)">
-                                        <span class="myBtn" (click)="files.click()">UploadTOC</span>
+                                        <span class="myBtn" (click)="files.click()">Upload TOC</span>
                                     </div>
                                 </div>
                             </div>
@@ -267,7 +267,7 @@
                                     <div class="col-3">
                                         <mat-form-field appearance="standard">
                                             <mat-label>Technology</mat-label>
-                                            <input matInput class="hover" type="text" formControlName="technologies">
+                                            <input matInput readonly class="hover" type="text" formControlName="technologies">
                                             <mat-error>This field is required*</mat-error>
                                         </mat-form-field>
                                     </div>
@@ -286,7 +286,7 @@
                                         <div class="form_field">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Email Id</mat-label>
-                                                <input matInput class="hover" type="text" formControlName="emailId">
+                                                <input matInput readonly class="hover" type="text" formControlName="emailId">
                                                 <mat-error *ngIf="assignTrainerEmailID.errors?.required">This field is required*</mat-error>
                                             </mat-form-field>
                                         </div>
@@ -375,7 +375,7 @@
                                                 <mat-label>Tenth Percentage</mat-label>
                                                 <input matInput class="hover" type="text" formControlName="tenthPercentage">
                                                 <mat-error *ngIf="tenthPercentage.errors?.required">This field is required*</mat-error>
-                                                <mat-error *ngIf='tenthPercentage.errors?.tenthPercentage'>Percentage should not be lessthan 35 *</mat-error>
+                                                <mat-error *ngIf='tenthPercentage.errors?.tenthPercentage'>Percentage should not be less than 35 *</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-3 aliq">
@@ -385,7 +385,7 @@
                                                     <input matInput class="hover" type="text" formControlName="twelfthPercentage">
                                                     <mat-error *ngIf='twelfthPercentage.errors?.required'>This field is required*</mat-error>
                                                 </mat-form-field>
-                                                <mat-error *ngIf='twelfthPercentage.errors?.twelfthPercentage'>Percentage should not be lessthan 35 *</mat-error>
+                                                <mat-error *ngIf='twelfthPercentage.errors?.twelfthPercentage'>Percentage should not be less than 35 *</mat-error>
                                             </div>
                                         </div>
                                     </div>
@@ -396,14 +396,14 @@
                                                 <mat-label>Degree Aggregate</mat-label>
                                                 <input matInput class="hover" type="text" formControlName="degreeAggregate">
                                                 <mat-error *ngIf='degreeAggregate.errors?.required'>This field is required*</mat-error>
-                                                <mat-error *ngIf='degreeAggregate.errors?.degreeAggregate'>Percentage should not be lessthan 35 *</mat-error>
+                                                <mat-error *ngIf='degreeAggregate.errors?.degreeAggregate'>Percentage should not be less than 35 *</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-3">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Masters Aggregate (optional)</mat-label>
                                                 <input matInput class="hover" type="text" formControlName="masterAggregate">
-                                                <mat-error *ngIf='masterAggregate.errors?.masterAggregate'>Percentage should not be lessthan 35 *</mat-error>
+                                                <mat-error *ngIf='masterAggregate.errors?.masterAggregate'>Percentage should not be less than 35 *</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-3">
@@ -434,13 +434,13 @@
                         <div class="mt-4" *ngIf="formHide" style="margin-left:70px;">
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex">
-                                    <input #fileInput type="file" hidden formControlName="uploadXL" (change)="onChoosingActivationFile($event)">
-                                    <button mat-button type="button" class="btn excelUpload" (click)="fileInput.click()">Upload XL <mat-icon>open_in_browser</mat-icon></button><span>{{file}}</span>
-                                </div>
-                                <div class="d-flex">
                                     <button type="button" class="btn btn-color batch ExcelDownload" (click)="saveToExcel()">
                                         Download XL <mat-icon>save_alt</mat-icon>
                                        </button>
+                                </div>
+                                <div class="d-flex">
+                                    <input #fileInput type="file" hidden formControlName="uploadXL" (change)="onChoosingActivationFile($event)">
+                                    <button mat-button type="button" class="btn excelUpload" (click)="fileInput.click()">Upload XL <mat-icon>open_in_browser</mat-icon></button><span>{{file}}</span>
                                 </div>
                             </div>
                         </div>
@@ -449,7 +449,7 @@
 
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-light" #resetData>Reset</button>
-                        <button type="submit" class="btn btn-color batch" (click)="addBatch(batchForm)">create</button>
+                        <button type="submit" class="btn btn-color batch" (click)="addBatch(batchForm)">Create</button>
                     </div>
                 </form>
 

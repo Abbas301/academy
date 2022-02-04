@@ -86,8 +86,7 @@ export class CandidatelistComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.ActivatedRouter.queryParams
-      .subscribe(params => {
+    this.ActivatedRouter.queryParams.subscribe(params => {
         this.batchName = params.batchName;
       });
 
@@ -203,7 +202,7 @@ export class CandidatelistComponent implements OnInit {
   }
 
   deleteConfirm(element: any) {
-    // console.log(element)
+    console.log(element)
     if(this.isAllSelected()){
       this.deleteElement = this.dataSource.data
     }
@@ -211,23 +210,28 @@ export class CandidatelistComponent implements OnInit {
       this.deleteElement = element;
     }
     else{
-      this.deleteElement.push(element)
+      this.deleteElement.push(element);
     }
     // console.log(this.deleteElement)
   }
   deleteCandidate() {
     this.closeBtn.nativeElement.click();
-    const formData = this.deleteElement
+    console.log(this.deleteElement);
+
+    const formData = this.deleteElement;
+    console.log(formData);
+
     this.batchService.deleteCandidateData(formData).subscribe((res: any) => {
-      console.log(data, "candidate data deleted successfully");
       if (res.error == false) {
+        // this.deleteElement.shift();
+        console.log("candidate data deleted successfully");
         this.toastr.success('Candidate details Deleted successfully');
         this.confirm.nativeElement.click();
         this.getAllCandidates();
       } else {
         this.router.navigate(['/candidatelist/']);
       }
-    }, err => {
+    }, (err) => {
       console.log(err);
       this.toastr.error(err.error.message);
     })
@@ -236,7 +240,6 @@ export class CandidatelistComponent implements OnInit {
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
-
     return numSelected === numRows;
   }
 
@@ -262,14 +265,13 @@ export class CandidatelistComponent implements OnInit {
   }
 
   selectedCandidates(row: any) {
-    this.array.push(row)
+    this.array.push(row);
     console.log(this.array);
   }
 
   remove(row: any) {
     var ArrayData = this.array.splice(this.array.indexOf(row), 1);
-    // console.log(this.array);
-    console.log(ArrayData);
+    // console.log(ArrayData);
   }
 
   buttonShow = false;
@@ -282,7 +284,7 @@ export class CandidatelistComponent implements OnInit {
     return this.batchService.getCalendar().subscribe(data => {
       this.calendarList = data;
       this.calendarListData = this.calendarList.data
-      console.log(this.calendarListData);
+      // console.log(this.calendarListData);
     })
   }
 

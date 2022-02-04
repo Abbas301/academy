@@ -5,7 +5,7 @@
                 <p class="d-inline"><b>{{candidates?.batchName}}</b></p>
                 <p class="d-block">{{candidates?.startDate}} - {{candidates?.endDate}}</p>
                 <div>
-                    <button data-toggle="modal" data-target="#exampleModal2" (click)='visibleCalender(candidates?.batchName)' class="d-block mt-5 btn btn-outline-secondary">view Calendar<mat-icon>calendar_today</mat-icon></button>
+                    <button data-toggle="modal" data-target="#exampleModal2" (click)='visibleCalender(candidates?.batchName)' class="d-block mt-5 btn btn-outline-secondary">View Calendar<mat-icon>calendar_today</mat-icon></button>
                 </div>
             </div>
             <div>
@@ -35,12 +35,13 @@
             </div>
             <div>
                 <h4><b>Batch Completion</b></h4>
-                <circle-progress [percent]='candidates?.batchProgress' titleFontSize=15 subtitleFontSize=8 [outerStrokeGradient]=true [outerStrokeColor]="'#BA7FC2'" [animationDuration]=0 [animation]=false [radius]="35" [outerStrokeWidth]="10" outerStrokeGradientStopColor="#5A7B8E"
-                    [showInnerStroke]=false></circle-progress>
+                <circle-progress [percent]='candidates?.batchProgress' titleFontSize=15 subtitleFontSize=8 [space]='-9' [innerStrokeWidth]=10 innerStrokeColor=#e7e8ea [outerStrokeGradient]=true [outerStrokeColor]="'#BA7FC2'" [animationDuration]=0 [animation]=false [radius]="35"
+                    [outerStrokeWidth]="10" outerStrokeGradientStopColor="#5A7B8E" [showInnerStroke]=true></circle-progress>
             </div>
             <div>
                 <h4><b>Mock Rating</b></h4>
-                <circle-progress [percent]="66" titleFontSize=15 subtitleFontSize=8 [outerStrokeGradient]=true [outerStrokeColor]="'#BA7FC2'" [animationDuration]=0 [animation]=false [radius]="35" [outerStrokeWidth]="10" outerStrokeGradientStopColor="#5A7B8E" [showInnerStroke]=false></circle-progress>
+                <circle-progress [percent]="66" titleFontSize=15 subtitleFontSize=8 [space]='-9' [innerStrokeWidth]=10 innerStrokeColor=#e7e8ea [outerStrokeGradient]=true [outerStrokeColor]="'#BA7FC2'" [animationDuration]=0 [animation]=false [radius]="35" [outerStrokeWidth]="10"
+                    outerStrokeGradientStopColor="#5A7B8E" [showInnerStroke]=true></circle-progress>
             </div>
         </div>
     </mat-card>
@@ -49,7 +50,7 @@
 
         <div class="row">
             <div class="col-md-5 candidate">
-                <h3 class="mt-3 px-5">Candidate List</h3>
+                <h3 class="mt-3">Candidates List</h3>
             </div>
             <div class="col-md-7">
                 <div class="row">
@@ -65,7 +66,7 @@
             </button>
                     </div>
                     <div class="col-md-3 mt-2">
-                        <button (click)="deleteConfirm(array)" *ngIf="(selection.hasValue() || isAllSelected())" class="btn btn-color batch" data-toggle="modal" data-target="#exampleModalCenter">Delete
+                        <button (click)="deleteConfirm(array)" *ngIf="(selection.hasValue() || isAllSelected() && this.datasource > 0)" class="btn btn-color deleteButton " data-toggle="modal" data-target="#exampleModalCenter">Delete
               All</button>
                     </div>
                 </div>
@@ -81,7 +82,7 @@
                         <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
                         </mat-checkbox>
                     </th>
-                    <td mat-cell *matCellDef="let row" data-toggle="modal" data-target="#exampleModal5">
+                    <td mat-cell *matCellDef="let row">
                         <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)" (change)="selection.isSelected(row)?selectedCandidates(row):remove(row)">
                         </mat-checkbox>
                     </td>
@@ -89,46 +90,46 @@
 
                 <ng-container matColumnDef="candidateName">
                     <th mat-header-cell *matHeaderCellDef> Candidate Name </th>
-                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.candidateName |titlecase}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.candidateName |titlecase}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="phoneNumber">
                     <th mat-header-cell *matHeaderCellDef> Phone Number </th>
-                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.phoneNumber}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="emailId">
                     <th mat-header-cell *matHeaderCellDef> Email Id </th>
-                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.emailId}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.emailId}} </td>
                 </ng-container>
                 <ng-container matColumnDef="degree">
                     <th mat-header-cell *matHeaderCellDef> Degree </th>
-                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.degree}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.degree}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="stream">
                     <th mat-header-cell *matHeaderCellDef> Stream </th>
-                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.stream}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.stream}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="yop">
                     <th mat-header-cell *matHeaderCellDef> YOP </th>
-                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.yop}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.yop}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="degreeAggregate">
                     <th mat-header-cell *matHeaderCellDef> Degree Aggregate </th>
-                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.degreeAggregate}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.degreeAggregate}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="branch">
                     <th mat-header-cell *matHeaderCellDef> Branch </th>
-                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5"> {{element.branch}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.branch}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="deleteEmployee">
                     <th mat-header-cell *matHeaderCellDef> Action </th>
-                    <td mat-cell *matCellDef="let element" data-toggle="modal" data-target="#exampleModal5">
+                    <td mat-cell *matCellDef="let element">
                         <button mat-icon-button aria-label="Example icon button with a home icon">
           <mat-icon matTooltip="Edit" (click)="updateCandidate(element)">edit</mat-icon>
           <mat-icon matTooltip="Delete" class="px-3" data-toggle="modal" data-target="#exampleModalCenter"
@@ -170,13 +171,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for="">Candidate Id</label>
+                                <label for=""><b>Candidate Id</b></label>
                                 <input class="hover" matInput type="search" formControlName="candidateId" placeholder=" CandidateId" required>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for="">Degree Aggregate</label>
+                                <label for=""><b>Degree Aggregate</b></label>
                                 <input class="hover" matInput type="search" formControlName="degreeAggregate" placeholder="Degree Aggregate" required>
                             </mat-form-field>
                         </div>
@@ -185,13 +186,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for="">Candidate Name</label>
+                                <label for=""><b>Candidate Name</b></label>
                                 <input class="hover" matInput type="search" formControlName="candidateName" placeholder="candidateName" required>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for="">Phone Number</label>
+                                <label for=""><b>Phone Number</b></label>
                                 <input class="hover" matInput type="search" formControlName="phoneNumber" placeholder="phoneNumber" required>
                             </mat-form-field>
                         </div>
@@ -200,13 +201,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for="">Email Id</label>
+                                <label for=""><b>Email Id</b></label>
                                 <input class="hover" matInput type="search" formControlName="emailId" placeholder="Email ID" required>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for="">Degree</label>
+                                <label for=""><b>Degree</b></label>
                                 <input class="hover" matInput type="search" formControlName="degree" placeholder="Degree" required>
                             </mat-form-field>
                         </div>
@@ -215,13 +216,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for="">Stream</label>
+                                <label for=""><b>Stream</b></label>
                                 <input class="hover" matInput type="search" formControlName="stream" placeholder="Stream" required>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <label for="">YOP</label>
+                                <label for=""><b>YOP</b></label>
                                 <input class="hover" matInput type="search" formControlName="yop" placeholder="YOP" required>
                             </mat-form-field>
                         </div>
@@ -230,7 +231,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <mat-form-field appearance="standard">
-                                <mat-label>Branch</mat-label>
+                                <mat-label><b>Branch</b></mat-label>
                                 <mat-select formControlName="branch" required>
                                     <mat-option *ngFor="let branch of branches" [value]="branch.value">
                                         {{branch.viewValue}}
@@ -309,88 +310,6 @@
                         <full-calendar *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions"></full-calendar>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Mock Rating modal -->
-
-<div class="modal fade" id="exampleModal5" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header mockHeader">
-                <h3 class="modal-title mocktitle" id="exampleModalLabel">Mock Feedback</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="col-md-8 offset-2 mockcontent p-0">
-                            <div class="form-group">
-                                <mat-form-field class="example-full-width" appearance="standard">
-                                    <mat-label>Mock taken by</mat-label>
-                                    <input matInput>
-                                </mat-form-field>
-
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Technology</mat-label>
-                                    <mat-select disableRipple>
-                                        <mat-option value="1">JAVA_WITH_ANGULAR</mat-option>
-                                        <mat-option value="2">JAVA_WITH_REACT</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Communication Skills</mat-label>
-                                    <mat-select disableRipple>
-                                        <mat-option value="1">Excellent</mat-option>
-                                        <mat-option value="2">Good</mat-option>
-                                        <mat-option value="3">Average</mat-option>
-                                        <mat-option value="4">Below Average</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Presentation</mat-label>
-                                    <mat-select disableRipple>
-                                        <mat-option value="1">Excellent</mat-option>
-                                        <mat-option value="2">Good</mat-option>
-                                        <mat-option value="3">Average</mat-option>
-                                        <mat-option value="4">Below Average</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Learning Ability</mat-label>
-                                    <mat-select disableRipple>
-                                        <mat-option value="1">Excellent</mat-option>
-                                        <mat-option value="2">Good</mat-option>
-                                        <mat-option value="3">Average</mat-option>
-                                        <mat-option value="4">Below Average</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Technical Skills</mat-label>
-                                    <mat-select disableRipple>
-                                        <mat-option value="1">Excellent</mat-option>
-                                        <mat-option value="2">Good</mat-option>
-                                        <mat-option value="3">Average</mat-option>
-                                        <mat-option value="4">Below Average</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <mat-form-field class="example-full-width" appearance="standard">
-                                    <mat-label>Feedback</mat-label>
-                                    <input matInput>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="reset" class="btn btn-light" data-dismiss="modal">Reset</button>
-                <button type="submit" class="btn btn-color batch">Submit</button>
             </div>
         </div>
     </div>

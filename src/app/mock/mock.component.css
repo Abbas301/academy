@@ -1,0 +1,54 @@
+:host ::ng-deep .mock .mat-form-field-infix {
+    width: 350px !important;
+}
+
+ :host ::ng-deep .mock .mat-form-field-flex {
+    width: 350px !important;
+}
+
+.submit {
+    background-color: #086288;
+    color: white;
+}
+
+.editicon {
+    visibility: hidden !important;
+}
+
+.editicon:hover {
+    border-radius: 15px !important;
+    background-color: white;
+}
+
+.card-body:hover .editicon {
+    visibility: visible !important;
+}
+
+.card-body:hover {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(47deg, rgba(255, 255, 255, 1) 84%, rgba(128, 128, 128, 1) 100%, rgba(255, 255, 255, 1) 100%);
+}
+
+.card-body {
+    padding-left: 15px !important;
+    padding-right: 0px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    border-radius: 8px !important;
+}
+
+.card {
+    border-radius: 8px !important;
+}
+
+.modalbutton {
+    color: white;
+    background-color: #086288;
+}
+
+@media screen and (max-width: 768px) {
+    .modalbutton {
+        font-size: 11px !important;
+        margin-top: 4px;
+    }
+}

@@ -25,8 +25,12 @@ const routes: Routes = [
     path: 'trainers',
     loadChildren: () => import('./trainers/trainers.module').then(m => m.TrainersModule)
   },
+  {
+    path: 'mock',
+    loadChildren: () => import('./mock/mock.module').then(m => m.MockModule)
+},
   { path: 'header', component:HeaderComponent},
-  {path:'sidenav', component:SidenavComponent}
+  {path:'sidenav', component:SidenavComponent},
 
 ];
 

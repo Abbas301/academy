@@ -500,7 +500,7 @@ export class BatchesComponent implements OnInit {
       }
       this.file = (event.target as HTMLInputElement).files[0].name;
     } else {
-      this.toastr.warning('File Size is more than 3MB', 'Warning');
+      this.toastr.warning('File size is more than 3MB', 'Warning');
     }
   }
   refreshFile(){

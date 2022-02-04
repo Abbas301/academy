@@ -42,6 +42,7 @@ import { ToastrModule } from 'ngx-toastr';
       radius: 100,
       outerStrokeWidth: 25,
       outerStrokeColor: "#78C000",
+      showInnerStroke:true
     }),
     ToastrModule.forRoot({
       timeOut: 10000,

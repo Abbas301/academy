@@ -8,6 +8,8 @@ import {
   AfterContentInit,
   AfterContentChecked,
   AfterViewChecked,
+  DoCheck,
+  AfterViewInit,
 } from '@angular/core';
 declare let $: any;
 import { CalendarOptions } from '@fullcalendar/core';
@@ -48,7 +50,7 @@ export interface Calendar {
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements AfterViewInit {
   calendarOptions!: CalendarOptions;
   eventsModel: any;
   submitted = false;
@@ -65,10 +67,12 @@ export class CalendarComponent implements OnInit {
   addEventForm: FormGroup;
   editEventForm: FormGroup;
   element: any;
+  index:any
 
   @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
-  @ViewChild('modalOpenButton', { read: ElementRef })
-  modalOpenButton!: ElementRef;
+  @ViewChild('modalOpenButton', { read: ElementRef }) modalOpenButton!: ElementRef;
+  @ViewChild('confirmModal', { read: ElementRef }) confirmModal!: ElementRef;
+  @ViewChild('confirm', { read: ElementRef }) confirm!: ElementRef;
   @ViewChild('editModalOpen', { read: ElementRef }) editModalOpen!: ElementRef;
   @ViewChild('closeBtn') closeBtn!: ElementRef;
   @ViewChild('generateCalendarModal') generateCalendarModal!: ElementRef;
@@ -77,6 +81,7 @@ export class CalendarComponent implements OnInit {
   @ViewChild('myModal') myModal!: ElementRef;
   @ViewChild('closeModal', { read: ElementRef }) closeModal!: ElementRef;
   @ViewChild('fcEventContent') eventContent: TemplateRef<any>;
+  @ViewChild('eventsModal',{ read: ElementRef}) eventsModal!:ElementRef
   value: any;
   monthSelect: any;
   calendarListData: any;
@@ -102,6 +107,13 @@ export class CalendarComponent implements OnInit {
   toStoreDate: any;
   selectedDate: any;
   isloading: boolean = false;
+  topic: string;
+  progressData: { batchName: any; progressStatus: string; noOfWorkingDays: number; date: string; };
+  span1: HTMLSpanElement;
+  icon1: HTMLImageElement;
+  complete: HTMLButtonElement;
+  titleData: string;
+  subtitleData: string;
 
   constructor(
     private http: HttpClient,
@@ -115,7 +127,7 @@ export class CalendarComponent implements OnInit {
       batchName: new FormControl('', [Validators.required]),
       technology: new FormControl('', [Validators.required]),
       startDate: new FormControl('', [Validators.required]),
-      include: new FormControl('', [Validators.required]),
+      include: new FormControl('', []),
     });
 
     this.addEventForm = new FormGroup({
@@ -124,9 +136,14 @@ export class CalendarComponent implements OnInit {
       subTopic: new FormControl('', [Validators.required]),
     });
     this.getCalendarData();
-    this.calendarSetup();
     this.getBatch();
+    this.confirmTopicComplete(this.progressData,this.span1,this.icon1,this.complete);
+    this.calendarSetup();
 
+  }
+
+  ngAfterViewInit () {
+    this.confirmTopicComplete(this.progressData,this.span1,this.icon1,this.complete);
   }
 
   technologys = [
@@ -173,31 +190,36 @@ export class CalendarComponent implements OnInit {
       },
       events: this.calendarData,
       eventContent:(arg)=>{
+        this.titleData = arg.event.title;
+        // console.log(arg.event);
+
+        this.subtitleData = arg.event._def.extendedProps.subTopic;
         let progressStatus = arg.event.extendedProps.progressStatus
+
 
         let edit = document.createElement('img');
         let title = document.createElement('div');
         let subTopic = document.createElement('div');
         let trainer = document.createElement('div');
-        let span1 = document.createElement('span');
+        this.span1 = document.createElement('span');
         // let span2 = document.createElement('span');
-        let icon1 = document.createElement('img');
+        this.icon1 = document.createElement('img');
         // let icon2 = document.createElement('img');
-        let complete = document.createElement('button');
+        this.complete = document.createElement('button');
         let pending = document.createElement('button');
         let status = document.createElement('img');
 
-        span1.append(complete)
+        this.span1.append(this.complete)
         // span2.append(pending)
         edit.src = '../../../assets/images/edit.png';
         edit.className = 'icon_edit';
-        icon1.src = '../../../assets/images/check.jpg';
-        icon1.className = 'icon_check';
+        this.icon1.src = '../../../assets/images/check.jpg';
+        this.icon1.className = 'icon_check';
         // icon2.src = "../../../assets/images/cancel.png";
         // icon2.className = 'icon_check';
-        complete.innerText = "complete"
-        complete.id = "Completed_btn"
-        complete.className = "completed btn"
+        this.complete.innerText = "complete"
+        this.complete.id = "Completed_btn"
+        this.complete.className = "completed btn"
         pending.innerText = "pending";
         pending.className = "pendings btn";
 
@@ -205,45 +227,37 @@ export class CalendarComponent implements OnInit {
           title.innerHTML = arg.event.title;
           subTopic.innerHTML = arg.event.extendedProps.subTopic;
           trainer.innerHTML = this.selectedTrainer;
+
           if( progressStatus == 'COMPLETED'){
           status.src = '../../../assets/images/check.jpg';
-          status.className = "icon_check"
-          span1.removeChild(complete);
+          status.className = "icon_check";
+          this.span1.removeChild(this.complete);
           // span2.removeChild(pending);
-        } else {
-
+        }
+        if( this.titleData == 'none') {
+          title.style.background = '#FFF0F0';
+          subTopic.style.background = '#FFF0F0';
+          trainer.style.background = '#FFF0F0';
         }
 
         title.style.fontWeight = 'bold';
         title.style.color = 'blue';
         trainer.style.color = 'red';
 
-        complete.addEventListener('click',()=>{
+        this.complete.addEventListener('click',()=>{
+          this.confirmModal.nativeElement.click();
+          this.topic = arg.event._def.title
           let date = new Date(arg.event._instance.range.start);
           var dateObj = new Date(date);
           var momentObj = moment(dateObj);
           var momentString = momentObj.format('YYYY-MM-DD');
 
-          const progressData ={
+          this.progressData ={
             batchName:this.selectedBatchName,
             progressStatus:'COMPLETED',
             noOfWorkingDays:42,
             date:momentString
           }
-
-          this.calendarService.postBatchProgress(progressData).subscribe((res:any)=>{
-            if(!res.error) {
-            this.toastr.success(res.message);
-            span1.removeChild(complete);
-            // span2.removeChild(pending);
-            span1.append(icon1)
-            } else {
-              this.router.navigate(['/', 'calendar']);
-            }
-          },
-          err => {
-            this.toastr.error(err.error.message)
-          })
 
         });
 
@@ -252,7 +266,23 @@ export class CalendarComponent implements OnInit {
         //   span2.removeChild(pending);
         //   span2.append(icon2);
         // })
-        let arrayOfDomNodes = [edit,title,subTopic,trainer,span1,status];
+
+        edit.addEventListener('click',()=>{
+
+          let date = new Date(arg.event._instance.range.start);
+          var dateObj = new Date(date);
+          var momentObj = moment(dateObj);
+          var momentString = momentObj.format('YYYY-MM-DD');
+
+          this.modalOpenButton.nativeElement.click();
+          $('.Modaltitle').text('Add Event at:' + momentString);
+          $('.eventsstarttitle').text(momentString);
+          this.addEventForm.get('start').patchValue(momentString);
+          this.selectedDate = momentString;
+          console.log(this.selectedDate);
+          this.getUpdateEventDate();
+        })
+        let arrayOfDomNodes = [edit,title,subTopic,trainer,this.span1,status];
         return {domNodes:arrayOfDomNodes}
       },
       initialView: 'dayGridMonth',
@@ -265,6 +295,30 @@ export class CalendarComponent implements OnInit {
       eventClick: this.handleEventClick.bind(this),
       eventDragStop: this.handleEventDragStop.bind(this),
     };
+  }
+
+  confirmTopicComplete(progressData,span1,icon1,complete) {
+
+      this.calendarService.postBatchProgress(progressData).subscribe((res:any)=>{
+        if(!res.error) {
+        this.toastr.success(res.message);
+        span1.removeChild(complete);
+        // span2.removeChild(pending);
+        span1.append(icon1);
+        this.confirm.nativeElement.click();
+        this.eventsModal.nativeElement.click();
+        // this.visibleCalender(this.batchName,index)
+        setTimeout((ele,index) => {
+          this.calendarSetup();
+          this.visibleCalender(this.batchName,index)
+        }, 10);
+        } else {
+          this.router.navigate(['/', 'calendar']);
+        }
+      },err => {
+        this.toastr.error(err.error.message)
+      })
+
   }
 
   closemodal(){
@@ -314,6 +368,7 @@ export class CalendarComponent implements OnInit {
         if (res.error == false) {
           this.toastr.success('Calendar Data updated Successfully');
           this.closeModal.nativeElement.click();
+          this.calendarSetup();
         } else {
           this.router.navigate(['/', 'calendar']);
         }
@@ -334,18 +389,6 @@ export class CalendarComponent implements OnInit {
   }
 
   handleEventClick(arg: any) {
-          let date = new Date(arg.event._instance.range.start);
-          var dateObj = new Date(date);
-          var momentObj = moment(dateObj);
-          var momentString = momentObj.format('YYYY-MM-DD');
-
-    this.modalOpenButton.nativeElement.click();
-    $('.Modaltitle').text('Add Event at:' + momentString);
-    $('.eventsstarttitle').text(momentString);
-    this.addEventForm.get('start').patchValue(momentString);
-    this.selectedDate = momentString;
-    console.log(this.selectedDate);
-    this.getUpdateEventDate();
   }
 
   handleEventDragStop(arg: any) {
@@ -362,7 +405,7 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  onSubmit(addEventForm: FormGroup) {
+  onSubmit(addEventForm: FormGroup,index:any) {
     let date = new Date(addEventForm.controls.start.value);
     var dateObj = new Date(date);
     var momentObj = moment(dateObj);
@@ -392,10 +435,11 @@ export class CalendarComponent implements OnInit {
       updatedDates: this.eventsArray[0],
     };
     // console.log(updateCalendarData);
-    this.calendarService.updateCalendar(updateCalendarData).subscribe(
-      (res) => {
+    this.calendarService.updateCalendar(updateCalendarData).subscribe((res) => {
         this.toastr.success('Calendar Data updated Successfully');
         this.closeModal.nativeElement.click();
+        this.eventsModal.nativeElement.click();
+        this.visibleCalender(this.batchName,index);
       },
       (err) => {
         console.log(err);
@@ -412,13 +456,10 @@ export class CalendarComponent implements OnInit {
     this.closeBtn.nativeElement.click();
     console.log(this.batchname);
 
-    this.calendarService
-      .deleteCalendar(
+    this.calendarService.deleteCalendar(
         this.calenderObject?.calendarDetailsId,
         this.calenderObject?.batchName
-      )
-      .subscribe(
-        (res: any) => {
+      ).subscribe((res: any) => {
           console.log('Calendar list deleted successfully');
           if (res.error == false) {
             this.toastr.success('Calendar list deleted successfully');
@@ -426,8 +467,7 @@ export class CalendarComponent implements OnInit {
           } else {
             this.router.navigate(['/', 'calendar']);
           }
-        },
-        (err) => {
+        },(err) => {
           console.log('err', err);
           this.toastr.error(err.error.message);
         }
@@ -445,8 +485,9 @@ export class CalendarComponent implements OnInit {
       batchName: Cform.controls.batchName.value,
       technology: Cform.controls.technology.value,
       startDate: momentString,
-      include: Cform.controls.include.value,
+      include: Cform.controls.include.value ? Cform.controls.include.value:[],
     };
+    // console.log(formData);
     this.isloading = true;
     this.calendarService.postCalendar(formData).subscribe(
       (res: any) => {
@@ -527,6 +568,7 @@ export class CalendarComponent implements OnInit {
     this.calendarService.getBatchData().subscribe((res: any) => {
       this.batchesDetails = res;
       this.batch = this.batchesDetails.data;
+
     });
   }
 

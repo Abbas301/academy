@@ -72,6 +72,13 @@ th {
     width: 300px;
 }
 
+.deleteButton {
+    width: 109px;
+    height: 37px;
+    color: #fff;
+    font-size: 12px;
+}
+
 
 /* full calendar css */
 

@@ -174,11 +174,9 @@
                                 <div class="form-group">
                                     <mat-form-field>
                                         <input type="text" formControlName="projectDescription" matInput appearance="standard" placeholder="Project Description">
-                                        <mat-error class="text-center" *ngIf="casestudyForm.controls.projectDescription.errors?.minLength">
-                                            Project description should contain atleast 25 characters.
-                                        </mat-error>
-                                        <mat-error *ngIf="casestudyForm.controls.projectDescription.errors?.required">project description is required *</mat-error>
 
+                                        <mat-error *ngIf="casestudyForm.controls.projectDescription.errors?.required">project description is required *</mat-error>
+                                        <mat-error *ngIf="casestudyForm.controls.projectDescription.errors?.minlength">Project description should contain atleast 25 characters*</mat-error>
                                     </mat-form-field>
                                 </div>
                                 <div>
